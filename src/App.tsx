@@ -21,21 +21,3 @@ function App() {
 }
 
 export default App;
-
-// const slideIn = keyframes`
-//   0% {
-//     opacity: 0;
-//     transform: translateX(-100%);
-//   }
-
-//   100% {
-//     opacity: 1;
-//     transform: translateX(0);
-//   }
-// `;
-
-// const AnimateTest = styled.div`
-//   opacity: 0;
-//   transform: translateX(-100%);
-//   animation: ${slideIn} 1s ease-out 0.5s forwards;
-// `;

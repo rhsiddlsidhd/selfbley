@@ -2,25 +2,10 @@ import styled from "styled-components";
 import { Outlet, useNavigate } from "react-router";
 
 import { ROUTES, ROUTESKeys } from "../../shared/routes/constants";
-import { HandleNavigate } from "../model/models";
+import { handleNavigate } from "../../features/navigation/model/models";
 
 const Header = () => {
   const navigate = useNavigate();
-
-  const handleNavigate = ({ routes, tab, navigate }: HandleNavigate) => {
-    switch (tab) {
-      case "Intro":
-      case "Skills":
-      case "Projects":
-      case "Career":
-        navigate(routes[`${tab}`]);
-        break;
-      default:
-        navigate("/not-abailable");
-        break;
-    }
-  };
-
   return (
     <>
       <Wrapper>

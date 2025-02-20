@@ -1,5 +1,9 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  overflow: scroll;
+  ::-webkit-scrollbar {
+    width: 0;
+  }
 }
 
 body {
