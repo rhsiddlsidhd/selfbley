@@ -1,18 +1,22 @@
-import CircleBtn from "./widgets/ui/CircleBtn";
-import { skills } from "./widgets/config/constants";
-import TextBtn from "./widgets/ui/TextBtn";
+import { Route, Routes } from "react-router";
+import Intro from "./pages/Intro";
+import Skills from "./pages/Skills";
+import Header from "./widgets/ui/Header";
+import NotAvailablePage from "./pages/NotAvailable";
+import Projects from "./pages/Projects";
+import Career from "./pages/Career";
 
 function App() {
   return (
-    <>
-      {skills.frontend.map((skill) => {
-        return <CircleBtn>{skill}</CircleBtn>;
-      })}
-      {skills.backend.map((skill) => {
-        return <CircleBtn>{skill}</CircleBtn>;
-      })}
-      <TextBtn>버튼이오버튼이오버튼이오버튼이오버튼이오</TextBtn>
-    </>
+    <Routes>
+      <Route element={<Header />}>
+        <Route path="/" element={<Intro />} />
+        <Route path="/skills" element={<Skills />} />
+        <Route path="/not-abailable" element={<NotAvailablePage />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="career" element={<Career />} />
+      </Route>
+    </Routes>
   );
 }
 

@@ -1,10 +1,16 @@
-import { Skills } from "./types";
+import { Skills } from "../model/models";
 
-const frontend: Skills[] = ["HTML", "CSS", "JAVASCRIPT", "TYPESCRIPT", "REACT"];
+const FRONTEND: readonly Skills[] = [
+  "HTML",
+  "CSS",
+  "JAVASCRIPT",
+  "TYPESCRIPT",
+  "REACT",
+];
 
-const backend: Skills[] = ["NODE.JS", "MONGOOSE", "MONGODB"];
+const BACKEND: readonly Skills[] = ["NODE.JS", "MONGOOSE", "MONGODB"];
 
 export const skills = {
-  frontend,
-  backend,
+  FRONTEND,
+  BACKEND,
 };

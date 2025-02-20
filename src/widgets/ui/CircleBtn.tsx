@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BtnProps } from "./types";
+import { BtnProps } from "../model/models";
 
 const CircleBtn = ({ children, onClick }: BtnProps) => {
   return <Btn onClick={onClick}>{children}</Btn>;
