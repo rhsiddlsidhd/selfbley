@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { debounce } from "lodash";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 
 interface IsViewProps {
@@ -6,66 +7,100 @@ interface IsViewProps {
   bottomSection: boolean;
 }
 
+interface Refs {
+  [key: string]:
+    | React.RefObject<HTMLDivElement>
+    | React.RefObject<number>
+    | React.RefObject<null>;
+}
+
+interface IntersectionObserverParams {
+  entry: IntersectionObserverEntry;
+  options?: Refs;
+}
+
+interface IntersectionObserver {
+  target: HTMLHRElement[];
+  callback: ({ entry, options }: IntersectionObserverParams) => void;
+  options?: Refs;
+}
+
 const Intro = () => {
-  const centerRef = useRef(null);
-  const bottomRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const topRef = useRef<HTMLHRElement | null>(null);
+  const bottomRef = useRef<HTMLHRElement | null>(null);
+  const lastScrollYRef = useRef(0);
   const [isView, setIsView] = useState<IsViewProps>({
     topSection: false,
     bottomSection: false,
   });
 
   /**
-   * 1. middle x bottom x 상단에 있는 section 보이기 하단에 있는 section 안보이기
-   * 2. middle o bottom x 상단,하단에 있는 section 안보이기
-   * 3. middle x bottom o 상단에 있는 section 안보이기 하단에 있는 section 보이기
+   * 1. center x bottom x 상단에 있는 section 보이기 하단에 있는 section 안보이기
+   * 2. center o bottom x 상단,하단에 있는 section 안보이기
+   * 3. center x bottom o 상단에 있는 section 안보이기 하단에 있는 section 보이기
    */
-  const handleIsView = ({
-    center,
-    bottom,
-  }: {
-    center: boolean;
-    bottom: boolean;
-  }) => {
-    if (!center && !bottom) {
-      setIsView({ topSection: true, bottomSection: false });
-    } else if (center && !bottom) {
-      setIsView({ topSection: false, bottomSection: false });
-    } else if (!center && bottom) {
-      setIsView({ topSection: false, bottomSection: true });
+
+  const handleIsView = ({ entry, options }: IntersectionObserverParams) => {
+    if (!options) return;
+    const { containerRef, lastScrollYRef } = options;
+    if (
+      !(containerRef.current && containerRef.current instanceof HTMLDivElement)
+    )
+      return;
+
+    if (entry.target.id === "top") {
+      setIsView((prev) => ({ ...prev, topSection: entry.isIntersecting }));
+      lastScrollYRef.current = 0;
+    } else {
+      setIsView((prev) => ({
+        ...prev,
+        bottomSection: entry.isIntersecting,
+      }));
+      lastScrollYRef.current = containerRef.current.scrollHeight;
     }
   };
 
-  useEffect(() => {
-    const intersection = new IntersectionObserver((entries) => {
-      const newIsView = { center: false, bottom: false };
-      entries.forEach((entry) => {
-        if (entry.target.id === "center") {
-          newIsView.center = entry.isIntersecting;
-        } else if (entry.target.id === "bottom") {
-          newIsView.bottom = entry.isIntersecting;
-        }
+  const fetchIntersectionObserver = useCallback(
+    ({ target, callback, options }: IntersectionObserver) => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => callback({ entry, options }));
       });
-      handleIsView(newIsView);
+      target.forEach((el) => observer.observe(el));
+      return () => observer.disconnect();
+    },
+    []
+  );
+
+  useEffect(() => {
+    if (!topRef.current || !bottomRef.current || !containerRef.current) return;
+    const target = [topRef.current, bottomRef.current];
+    const refs = { lastScrollYRef, containerRef };
+
+    const disconnect = fetchIntersectionObserver({
+      target,
+      callback: handleIsView,
+      options: refs,
     });
-    const centerTarget = centerRef.current;
-    const bottomTarget = bottomRef.current;
 
-    if (centerTarget) {
-      intersection.observe(centerTarget);
-    }
-    if (bottomTarget) {
-      intersection.observe(bottomTarget);
-    }
+    return () => disconnect();
+  }, [fetchIntersectionObserver]);
 
-    return () => {
-      if (centerTarget) {
-        intersection.unobserve(centerTarget);
-      }
-    };
-  }, []);
+  const handleScroll = debounce(() => {
+    if (!containerRef.current || !bottomRef.current || !topRef.current) return;
+    const currentScrollY = containerRef.current.scrollTop;
+    if (currentScrollY > lastScrollYRef.current) {
+      console.log("⬇️ 아래로 스크롤 중");
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    } else if (currentScrollY < lastScrollYRef.current) {
+      console.log("⬆️ 위로 스크롤 중");
+      topRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, 200);
 
   return (
-    <Container>
+    <Container ref={containerRef} onScroll={handleScroll}>
+      <Hr id="top" ref={topRef} />
       <Wrapper $isView={isView}>
         <section className="head_title">
           <HeadTitle $sub>FRONT ENGINEER</HeadTitle>
@@ -76,8 +111,24 @@ const Intro = () => {
           <HeadDate $isView={isView}>2030.12.12</HeadDate>
         </section>
       </Wrapper>
-      <Hr id="center" ref={centerRef} />
-      <Wrapper></Wrapper>
+      <Wrapper>
+        <section className="intro_title">
+          <h1>안녕하세요.</h1>
+          <h3>
+            <span style={{ textDecoration: "underline" }}>
+              Function을 Function 답게 프로그래밍(FP)
+            </span>{" "}
+            지향하는 FRONT ENGINEER 신영재 입니다. 로그인 기능을 개발을 시작으로
+            현재는 각 프로젝트의 맞는 디자인 패턴과 아키텍쳐에 높은 흥미를
+            가지고 개발을 진행 중에 있습니다.
+          </h3>
+        </section>
+        <section>
+          <h3>블로그</h3>
+          <h4>깃헙</h4>
+          <h4>독서</h4>
+        </section>
+      </Wrapper>
       <Hr id="bottom" ref={bottomRef} />
     </Container>
   );
@@ -87,10 +138,11 @@ export default Intro;
 
 const Hr = styled.hr`
   color: black;
-  border: 1px solid blue;
+  border: 0.1px solid transparent;
 `;
-const Container = styled.section`
+const Container = styled.div`
   height: 200vh;
+  overflow: auto;
 `;
 
 const slideRightOut = keyframes`
@@ -161,15 +213,17 @@ const Wrapper = styled.div<{ $isView?: IsViewProps }>`
   & > section:first-child {
     height: 50%;
     border-bottom: 1px solid ${(props) => props.theme.colors.deepGray};
+    padding: 0 3rem;
   }
   & > section:last-child {
     height: 40%;
+    padding: 0 3rem;
   }
   .head_title {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0 3rem;
+
     animation: ${(props) =>
       props.$isView?.topSection
         ? css`
@@ -184,7 +238,13 @@ const Wrapper = styled.div<{ $isView?: IsViewProps }>`
     display: flex;
     justify-content: space-between;
     align-items: end;
-    margin: 0 3rem;
+  }
+  .intro_title {
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
   }
 `;
 
