@@ -1,14 +1,17 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  overflow: scroll;
+  background-color: #010101;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   ::-webkit-scrollbar {
-    width: 0;
+    display: none;
   }
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: #010101;
+p {
+  word-break: keep-all;
 }

@@ -7,8 +7,8 @@ import { handleNavigate } from "../../features/navigation/model/models";
 const Header = () => {
   const navigate = useNavigate();
   return (
-    <>
-      <Wrapper>
+    <Container>
+      <HeaderWrapper>
         {Object.keys(ROUTES).map((tab) => {
           const __tab = tab as ROUTESKeys;
           return (
@@ -22,15 +22,22 @@ const Header = () => {
             </Text>
           );
         })}
-      </Wrapper>
-      <Outlet />
-    </>
+      </HeaderWrapper>
+      <ContentWrapper>
+        <Outlet />
+      </ContentWrapper>
+    </Container>
   );
 };
 
 export default Header;
 
-const Wrapper = styled.header`
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const HeaderWrapper = styled.header`
   position: fixed;
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
@@ -38,6 +45,7 @@ const Wrapper = styled.header`
   width: 100%;
   display: flex;
   justify-content: center;
+  z-index: 11;
 `;
 
 const Text = styled.div`
@@ -50,4 +58,8 @@ const Text = styled.div`
     color: ${(props) => props.theme.colors.lightCyan};
     transition: color 0.5s ease-in-out;
   }
+`;
+
+const ContentWrapper = styled.div`
+  width: 1024px;
 `;
