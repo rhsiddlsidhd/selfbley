@@ -61,5 +61,5 @@ const Text = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  width: 1024px;
+  min-width: 1024px;
 `;
