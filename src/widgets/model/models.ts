@@ -18,6 +18,6 @@ export interface BtnProps {
 
 export interface HandleNavigate {
   routes: typeof ROUTES;
-  tab: ROUTESKeys;
+  tap: ROUTESKeys;
   navigate: NavigateFunction;
 }

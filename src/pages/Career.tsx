@@ -1,7 +1,7 @@
 import React from "react";
 
 const Career = () => {
-  return <div></div>;
+  return <div>Caeer</div>;
 };
 
 export default Career;

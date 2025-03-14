@@ -1,65 +1,42 @@
-import styled from "styled-components";
-import { Outlet, useNavigate } from "react-router";
+import { Outlet } from "react-router";
+import { useCallback, useEffect, useState } from "react";
+import { debounce } from "lodash";
 
-import { ROUTES, ROUTESKeys } from "../../shared/routes/constants";
-import { handleNavigate } from "../../features/navigation/model/models";
+import OverlayHeader from "./OverlayHeader";
+import ExpandeHeader from "./ExpandeHeader";
+
+export type Mode = "desktop" | "tablet" | "mobile";
 
 const Header = () => {
-  const navigate = useNavigate();
+  const [mode, setMode] = useState<Mode | null>(null);
+
+  const getBrowserMode = useCallback(() => {
+    const width = window.innerWidth;
+    const type = width > 1024 ? "desktop" : width > 768 ? "tablet" : "mobile";
+    setMode(type);
+  }, []);
+  const debounceGetBrowserMode = debounce(getBrowserMode, 1000);
+
+  useEffect(() => {
+    getBrowserMode();
+    window.addEventListener("resize", debounceGetBrowserMode);
+    return () => window.removeEventListener("resize", debounceGetBrowserMode);
+  }, [debounceGetBrowserMode, getBrowserMode]);
+
+  if (mode === null) {
+    return null; //로딩
+  }
+
   return (
-    <Container>
-      <HeaderWrapper>
-        {Object.keys(ROUTES).map((tab) => {
-          const __tab = tab as ROUTESKeys;
-          return (
-            <Text
-              key={__tab}
-              onClick={() =>
-                handleNavigate({ routes: ROUTES, tab: __tab, navigate })
-              }
-            >
-              {__tab}
-            </Text>
-          );
-        })}
-      </HeaderWrapper>
-      <ContentWrapper>
-        <Outlet />
-      </ContentWrapper>
-    </Container>
+    <>
+      {mode !== "mobile" ? (
+        <ExpandeHeader mode={mode} />
+      ) : (
+        <OverlayHeader mode={mode} />
+      )}
+      <Outlet />
+    </>
   );
 };
 
 export default Header;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const HeaderWrapper = styled.header`
-  position: fixed;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  z-index: 11;
-`;
-
-const Text = styled.div`
-  color: white;
-  font-size: ${(props) => props.theme.fontSize.l};
-  margin: 1rem 3rem;
-
-  &:hover {
-    cursor: pointer;
-    color: ${(props) => props.theme.colors.lightCyan};
-    transition: color 0.5s ease-in-out;
-  }
-`;
-
-const ContentWrapper = styled.div`
-  min-width: 1024px;
-`;

@@ -1,8 +1,8 @@
 export const ROUTES = {
-  Intro: "/",
-  Skills: "/skills",
-  Projects: "/projects",
-  Career: "/career",
+  LOGO: "/",
+  THESKILLS: "/skills",
+  THEPROJECTS: "/projects",
+  CONTACT: "/career",
 } as const;
 
 export type ROUTESKeys = keyof typeof ROUTES;

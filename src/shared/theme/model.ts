@@ -1,16 +1,9 @@
-export interface Colors {
-  black: string;
-  deepGray: string;
-  lightGray: string;
-  lightCyan: string;
-  mint: string;
-  white: string;
-}
+import { colors, fontSize } from "./theme";
 
-export interface FontSize {
-  xs: string;
-  s: string;
-  m: string;
-  l: string;
-  xl: string;
+export type Colorkeys = keyof typeof colors;
+
+export type FontSizekeys = keyof typeof fontSize;
+
+export interface Width {
+  max: string;
 }
