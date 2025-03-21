@@ -1,13 +1,16 @@
-import React from "react";
 import styled from "styled-components";
+import VerticalLine from "../components/atoms/VerticalLine";
 
 const Main = () => {
   return (
     <>
       <Container>
-        {Array.from({ length: 4 }, (_, i) => (
-          <div key={i}></div>
-        ))}
+        {/* <MainLoading /> */}
+        <VerticalLine page="MAIN" />
+        <Home>
+          {/* <video src={thetest} autoPlay loop muted /> */}
+          {/* <img src={theForest} /> */}
+        </Home>
       </Container>
     </>
   );
@@ -15,16 +18,21 @@ const Main = () => {
 
 export default Main;
 
-const Container = styled.section`
-  height: 100vh;
-  display: flex;
-  & > div {
-    flex: 1;
-    border-right: 1px solid #7178857a;
-  }
+const Container = styled.div`
+  /* width: 100%; */
+`;
 
-  & > div:first-child,
-  div:last-child {
-    flex: 0.5;
+const Home = styled.div`
+  width: 100%;
+  height: 100vh;
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  & > video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
