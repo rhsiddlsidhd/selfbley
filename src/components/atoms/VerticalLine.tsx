@@ -30,7 +30,7 @@ const VerticalLineContainer = styled.div<{ $page: Page }>`
   background-color: ${({ $page }) =>
     $page === "THEPROJECTS" ? "#ffd34f" : "transparent"};
   display: flex;
-  z-index: -1;
+  z-index: 1;
 `;
 
 // #abacaf #7178857a

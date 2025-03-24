@@ -1,82 +1,120 @@
 import styled from "styled-components";
 import VerticalLine from "../components/atoms/VerticalLine";
-import tennis from "../assets/tennis.mp4";
-import snowboard from "../assets/snowboard.mp4";
-import programming from "../assets/programming.mp4";
-import run from "../assets/run.mp4";
-
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import { motion } from "motion/react";
+import useAnimationProgressStore from "../stores/useAnimationProgress";
+import MainLoading from "../components/loading/MainLoading";
+import IntroVideos from "../components/atoms/IntroVideos";
 
 const Main = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-  const videos = [`${tennis}`, `${snowboard}`, `${run}`, `${programming}`];
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const title = "FRONTEND";
+
+  const { type, setType } = useAnimationProgressStore();
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % videos.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [videos.length]);
-
-  useEffect(() => {
-    videoRefs.current.forEach((video, index) => {
-      if (video) {
-        if (index === activeIndex) {
-          video.play();
-        } else {
-          video.pause();
-          video.currentTime = 0;
-        }
-      }
-    });
-  }, [activeIndex]);
+    return () => setType("INITIAL");
+  }, [setType]);
 
   return (
-    <Container>
-      {/* <MainLoading /> */}
+    <div>
       <VerticalLine page="MAIN" />
-      <Home>
-        {videos.map((source, i) => (
-          <motion.video
-            key={i}
-            ref={(el) => {
-              videoRefs.current[i] = el;
-            }}
-            muted
-            autoPlay
-            loop
-            src={source}
+      {type === "INITIAL" ? (
+        <MainLoading onLoadingComplete={() => setType("PAGE_TRANSITION")} />
+      ) : (
+        <Home>
+          <IntroVideos />
+          <TitleWrapper
+            variants={titleWrapper}
             initial={{ opacity: 0 }}
-            animate={{ opacity: i === activeIndex ? 1 : 0 }}
-            transition={{ duration: 0 }}
-          />
-        ))}
-      </Home>
-    </Container>
+            animate={
+              type === "INITIAL_LOAD" || type === "ADD_ANIMATION"
+                ? "show"
+                : "hidden"
+            }
+            onAnimationComplete={() => {
+              if (type === "INITIAL_LOAD") {
+                setType("ADD_ANIMATION");
+              }
+            }}
+          >
+            {[...title].map((word, i) => {
+              return (
+                <motion.span key={i} variants={titleItem}>
+                  {word}
+                </motion.span>
+              );
+            })}
+          </TitleWrapper>
+          {type === "ADD_ANIMATION" && (
+            <motion.div
+              initial={{ y: 20 }}
+              animate={{
+                y: 0,
+                transition: {
+                  duration: 1,
+                  type: "spring",
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                },
+              }}
+              style={{ rotate: 90 }}
+            >
+              ⋙
+            </motion.div>
+          )}
+        </Home>
+      )}
+    </div>
   );
 };
 
 export default Main;
 
-const Container = styled.div``;
+const titleWrapper = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const titleItem = {
+  hidden: {
+    opacity: 0,
+    y: "100%",
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+    },
+  },
+};
+
+const TitleWrapper = styled(motion.h1)`
+  display: flex;
+  justify-content: center;
+`;
 
 const Home = styled.div`
   position: relative;
   width: 100%;
   height: 100vh;
-  & > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   & > video {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     position: absolute;
-    z-index: -2;
-    filter: brightness(80%);
+    object-fit: cover;
+    filter: brightness(85%);
+    z-index: -1;
   }
+  z-index: 0;
 `;

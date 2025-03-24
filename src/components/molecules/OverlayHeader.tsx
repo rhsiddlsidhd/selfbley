@@ -112,7 +112,7 @@ const NavWrapper = styled.div<{ $animationProgress: boolean }>`
   justify-content: center;
   align-items: center;
   overflow: scroll;
-  z-index: 20;
+  z-index: 12;
 `;
 
 const MenuBtn = styled.button`

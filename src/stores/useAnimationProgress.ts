@@ -4,7 +4,8 @@ type AnimationType =
   | "PAGE_TRANSITION"
   | "INITIAL_LOAD"
   | "PROJECT_DISPLAY"
-  | "INITIAL";
+  | "INITIAL"
+  | "ADD_ANIMATION";
 
 interface UseAnimationProgressStore {
   type: AnimationType;
