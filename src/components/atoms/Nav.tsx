@@ -129,12 +129,12 @@ const OverlayText = styled.p<{ $activeTab: number }>`
 `;
 
 const ExpandText = styled.p<{ $activeTab: number }>`
-  color: white;
   margin-left: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
   font-size: ${(props) => props.theme.fontSize.m};
   position: relative;
+
   &:hover {
     cursor: pointer;
     color: ${(props) => props.theme.colors.lightCyan};

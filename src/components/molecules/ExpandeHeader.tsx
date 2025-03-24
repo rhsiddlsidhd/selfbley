@@ -15,8 +15,10 @@ const NavWrapper = styled.header`
   width: 100%;
   position: fixed;
   background-color: transparent;
+  font-weight: bold;
   display: flex;
   z-index: 20;
+  /* background-color: #1b19176f; */
   & > div {
     flex: 1;
     & > p {

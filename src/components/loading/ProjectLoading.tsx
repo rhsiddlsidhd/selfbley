@@ -28,6 +28,7 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
+
     transition: {
       staggerChildren: 0.1,
       staggerDirection: -1,
@@ -49,6 +50,7 @@ const Container = styled(motion.div)`
   height: 100vh;
   position: fixed;
   display: flex;
+  background-color: transparent;
   & > section {
     flex: 1;
   }
