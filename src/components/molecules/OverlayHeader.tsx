@@ -54,10 +54,10 @@ const OverlayHeader = () => {
             />
             <MenuItems>
               <Nav />
+              <MenuBtn $isView={isView}>
+                <h3>Close</h3>
+              </MenuBtn>
             </MenuItems>
-            <MenuBtn>
-              <h3>Close</h3>
-            </MenuBtn>
           </div>
         </NavWrapper>
       )}
@@ -88,15 +88,19 @@ const SlideOut = keyframes`
 `;
 
 const MenuItems = styled.section`
-  height: calc(65vh - 20rem);
+  /* height: calc(65vh - 20rem); */
+  height: calc(100vh - 15rem);
   display: flex;
   flex-direction: column;
+
+  /* background-color: red; */
 `;
 
 const NavWrapper = styled.div<{ $animationProgress: boolean }>`
   width: 100%;
   height: 100vh;
-  min-height: 20rem;
+  /* min-height: 20rem; */
+  padding-top: 10rem;
   background-color: black;
   animation: ${({ $animationProgress }) =>
     $animationProgress
@@ -109,23 +113,35 @@ const NavWrapper = styled.div<{ $animationProgress: boolean }>`
   position: fixed;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   overflow: scroll;
   z-index: 12;
+  /* background-color: pink; */
 `;
 
-const MenuBtn = styled.button`
+const MenuBtn = styled.button<{ $isView?: boolean }>`
   border: none;
   color: white;
   background-color: black;
-  position: fixed;
+  /* position: fixed;
   bottom: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+  /* position: ; */
+  ${({ $isView }) =>
+    !$isView &&
+    css`
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    `}
+  align-self: center;
   padding: 1.5rem;
   border: 3px solid gray;
   border-radius: 15%;
   cursor: pointer;
   z-index: 20;
+  margin-top: 1rem;
 `;

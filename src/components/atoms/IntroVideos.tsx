@@ -65,6 +65,7 @@ const IntroVideos = () => {
             }
           }}
           transition={{ clipPath: { duration: 1, delay: 1 } }}
+          style={{ height: "100vh" }}
         />
       ))}
     </>

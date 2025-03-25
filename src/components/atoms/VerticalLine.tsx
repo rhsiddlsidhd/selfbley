@@ -26,7 +26,7 @@ export default VerticalLine;
 const VerticalLineContainer = styled.div<{ $page: Page }>`
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   background-color: ${({ $page }) =>
     $page === "THEPROJECTS" ? "#ffd34f" : "transparent"};
   display: flex;
