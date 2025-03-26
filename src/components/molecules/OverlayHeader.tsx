@@ -35,7 +35,7 @@ const OverlayHeader = () => {
         }}
       >
         <Logo
-          styles={`left: 50%; transform: translate(-50%, 0%); margin-top:3rem; `}
+          styles={`left: 50%; transform: translate(-50%, 0%); margin-top:3rem; position:fixed; `}
         />
       </div>
       {!isView && (
@@ -50,7 +50,7 @@ const OverlayHeader = () => {
         >
           <div onClick={closeOverlayMenu}>
             <Logo
-              styles={`left: 50%; transform: translate(-50%, 0%); top:0; margin-top:3rem;`}
+              styles={`left: 50%; transform: translate(-50%, 0%); top:0; margin-top:3rem; position: fixed;`}
             />
             <MenuItems>
               <Nav />

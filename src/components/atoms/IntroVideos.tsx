@@ -53,7 +53,6 @@ const IntroVideos = () => {
           }}
           animate={{
             opacity: i === activeIndex ? 1 : 0,
-            // clipPath: `polygon(0 0, 100% 0, 100% 100%, 0 100%)`,
             clipPath:
               i === activeIndex
                 ? `polygon(0 0, 100% 0, 100% 100%, 0 100%)`
@@ -65,7 +64,6 @@ const IntroVideos = () => {
             }
           }}
           transition={{ clipPath: { duration: 1, delay: 1 } }}
-          style={{ height: "100vh" }}
         />
       ))}
     </>
