@@ -27,13 +27,14 @@ const VerticalLineContainer = styled.div<{ $page: Page }>`
   width: 100%;
   height: 100%;
   position: fixed;
-  background-color: ${({ $page }) =>
-    $page === "THEPROJECTS" ? "#ffd34f" : "transparent"};
+  /* background-color: ${({ $page }) =>
+    $page === "THEPROJECTS" ? "#ffd34f" : "transparent"}; */
+  background-color: transparent;
   display: flex;
-  z-index: 1;
+  z-index: 10;
+  pointer-events: none;
 `;
 
-// #abacaf #7178857a
 const VerticalLineSection = styled.section<{
   $borderRemoveItem: boolean;
   $mode: Mode;
@@ -41,7 +42,6 @@ const VerticalLineSection = styled.section<{
   border-right: ${({ $borderRemoveItem }) =>
     $borderRemoveItem ? "none" : "2px solid #7178852b"};
   flex: 1;
-  z-index: 0;
   &:first-child,
   &:last-child {
     ${({ $mode }) =>

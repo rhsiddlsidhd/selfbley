@@ -5,7 +5,7 @@ import { TEXTS } from "../../constants/textConstants";
 const Arrow = () => {
   return (
     <motion.div
-      initial={{ y: -30, opacity: 0 }}
+      initial={{ y: 30, opacity: 0 }}
       animate={{
         opacity: 1,
         y: 0,
@@ -19,7 +19,7 @@ const Arrow = () => {
       style={{
         position: "absolute",
         rotate: 90,
-        bottom: "-10rem",
+        bottom: "-150%",
         transformOrigin: "56% 50% 0",
       }}
     >

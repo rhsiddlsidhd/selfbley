@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import ProjectLoading from "../components/loading/ProjectLoading";
 import styled, { css } from "styled-components";
-
 import { motion } from "motion/react";
 import { BadgeTypes } from "../components/atoms/Badge";
 import Project from "../components/organism/Project";
@@ -93,6 +92,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   position: relative;
+  background-color: #ffd34f;
 `;
 
 const ProjectWrapper = styled.div<{ $mode: Mode }>`
