@@ -114,13 +114,10 @@ export default MarqueeText;
 const Marquees = styled.div<{ $deg: number; $reverse: boolean }>`
   display: flex;
   flex-shrink: 0;
-  padding: 2rem;
+  /* padding: 2rem; */
+
   justify-content: ${({ $reverse }) => ($reverse ? "end" : "start")};
   transform: ${({ $deg }) => `rotate(${$deg}deg)`};
-  cursor: pointer;
-  &:hover {
-    background-color: red;
-  }
 `;
 
 const Marquee = styled(motion.div)`
@@ -128,6 +125,7 @@ const Marquee = styled(motion.div)`
   flex-shrink: 0;
   min-width: min-content;
   z-index: 50;
+  cursor: pointer;
 
   .firstMarquee {
     display: flex;

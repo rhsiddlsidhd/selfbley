@@ -8,11 +8,10 @@ const VerticalLine = ({ page }: { page: Page }) => {
   return (
     <VerticalLineContainer $page={page}>
       {Array.from({ length: mode !== "mobile" ? 6 : 4 }, (_, i) => {
-        const borderRemoveItem = i === 1 || i === 3;
         return (
           <VerticalLineSection
             key={i}
-            $borderRemoveItem={borderRemoveItem}
+            $borderRemoveItem={mode === "mobile" ? false : i === 1 || i === 3}
             $mode={mode}
           />
         );
@@ -40,7 +39,7 @@ const VerticalLineSection = styled.section<{
   $mode: Mode;
 }>`
   border-right: ${({ $borderRemoveItem }) =>
-    $borderRemoveItem ? "none" : "2px solid #7178852b"};
+    !$borderRemoveItem && "2px solid #7178852b "};
   flex: 1;
   &:first-child,
   &:last-child {

@@ -1,34 +1,76 @@
-import { useInView } from "motion/react";
-import React, { useEffect, useRef } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useScroll,
+  useTransform,
+} from "motion/react";
+import React, { useRef } from "react";
 import styled from "styled-components";
-import VerticalLine from "../components/atoms/VerticalLine";
 
 const TheSkills = () => {
-  const selectedRef = useRef(null);
-  const isInView = useInView(selectedRef, { amount: 0.3 });
   const colors = ["blue", "green", "yellow", "pink"];
+  const scrollRef = useRef(null);
+  const { scrollYProgress } = useScroll();
+  const width = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
-  useEffect(() => {
-    console.log(isInView);
-  }, [isInView]);
   return (
-    <>
-      <VerticalLine page="MAIN" />
-
-      {Array.from({ length: 4 }, (_, i) => (
-        <Container
-          key={i}
-          className={`section_${colors[i]}`}
-          $colors={colors[i]}
-        ></Container>
-      ))}
-      <div ref={selectedRef}>123</div>
-    </>
+    <Container ref={scrollRef}>
+      <motion.hr
+        style={{
+          width,
+          backgroundColor: "red",
+          height: "3rem",
+          position: "fixed",
+          top: 0,
+          left: 0,
+        }}
+      ></motion.hr>
+      <div style={{ position: "absolute" }}>
+        {colors.map((v, i) => {
+          return (
+            <Wrapper $colors={v} key={i} className={`item_${i}`}>
+              {i}
+            </Wrapper>
+          );
+        })}
+      </div>
+    </Container>
   );
 };
 
 export default TheSkills;
-const Container = styled.section<{ $colors: string }>`
+const Container = styled.section`
+  height: 200vh;
+  background-color: transparent;
+  position: relative;
+  .item_0 {
+    /* opacity: 0; */
+    /* display: none; */
+  }
+  .item_1 {
+    /* opacity: 0; */
+    /* display: none; */
+  }
+  .item_2 {
+    /* opacity: 0; */
+    /* display: none; */
+  }
+  .item_3 {
+    /* opacity: 0; */
+    /* display: none; */
+  }
+`;
+
+const Wrapper = styled(motion.div)<{ $colors: string }>`
   height: 100vh;
+  /* position: relative; */
+  /* transform: translate(0%, 50%); */
   background-color: ${({ $colors }) => $colors};
+`;
+
+const ColorBoxs = styled.div<{ $colors: string }>`
+  background-color: ${({ $colors }) => $colors};
+  width: 100%;
+  height: 100%;
+  position: absolute;
 `;

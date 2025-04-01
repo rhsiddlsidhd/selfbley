@@ -14,8 +14,11 @@ const Home = () => {
   const { type, setType } = useAnimationProgressStore();
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { amount: 0.5 });
-  const { scrollYProgress } = useScroll();
-  const width = useTransform(scrollYProgress, [0, 0.3], ["0%", "100%"]);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+  const width = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   const handleFadeAnimation = (
     type: AnimationType
@@ -32,7 +35,9 @@ const Home = () => {
   return (
     <HomeContainer ref={containerRef}>
       <SlideInOverlay style={{ width }}></SlideInOverlay>
-      <IntroVideos />
+      <VideoWrapper>
+        <IntroVideos />
+      </VideoWrapper>
       <TitleWrapper
         variants={fadeVariants}
         initial={{ opacity: 0 }}
@@ -49,6 +54,7 @@ const Home = () => {
 export default Home;
 
 const SlideInOverlay = styled(motion.div)`
+  width: 100%;
   height: 100%;
   position: absolute;
   background-color: black;
@@ -68,9 +74,8 @@ const fadeVariants = {
   },
 };
 
-const HomeContainer = styled.div`
-  position: relative;
-  height: 200vh;
+const VideoWrapper = styled.div`
+  height: 100vh;
   & > video {
     width: 100%;
     height: 100%;
@@ -81,6 +86,12 @@ const HomeContainer = styled.div`
     filter: brightness(85%);
     z-index: -1;
   }
+  display: none;
+`;
+
+const HomeContainer = styled.div`
+  position: relative;
+  height: 200vh;
 `;
 
 const TitleWrapper = styled(motion.h1)`

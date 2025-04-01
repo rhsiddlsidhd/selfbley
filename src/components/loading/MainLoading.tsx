@@ -45,23 +45,24 @@ const MainLoading = ({
 
 export default MainLoading;
 
-const Container = styled.header`
-  position: relative;
-  width: 100%;
+const Container = styled.div`
+  width: 100vw;
   height: 100vh;
   background-color: black;
   & > div {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    object-fit: cover;
-    filter: brightness(90%);
-
-    clip-path: polygon(45% 40%, 55% 40%, 55% 60%, 45% 60%);
   }
 `;
 
 const Box = styled.div`
   width: 20%;
   height: 20%;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  filter: brightness(90%);
+  clip-path: polygon(45% 40%, 55% 40%, 55% 60%, 45% 60%);
+  & > img {
+    position: absolute;
+    object-fit: cover;
+  }
 `;
