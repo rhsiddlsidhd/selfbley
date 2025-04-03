@@ -36,9 +36,9 @@ const MainLoading = ({
 
   return (
     <Container>
-      <Box>
+      <Wrapper>
         <img src={imgSrcs[activeIndex]} alt="이미지" />
-      </Box>
+      </Wrapper>
     </Container>
   );
 };
@@ -46,23 +46,21 @@ const MainLoading = ({
 export default MainLoading;
 
 const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  background-color: black;
-  & > div {
-  }
+  position: relative;
 `;
 
-const Box = styled.div`
-  width: 20%;
-  height: 20%;
+const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  position: relative;
+  background-color: purple;
   filter: brightness(90%);
   clip-path: polygon(45% 40%, 55% 40%, 55% 60%, 45% 60%);
   & > img {
     position: absolute;
     object-fit: cover;
+    width: 100%;
+    height: 100%;
   }
 `;

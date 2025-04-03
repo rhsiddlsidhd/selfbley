@@ -5,10 +5,10 @@ import programming from "../../assets/programming.mp4";
 import run from "../../assets/run.mp4";
 import { motion } from "motion/react";
 
-import intro from "../../assets/intro4.png";
+import intro from "../../assets/sunset.jpg";
 import useAnimationProgressStore from "../../stores/useAnimationProgress";
 
-const IntroVideos = () => {
+const IntroVideos = ({ isInView }: { isInView: boolean }) => {
   const videos = [`${tennis}`, `${snowboard}`, `${run}`, `${programming}`];
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -18,6 +18,7 @@ const IntroVideos = () => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % videos.length);
     }, 5000);
+
     return () => clearInterval(interval);
   }, [videos.length]);
 

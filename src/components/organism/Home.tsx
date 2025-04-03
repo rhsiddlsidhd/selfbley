@@ -35,8 +35,8 @@ const Home = () => {
   return (
     <HomeContainer ref={containerRef}>
       <SlideInOverlay style={{ width }}></SlideInOverlay>
-      <VideoWrapper>
-        <IntroVideos />
+      <VideoWrapper $isInView={isInView}>
+        <IntroVideos isInView={isInView} />
       </VideoWrapper>
       <TitleWrapper
         variants={fadeVariants}
@@ -74,19 +74,18 @@ const fadeVariants = {
   },
 };
 
-const VideoWrapper = styled.div`
-  height: 100vh;
+const VideoWrapper = styled.div<{ $isInView: boolean }>`
   & > video {
     width: 100%;
     height: 100%;
-    position: fixed;
+    position: ${({ $isInView }) => ($isInView ? "fixed" : "absolute")};
     top: 0;
     left: 0;
     object-fit: cover;
     filter: brightness(85%);
     z-index: -1;
   }
-  display: none;
+  opacity: ${({ $isInView }) => ($isInView ? 1 : 0)};
 `;
 
 const HomeContainer = styled.div`

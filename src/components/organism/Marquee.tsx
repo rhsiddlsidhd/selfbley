@@ -38,6 +38,7 @@ const Container = styled.section`
   width: 100%;
   height: 75vh;
   background-color: black;
+  overflow: hidden;
 `;
 
 const MarqueesWrapper = styled.div`
