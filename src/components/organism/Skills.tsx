@@ -1,39 +1,27 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect, useRef } from "react";
+import styled, { css } from "styled-components";
+import CardSlider from "./CardSlider";
+import { motion, useInView } from "motion/react";
+import book from "../../assets/books.jpg";
+import useScreenStore, { Mode } from "../../stores/useScreenStore";
 
 const Skills = () => {
-  return (
-    <Container>
-      <CardWrapper>
-        {Array.from({ length: 4 }, (_, i) => {
-          return <Card key={i}>카드{i}</Card>;
-        })}
-      </CardWrapper>
-    </Container>
-  );
+  const containerRef = useRef<HTMLElement | null>(null);
+  const mode = useScreenStore((state) => state.mode);
+  const isInView = useInView(containerRef, { amount: "all" });
+  useEffect(() => {
+    console.log(isInView);
+  }, [isInView]);
+
+  return <Container ref={containerRef}></Container>;
 };
 
 export default Skills;
 
-const Container = styled.section`
+const Container = styled(motion.section)`
   position: relative;
+  width: 100%;
   height: 100vh;
-  min-height: min-content;
-  overflow: hidden;
-`;
-
-const CardWrapper = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  width: calc(50% * 4);
-
-  border: 1px solid red;
-
-  gap: 1rem;
-`;
-
-const Card = styled.div`
-  border: 3px solid green;
-  padding: 1rem;
-  width: 50%;
+  padding-top: 2rem;
+  padding-left: 2rem;
 `;

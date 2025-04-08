@@ -20,8 +20,6 @@ const Main = () => {
     return () => setType("INITIAL");
   }, [setType]);
 
-  console.log("?");
-
   return (
     <>
       <VerticalLine page="MAIN" />
@@ -35,6 +33,7 @@ const Main = () => {
           <InterView />
           <Scratch />
           <Skills />
+          <div style={{ height: "100vh", backgroundColor: "blue" }}></div>
         </>
       )}
     </>
