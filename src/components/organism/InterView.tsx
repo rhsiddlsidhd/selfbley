@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import tennis0 from "../../assets/tennis0.jpg";
 import tennis1 from "../../assets/tennis1.jpg";
@@ -20,7 +20,7 @@ const InterView = () => {
   //background 배경이 될 태그의 transform: translate(0%, value) 값이 0, 0 이 되었을때 해당 div는 fixed로 고정
   // bgimg 컴포넌트가 transfomr(0 , 0) 이 되었을때 담은 div 가 fixed 되어 문제해결
   const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { amount: 0.33 });
+  const isInView = useInView(containerRef, { amount: 1 / imgs.length });
   const { scrollYProgress: scrollYProgressStart } = useScroll({
     target: containerRef,
     offset: ["start end", "start start"],

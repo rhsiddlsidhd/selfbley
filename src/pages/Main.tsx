@@ -33,7 +33,7 @@ const Main = () => {
           <InterView />
           <Scratch />
           <Skills />
-          <div style={{ height: "100vh", backgroundColor: "blue" }}></div>
+          <div style={{ height: "100vh", backgroundColor: "blue" }}>안녕?</div>
         </>
       )}
     </>
