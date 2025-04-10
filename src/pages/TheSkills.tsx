@@ -13,61 +13,38 @@ import structure from "../assets/structure1.jpg";
 import dark from "../assets/dark.jpg";
 
 const sections = ["Section 1", "Section 2", "Section 3", "Section 4"];
-
+const imgs = [books, deep, structure, dark];
 const TheSkills = () => {
-  const containerRef = useRef(null);
-  const bgImgs = [books, structure, deep, dark];
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const maxOffset = (bgImgs.length - 1) * 100;
-  const rawX = useTransform(scrollYProgress, [0, 1], [0, -maxOffset]);
-  const x = useMotionTemplate`${rawX}vw`;
-
   return (
-    <Container ref={containerRef} $bgImgs={bgImgs.length}>
-      <StickyArea>
-        <HorizontalWrapper style={{ x }} $bgImgs={bgImgs.length}>
-          {sections.map((v, i) => (
-            <Content key={i}>{v}</Content>
-          ))}
-        </HorizontalWrapper>
-      </StickyArea>
+    <Container>
+      <section>1</section>
+      <section className="img">
+        {imgs.map((v) => {
+          return (
+            <Background style={{ backgroundImage: `url(${v})` }}></Background>
+          );
+        })}
+      </section>
     </Container>
   );
 };
 
 export default TheSkills;
-const Container = styled.section<{ $bgImgs: number }>`
-  height: ${({ $bgImgs }) => $bgImgs * 100}vh;
-  width: 100%;
-  position: relative;
+
+const Container = styled.div`
+  & > section:first-child {
+    height: 100vh;
+    position: relative;
+  }
+  .img {
+    height: 50vh;
+    position: relative;
+    border: 3px solid white;
+  }
 `;
 
-const StickyArea = styled.div`
+const Background = styled.div`
+  width: 100%;
+  height: 100vh;
   position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-`;
-
-const HorizontalWrapper = styled(motion.div)<{ $bgImgs: number }>`
-  display: flex;
-  width: ${({ $bgImgs }) => $bgImgs * 100}vw;
-`;
-
-const Content = styled.div`
-  width: 100vw;
-  height: 100vh;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f1f1f1;
-  font-size: 2rem;
-  font-weight: bold;
 `;
