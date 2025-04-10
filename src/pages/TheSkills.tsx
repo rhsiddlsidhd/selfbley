@@ -1,76 +1,73 @@
+import { useRef } from "react";
+import styled from "styled-components";
 import {
   motion,
-  useMotionTemplate,
   useScroll,
   useTransform,
-} from "motion/react";
-import React, { useRef } from "react";
-import styled from "styled-components";
+  useMotionTemplate,
+} from "framer-motion";
+
+import books from "../assets/books.jpg";
+import deep from "../assets/deep.jpg";
+import structure from "../assets/structure1.jpg";
+import dark from "../assets/dark.jpg";
+
+const sections = ["Section 1", "Section 2", "Section 3", "Section 4"];
 
 const TheSkills = () => {
-  const colors = ["blue", "green", "yellow", "pink"];
-  const scrollRef = useRef(null);
-  const { scrollYProgress } = useScroll();
-  const width = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const containerRef = useRef(null);
+  const bgImgs = [books, structure, deep, dark];
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const maxOffset = (bgImgs.length - 1) * 100;
+  const rawX = useTransform(scrollYProgress, [0, 1], [0, -maxOffset]);
+  const x = useMotionTemplate`${rawX}vw`;
 
   return (
-    <Container ref={scrollRef}>
-      <motion.hr
-        style={{
-          width,
-          backgroundColor: "red",
-          height: "3rem",
-          position: "fixed",
-          top: 0,
-          left: 0,
-        }}
-      ></motion.hr>
-      <div style={{ position: "absolute" }}>
-        {colors.map((v, i) => {
-          return (
-            <Wrapper $colors={v} key={i} className={`item_${i}`}>
-              {i}
-            </Wrapper>
-          );
-        })}
-      </div>
+    <Container ref={containerRef} $bgImgs={bgImgs.length}>
+      <StickyArea>
+        <HorizontalWrapper style={{ x }} $bgImgs={bgImgs.length}>
+          {sections.map((v, i) => (
+            <Content key={i}>{v}</Content>
+          ))}
+        </HorizontalWrapper>
+      </StickyArea>
     </Container>
   );
 };
 
 export default TheSkills;
-const Container = styled.section`
-  height: 200vh;
-  background-color: transparent;
-  position: relative;
-  .item_0 {
-    /* opacity: 0; */
-    /* display: none; */
-  }
-  .item_1 {
-    /* opacity: 0; */
-    /* display: none; */
-  }
-  .item_2 {
-    /* opacity: 0; */
-    /* display: none; */
-  }
-  .item_3 {
-    /* opacity: 0; */
-    /* display: none; */
-  }
-`;
-
-const Wrapper = styled(motion.div)<{ $colors: string }>`
-  height: 100vh;
-  /* position: relative; */
-  /* transform: translate(0%, 50%); */
-  background-color: ${({ $colors }) => $colors};
-`;
-
-const ColorBoxs = styled.div<{ $colors: string }>`
-  background-color: ${({ $colors }) => $colors};
+const Container = styled.section<{ $bgImgs: number }>`
+  height: ${({ $bgImgs }) => $bgImgs * 100}vh;
   width: 100%;
-  height: 100%;
-  position: absolute;
+  position: relative;
+`;
+
+const StickyArea = styled.div`
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+`;
+
+const HorizontalWrapper = styled(motion.div)<{ $bgImgs: number }>`
+  display: flex;
+  width: ${({ $bgImgs }) => $bgImgs * 100}vw;
+`;
+
+const Content = styled.div`
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f1f1;
+  font-size: 2rem;
+  font-weight: bold;
 `;

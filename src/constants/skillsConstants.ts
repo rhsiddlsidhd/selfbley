@@ -15,12 +15,17 @@ import figma from "../assets/figma.svg";
 import github from "../assets/github.svg";
 
 const skills = {
-  FE: [
+  LANGUAGE: [
     { name: "html", icon: html },
     { name: "css", icon: css },
-    { name: "styled-components", icon: styledComponents },
-    { name: "javascript", icon: javascript },
+    {
+      name: "javascript",
+      icon: javascript,
+    },
     { name: "typescript", icon: typescript },
+  ],
+  FE: [
+    { name: "styled-components", icon: styledComponents },
     { name: "react", icon: react },
     { name: "redux", icon: redux },
     { name: "zustand", icon: zustand },

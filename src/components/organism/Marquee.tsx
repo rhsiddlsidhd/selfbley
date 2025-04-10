@@ -13,7 +13,7 @@ const Marquee = () => {
   return (
     <Container>
       <MarqueesWrapper>
-        <MarqueeText>
+        {/* <MarqueeText>
           {SKILLS.BE.map(({ name, icon }) => {
             return <SkillsIcon key={name} src={icon} />;
           })}
@@ -27,7 +27,7 @@ const Marquee = () => {
           {SKILLS.ETC.map(({ name, icon }) => {
             return <SkillsIcon key={name} src={icon} />;
           })}
-        </MarqueeText>
+        </MarqueeText> */}
       </MarqueesWrapper>
     </Container>
   );
