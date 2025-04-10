@@ -14,6 +14,7 @@ import structure from "../../assets/structure3.jpg";
 import dark from "../../assets/dark.jpg";
 
 const sections = ["Section 1", "Section 2", "Section 3", "Section 4"];
+type ScrollPhase = "initial" | "mid" | "last";
 
 const Skills = () => {
   /**
@@ -45,11 +46,19 @@ const Skills = () => {
   const x = useMotionTemplate`${rawX}vw`;
   const initialTranslateY = useMotionTemplate`${initialY}%`;
   const lastTranslateY = useMotionTemplate`${lastY}%`;
-  const isScrollRange = (n: number) => n > 0 && n < 1;
 
+  const isScrollRange = (n: number) => n > 0 && n < 1;
+  const getScrollPhase = (index: number, length: number): ScrollPhase => {
+    return index === 0 ? "initial" : index === length - 1 ? "last" : "mid";
+  };
+
+  const getTranslateYByStep = (step: ScrollPhase) => {
+    if (step === "initial" && !isFixed) return initialTranslateY;
+    if (step === "last" && !isFixed) return lastTranslateY;
+    return "0%";
+  };
   useMotionValueEvent(mid, "change", (latest) => {
     setIsFixed(isScrollRange(latest));
-
     const newIndex = Math.min(
       Math.floor(latest * bgImgs.length),
       bgImgs.length - 1
@@ -59,21 +68,17 @@ const Skills = () => {
 
   return (
     <Container ref={containerRef} $bgImgs={bgImgs.length}>
-      {bgImgs.map((source, i) => {
-        const step =
-          i === 0 ? "initial" : i === bgImgs.length - 1 ? "last" : "mid";
-        const y =
-          step === "initial"
-            ? initialTranslateY
-            : step === "last" && !isFixed
-            ? lastTranslateY
-            : 0;
+      {bgImgs.map((source, i, arr) => {
+        const step = getScrollPhase(i, arr.length);
+        const y = getTranslateYByStep(step);
         return (
           <Background
             key={i}
             source={source}
             isFixed={isFixed}
-            animate={{ opacity: i === activeIndex ? 1 : 0 }}
+            animate={{
+              opacity: i === activeIndex ? 1 : 0,
+            }}
             style={{ y }}
             initial={false}
           />
