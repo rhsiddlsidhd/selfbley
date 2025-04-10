@@ -104,8 +104,8 @@ const OverlayText = styled.p<{ $activeTab: number }>`
   color: white;
   font-size: clamp(2rem, 15vw, 8rem);
   margin: auto 0;
+  height: fit-content;
   width: fit-content;
-  transform-origin: top;
   position: relative;
   &:hover {
     cursor: pointer;

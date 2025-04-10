@@ -8,11 +8,10 @@ const VerticalLine = ({ page }: { page: Page }) => {
   return (
     <VerticalLineContainer $page={page}>
       {Array.from({ length: mode !== "mobile" ? 6 : 4 }, (_, i) => {
-        const borderRemoveItem = i === 1 || i === 3;
         return (
           <VerticalLineSection
             key={i}
-            $borderRemoveItem={borderRemoveItem}
+            $borderRemoveItem={mode === "mobile" ? false : i === 1 || i === 3}
             $mode={mode}
           />
         );
@@ -26,22 +25,20 @@ export default VerticalLine;
 const VerticalLineContainer = styled.div<{ $page: Page }>`
   width: 100%;
   height: 100%;
-  position: absolute;
-  background-color: ${({ $page }) =>
-    $page === "THEPROJECTS" ? "#ffd34f" : "transparent"};
+  position: fixed;
+  background-color: transparent;
   display: flex;
-  z-index: -1;
+  z-index: 10;
+  pointer-events: none;
 `;
 
-// #abacaf #7178857a
 const VerticalLineSection = styled.section<{
   $borderRemoveItem: boolean;
   $mode: Mode;
 }>`
   border-right: ${({ $borderRemoveItem }) =>
-    $borderRemoveItem ? "none" : "2px solid #7178852b"};
+    !$borderRemoveItem && "2px solid #7178852b "};
   flex: 1;
-  z-index: 0;
   &:first-child,
   &:last-child {
     ${({ $mode }) =>

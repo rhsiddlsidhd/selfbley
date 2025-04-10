@@ -1,13 +1,18 @@
 import styled from "styled-components";
 import forest from "../../assets/209790.mp4";
 import useScreenStore from "../../stores/useScreenStore";
+import { useRef } from "react";
+
 const ProjectAside = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const mode = useScreenStore((state) => state.mode);
+
   if (mode === "mobile") return null;
+
   return (
     <Aside>
       <section>
-        <video src={forest} autoPlay loop muted />
+        <video ref={videoRef} src={forest} loop muted autoPlay />
       </section>
       <section>
         <p>Let’s imagine new futures and the strength to bring them to life</p>
@@ -26,7 +31,7 @@ const Aside = styled.section`
   height: 100vh;
   display: flex;
   overflow: hidden;
-
+  z-index: 1;
   & > section {
     width: 50%;
     background-color: #313131;

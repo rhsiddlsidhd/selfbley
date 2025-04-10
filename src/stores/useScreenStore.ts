@@ -4,7 +4,7 @@ export type Mode = "desktop" | "tablet" | "mobile";
 
 interface UseScreenStore {
   mode: Mode;
-  setMode: (mode: Mode) => void;
+  setMode: (props: Mode) => void;
 }
 
 const useScreenStore = create<UseScreenStore>((set) => ({
