@@ -22,6 +22,9 @@ const Skills = () => {
    * transform -50% => 0%
    */
 
+  const CARD_TOTAL_WIDTH = 95;
+  const CARD_GAP = 15;
+  const CARD_WIDTH = 80;
   const containerRef = useRef(null);
   const bgImgs = [books, structure, deep, dark];
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -39,7 +42,8 @@ const Skills = () => {
     offset: ["end end", "end start"],
   });
 
-  const maxOffset = (bgImgs.length - 1) * 100;
+  const maxOffset = (bgImgs.length - 1) * CARD_TOTAL_WIDTH; //100
+
   const rawX = useTransform(mid, [0, 1], [0, -maxOffset]);
   const initialY = useTransform(initial, [0, 1], [-50, 0]);
   const lastY = useTransform(last, [0, 1], [300, 400]);
@@ -59,8 +63,11 @@ const Skills = () => {
   };
   useMotionValueEvent(mid, "change", (latest) => {
     setIsFixed(isScrollRange(latest));
+
+    const offsetX = latest * maxOffset;
     const newIndex = Math.min(
-      Math.floor(latest * bgImgs.length),
+      Math.round(offsetX / CARD_TOTAL_WIDTH),
+
       bgImgs.length - 1
     );
     setActiveIndex((prev) => (prev !== newIndex ? newIndex : prev));
@@ -85,12 +92,21 @@ const Skills = () => {
         );
       })}
       <StickyArea>
+        <div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
+          reprehenderit aspernatur magnam tempora. Vero praesentium in deleniti
+          repellendus. Ut eaque, libero minima sunt molestiae temporibus itaque
+          esse nostrum quos possimus.
+        </div>
         <HorizontalWrapper style={{ x }} $bgImgs={bgImgs.length}>
-          <Content></Content>
-
-          {/* {sections.map((v, i) => (
-            <Content key={i}>{v}</Content>
-          ))} */}
+          {/* style={{ x }} */}
+          {sections.map((v) => {
+            return (
+              <CardSlot>
+                <Card>{v}</Card>
+              </CardSlot>
+            );
+          })}
         </HorizontalWrapper>
       </StickyArea>
     </Container>
@@ -98,6 +114,21 @@ const Skills = () => {
 };
 
 export default Skills;
+
+const CardSlot = styled.div`
+  width: 80vw;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-start;
+  border: 1px solid red;
+`;
+
+const Card = styled.div`
+  min-width: 350px;
+  max-width: calc(100vw / 6 * 4);
+  aspect-ratio: 3 / 4;
+  background-color: green;
+`;
 
 const Background = styled(motion.div)<{ source: string; isFixed: boolean }>`
   position: ${({ isFixed }) => (isFixed ? "fixed" : "absolute")};
@@ -123,18 +154,25 @@ const StickyArea = styled.div`
   top: 0;
   height: 100vh;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  & > div:first-child {
+    max-width: 350px;
+    margin: 6rem 0;
+  }
   overflow: hidden;
 `;
 
 const HorizontalWrapper = styled(motion.div)<{ $bgImgs: number }>`
   width: ${({ $bgImgs }) => $bgImgs * 100}vw;
+  height: 50vh;
+  background-color: #000000b0;
   display: flex;
-  align-items: center;
-  height: 100vh;
+  gap: 15vw;
 `;
 
-const Content = styled.div`
-  width: 380vw;
-  height: 50vh;
-  border: 1px solid red;
-`;
+//background 의 setInAcitive 또한 카드의 넓이만큼 이동했을때 변해야한다 .
+// 한 화면에 카드를 두장씩 보여주기 위해선 하나의 카드가 100vw 만큼의 넓이를 가져가면 볼 수 없다.
+// 하나의 카드가 80vw + gap 15vw 라면 5vw 만큼 다음카드가 보일거고
+// background 또한 95vw 만큼 이동시에 바껴야한다.
