@@ -85,12 +85,13 @@ const Skills = () => {
         );
       })}
       <StickyArea>
-        <HorizontalWrapper style={{ x }} $bgImgs={bgImgs.length}>
-          <Content></Content>
-
-          {/* {sections.map((v, i) => (
-            <Content key={i}>{v}</Content>
-          ))} */}
+        <Title>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Title>
+        <HorizontalWrapper $bgImgs={bgImgs.length}>
+          <CardSlider $cardCount={sections.length} style={{ x }}>
+            {sections.map((v, i) => (
+              <Card key={i}>{v}</Card>
+            ))}
+          </CardSlider>
         </HorizontalWrapper>
       </StickyArea>
     </Container>
@@ -108,7 +109,7 @@ const Background = styled(motion.div)<{ source: string; isFixed: boolean }>`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
-  filter: blur(5px);
+
   z-index: -1;
 `;
 
@@ -126,15 +127,25 @@ const StickyArea = styled.div`
   overflow: hidden;
 `;
 
+const Title = styled.div`
+  height: 20vh;
+`;
+
 const HorizontalWrapper = styled(motion.div)<{ $bgImgs: number }>`
   width: ${({ $bgImgs }) => $bgImgs * 100}vw;
   display: flex;
   align-items: center;
-  height: 100vh;
+  justify-content: center;
+  height: 80vh;
+  /* background-color: green; */
 `;
 
-const Content = styled.div`
-  width: 380vw;
-  height: 50vh;
+const CardSlider = styled(motion.div)<{ $cardCount: number }>`
   border: 1px solid red;
+  width: 380vw;
+  height: 50%;
+  display: flex;
+  justify-content: space-between;
 `;
+
+const Card = styled.div``;

@@ -1,30 +1,17 @@
-import { useRef } from "react";
 import styled from "styled-components";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionTemplate,
-} from "framer-motion";
 
-import books from "../assets/books.jpg";
-import deep from "../assets/deep.jpg";
-import structure from "../assets/structure1.jpg";
-import dark from "../assets/dark.jpg";
-
-const sections = ["Section 1", "Section 2", "Section 3", "Section 4"];
-const imgs = [books, deep, structure, dark];
 const TheSkills = () => {
   return (
     <Container>
-      <section>1</section>
-      <section className="img">
-        {imgs.map((v) => {
+      <Wrapper>
+        {Array.from({ length: 4 }, (_, i) => {
           return (
-            <Background style={{ backgroundImage: `url(${v})` }}></Background>
+            <Card key={i}>
+              <El>{i}</El>{" "}
+            </Card>
           );
         })}
-      </section>
+      </Wrapper>
     </Container>
   );
 };
@@ -32,19 +19,23 @@ const TheSkills = () => {
 export default TheSkills;
 
 const Container = styled.div`
-  & > section:first-child {
-    height: 100vh;
-    position: relative;
-  }
-  .img {
-    height: 50vh;
-    position: relative;
-    border: 3px solid white;
-  }
+  display: flex;
+  align-items: center;
+  height: 100vh;
 `;
 
-const Background = styled.div`
-  width: 100%;
-  height: 100vh;
-  position: sticky;
+const Wrapper = styled.section`
+  border: 1px solid red;
+  /* height: 50vh; */
+  display: flex;
+`;
+
+const Card = styled.div`
+  width: 25vw;
+`;
+
+const El = styled.div`
+  width: 80%;
+  aspect-ratio: 1/2;
+  background-color: red;
 `;
