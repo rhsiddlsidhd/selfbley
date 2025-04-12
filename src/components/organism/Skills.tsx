@@ -92,18 +92,39 @@ const Skills = () => {
         );
       })}
       <StickyArea>
-        <div>
+        <div style={{ paddingLeft: "1rem" }}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
           reprehenderit aspernatur magnam tempora. Vero praesentium in deleniti
           repellendus. Ut eaque, libero minima sunt molestiae temporibus itaque
           esse nostrum quos possimus.
         </div>
         <HorizontalWrapper style={{ x }} $bgImgs={bgImgs.length}>
-          {/* style={{ x }} */}
-          {sections.map((v) => {
+          {sections.map((v, i) => {
             return (
-              <CardSlot>
-                <Card>{v}</Card>
+              <CardSlot key={i}>
+                <Card>
+                  <CardBody>
+                    <div className="meta">
+                      <h6 className="index">{i + 1}</h6>
+                      <h6 className="updated_at">00.00.00</h6>
+                    </div>
+                    <div className="title">
+                      <h4>Deep Javascript</h4>
+                    </div>
+                    <div className="description">
+                      <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Optio, illo obcaecati accusamus, vel tempora dolorum
+                        repellendus at, est illum rerum reprehenderit quasi
+                        voluptates temporibus eligendi eos corporis deserunt
+                        sint eius.
+                      </p>
+                    </div>
+                  </CardBody>
+                  <CardThumbnail>
+                    <img src="#" alt="이미지" />
+                  </CardThumbnail>
+                </Card>
               </CardSlot>
             );
           })}
@@ -115,21 +136,6 @@ const Skills = () => {
 
 export default Skills;
 
-const CardSlot = styled.div`
-  width: 80vw;
-  flex-shrink: 0;
-  display: flex;
-  justify-content: flex-start;
-  border: 1px solid red;
-`;
-
-const Card = styled.div`
-  min-width: 350px;
-  max-width: calc(100vw / 6 * 4);
-  aspect-ratio: 3 / 4;
-  background-color: green;
-`;
-
 const Background = styled(motion.div)<{ source: string; isFixed: boolean }>`
   position: ${({ isFixed }) => (isFixed ? "fixed" : "absolute")};
   top: 0;
@@ -139,14 +145,15 @@ const Background = styled(motion.div)<{ source: string; isFixed: boolean }>`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
-
   z-index: -1;
+  filter: blur(0.5rem);
 `;
 
 const Container = styled.section<{ $bgImgs: number }>`
   height: ${({ $bgImgs }) => $bgImgs * 100}vh;
   width: 100%;
   position: relative;
+  /* padding-left: 1rem; */
 `;
 
 const StickyArea = styled.div`
@@ -156,10 +163,11 @@ const StickyArea = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   & > div:first-child {
-    max-width: 350px;
-    margin: 6rem 0;
+    max-width: 300px;
+    margin-top: 5rem;
+    margin-bottom: 1rem;
   }
   overflow: hidden;
 `;
@@ -171,12 +179,80 @@ const Title = styled.div`
 const HorizontalWrapper = styled(motion.div)<{ $bgImgs: number }>`
   width: ${({ $bgImgs }) => $bgImgs * 100}vw;
   height: 50vh;
-  background-color: #000000b0;
+  margin-bottom: 3rem;
   display: flex;
   gap: 15vw;
+  background-color: #000000b0;
+`;
+
+const CardSlot = styled.div`
+  width: 80vw;
+  min-width: 200px;
+  flex-shrink: 0;
+  display: flex;
+`;
+
+const Card = styled.div`
+  min-width: 200px;
+  max-width: calc(100vw / 6 * 4);
+  aspect-ratio: 3/ 4;
+  padding: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 1rem;
+
+  &:hover {
+    background-color: white;
+    p,
+    h5,
+    h6,
+    h4 {
+      color: black;
+    }
+    .meta > .updated_at {
+      border-bottom: 1px solid black;
+    }
+  }
 `;
 
 //background 의 setInAcitive 또한 카드의 넓이만큼 이동했을때 변해야한다 .
 // 한 화면에 카드를 두장씩 보여주기 위해선 하나의 카드가 100vw 만큼의 넓이를 가져가면 볼 수 없다.
 // 하나의 카드가 80vw + gap 15vw 라면 5vw 만큼 다음카드가 보일거고
 // background 또한 95vw 만큼 이동시에 바껴야한다.
+
+const CardBody = styled.div`
+  flex: 7;
+
+  display: flex;
+  flex-direction: column;
+  .meta {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    .updated_at {
+      width: fit-content;
+      border-bottom: 1px solid white;
+    }
+  }
+  .title {
+    flex: 1.5;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+  .description {
+    flex: 3;
+    font-size: clamp(0.725rem, 2vw, 1.5rem);
+  }
+`;
+const CardThumbnail = styled.div`
+  flex: 3;
+  border: 1px solid blue;
+  border-radius: 1rem;
+`;
