@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import {
   motion,
   useScroll,
@@ -8,11 +8,10 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 
-import books, { Book, BookInterface } from "./../../constants/booksConstants";
+import books, { Book } from "./../../constants/booksConstants";
 import { BOOKINTRO } from "../../constants/textConstants";
-import useScreenStore from "../../stores/useScreenStore";
+import useScreenStore, { Mode } from "../../stores/useScreenStore";
 
-const sections = ["Section 1", "Section 2", "Section 3", "Section 4"];
 type ScrollPhase = "initial" | "mid" | "last";
 
 const Skills = () => {
@@ -105,9 +104,9 @@ const Skills = () => {
           />
         );
       })}
-      <StickyArea>
+      <StickyArea $mode={mode}>
         {mode !== "mobile" && <SectionIntro>{BOOKINTRO}</SectionIntro>}
-        <HorizontalWrapper style={{ x }} $totalBooks={data.length}>
+        <HorizontalWrapper style={{ x }} $totalBooks={data.length} $mode={mode}>
           {data.map(
             ({ title, src, description, formattedDate, isIntro }, i) => {
               return (
@@ -177,30 +176,42 @@ const Container = styled.section<{ $totalBooks: number }>`
   position: relative;
 `;
 
-const StickyArea = styled.div`
+const StickyArea = styled.div<{ $mode: Mode }>`
   position: sticky;
   top: 0;
   height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   overflow: hidden;
+  ${({ $mode }) =>
+    $mode === "mobile" &&
+    css`
+      padding-top: 6rem;
+    `}
 `;
 
 const SectionIntro = styled.div`
-  max-width: 300px;
+  max-width: 350px;
   margin-top: 5rem;
   margin-bottom: 1rem;
   padding-left: 1rem;
 `;
 
-const HorizontalWrapper = styled(motion.div)<{ $totalBooks: number }>`
+const HorizontalWrapper = styled(motion.div)<{
+  $totalBooks: number;
+  $mode: Mode;
+}>`
   width: ${({ $totalBooks }) => $totalBooks * 100}vw;
-  height: 60vh; //80vh
-  margin-bottom: 3rem;
+  height: ${({ $mode }) => ($mode === "mobile" ? "80vh" : "50vh")};
+  /* height: 70vh; */
+
+  /* margin-bottom: 3rem; */
   display: flex;
   gap: 15vw;
-  background-color: #000000b0;
+  background-color: #00000047;
+  /* background-color: red; */
 `;
 
 const CardSlot = styled.div`
