@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import {
   motion,
@@ -8,10 +8,7 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 
-import books from "../../assets/books.jpg";
-import deep from "../../assets/deep.jpg";
-import structure from "../../assets/structure3.jpg";
-import dark from "../../assets/dark.jpg";
+import books from "./../../constants/booksConstants";
 
 const sections = ["Section 1", "Section 2", "Section 3", "Section 4"];
 type ScrollPhase = "initial" | "mid" | "last";
@@ -26,7 +23,7 @@ const Skills = () => {
   const CARD_GAP = 15;
   const CARD_WIDTH = 80;
   const containerRef = useRef(null);
-  const bgImgs = [books, structure, deep, dark];
+
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isFixed, setIsFixed] = useState<boolean>(false);
   const { scrollYProgress: initial } = useScroll({
@@ -42,8 +39,7 @@ const Skills = () => {
     offset: ["end end", "end start"],
   });
 
-  const maxOffset = (bgImgs.length - 1) * CARD_TOTAL_WIDTH; //100
-
+  const maxOffset = (books.length - 1) * CARD_TOTAL_WIDTH; //100
   const rawX = useTransform(mid, [0, 1], [0, -maxOffset]);
   const initialY = useTransform(initial, [0, 1], [-50, 0]);
   const lastY = useTransform(last, [0, 1], [300, 400]);
@@ -68,20 +64,20 @@ const Skills = () => {
     const newIndex = Math.min(
       Math.round(offsetX / CARD_TOTAL_WIDTH),
 
-      bgImgs.length - 1
+      books.length - 1
     );
     setActiveIndex((prev) => (prev !== newIndex ? newIndex : prev));
   });
 
   return (
-    <Container ref={containerRef} $bgImgs={bgImgs.length}>
-      {bgImgs.map((source, i, arr) => {
+    <Container ref={containerRef} $bgImgs={books.length}>
+      {books.map(({ src }, i, arr) => {
         const step = getScrollPhase(i, arr.length);
         const y = getTranslateYByStep(step);
         return (
           <Background
             key={i}
-            source={source}
+            source={src}
             isFixed={isFixed}
             animate={{
               opacity: i === activeIndex ? 1 : 0,
@@ -98,31 +94,25 @@ const Skills = () => {
           repellendus. Ut eaque, libero minima sunt molestiae temporibus itaque
           esse nostrum quos possimus.
         </div>
-        <HorizontalWrapper style={{ x }} $bgImgs={bgImgs.length}>
-          {sections.map((v, i) => {
+        <HorizontalWrapper style={{ x }} $bgImgs={books.length}>
+          {books.map(({ updatedAt, title, src, description }, i) => {
             return (
               <CardSlot key={i}>
                 <Card>
                   <CardBody>
                     <div className="meta">
-                      <h6 className="index">{i + 1}</h6>
-                      <h6 className="updated_at">00.00.00</h6>
+                      <h5 className="index">{i + 1}</h5>
+                      <h6 className="updated_at">{updatedAt}</h6>
                     </div>
                     <div className="title">
-                      <h4>Deep Javascript</h4>
+                      <h4>{title}</h4>
                     </div>
                     <div className="description">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Optio, illo obcaecati accusamus, vel tempora dolorum
-                        repellendus at, est illum rerum reprehenderit quasi
-                        voluptates temporibus eligendi eos corporis deserunt
-                        sint eius.
-                      </p>
+                      <p>{description}</p>
                     </div>
                   </CardBody>
                   <CardThumbnail>
-                    <img src="#" alt="이미지" />
+                    <img src={src} alt="이미지" />
                   </CardThumbnail>
                 </Card>
               </CardSlot>
@@ -172,13 +162,10 @@ const StickyArea = styled.div`
   overflow: hidden;
 `;
 
-const Title = styled.div`
-  height: 20vh;
-`;
-
 const HorizontalWrapper = styled(motion.div)<{ $bgImgs: number }>`
   width: ${({ $bgImgs }) => $bgImgs * 100}vw;
-  height: 50vh;
+  /* width:0vw; */
+  height: 60vh; //80vh
   margin-bottom: 3rem;
   display: flex;
   gap: 15vw;
@@ -226,33 +213,47 @@ const Card = styled.div`
 // background 또한 95vw 만큼 이동시에 바껴야한다.
 
 const CardBody = styled.div`
-  flex: 7;
-
+  height: 60%;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
+  word-break: keep-all;
   .meta {
-    flex: 1;
+    flex: 1 0 20%;
     display: flex;
     justify-content: center;
     flex-direction: column;
+    flex-shrink: 0;
+    & > h5,
+    h6 {
+      height: 50%;
+    }
     .updated_at {
       width: fit-content;
       border-bottom: 1px solid white;
     }
   }
   .title {
-    flex: 1.5;
+    flex: 2 0 30%;
     font-weight: bold;
     display: flex;
     align-items: center;
+    flex-shrink: 0;
   }
   .description {
-    flex: 3;
+    flex: 3 0 50%;
     font-size: clamp(0.725rem, 2vw, 1.5rem);
   }
 `;
 const CardThumbnail = styled.div`
-  flex: 3;
-  border: 1px solid blue;
   border-radius: 1rem;
+  width: 100%;
+  height: 40%;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    object-fit: cover;
+  }
 `;
