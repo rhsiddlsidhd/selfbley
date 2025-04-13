@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import {
   motion,
@@ -8,7 +8,9 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 
-import books from "./../../constants/booksConstants";
+import books, { Book, BookInterface } from "./../../constants/booksConstants";
+import { BOOKINTRO } from "../../constants/textConstants";
+import useScreenStore from "../../stores/useScreenStore";
 
 const sections = ["Section 1", "Section 2", "Section 3", "Section 4"];
 type ScrollPhase = "initial" | "mid" | "last";
@@ -22,10 +24,12 @@ const Skills = () => {
   const CARD_TOTAL_WIDTH = 95;
   const CARD_GAP = 15;
   const CARD_WIDTH = 80;
+  const VIEWHEIGHT = 100;
   const containerRef = useRef(null);
-
+  const mode = useScreenStore((state) => state.mode);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isFixed, setIsFixed] = useState<boolean>(false);
+  const [data, setData] = useState<Book[]>([]);
   const { scrollYProgress: initial } = useScroll({
     target: containerRef,
     offset: ["start end", "start start"],
@@ -39,10 +43,12 @@ const Skills = () => {
     offset: ["end end", "end start"],
   });
 
-  const maxOffset = (books.length - 1) * CARD_TOTAL_WIDTH; //100
+  const maxOffset = (data.length - 1) * CARD_TOTAL_WIDTH; //100
+  const maxOffsetY = data.length * VIEWHEIGHT;
   const rawX = useTransform(mid, [0, 1], [0, -maxOffset]);
   const initialY = useTransform(initial, [0, 1], [-50, 0]);
-  const lastY = useTransform(last, [0, 1], [300, 400]);
+
+  const lastY = useTransform(last, [0, 1], [maxOffsetY - 100, maxOffsetY]); // 5개면 400 ~ 500
   const x = useMotionTemplate`${rawX}vw`;
   const initialTranslateY = useMotionTemplate`${initialY}%`;
   const lastTranslateY = useMotionTemplate`${lastY}%`;
@@ -64,14 +70,26 @@ const Skills = () => {
     const newIndex = Math.min(
       Math.round(offsetX / CARD_TOTAL_WIDTH),
 
-      books.length - 1
+      data.length - 1
     );
     setActiveIndex((prev) => (prev !== newIndex ? newIndex : prev));
   });
 
+  useEffect(() => {
+    const result =
+      mode !== "mobile"
+        ? books.filter((book) => book.description !== BOOKINTRO)
+        : books;
+    setData(result);
+  }, [mode]);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
-    <Container ref={containerRef} $bgImgs={books.length}>
-      {books.map(({ src }, i, arr) => {
+    <Container ref={containerRef} $totalBooks={data.length}>
+      {data.map(({ src }, i, arr) => {
         const step = getScrollPhase(i, arr.length);
         const y = getTranslateYByStep(step);
         return (
@@ -88,36 +106,50 @@ const Skills = () => {
         );
       })}
       <StickyArea>
-        <div style={{ paddingLeft: "1rem" }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-          reprehenderit aspernatur magnam tempora. Vero praesentium in deleniti
-          repellendus. Ut eaque, libero minima sunt molestiae temporibus itaque
-          esse nostrum quos possimus.
-        </div>
-        <HorizontalWrapper style={{ x }} $bgImgs={books.length}>
-          {books.map(({ updatedAt, title, src, description }, i) => {
-            return (
-              <CardSlot key={i}>
-                <Card>
-                  <CardBody>
-                    <div className="meta">
-                      <h5 className="index">{i + 1}</h5>
-                      <h6 className="updated_at">{updatedAt}</h6>
-                    </div>
-                    <div className="title">
-                      <h4>{title}</h4>
-                    </div>
-                    <div className="description">
-                      <p>{description}</p>
-                    </div>
-                  </CardBody>
-                  <CardThumbnail>
-                    <img src={src} alt="이미지" />
-                  </CardThumbnail>
-                </Card>
-              </CardSlot>
-            );
-          })}
+        {mode !== "mobile" && <SectionIntro>{BOOKINTRO}</SectionIntro>}
+        <HorizontalWrapper style={{ x }} $totalBooks={data.length}>
+          {data.map(
+            ({ title, src, description, formattedDate, isIntro }, i) => {
+              return (
+                <CardSlot key={i}>
+                  <Card>
+                    {isIntro ? (
+                      <CardBody>
+                        <div
+                          style={{
+                            height: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <h6>{description}</h6>
+                        </div>
+                      </CardBody>
+                    ) : (
+                      <CardBody>
+                        <div className="meta">
+                          <h5 className="index">
+                            {mode !== "mobile" ? i + 1 : i}
+                          </h5>
+                          <h6 className="updated_at">{formattedDate}</h6>
+                        </div>
+                        <div className="title">
+                          <h5>{title}</h5>
+                        </div>
+                        <div className="description">
+                          <p>{description}</p>
+                        </div>
+                      </CardBody>
+                    )}
+
+                    <CardThumbnail>
+                      <img src={src} alt="이미지" />
+                    </CardThumbnail>
+                  </Card>
+                </CardSlot>
+              );
+            }
+          )}
         </HorizontalWrapper>
       </StickyArea>
     </Container>
@@ -139,11 +171,10 @@ const Background = styled(motion.div)<{ source: string; isFixed: boolean }>`
   filter: blur(0.5rem);
 `;
 
-const Container = styled.section<{ $bgImgs: number }>`
-  height: ${({ $bgImgs }) => $bgImgs * 100}vh;
-  width: 100%;
+const Container = styled.section<{ $totalBooks: number }>`
+  height: ${({ $totalBooks }) => $totalBooks * 100}vh;
+  width: 100vw;
   position: relative;
-  /* padding-left: 1rem; */
 `;
 
 const StickyArea = styled.div`
@@ -153,18 +184,18 @@ const StickyArea = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  & > div:first-child {
-    max-width: 300px;
-    margin-top: 5rem;
-    margin-bottom: 1rem;
-  }
   overflow: hidden;
 `;
 
-const HorizontalWrapper = styled(motion.div)<{ $bgImgs: number }>`
-  width: ${({ $bgImgs }) => $bgImgs * 100}vw;
-  /* width:0vw; */
+const SectionIntro = styled.div`
+  max-width: 300px;
+  margin-top: 5rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+`;
+
+const HorizontalWrapper = styled(motion.div)<{ $totalBooks: number }>`
+  width: ${({ $totalBooks }) => $totalBooks * 100}vw;
   height: 60vh; //80vh
   margin-bottom: 3rem;
   display: flex;
