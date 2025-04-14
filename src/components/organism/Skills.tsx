@@ -8,11 +8,27 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 
-import books, { Book } from "./../../constants/booksConstants";
+import {
+  BOOK_SECTION_HEIGHT,
+  Book,
+  CARD_TOTAL_WIDTH,
+  CARD_WRAPPER_GAP,
+  CARD_WRAPPER_WIDTH,
+  INITIAL_Y_OFFSET,
+  books,
+} from "./../../constants/booksConstants";
 import { BOOKINTRO } from "../../constants/textConstants";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
+import { isScrollingBookSection } from "../../utils/calculate";
+import BookBackground from "./../atoms/BookBackground";
+import { getVisibleBooks } from "../../utils/transform";
+import TabletAndDesktop from "../atoms/TabletAndDesktop";
+import BookCard from "./../atoms/BookCard";
 
-type ScrollPhase = "initial" | "mid" | "last";
+export interface ExtendedBook extends Book {
+  isFirst: boolean;
+  isLast: boolean;
+}
 
 const Skills = () => {
   /**
@@ -20,15 +36,11 @@ const Skills = () => {
    * transform -50% => 0%
    */
 
-  const CARD_TOTAL_WIDTH = 95;
-  const CARD_GAP = 15;
-  const CARD_WIDTH = 80;
-  const VIEWHEIGHT = 100;
   const containerRef = useRef(null);
   const mode = useScreenStore((state) => state.mode);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isFixed, setIsFixed] = useState<boolean>(false);
-  const [data, setData] = useState<Book[]>([]);
+  const [bookData, setBookData] = useState<ExtendedBook[]>([]);
   const { scrollYProgress: initial } = useScroll({
     target: containerRef,
     offset: ["start end", "start start"],
@@ -42,114 +54,88 @@ const Skills = () => {
     offset: ["end end", "end start"],
   });
 
-  const maxOffset = (data.length - 1) * CARD_TOTAL_WIDTH; //100
-  const maxOffsetY = data.length * VIEWHEIGHT;
-  const rawX = useTransform(mid, [0, 1], [0, -maxOffset]);
-  const initialY = useTransform(initial, [0, 1], [-50, 0]);
-
-  const lastY = useTransform(last, [0, 1], [maxOffsetY - 100, maxOffsetY]); // 5개면 400 ~ 500
+  const maxOffsetX = (bookData.length - 1) * CARD_TOTAL_WIDTH;
+  const maxOffsetY = bookData.length * BOOK_SECTION_HEIGHT;
+  const rawX = useTransform(mid, [0, 1], [0, -maxOffsetX]);
+  const initialY = useTransform(initial, [0, 1], [INITIAL_Y_OFFSET, 0]);
+  const lastY = useTransform(last, [0, 1], [maxOffsetY - 100, maxOffsetY]);
   const x = useMotionTemplate`${rawX}vw`;
   const initialTranslateY = useMotionTemplate`${initialY}%`;
   const lastTranslateY = useMotionTemplate`${lastY}%`;
 
-  const isScrollRange = (n: number) => n > 0 && n < 1;
-  const getScrollPhase = (index: number, length: number): ScrollPhase => {
-    return index === 0 ? "initial" : index === length - 1 ? "last" : "mid";
-  };
-
-  const getTranslateYByStep = (step: ScrollPhase) => {
-    if (step === "initial" && !isFixed) return initialTranslateY;
-    if (step === "last" && !isFixed) return lastTranslateY;
-    return "0%";
-  };
   useMotionValueEvent(mid, "change", (latest) => {
-    setIsFixed(isScrollRange(latest));
+    setIsFixed(isScrollingBookSection(latest));
 
-    const offsetX = latest * maxOffset;
+    const offsetX = latest * maxOffsetX;
     const newIndex = Math.min(
       Math.round(offsetX / CARD_TOTAL_WIDTH),
-
-      data.length - 1
+      bookData.length - 1
     );
     setActiveIndex((prev) => (prev !== newIndex ? newIndex : prev));
   });
 
   useEffect(() => {
-    const result =
-      mode !== "mobile"
-        ? books.filter((book) => book.description !== BOOKINTRO)
-        : books;
-    setData(result);
+    const result = getVisibleBooks(books, mode, BOOKINTRO).map(
+      (item, idx, arr) => ({
+        ...item,
+        isFirst: idx === 0,
+        isLast: idx === arr.length - 1,
+      })
+    );
+    setBookData(result);
   }, [mode]);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
-    <Container ref={containerRef} $totalBooks={data.length}>
-      {data.map(({ src }, i, arr) => {
-        const step = getScrollPhase(i, arr.length);
-        const y = getTranslateYByStep(step);
+    <Container
+      ref={containerRef}
+      $totalBooks={bookData.length}
+      $bookSectionHeight={BOOK_SECTION_HEIGHT}
+    >
+      {bookData.map(({ src, isFirst, isLast }, i) => {
+        const y = isFixed
+          ? "0%"
+          : isFirst
+          ? initialTranslateY
+          : isLast
+          ? lastTranslateY
+          : "0%";
         return (
-          <Background
+          <motion.div
             key={i}
-            source={src}
-            isFixed={isFixed}
-            animate={{
-              opacity: i === activeIndex ? 1 : 0,
+            style={{
+              y,
+              width: "100%",
+              height: "100vh",
+              position: isFixed ? "fixed" : "absolute",
+              top: 0,
+              zIndex: -1,
             }}
-            style={{ y }}
             initial={false}
-          />
+            animate={{ opacity: i === activeIndex ? 1 : 0 }}
+          >
+            <BookBackground src={src} />
+          </motion.div>
         );
       })}
       <StickyArea $mode={mode}>
-        {mode !== "mobile" && <SectionIntro>{BOOKINTRO}</SectionIntro>}
-        <HorizontalWrapper style={{ x }} $totalBooks={data.length} $mode={mode}>
-          {data.map(
-            ({ title, src, description, formattedDate, isIntro }, i) => {
-              return (
-                <CardSlot key={i}>
-                  <Card>
-                    {isIntro ? (
-                      <CardBody>
-                        <div
-                          style={{
-                            height: "100%",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          <h6>{description}</h6>
-                        </div>
-                      </CardBody>
-                    ) : (
-                      <CardBody>
-                        <div className="meta">
-                          <h5 className="index">
-                            {mode !== "mobile" ? i + 1 : i}
-                          </h5>
-                          <h6 className="updated_at">{formattedDate}</h6>
-                        </div>
-                        <div className="title">
-                          <h5>{title}</h5>
-                        </div>
-                        <div className="description">
-                          <p>{description}</p>
-                        </div>
-                      </CardBody>
-                    )}
-
-                    <CardThumbnail>
-                      <img src={src} alt="이미지" />
-                    </CardThumbnail>
-                  </Card>
-                </CardSlot>
-              );
-            }
-          )}
-        </HorizontalWrapper>
+        {/* 가로스크롤 Content = Intro + 가로스크롤 or 가로스크롤(Intro 포함) */}
+        <TabletAndDesktop>
+          <SectionIntro>{BOOKINTRO}</SectionIntro>
+        </TabletAndDesktop>
+        <CardScroller
+          $gap={CARD_WRAPPER_GAP}
+          style={{ x }}
+          $totalBooks={bookData.length}
+          $mode={mode}
+        >
+          {bookData.map((book, idx) => {
+            return (
+              <SlideContainer key={idx} $width={CARD_WRAPPER_WIDTH}>
+                <BookCard book={book} idx={idx} />
+              </SlideContainer>
+            );
+          })}
+        </CardScroller>
       </StickyArea>
     </Container>
   );
@@ -157,21 +143,12 @@ const Skills = () => {
 
 export default Skills;
 
-const Background = styled(motion.div)<{ source: string; isFixed: boolean }>`
-  position: ${({ isFixed }) => (isFixed ? "fixed" : "absolute")};
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  background-image: url(${({ source }) => source});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: bottom;
-  z-index: -1;
-  filter: blur(0.5rem);
-`;
-
-const Container = styled.section<{ $totalBooks: number }>`
-  height: ${({ $totalBooks }) => $totalBooks * 100}vh;
+const Container = styled.section<{
+  $totalBooks: number;
+  $bookSectionHeight: number;
+}>`
+  height: ${({ $totalBooks, $bookSectionHeight }) =>
+    $totalBooks * $bookSectionHeight}vh;
   width: 100vw;
   position: relative;
 `;
@@ -183,7 +160,7 @@ const StickyArea = styled.div<{ $mode: Mode }>`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   overflow: hidden;
   ${({ $mode }) =>
     $mode === "mobile" &&
@@ -199,103 +176,27 @@ const SectionIntro = styled.div`
   padding-left: 1rem;
 `;
 
-const HorizontalWrapper = styled(motion.div)<{
+const CardScroller = styled(motion.div)<{
   $totalBooks: number;
   $mode: Mode;
+
+  $gap: number;
 }>`
   width: ${({ $totalBooks }) => $totalBooks * 100}vw;
-  height: ${({ $mode }) => ($mode === "mobile" ? "80vh" : "50vh")};
-  /* height: 70vh; */
-
-  /* margin-bottom: 3rem; */
+  height: ${({ $mode }) => ($mode === "mobile" ? "80vh" : "60vh")};
   display: flex;
-  gap: 15vw;
+  gap: ${({ $gap }) => `${$gap}vw`};
   background-color: #00000047;
-  /* background-color: red; */
 `;
 
-const CardSlot = styled.div`
-  width: 80vw;
+const SlideContainer = styled.div<{ $width: number }>`
+  width: ${({ $width }) => `${$width}vw`};
   min-width: 200px;
   flex-shrink: 0;
   display: flex;
-`;
-
-const Card = styled.div`
-  min-width: 200px;
-  max-width: calc(100vw / 6 * 4);
-  aspect-ratio: 3/ 4;
-  padding: 1rem;
-  border-radius: 10px;
-  cursor: pointer;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  gap: 1rem;
-
-  &:hover {
-    background-color: white;
-    p,
-    h5,
-    h6,
-    h4 {
-      color: black;
-    }
-    .meta > .updated_at {
-      border-bottom: 1px solid black;
-    }
-  }
 `;
 
 //background 의 setInAcitive 또한 카드의 넓이만큼 이동했을때 변해야한다 .
 // 한 화면에 카드를 두장씩 보여주기 위해선 하나의 카드가 100vw 만큼의 넓이를 가져가면 볼 수 없다.
 // 하나의 카드가 80vw + gap 15vw 라면 5vw 만큼 다음카드가 보일거고
 // background 또한 95vw 만큼 이동시에 바껴야한다.
-
-const CardBody = styled.div`
-  height: 60%;
-  overflow: scroll;
-  display: flex;
-  flex-direction: column;
-  word-break: keep-all;
-  .meta {
-    flex: 1 0 20%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    flex-shrink: 0;
-    & > h5,
-    h6 {
-      height: 50%;
-    }
-    .updated_at {
-      width: fit-content;
-      border-bottom: 1px solid white;
-    }
-  }
-  .title {
-    flex: 2 0 30%;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .description {
-    flex: 3 0 50%;
-    font-size: clamp(0.725rem, 2vw, 1.5rem);
-  }
-`;
-const CardThumbnail = styled.div`
-  border-radius: 1rem;
-  width: 100%;
-  height: 40%;
-
-  & > img {
-    width: 100%;
-    height: 100%;
-    border-radius: 1rem;
-    object-fit: cover;
-  }
-`;

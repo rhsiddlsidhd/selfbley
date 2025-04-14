@@ -6,11 +6,11 @@ import darkJpg from "../assets/dark.jpg";
 import { BOOKINTRO } from "./textConstants";
 
 interface BookInterface {
+  id: string;
   updatedAt: number;
   title: string;
   description: string;
   src: string;
-  isIntro?: boolean;
 }
 
 const formatDate = (date: number) => {
@@ -26,22 +26,22 @@ export class Book implements BookInterface {
    * @param title 책 제목
    * @param description 책 설명
    * @param src 책 이미지 경로
-   * @param isIntro 인트로 텍스트 여부 (기본값: false)
    */
   constructor(
+    public id: string,
     public updatedAt: number,
     public title: string,
     public description: string,
-    public src: string,
-    public isIntro: boolean = false
+    public src: string
   ) {
     this.formattedDate = formatDate(updatedAt);
   }
 }
 
-const intro = new Book(12391311, "", BOOKINTRO, bookintro, true);
+const intro = new Book("intro", 12345678, "", BOOKINTRO, bookintro);
 
 const interview = new Book(
+  "interview",
   20250101,
   "면접을 위한 CS 전공지식 노트",
   "Lorem ipsum dolor sit amet consectetur adipisicing elit.Optio, Lorem ipsum dolor sit amet consectetur adipisicing elit.Optio ",
@@ -49,6 +49,7 @@ const interview = new Book(
 );
 
 const learningJs = new Book(
+  "learningJs",
   20250102,
   "Learning Javascript Data Structures and Algorithms",
   "Lorem ipsum dolor sit amet consectetur adipisicing elit.Optio, Lorem ipsum dolor sit amet consectetur adipisicing elit.Optio ",
@@ -56,6 +57,7 @@ const learningJs = new Book(
 );
 
 const deepJs = new Book(
+  "deepJs",
   20250103,
   "Deep Javascript",
   "Lorem ipsum dolor sit amet consectetur adipisicing elit",
@@ -63,12 +65,17 @@ const deepJs = new Book(
 );
 
 const gracefulTs = new Book(
+  "gracefulTs",
   20250106,
   "우아한 타입스크립트 with 리액트",
   "vel tempora dolorum repellendus at, est illum rerum reprehenderit quasi voluptates temporibus eligendi eos corporis deserunt sint eius.",
   structureJpg
 );
 
-const books = [intro, interview, learningJs, deepJs, gracefulTs];
+export const books = [intro, interview, learningJs, deepJs, gracefulTs];
 
-export default books;
+export const CARD_WRAPPER_WIDTH = 85;
+export const CARD_WRAPPER_GAP = 0;
+export const CARD_TOTAL_WIDTH = CARD_WRAPPER_WIDTH + CARD_WRAPPER_GAP;
+export const BOOK_SECTION_HEIGHT = 100;
+export const INITIAL_Y_OFFSET = -50;

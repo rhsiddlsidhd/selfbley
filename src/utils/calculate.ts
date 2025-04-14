@@ -1,8 +1,10 @@
 import { CalculatetabWidth } from "../types/helper";
 
 export const calculatetabWidth = ({ id, ref }: CalculatetabWidth) => {
-  if (!ref.current[id]) return 0;
+  const el = ref.current[id];
+  if (!el) return 0;
 
-  const underLineWidth = ref.current[id].offsetWidth;
-  return underLineWidth;
+  return el.offsetWidth;
 };
+
+export const isScrollingBookSection = (n: number) => n > 0 && n < 1;
