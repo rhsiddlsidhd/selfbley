@@ -75,10 +75,6 @@ const BookSlider = () => {
     setActiveIndex((prev) => (prev !== newIndex ? newIndex : prev));
   });
 
-  useMotionValueEvent(last, "change", (latest) => {
-    console.log(latest);
-  });
-
   useEffect(() => {
     const result = getVisibleBooks(books, mode, BOOKINTRO).map(
       (item, idx, arr) => ({
