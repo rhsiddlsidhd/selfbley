@@ -37,6 +37,7 @@ const Main = () => {
           <Marquee />
           {/*scoll에 연결된 scale animtion을 이용한 skill 을 알려주는 section */}
           <InteractiveScale />
+          <div style={{ height: "100vh" }}></div>
         </>
       )}
     </>
