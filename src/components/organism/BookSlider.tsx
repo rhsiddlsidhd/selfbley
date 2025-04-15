@@ -16,26 +16,25 @@ import {
   CARD_WRAPPER_WIDTH,
   INITIAL_Y_OFFSET,
   books,
-} from "./../../constants/booksConstants";
+} from "../../constants/booksConstants";
 import { BOOKINTRO } from "../../constants/textConstants";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import { isScrollingBookSection } from "../../utils/calculate";
-import BookBackground from "./../atoms/BookBackground";
+import BookBackground from "../atoms/BookBackground";
 import { getVisibleBooks } from "../../utils/transform";
-import TabletAndDesktop from "../atoms/TabletAndDesktop";
-import BookCard from "./../atoms/BookCard";
+import BookCard from "../molecules/BookCard";
 
 export interface ExtendedBook extends Book {
   isFirst: boolean;
   isLast: boolean;
 }
 
-const Skills = () => {
-  /**
-   * first bg img
-   * transform -50% => 0%
-   */
+//background 의 setInAcitive 또한 카드의 넓이만큼 이동했을때 변해야한다 .
+// 한 화면에 카드를 두장씩 보여주기 위해선 하나의 카드가 100vw 만큼의 넓이를 가져가면 볼 수 없다.
+// 하나의 카드가 80vw + gap 15vw 라면 5vw 만큼 다음카드가 보일거고
+// background 또한 95vw 만큼 이동시에 바껴야한다.
 
+const BookSlider = () => {
   const containerRef = useRef(null);
   const mode = useScreenStore((state) => state.mode);
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -57,11 +56,13 @@ const Skills = () => {
   const maxOffsetX = (bookData.length - 1) * CARD_TOTAL_WIDTH;
   const maxOffsetY = bookData.length * BOOK_SECTION_HEIGHT;
   const rawX = useTransform(mid, [0, 1], [0, -maxOffsetX]);
+  const rawY = useTransform(mid, [0, 0.25, 1], [0, 25, 25]);
   const initialY = useTransform(initial, [0, 1], [INITIAL_Y_OFFSET, 0]);
-  const lastY = useTransform(last, [0, 1], [maxOffsetY - 100, maxOffsetY]);
+  const lastY = useTransform(last, [0, 1], [maxOffsetY - 75, maxOffsetY]);
   const x = useMotionTemplate`${rawX}vw`;
   const initialTranslateY = useMotionTemplate`${initialY}%`;
   const lastTranslateY = useMotionTemplate`${lastY}%`;
+  const generalY = useMotionTemplate`${rawY}%`;
 
   useMotionValueEvent(mid, "change", (latest) => {
     setIsFixed(isScrollingBookSection(latest));
@@ -72,6 +73,10 @@ const Skills = () => {
       bookData.length - 1
     );
     setActiveIndex((prev) => (prev !== newIndex ? newIndex : prev));
+  });
+
+  useMotionValueEvent(last, "change", (latest) => {
+    console.log(latest);
   });
 
   useEffect(() => {
@@ -91,37 +96,17 @@ const Skills = () => {
       $totalBooks={bookData.length}
       $bookSectionHeight={BOOK_SECTION_HEIGHT}
     >
-      {bookData.map(({ src, isFirst, isLast }, i) => {
-        const y = isFixed
-          ? "0%"
-          : isFirst
-          ? initialTranslateY
-          : isLast
-          ? lastTranslateY
-          : "0%";
-        return (
-          <motion.div
-            key={i}
-            style={{
-              y,
-              width: "100%",
-              height: "100vh",
-              position: isFixed ? "fixed" : "absolute",
-              top: 0,
-              zIndex: -1,
-            }}
-            initial={false}
-            animate={{ opacity: i === activeIndex ? 1 : 0 }}
-          >
-            <BookBackground src={src} />
-          </motion.div>
-        );
-      })}
+      <BookBackground
+        data={bookData}
+        isFixed={isFixed}
+        activeIndex={activeIndex}
+        initialTranslateY={initialTranslateY}
+        lastTranslateY={lastTranslateY}
+        generalY={generalY}
+      />
       <StickyArea $mode={mode}>
         {/* 가로스크롤 Content = Intro + 가로스크롤 or 가로스크롤(Intro 포함) */}
-        <TabletAndDesktop>
-          <SectionIntro>{BOOKINTRO}</SectionIntro>
-        </TabletAndDesktop>
+        {mode !== "mobile" && <SectionIntro>{BOOKINTRO}</SectionIntro>}
         <CardScroller
           $gap={CARD_WRAPPER_GAP}
           style={{ x }}
@@ -141,7 +126,7 @@ const Skills = () => {
   );
 };
 
-export default Skills;
+export default BookSlider;
 
 const Container = styled.section<{
   $totalBooks: number;
@@ -195,8 +180,3 @@ const SlideContainer = styled.div<{ $width: number }>`
   flex-shrink: 0;
   display: flex;
 `;
-
-//background 의 setInAcitive 또한 카드의 넓이만큼 이동했을때 변해야한다 .
-// 한 화면에 카드를 두장씩 보여주기 위해선 하나의 카드가 100vw 만큼의 넓이를 가져가면 볼 수 없다.
-// 하나의 카드가 80vw + gap 15vw 라면 5vw 만큼 다음카드가 보일거고
-// background 또한 95vw 만큼 이동시에 바껴야한다.

@@ -74,7 +74,7 @@ const gracefulTs = new Book(
 
 export const books = [intro, interview, learningJs, deepJs, gracefulTs];
 
-export const CARD_WRAPPER_WIDTH = 85;
+export const CARD_WRAPPER_WIDTH = 90;
 export const CARD_WRAPPER_GAP = 0;
 export const CARD_TOTAL_WIDTH = CARD_WRAPPER_WIDTH + CARD_WRAPPER_GAP;
 export const BOOK_SECTION_HEIGHT = 100;

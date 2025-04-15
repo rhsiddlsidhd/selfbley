@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import tennis0 from "../../assets/tennis0.jpg";
 import tennis1 from "../../assets/tennis1.jpg";
