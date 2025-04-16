@@ -43,4 +43,34 @@ const skills = {
   ],
 };
 
+export const language = [
+  { name: "html", icon: html },
+  { name: "css", icon: css },
+  {
+    name: "javascript",
+    icon: javascript,
+  },
+  { name: "typescript", icon: typescript },
+];
+
+export const fe = [
+  { name: "styled-components", icon: styledComponents },
+  { name: "react", icon: react },
+  { name: "redux", icon: redux },
+  { name: "zustand", icon: zustand },
+];
+
+export const be = [
+  { name: "nodeJs", icon: nodeJs },
+  { name: "express", icon: express },
+  { name: "mongodb", icon: mongodb },
+  { name: "firebase", icon: firebase },
+];
+
+export const etc = [
+  { name: "discord", icon: discord },
+  { name: "figma", icon: figma },
+  { name: "github", icon: github },
+];
+
 export default skills;
