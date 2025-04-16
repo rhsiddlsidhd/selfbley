@@ -16,16 +16,14 @@ const InteractiveScale: React.FC = () => {
     offset: ["start start", "end start"],
   });
 
-  const n = useTransform(scrollYProgress, [0, 0.3], [150, 0]);
+  const skillTabs = ["lang", "fe", "be", "overview", "etc"];
+
+  const n = useTransform(scrollYProgress, [0, 0.3], [200, 0]);
   const pos = useMotionTemplate`${n}%`;
   const neg = useMotionTemplate`-${n}%`;
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    setIsSticky(latest > 0 && latest < 1);
-  });
-
-  useMotionValueEvent(n, "change", (latest) => {
-    console.log(latest);
+    setIsSticky(latest > 0);
   });
 
   return (
@@ -33,27 +31,30 @@ const InteractiveScale: React.FC = () => {
       <HexagonWrapper
         style={{ position: isSticky ? "sticky" : "static", top: 0 }}
       >
-        <Hexagon $isSticky={isSticky}>
-          <motion.div style={{ x: neg }} className="lang">
-            1
-          </motion.div>
-          <motion.div style={{ y: neg }} className="fe">
+        <Hexagon
+          animate={{
+            width: isSticky ? "75%" : "100%",
+            height: isSticky ? "75%" : "100%",
+          }}
+          transition={{ duration: 0.6 }}
+        >
+          <SkillBox style={{ x: neg }} className="lang"></SkillBox>
+          <SkillBox style={{ y: neg }} className="fe">
             2
-          </motion.div>
-          <motion.div style={{ y: pos }} className="be">
+          </SkillBox>
+          <SkillBox style={{ y: pos }} className="be">
             3
-          </motion.div>
-          <motion.div
+          </SkillBox>
+          <SkillBox
             animate={{ scale: isSticky ? 1 : 2 }}
-            transition={{ duration: 1 }}
-            style={{ scale: 1 }}
+            transition={{ duration: 0.6 }}
             className="overview"
           >
             4
-          </motion.div>
-          <motion.div style={{ x: pos }} className="etc">
+          </SkillBox>
+          <SkillBox style={{ x: pos }} className="etc">
             5
-          </motion.div>
+          </SkillBox>
         </Hexagon>
       </HexagonWrapper>
     </Container>
@@ -72,18 +73,13 @@ const Container = styled.section`
 const HexagonWrapper = styled.div`
   width: 100%;
   height: 100vh;
-  /* margin-top: 6rem; */
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
 `;
 
-const Hexagon = styled.div<{ $isSticky: boolean }>`
-  width: ${({ $isSticky }) => ($isSticky ? "75%" : "100%")};
-  height: ${({ $isSticky }) => ($isSticky ? "75%" : "100%")};
-  transition: width 1s ease, height 1s ease;
-
+const Hexagon = styled(motion.div)`
   display: grid;
   grid-template-areas:
     "lang lang fe "
@@ -93,17 +89,14 @@ const Hexagon = styled.div<{ $isSticky: boolean }>`
   .lang {
     grid-area: lang;
     background-color: red;
-    /* transform: translate(-95%, 0); */
   }
   .fe {
     grid-area: fe;
     background-color: blue;
-    /* transform: translate(0, -95%); */
   }
   .be {
     grid-area: be;
     background-color: green;
-    /* transform: translate(0, 95%); */
   }
   .overview {
     grid-area: overview;
@@ -112,6 +105,7 @@ const Hexagon = styled.div<{ $isSticky: boolean }>`
   .etc {
     grid-area: etc;
     background-color: purple;
-    /* transform: translate(95%, 0); */
   }
 `;
+
+const SkillBox = styled(motion.div)``;
