@@ -5,8 +5,9 @@ import {
   useScroll,
   useTransform,
 } from "motion/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
+import html from "../../assets/html.svg";
 
 const InteractiveScale: React.FC = () => {
   const [isSticky, setIsSticky] = useState<boolean>(false);
@@ -38,22 +39,48 @@ const InteractiveScale: React.FC = () => {
           }}
           transition={{ duration: 0.6 }}
         >
-          <SkillBox style={{ x: neg }} className="lang"></SkillBox>
+          <SkillBox style={{ x: neg }} className="lang">
+            {Array.from({ length: 8 }, (_, i) => {
+              return (
+                <RowBox>
+                  <img src={html} key={i} />
+                </RowBox>
+              );
+            })}
+          </SkillBox>
           <SkillBox style={{ y: neg }} className="fe">
-            2
+            {Array.from({ length: 8 }, (_, i) => {
+              return (
+                <ColumnBox>
+                  <img src={html} key={i} />
+                </ColumnBox>
+              );
+            })}
           </SkillBox>
           <SkillBox style={{ y: pos }} className="be">
-            3
+            {Array.from({ length: 8 }, (_, i) => {
+              return (
+                <ColumnBox>
+                  <img src={html} key={i} />
+                </ColumnBox>
+              );
+            })}
           </SkillBox>
           <SkillBox
             animate={{ scale: isSticky ? 1 : 2 }}
             transition={{ duration: 0.6 }}
             className="overview"
           >
-            4
+            <h1>hi</h1>
           </SkillBox>
           <SkillBox style={{ x: pos }} className="etc">
-            5
+            {Array.from({ length: 8 }, (_, i) => {
+              return (
+                <RowBox>
+                  <img src={html} key={i} />
+                </RowBox>
+              );
+            })}
           </SkillBox>
         </Hexagon>
       </HexagonWrapper>
@@ -85,22 +112,29 @@ const Hexagon = styled(motion.div)`
     "lang lang fe "
     "be overview fe"
     "be etc etc";
-  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0.5rem;
   .lang {
     grid-area: lang;
-    background-color: red;
+
+    background-color: #a56666;
   }
   .fe {
     grid-area: fe;
-    background-color: blue;
+    background-color: #444477;
+    display: flex;
+    flex-wrap: wrap;
   }
   .be {
     grid-area: be;
-    background-color: green;
+    background-color: #618361;
+    display: flex;
+    flex-wrap: wrap;
   }
   .overview {
     grid-area: overview;
-    background-color: yellow;
+    background-color: #adada7;
   }
   .etc {
     grid-area: etc;
@@ -108,4 +142,23 @@ const Hexagon = styled(motion.div)`
   }
 `;
 
-const SkillBox = styled(motion.div)``;
+const SkillBox = styled(motion.div)`
+  display: flex;
+  /* justify-content: center; */ //overview
+  /* align-items: center; */ //overview
+  flex-wrap: wrap;
+
+  & > div {
+    border: 3px solid gray;
+    overflow: hidden;
+    & > img {
+    }
+  }
+`;
+
+const RowBox = styled(motion.div)`
+  width: calc(100% / 2); //mode mobile 2 tablet 3 desktop 4
+`;
+const ColumnBox = styled(motion.div)`
+  width: calc(100% / 1); //mode mobile 1 tablet 2 desktop 2
+`;
