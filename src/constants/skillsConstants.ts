@@ -43,34 +43,59 @@ const skills = {
   ],
 };
 
-export const language = [
-  { name: "html", icon: html },
-  { name: "css", icon: css },
-  {
-    name: "javascript",
-    icon: javascript,
-  },
-  { name: "typescript", icon: typescript },
-];
+export const language = {
+  title: "언어",
+  items: [
+    { name: "html", icon: html },
+    { name: "css", icon: css },
+    {
+      name: "javascript",
+      icon: javascript,
+    },
+    { name: "typescript", icon: typescript },
+  ],
+};
 
-export const fe = [
-  { name: "styled-components", icon: styledComponents },
-  { name: "react", icon: react },
-  { name: "redux", icon: redux },
-  { name: "zustand", icon: zustand },
-];
+export const fe = {
+  title: "프론트엔드",
+  items: [
+    { name: "styled-components", icon: styledComponents },
+    { name: "react", icon: react },
+    { name: "redux", icon: redux },
+    { name: "zustand", icon: zustand },
+  ],
+};
 
-export const be = [
-  { name: "nodeJs", icon: nodeJs },
-  { name: "express", icon: express },
-  { name: "mongodb", icon: mongodb },
-  { name: "firebase", icon: firebase },
-];
+export const be = {
+  title: "백엔드",
+  items: [
+    { name: "nodeJs", icon: nodeJs },
+    { name: "express", icon: express },
+    { name: "mongodb", icon: mongodb },
+    { name: "firebase", icon: firebase },
+  ],
+};
 
-export const etc = [
-  { name: "discord", icon: discord },
-  { name: "figma", icon: figma },
-  { name: "github", icon: github },
-];
+export const etc = {
+  title: "기타",
+  items: [
+    { name: "discord", icon: discord },
+    { name: "figma", icon: figma },
+    { name: "github", icon: github },
+  ],
+};
+
+const overview = {
+  title: "소개",
+  description: "해당 섹션은 저의 기술들을 소개합니다.",
+};
+
+export const technology = {
+  lang: language,
+  fe,
+  be,
+  etc,
+  overview,
+};
 
 export default skills;
