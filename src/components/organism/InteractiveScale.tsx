@@ -8,8 +8,10 @@ import {
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import html from "../../assets/html.svg";
+import useScreenStore from "../../stores/useScreenStore";
 
 const InteractiveScale: React.FC = () => {
+  const mode = useScreenStore((state) => state.mode);
   const [isSticky, setIsSticky] = useState<boolean>(false);
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -27,6 +29,7 @@ const InteractiveScale: React.FC = () => {
     setIsSticky(latest > 0);
   });
 
+  // useEffect(() => {}, [mode]);
   return (
     <Container ref={containerRef}>
       <HexagonWrapper
@@ -52,7 +55,7 @@ const InteractiveScale: React.FC = () => {
             {Array.from({ length: 8 }, (_, i) => {
               return (
                 <ColumnBox>
-                  <img src={html} key={i} />
+                  <img src="#" key={i} />
                 </ColumnBox>
               );
             })}
@@ -61,7 +64,7 @@ const InteractiveScale: React.FC = () => {
             {Array.from({ length: 8 }, (_, i) => {
               return (
                 <ColumnBox>
-                  <img src={html} key={i} />
+                  <img src="#" key={i} />
                 </ColumnBox>
               );
             })}
@@ -77,7 +80,7 @@ const InteractiveScale: React.FC = () => {
             {Array.from({ length: 8 }, (_, i) => {
               return (
                 <RowBox>
-                  <img src={html} key={i} />
+                  <img src="#" key={i} />
                 </RowBox>
               );
             })}
@@ -103,6 +106,7 @@ const HexagonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   overflow: hidden;
 `;
 
@@ -114,23 +118,19 @@ const Hexagon = styled(motion.div)`
     "be etc etc";
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
+
   gap: 0.5rem;
   .lang {
     grid-area: lang;
-
     background-color: #a56666;
   }
   .fe {
     grid-area: fe;
     background-color: #444477;
-    display: flex;
-    flex-wrap: wrap;
   }
   .be {
     grid-area: be;
     background-color: #618361;
-    display: flex;
-    flex-wrap: wrap;
   }
   .overview {
     grid-area: overview;
@@ -144,20 +144,27 @@ const Hexagon = styled(motion.div)`
 
 const SkillBox = styled(motion.div)`
   display: flex;
+  height: 100%;
+  overflow: auto;
+
+  flex-wrap: wrap;
   /* justify-content: center; */ //overview
   /* align-items: center; */ //overview
-  flex-wrap: wrap;
-
-  & > div {
-    border: 3px solid gray;
-    overflow: hidden;
-    & > img {
-    }
-  }
 `;
 
 const RowBox = styled(motion.div)`
-  width: calc(100% / 2); //mode mobile 2 tablet 3 desktop 4
+  //mode mobile 2 tablet 3 desktop 4
+  flex: 0 0 calc(100% / 2);
+  height: calc(100% / (8 / 2));
+  display: flex;
+  justify-content: center;
+
+  & > img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+  }
 `;
 const ColumnBox = styled(motion.div)`
   width: calc(100% / 1); //mode mobile 1 tablet 2 desktop 2
