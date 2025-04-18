@@ -43,7 +43,7 @@ const Container = styled.div<{ $mode: Mode; $styles: string }>`
     css`
       ${$styles}
     `}
-  z-index:11;
+  z-index:22;
 `;
 
 const Section = styled.div`

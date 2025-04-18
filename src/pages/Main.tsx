@@ -29,6 +29,7 @@ const Main = () => {
         <MainLoading onLoadingComplete={() => setType("PAGE_TRANSITION")} />
       ) : (
         <>
+          {/* 컴포넌트명을 주 animation을 활용 */}
           <Home />
           <Marquee />
           <InterView />
@@ -37,7 +38,7 @@ const Main = () => {
           <Marquee />
           {/*scoll에 연결된 scale animtion을 이용한 skill 을 알려주는 section */}
           <InteractiveScale />
-          <div style={{ height: "100vh" }}></div>
+          <div style={{ height: "100vh", backgroundColor: "white" }}></div>
         </>
       )}
     </>

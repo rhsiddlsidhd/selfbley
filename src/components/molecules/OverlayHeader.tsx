@@ -142,6 +142,6 @@ const MenuBtn = styled.button<{ $isView?: boolean }>`
   border: 3px solid gray;
   border-radius: 15%;
   cursor: pointer;
-  z-index: 20;
+  z-index: 22;
   margin-top: 1rem;
 `;

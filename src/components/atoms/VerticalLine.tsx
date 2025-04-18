@@ -28,7 +28,7 @@ const VerticalLineContainer = styled.div<{ $page: Page }>`
   position: fixed;
   background-color: transparent;
   display: flex;
-  z-index: 10;
+  z-index: 20;
   pointer-events: none;
 `;
 
