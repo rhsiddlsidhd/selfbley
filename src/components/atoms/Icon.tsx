@@ -18,7 +18,6 @@ const Icon = ({
 export default Icon;
 
 const IconWrapper = styled.div`
-  border: 1px solid #dfdede;
   & > img {
     width: 100%;
     height: 100%;

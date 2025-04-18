@@ -1,5 +1,6 @@
 import {
   motion,
+  MotionValue,
   useMotionTemplate,
   useMotionValueEvent,
   useScroll,
@@ -7,12 +8,15 @@ import {
 } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import html from "../../assets/html.svg";
 import useScreenStore from "../../stores/useScreenStore";
 import Icon from "../atoms/Icon";
 import { technology } from "./../../constants/skillsConstants";
+import frontFlaticon from "./../../assets/frontFlaticon.png";
 
 type TechnologyKey = keyof typeof technology;
+type StyleMap = {
+  [key in TechnologyKey]: Record<string, MotionValue<string>>;
+};
 
 const InteractiveScale: React.FC = () => {
   const mode = useScreenStore((state) => state.mode);
@@ -34,16 +38,25 @@ const InteractiveScale: React.FC = () => {
     "overview",
     "etc",
   ];
+  const techCategoryTabsColors: string[] = [
+    "#A27B5C", //rgb(126, 221, 238)
+    "#2C3639", //rgb(250, 85, 30)
+    "#3F4E4F", //"rgb(180, 220, 25)"
+    "black ", //rgb(0, 97, 254)
+    "#DCD7C9", //rgb(255, 140, 25)
+  ];
 
-  const n = useTransform(scrollYProgress, [0, 0.3], [200, 0]);
+  const s = useTransform(scrollYProgress, [0, 0.25], [2, 1]);
+  const n = useTransform(scrollYProgress, [0, 0.15], [100, 0]);
   const pos = useMotionTemplate`${n}%`;
   const neg = useMotionTemplate`-${n}%`;
+  const scale = useMotionTemplate`${s}`;
 
-  const styleMap: Record<string, any> = {
+  const styleMap: StyleMap = {
     lang: { x: neg },
     fe: { y: neg },
     be: { y: pos },
-    overview: { scale: isSticky ? 1 : 2 },
+    overview: { scale },
     etc: { x: pos },
   };
 
@@ -56,7 +69,17 @@ const InteractiveScale: React.FC = () => {
     const section = technology[tab];
 
     if ("description" in section) {
-      return <div>{section.description}</div>;
+      return (
+        <Overview
+          $isSticky={isSticky}
+          animate={{
+            color: isSticky ? "#EA1821" : "rgb(255, 255, 255)",
+          }}
+        >
+          <p>overview</p>
+          <p>{section.description}</p>
+        </Overview>
+      );
     } else {
       return layout === "col"
         ? section.items.map(({ name, icon }, _, arr) => {
@@ -95,20 +118,33 @@ const InteractiveScale: React.FC = () => {
       <StickySection
         style={{ position: isSticky ? "sticky" : "static", top: 0 }}
       >
+        {/* <Background $length={isSticky ? 10 : 20}>
+          {Array.from({ length: 10 }, (_, i) => {
+            return <div key={i} />;
+          })}
+        </Background> */}
         <ContentWrapper
           animate={{
-            width: isSticky ? "75%" : "100%",
-            height: isSticky ? "75%" : "100%",
+            width: isSticky ? "80%" : "100%",
+            height: isSticky ? "80%" : "100%",
           }}
-          transition={{ duration: 0.6 }}
         >
           {technologyTabs.map((tab, i) => {
             const style = styleMap[tab];
             //우선 tab에서 overview 만 따로 걸러주고
             //이후에 tab에 따라 layout = string을 추가하고 return 던져줌
-
+            const colors = techCategoryTabsColors[i];
             return (
-              <TechCategoryBox key={i} className={tab} style={style}>
+              <TechCategoryBox
+                key={i}
+                $name={tab}
+                $colors={colors}
+                $isSticky={isSticky}
+                style={style}
+                animate={{
+                  backgroundColor: isSticky ? colors : "rgba(0, 0, 0, 0)",
+                }}
+              >
                 {renderTechnology(tab)}
               </TechCategoryBox>
             );
@@ -121,11 +157,25 @@ const InteractiveScale: React.FC = () => {
 
 export default InteractiveScale;
 
+const Background = styled.div<{ $length: number }>`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  & > div {
+    width: 100%;
+    height: ${({ $length }) => `calc(100% / ${$length})`};
+    border-bottom: 2px solid #7178852b;
+  }
+`;
+
 const Container = styled.section`
   position: relative;
   width: 100vw;
-  height: 200vh;
-  background-color: #dfdede;
+  height: 300vh;
+  background-color: black;
 `;
 
 const StickySection = styled.div`
@@ -134,47 +184,34 @@ const StickySection = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  z-index: 11;
 `;
 
 const ContentWrapper = styled(motion.div)`
   display: grid;
+
   grid-template-areas:
     "lang lang fe "
     "be overview fe"
     "be etc etc";
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-
   gap: 0.5rem;
-  .lang {
-    grid-area: lang;
-    background-color: #a56666;
-  }
-  .fe {
-    grid-area: fe;
-    background-color: #444477;
-  }
-  .be {
-    grid-area: be;
-    background-color: #618361;
-  }
-  .overview {
-    grid-area: overview;
-    background-color: #adada7;
-  }
-  .etc {
-    grid-area: etc;
-    background-color: purple;
-  }
 `;
 
-const TechCategoryBox = styled(motion.div)`
-  display: flex;
+const TechCategoryBox = styled(motion.div)<{
+  $name: TechnologyKey;
+  $colors: string;
+  $isSticky: boolean;
+}>`
   height: 100%;
+  grid-area: ${({ $name }) => $name};
+
+  display: flex;
   overflow: auto;
   flex-wrap: wrap;
-  /* justify-content: center; */ //overview
-  /* align-items: center; */ //overview
+  /* border: 1px solid #7178852b; */
+  border-radius: 1rem;
 `;
 
 const TechnologyRow = styled(motion.div)<{
@@ -191,18 +228,13 @@ const TechnologyRow = styled(motion.div)<{
   justify-content: center;
   align-items: center;
 `;
+
 const TechnologyCol = styled(motion.div)<{
   $itemsPerCol: number;
   $totalItems: number;
 }>`
   // width: calc(100% / 1); //mode mobile 1 tablet 2 desktop 2
   flex: ${({ $itemsPerCol }) => `0 0 calc(100% / ${$itemsPerCol})`};
-  /* height: calc(
-    100% / 8
-  );  */
-
-  height: ${({ $totalItems }) =>
-    `calc(100% / ${$totalItems})`}; // 총 item의 개수를 나눠서 각 아이템의 고유의 height를 가져가야함
   height: ${({ $itemsPerCol, $totalItems }) => {
     const colCount = Math.ceil($totalItems / $itemsPerCol);
     return `calc(100% / ${colCount})`;
@@ -210,4 +242,14 @@ const TechnologyCol = styled(motion.div)<{
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const Overview = styled(motion.div)<{ $isSticky: boolean }>`
+  position: relative;
+  font-size: clamp(0.25rem, 2vw, 1rem);
+  font-weight: bold;
+  padding: 1rem 0 0 1rem;
+  & > p {
+    color: inherit;
+  }
 `;
