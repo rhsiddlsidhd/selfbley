@@ -44,7 +44,7 @@ const skills = {
 };
 
 export const language = {
-  title: "언어",
+  title: "language",
   items: [
     { name: "html", icon: html },
     { name: "css", icon: css },
@@ -57,7 +57,7 @@ export const language = {
 };
 
 export const fe = {
-  title: "프론트엔드",
+  title: "frontend",
   items: [
     { name: "styled-components", icon: styledComponents },
     { name: "react", icon: react },
@@ -67,7 +67,7 @@ export const fe = {
 };
 
 export const be = {
-  title: "백엔드",
+  title: "backend",
   items: [
     { name: "nodeJs", icon: nodeJs },
     { name: "express", icon: express },
@@ -77,7 +77,7 @@ export const be = {
 };
 
 export const etc = {
-  title: "기타",
+  title: "etc",
   items: [
     { name: "discord", icon: discord },
     { name: "figma", icon: figma },
@@ -86,7 +86,7 @@ export const etc = {
 };
 
 const overview = {
-  title: "소개",
+  title: "overview",
   description: "해당 섹션은 저의 기술들을 소개합니다.",
 };
 
