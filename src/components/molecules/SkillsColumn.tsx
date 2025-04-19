@@ -17,9 +17,7 @@ const SkillsColumn = ({
   icon,
 }: SkillsColumn) => {
   const mode = useScreenStore((state) => state.mode);
-
   const colItemLimit = mode !== "desktop" ? 1 : 2;
-
   return (
     <TechnologyCol key={name} $itemLimit={colItemLimit} $totalItems={total}>
       <Icon source={icon} style={{ width: "95%", height: "90%" }} />

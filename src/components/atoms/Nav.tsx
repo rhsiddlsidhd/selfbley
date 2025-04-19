@@ -9,7 +9,7 @@ import useScreenStore from "../../stores/useScreenStore";
 import { ROUTES } from "../../constants/routes";
 import { ROUTESKeys } from "../../types/routes";
 import { handleNavigate } from "../../utils/navigation";
-import { calculatetabWidth } from "../../utils/calculate";
+import { calculatetabWidth } from "../../utils/calculation";
 
 interface CreateTabUnderlineProps {
   e: React.MouseEvent;

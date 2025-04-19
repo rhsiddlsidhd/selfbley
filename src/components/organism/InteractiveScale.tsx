@@ -1,7 +1,6 @@
 import { useMotionValueEvent, useScroll } from "motion/react";
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-
 import Skills from "./Skills";
 
 const InteractiveScale: React.FC = () => {

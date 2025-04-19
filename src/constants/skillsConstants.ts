@@ -14,6 +14,13 @@ import discord from "../assets/discord.svg";
 import figma from "../assets/figma.svg";
 import github from "../assets/github.svg";
 
+export type TechnologyKey = keyof typeof technology;
+
+interface SkillArea {
+  key: TechnologyKey;
+  color: string;
+}
+
 const skills = {
   LANGUAGE: [
     { name: "html", icon: html },
@@ -43,7 +50,7 @@ const skills = {
   ],
 };
 
-export const language = {
+const language = {
   title: "language",
   items: [
     { name: "html", icon: html },
@@ -56,7 +63,7 @@ export const language = {
   ],
 };
 
-export const fe = {
+const frontend = {
   title: "frontend",
   items: [
     { name: "styled-components", icon: styledComponents },
@@ -66,7 +73,7 @@ export const fe = {
   ],
 };
 
-export const be = {
+const backend = {
   title: "backend",
   items: [
     { name: "nodeJs", icon: nodeJs },
@@ -76,7 +83,7 @@ export const be = {
   ],
 };
 
-export const etc = {
+const etc = {
   title: "etc",
   items: [
     { name: "discord", icon: discord },
@@ -90,10 +97,33 @@ const overview = {
   description: "해당 섹션은 저의 기술들을 소개합니다.",
 };
 
+export const skillAreas: SkillArea[] = [
+  {
+    key: "language",
+    color: "rgb(162, 123, 92)",
+  },
+  {
+    key: "frontend",
+    color: "rgb(44, 54, 57)",
+  },
+  {
+    key: "backend",
+    color: "rgb(63, 78, 79)",
+  },
+  {
+    key: "overview",
+    color: "rgb(0,0,0)",
+  },
+  {
+    key: "etc",
+    color: "rgb(220, 215, 201)",
+  },
+];
+
 export const technology = {
-  lang: language,
-  fe,
-  be,
+  language,
+  frontend,
+  backend,
   etc,
   overview,
 };

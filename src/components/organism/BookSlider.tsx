@@ -19,7 +19,7 @@ import {
 } from "../../constants/booksConstants";
 import { BOOKINTRO } from "../../constants/textConstants";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
-import { isScrollingBookSection } from "../../utils/calculate";
+import { isScrollingBookSection } from "../../utils/calculation";
 import BookBackground from "../atoms/BookBackground";
 import { getVisibleBooks } from "../../utils/transform";
 import BookCard from "../molecules/BookCard";
