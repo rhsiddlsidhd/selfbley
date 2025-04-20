@@ -52,6 +52,8 @@ const OverlayHeader = () => {
             <Logo
               styles={`left: 50%; transform: translate(-50%, 0%); top:0; margin-top:3rem; position: fixed;`}
             />
+
+            {/* Nav 하나 하나 TEXT closeOverlayMenu 핸들러 어떻게 넣을지 고민해야함 */}
             <MenuItems>
               <Nav />
               <MenuBtn $isView={isView}>
@@ -116,7 +118,7 @@ const NavWrapper = styled.div<{ $animationProgress: boolean }>`
   justify-content: start;
   align-items: center;
   overflow: scroll;
-  z-index: 12;
+  z-index: 25;
   /* background-color: pink; */
 `;
 
