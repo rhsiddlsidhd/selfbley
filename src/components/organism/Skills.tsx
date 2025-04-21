@@ -9,6 +9,7 @@ import { styled } from "styled-components";
 import { TechnologyKey, skillAreas } from "../../constants/skillsConstants";
 import useScrollTemplatePctValue from "../../hooks/useScrollTemplatePctValue";
 import SkillItem from "../molecules/SkillItem";
+import { useEffect, useState } from "react";
 
 type StyleMap = {
   [key in TechnologyKey]: Record<string, MotionValue<string>>;
@@ -19,7 +20,16 @@ interface SkillsProps {
   scroll: MotionValue<number>;
 }
 
+type AreasHover = { [key in TechnologyKey]: boolean };
+
 const Skills = ({ isSticky, scroll }: SkillsProps) => {
+  const [areaHover, setAreaHover] = useState<AreasHover>({
+    language: false,
+    frontend: false,
+    backend: false,
+    etc: false,
+    overview: false,
+  });
   const scrollScaleValue = useTransform(scroll, [0, 0.6], [2, 1]);
   const overViewScale = useMotionTemplate`${scrollScaleValue}`;
   const langTranslateX = useScrollTemplatePctValue({
@@ -56,8 +66,16 @@ const Skills = ({ isSticky, scroll }: SkillsProps) => {
     etc: { x: etcTranslateX },
   };
 
+  const handleGridArea = (id: TechnologyKey) => {
+    setAreaHover((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  useEffect(() => {
+    console.log(areaHover);
+  }, [areaHover]);
+
   return (
-    <Container
+    <GridContainer
       animate={{
         width: isSticky ? "75%" : "100%",
         height: isSticky ? "75%" : "100%",
@@ -66,26 +84,27 @@ const Skills = ({ isSticky, scroll }: SkillsProps) => {
       {skillAreas.map(({ key: tab, color }) => {
         const style = styleMap[tab];
         return (
-          <SkillArea
+          <GridArea
             key={tab}
             $name={tab}
             style={style}
+            onClick={() => handleGridArea(tab)}
             animate={{
               backgroundColor: isSticky ? color : "rgba(0, 0, 0, 0)",
               color: isSticky ? "#EA1821" : "rgb(255, 255, 255)",
             }}
           >
-            <SkillItem tab={tab} />
-          </SkillArea>
+            {areaHover[tab] ? <SkillItem tab={tab} /> : <div>{tab}</div>}
+          </GridArea>
         );
       })}
-    </Container>
+    </GridContainer>
   );
 };
 
 export default Skills;
 
-const Container = styled(motion.div)`
+const GridContainer = styled(motion.div)`
   display: grid;
   grid-template-areas:
     "language language frontend"
@@ -96,7 +115,7 @@ const Container = styled(motion.div)`
   gap: 0.5rem;
 `;
 
-const SkillArea = styled(motion.div)<{
+const GridArea = styled(motion.div)<{
   $name: TechnologyKey;
 }>`
   height: 100%;

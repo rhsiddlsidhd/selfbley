@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import Skills from "./Skills";
 
-const InteractiveScale: React.FC = () => {
+const DynamicSkills: React.FC = () => {
   //주 animation은 Tetris
 
   const [isSticky, setIsSticky] = useState<boolean>(false);
@@ -29,7 +29,7 @@ const InteractiveScale: React.FC = () => {
   );
 };
 
-export default InteractiveScale;
+export default DynamicSkills;
 
 const Container = styled.section`
   position: relative;

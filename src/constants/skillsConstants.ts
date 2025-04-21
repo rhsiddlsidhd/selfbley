@@ -61,7 +61,7 @@ const language = {
     },
     { name: "typescript", icon: typescript },
   ],
-};
+} as const;
 
 const frontend = {
   title: "frontend",
@@ -71,7 +71,7 @@ const frontend = {
     { name: "redux", icon: redux },
     { name: "zustand", icon: zustand },
   ],
-};
+} as const;
 
 const backend = {
   title: "backend",
@@ -81,7 +81,7 @@ const backend = {
     { name: "mongodb", icon: mongodb },
     { name: "firebase", icon: firebase },
   ],
-};
+} as const;
 
 const etc = {
   title: "etc",
@@ -90,12 +90,12 @@ const etc = {
     { name: "figma", icon: figma },
     { name: "github", icon: github },
   ],
-};
+} as const;
 
 const overview = {
   title: "overview",
   description: "해당 섹션은 저의 기술들을 소개합니다.",
-};
+} as const;
 
 export const skillAreas: SkillArea[] = [
   {
@@ -126,6 +126,6 @@ export const technology = {
   backend,
   etc,
   overview,
-};
+} as const;
 
 export default skills;
