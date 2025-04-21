@@ -3,8 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Skills from "./Skills";
 import { TechnologyKey } from "../../constants/skillsConstants";
-import SkillItem from "../molecules/SkillItem";
-import SkillList from "../molecules/SkillList";
 
 const DynamicSkills: React.FC = () => {
   const skillsKeys: TechnologyKey[] = [
@@ -13,7 +11,11 @@ const DynamicSkills: React.FC = () => {
     "backend",
     "etc",
   ];
+
+  const marqueeSkillsKeys = [...skillsKeys, ...skillsKeys];
+
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(true);
   const [isSticky, setIsSticky] = useState<boolean>(false);
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -28,17 +30,31 @@ const DynamicSkills: React.FC = () => {
   useEffect(() => {
     if (isSticky) {
       const id = setInterval(() => {
-        setActiveIndex((prev) => (prev + 1) % skillsKeys.length);
+        setActiveIndex((prev) => prev + 1);
       }, 3000);
       return () => clearInterval(id);
     }
   }, [isSticky]);
 
-  const ITEM_HEIGHT = 120;
+  useEffect(() => {
+    if (activeIndex === skillsKeys.length) {
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setActiveIndex(0);
+      }, 600);
+
+      setTimeout(() => {
+        setIsTransitioning(true);
+      }, 700);
+    }
+  }, [activeIndex, skillsKeys.length]);
 
   useEffect(() => {
     console.log(activeIndex);
   }, [activeIndex]);
+
+  const VISIBLE_COUNT = 3;
+  const centerOffset = Math.floor(VISIBLE_COUNT / 2);
 
   return (
     <Container ref={containerRef}>
@@ -48,75 +64,75 @@ const DynamicSkills: React.FC = () => {
         {/* 컨텐츠 : skills 목록들을 grid 형태의 카드 형식으로 보여준다 */}
         {/* <Skills isSticky={isSticky} scroll={scrollYProgress} /> */}
         {/* 수정안: isSicky skills title들이 opacity로 나타난다. */}
-        <Content
+        <ContentWrapper
           animate={{
-            width: isSticky ? "70%" : "100%",
-            height: isSticky ? "70%" : "100%",
+            width: isSticky ? "calc(100% / 6 *  4)" : "100%",
+            height: isSticky ? "50%" : "100%",
           }}
         >
-          <Title>Overview</Title>
-          <Roller>
-            <RollerList
-              animate={{ y: -activeIndex * ITEM_HEIGHT }}
-              transition={{ type: "spring", stiffness: 200, damping: 30 }}
-            >
-              {skillsKeys.map((skill, i) => (
-                <div
-                  key={skill}
-                  style={{
-                    height: ITEM_HEIGHT,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "2rem",
-                    fontWeight: i === activeIndex ? "bold" : "normal",
-                    opacity: i === activeIndex ? 1 : 0.5,
-                    transition: "opacity 0.3s ease",
-                  }}
-                >
-                  {skill}
-                </div>
-              ))}
-            </RollerList>
-          </Roller>
-          {/* <ul>
-            {skillsKeys.map((value, i) => {
-              return <SkillList tab={value} key={i} />;
-            })}
-          </ul> */}
-        </Content>
+          <Title>
+            <p>overview</p>
+          </Title>
+          <Content animate={{ opacity: isSticky ? 1 : 0 }}>
+            {/* 마키와 같은 원리   */}
+            {/* active 아이템을 center에 위치시키기 위한 방법 */}
+            {/*  */}
+            <Roller>
+              {marqueeSkillsKeys.map((v, i) => {
+                const centerIndex = activeIndex + centerOffset;
+                console.log(centerIndex);
+                return (
+                  <RollerItem
+                    animate={{ y: `-${activeIndex * 100}%` }}
+                    transition={
+                      isTransitioning
+                        ? { duration: 0.6, ease: "easeInOut" }
+                        : { duration: 0 }
+                    }
+                    style={{
+                      fontWeight: i === centerIndex ? "bold" : "normal",
+                    }}
+                  >
+                    {v}
+                  </RollerItem>
+                );
+              })}
+            </Roller>
+          </Content>
+        </ContentWrapper>
       </StickySection>
     </Container>
   );
 };
 
 export default DynamicSkills;
-
-const RollerList = styled(motion.div)`
+const Content = styled(motion.div)`
+  flex: 1 0 auto;
+  background-color: blue;
   display: flex;
-  flex-direction: column;
+  align-items: center;
 `;
 
-const Roller = styled.div`
-  width: 100%;
-  overflow: hidden;
-  position: relative;
+const RollerItem = styled(motion.div)`
+  height: calc(100% / 3);
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
+const Roller = styled(motion.div)`
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+`;
+
 const Title = styled.div``;
 
-const Content = styled(motion.div)`
-  /* width: 80%; */
-  /* height: 100%; */
+const ContentWrapper = styled(motion.div)`
   border: 1px solid red;
   display: flex;
   flex-direction: column;
-  & > ul {
-    list-style: none;
-  }
 `;
 
 const Container = styled.section`
