@@ -21,35 +21,6 @@ interface SkillArea {
   color: string;
 }
 
-const skills = {
-  LANGUAGE: [
-    { name: "html", icon: html },
-    { name: "css", icon: css },
-    {
-      name: "javascript",
-      icon: javascript,
-    },
-    { name: "typescript", icon: typescript },
-  ],
-  FE: [
-    { name: "styled-components", icon: styledComponents },
-    { name: "react", icon: react },
-    { name: "redux", icon: redux },
-    { name: "zustand", icon: zustand },
-  ],
-  BE: [
-    { name: "nodeJs", icon: nodeJs },
-    { name: "express", icon: express },
-    { name: "mongodb", icon: mongodb },
-    { name: "firebase", icon: firebase },
-  ],
-  ETC: [
-    { name: "discord", icon: discord },
-    { name: "figma", icon: figma },
-    { name: "github", icon: github },
-  ],
-};
-
 const language = {
   title: "language",
   items: [
@@ -127,5 +98,3 @@ export const technology = {
   etc,
   overview,
 } as const;
-
-export default skills;

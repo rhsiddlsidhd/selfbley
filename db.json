@@ -18,7 +18,8 @@
       ],
       "thumnail": "public/mountain.jpg",
       "technologies": {
-        "FE": ["HTML", "CSS", "JAVASCRIPT"],
+        "LANGUAGE": ["HTML", "CSS", "JAVASCRIPT"],
+        "FE": ["styled-components", "react", "redux", "zustand"],
         "BE": ["NODE.JS", "EXPRESS"]
       },
       "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit.Placeat eum temporibus voluptatibus est expedita,similique nemo consequuntur voluptatem corrupti illumitaque quidem? Necessitatibus odio vitae officiisducimus earum dolorem repellendus. Lorem ipsum dolor sitamet consectetur adipisicing elit. Voluptate corporisculpa autem temporibus dolorem assumenda voluptatibusaliquid error numquam velit, consectetur mollitiadignissimos, odio similique dolorum esse iure veladipisci."

@@ -2,10 +2,10 @@ import React from "react";
 import { styled } from "styled-components";
 import { ExtendedBook } from "../organism/BookSlider";
 import useScreenStore from "../../stores/useScreenStore";
-import Thumbnail from "../atoms/ThumbNail";
 
 import IntroCardBody from "../atoms/IntroCardBody";
 import DefaultCardBody from "../atoms/DefaultCardBody";
+import Thumbnail from "../atoms/Thumbnail";
 
 const BookCard = ({ book, idx }: { book: ExtendedBook; idx: number }) => {
   const { description, id, formattedDate, src, title } = book;

@@ -21,7 +21,7 @@ const Project = ({ data, index }: { data: ProjectData; index: number }) => {
   const type = useAnimationProgressStore((state) => state.type);
 
   const isBadgeType = (category: string): category is BadgeTypes => {
-    const validTypes = ["SINGLE", "TEAM", "FE", "BE", "ETC"];
+    const validTypes = ["SINGLE", "TEAM", "FE", "BE", "ETC", "LANGUAGE"];
     return validTypes.includes(category);
   };
 

@@ -66,10 +66,6 @@ const Skills = ({ isSticky, scroll }: SkillsProps) => {
     etc: { x: etcTranslateX },
   };
 
-  const handleGridArea = (id: TechnologyKey) => {
-    setAreaHover((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
-
   useEffect(() => {
     console.log(areaHover);
   }, [areaHover]);
@@ -88,13 +84,12 @@ const Skills = ({ isSticky, scroll }: SkillsProps) => {
             key={tab}
             $name={tab}
             style={style}
-            onClick={() => handleGridArea(tab)}
             animate={{
               backgroundColor: isSticky ? color : "rgba(0, 0, 0, 0)",
               color: isSticky ? "#EA1821" : "rgb(255, 255, 255)",
             }}
           >
-            {areaHover[tab] ? <SkillItem tab={tab} /> : <div>{tab}</div>}
+            <SkillItem tab={tab} />
           </GridArea>
         );
       })}
@@ -103,6 +98,15 @@ const Skills = ({ isSticky, scroll }: SkillsProps) => {
 };
 
 export default Skills;
+
+const Background = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 1rem;
+
+  & > p {
+  }
+`;
 
 const GridContainer = styled(motion.div)`
   display: grid;
@@ -118,6 +122,7 @@ const GridContainer = styled(motion.div)`
 const GridArea = styled(motion.div)<{
   $name: TechnologyKey;
 }>`
+  position: relative;
   height: 100%;
   grid-area: ${({ $name }) => $name};
   display: flex;

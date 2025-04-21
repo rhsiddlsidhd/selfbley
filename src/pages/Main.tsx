@@ -7,7 +7,7 @@ import Marquee from "../components/organism/Marquee";
 import InterView from "../components/organism/InterView";
 import Scratch from "../components/organism/Scratch";
 import BookSlider from "../components/organism/BookSlider";
-import DynamicSkills from "../components/organism/InteractiveScale";
+import DynamicSkills from "../components/organism/DynamicSkills";
 
 const Main = () => {
   const { type, setType } = useAnimationProgressStore();
