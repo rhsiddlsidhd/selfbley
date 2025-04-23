@@ -100,3 +100,10 @@ export const technology = {
   etc,
   overview,
 } as const;
+
+export const skillsKeys: TechnologyKey[] = [
+  "language",
+  "frontend",
+  "backend",
+  "etc",
+];

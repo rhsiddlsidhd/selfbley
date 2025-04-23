@@ -1,8 +1,11 @@
 import { motion } from "motion/react";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { technology } from "../../constants/skillsConstants";
-import RollingSkillList from "../molecules/RollingSkillList";
+
+import useScreenStore from "../../stores/useScreenStore";
+
+import { RollerItems } from "../molecules/RollerItems";
 interface SkillContentProps {
   isSticky: boolean;
 }
@@ -13,31 +16,94 @@ export interface SkillIcons {
 }
 
 const SkillContent = ({ isSticky }: SkillContentProps) => {
+  const intervalRef = useRef<NodeJS.Timeout>(null);
+  const mode = useScreenStore((state) => state.mode);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(true);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isHover, setIsHover] = useState<boolean>(false);
   const [filterIcons, setFilterIcons] = useState<SkillIcons[]>([]);
+  const TOTAL_COLUMNS = 6;
+  const ACTIVE_COLUMENS = 4;
 
-  /**
-   * Skill Content
-   * Overview , SkillList => RollingSkillList
-   */
+  const skillsKeys = useMemo(
+    () => Object.keys(technology).filter((key) => key !== "overview"),
+    [technology]
+  );
+
+  useEffect(() => {
+    if (isSticky) {
+      startAutoPlay();
+    }
+    return () => {
+      stopAutoPlay();
+    };
+  }, [isSticky]);
+
+  useEffect(() => {
+    if (activeIndex === skillsKeys.length) {
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setActiveIndex(0);
+      }, 600);
+
+      setTimeout(() => {
+        setIsTransitioning(true);
+      }, 700);
+    }
+  }, [activeIndex, skillsKeys.length]);
+
+  const startAutoPlay = () => {
+    if (intervalRef.current) return; // 이미 실행 중이면 무시
+    intervalRef.current = setInterval(() => {
+      setActiveIndex((prev) => prev + 1);
+    }, 3000);
+  };
+
+  const stopAutoPlay = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
 
   return (
-    <>
-      <ContentWrapper
+    <ContentWrapper
+      animate={{
+        width: isSticky
+          ? `calc(100% / ${TOTAL_COLUMNS} *  ${ACTIVE_COLUMENS})`
+          : "100%", //mobile 에서는 4개 그외 2개
+
+        height: isSticky ? "50%" : "100%",
+      }}
+    >
+      <Ovewview
         animate={{
-          width: isSticky ? "calc(100% / 6 *  4)" : "100%", //mobile 에서는 4개 그외 2개
-          height: isSticky ? "50%" : "100%",
+          display: isSticky ? "none" : "block",
+          opacity: isSticky ? 0 : 1,
         }}
       >
-        <Title>
-          {!isSticky && <p>{technology["overview"].description}</p>}
-        </Title>
-        <RollingSkillList
-          isSticky={isSticky}
+        <p>{technology["overview"].description}</p>
+      </Ovewview>
+      <Roller
+        transition={
+          isTransitioning
+            ? { duration: 0.6, ease: "easeInOut" }
+            : { duration: 0 }
+        }
+        animate={{
+          y: `-${activeIndex * (100 / 3)}%`,
+          opacity: isSticky ? 1 : 0,
+        }}
+        // 구조
+      >
+        <RollerItems
+          activeIndex={activeIndex}
           setFilterIcons={setFilterIcons}
           setIsHover={setIsHover}
+          startAutoPlay={startAutoPlay}
+          stopAutoPlay={stopAutoPlay}
         />
-      </ContentWrapper>
+      </Roller>
       <IconsBoxContainer>
         <IconWrapper
           initial={{ y: "100%" }}
@@ -52,18 +118,25 @@ const SkillContent = ({ isSticky }: SkillContentProps) => {
           })}
         </IconWrapper>
       </IconsBoxContainer>
-    </>
+    </ContentWrapper>
   );
 };
 
 export default SkillContent;
 
-const Title = styled.div``;
-
 const ContentWrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+`;
+
+const Ovewview = styled(motion.div)``;
+
+const Roller = styled(motion.div)`
+  flex: 1 0 auto;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const IconsBoxContainer = styled.div`

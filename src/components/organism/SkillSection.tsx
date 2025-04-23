@@ -32,7 +32,7 @@ const SkillSection: React.FC = () => {
    * Title, Content = > title = overvie , Content = Roller
    * p , Roller - RollerItem - SkillFont
    */
-
+  console.log("?");
   return (
     <Container ref={containerRef}>
       <StickySection
@@ -57,10 +57,11 @@ const Container = styled.section`
 `;
 
 const StickySection = styled.div`
+  width: 100%;
   height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  overflow: hidden;
+  justify-content: center;
   z-index: 21;
+  overflow: hidden;
 `;
