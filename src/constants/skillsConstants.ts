@@ -21,6 +21,8 @@ interface SkillArea {
   color: string;
 }
 
+export const VISIBLE_COUNT = 3;
+export const centerOffset = Math.floor(VISIBLE_COUNT / 2);
 const language = {
   title: "language",
   items: [
