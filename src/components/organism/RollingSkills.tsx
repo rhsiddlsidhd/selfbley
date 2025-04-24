@@ -1,14 +1,16 @@
 import { motion } from "motion/react";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { SkillIcons } from "./SkillContent";
+
 import {
   TechnologyKey,
+  btnText,
   centerOffset,
   skillsKeys,
 } from "../../constants/skillsConstants";
 import { RollerItems } from "../molecules/RollerItems";
 import RollingSkillIcons from "../molecules/RollingSkillIcons";
+import SKillModalBtn from "./SKillModalBtn";
 
 export type TechnologyOmitOverview = Exclude<TechnologyKey, "overview">;
 
@@ -20,6 +22,7 @@ const RollingSkills = ({ isSticky }: { isSticky: boolean }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [underlineWidth, setUnderlindeWidth] = useState<number>(0);
   const intervalRef = useRef<NodeJS.Timeout>(null);
+  const [isModal, setIsModal] = useState<boolean>(false);
   const centerIndex = activeIndex + centerOffset;
   useEffect(() => {
     if (isSticky) {
@@ -72,6 +75,7 @@ const RollingSkills = ({ isSticky }: { isSticky: boolean }) => {
     }
     setUnderlindeWidth(0);
   };
+  const openModal = useCallback(() => setIsModal(true), []);
 
   return (
     <>
@@ -97,12 +101,29 @@ const RollingSkills = ({ isSticky }: { isSticky: boolean }) => {
         />
       </Roller>
       {/* 롤러 스킬들의 아이콘  */}
+      <SKillModalBtn isSticky={isSticky} isModal={openModal} />
+      <SKillModal animate={{ y: isModal ? "0" : "100%" }}>
+        <button onClick={() => setIsModal(false)}></button>
+      </SKillModal>
       <RollingSkillIcons isHover={isHover} />
     </>
   );
 };
 
 export default RollingSkills;
+
+const SKillModal = styled(motion.div)`
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  & > button {
+    width: 50%;
+    height: 50%;
+  }
+`;
 
 const Roller = styled(motion.div)`
   flex: 1 0 auto;

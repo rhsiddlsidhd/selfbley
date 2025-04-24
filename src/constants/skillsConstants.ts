@@ -67,7 +67,7 @@ const etc = {
 
 const overview = {
   title: "overview",
-  description: "해당 섹션은 저의 기술들을 소개합니다.",
+  description: "Learned SKILLS ",
 } as const;
 
 export const skillAreas: SkillArea[] = [
@@ -121,3 +121,5 @@ export const SKILL_CONTENT_TOTAL_COLUMNS = 6;
 export const SKILL_CONTENT_MOBILE_COLUMNS = 4;
 
 export const SKILL_CONTENT_DEFUALT_COLUMNS = 2;
+
+export const btnText = "View All SKILLS";

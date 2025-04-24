@@ -20,7 +20,6 @@ const SkillSection: React.FC = () => {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // setIsSticky(latest > 0 );
     setIsSticky(latest > 0 && latest < 1);
   });
 
@@ -62,6 +61,5 @@ const StickySection = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 21;
   overflow: hidden;
 `;

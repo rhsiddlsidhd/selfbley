@@ -21,9 +21,7 @@ export interface SkillIcons {
 
 const SkillContent = ({ isSticky }: SkillContentProps) => {
   const mode = useScreenStore((state) => state.mode);
-
   const activeColumns = getSkillContentActiveColumn(mode);
-
   const contentWidth = getSkillContentWidth(activeColumns);
 
   return (
@@ -39,7 +37,9 @@ const SkillContent = ({ isSticky }: SkillContentProps) => {
           opacity: isSticky ? 0 : 1,
         }}
       >
-        <p>{technology["overview"].description}</p>
+        <h2 style={{ display: "flex", justifyContent: "center" }}>
+          {technology["overview"].description}
+        </h2>
       </motion.div>
       <RollingSkills isSticky={isSticky} />
     </ContentWrapper>
