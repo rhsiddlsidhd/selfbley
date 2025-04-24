@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 import {
   TechnologyKey,
-  btnText,
   centerOffset,
   skillsKeys,
 } from "../../constants/skillsConstants";
