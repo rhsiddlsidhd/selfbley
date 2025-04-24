@@ -1,35 +1,57 @@
-import React, { useEffect, useMemo } from "react";
+import React, { memo, useEffect, useMemo } from "react";
 import { SkillIcons } from "../organism/SkillContent";
 import styled from "styled-components";
-import { motion } from "motion/react";
-import { skillsKeys, technology } from "../../constants/skillsConstants";
+import { AnimatePresence, motion } from "motion/react";
+import { technology } from "../../constants/skillsConstants";
+import { TechnologyOmitOverview } from "../organism/RollingSkills";
+import useScreenStore from "../../stores/useScreenStore";
+import {
+  getSKillIconsWidth,
+  getSkillIconWidth,
+  getSkillIconsGap,
+} from "../../utils/calculation";
 
-const RollingSkillIcons = ({ isHover }: { isHover: boolean }) => {
-  const skills = useMemo(() => {
-    console.log(
-      Object.entries(technology)
-        .filter(([key]) => key !== "overview")
-        .map(([, items]) => items)
+const RollingSkillIcons = memo(
+  ({ isHover }: { isHover: TechnologyOmitOverview | null }) => {
+    /**
+     * 해당 컴포넌트는 isHover 시에만 리렌더 되고 이외에는 리렌더 되지 않도록 memo
+     */
+
+    const mode = useScreenStore((state) => state.mode);
+    const ICON_WIDTH = getSkillIconWidth(mode);
+    const ICONS_GAP = getSkillIconsGap(mode);
+    const techs = isHover ? technology[isHover].items : [];
+    const ICONS_TOTAL_WIDTH = getSKillIconsWidth(
+      ICON_WIDTH,
+      ICONS_GAP,
+      techs.length
     );
-  }, []);
 
-  return (
-    <IconsBoxContainer>
-      <IconWrapper
-        initial={{ y: "100%" }}
-        animate={{ y: isHover ? "0" : "100%" }}
-      >
-        {/* {skills.map(({ icon, name }) => {
-          return (
-            <div key={name}>
-              <img src={icon} alt="아이콘" />
-            </div>
-          );
-        })} */}
-      </IconWrapper>
-    </IconsBoxContainer>
-  );
-};
+    return (
+      <IconsBoxContainer>
+        <AnimatePresence>
+          {isHover && (
+            <IconWrapper
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              $ICONS_GAP={ICONS_GAP}
+              $TOTAL_WIDTH={ICONS_TOTAL_WIDTH}
+            >
+              {techs.map(({ icon, name }) => {
+                return (
+                  <Icon $ICON_WIDTH={ICON_WIDTH} key={name}>
+                    <img src={icon} alt="아이콘" />
+                  </Icon>
+                );
+              })}
+            </IconWrapper>
+          )}
+        </AnimatePresence>
+      </IconsBoxContainer>
+    );
+  }
+);
 
 export default RollingSkillIcons;
 
@@ -40,25 +62,27 @@ const IconsBoxContainer = styled.div`
   z-index: -1;
 `;
 
-const IconWrapper = styled(motion.div)`
+const Icon = styled.div<{ $ICON_WIDTH: number }>`
+  flex: 0 0 ${({ $ICON_WIDTH }) => `${$ICON_WIDTH}rem`};
+  aspect-ratio: 1 / 1;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0.5rem;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+`;
+const IconWrapper = styled(motion.div)<{
+  $ICONS_GAP: number;
+  $TOTAL_WIDTH: string;
+}>`
   display: flex;
   justify-content: end;
-  gap: 1rem;
+  gap: ${({ $ICONS_GAP }) => `${$ICONS_GAP}rem`};
   flex-wrap: wrap;
-  width: calc(5rem * 5 + 1rem * 4);
+  width: ${({ $TOTAL_WIDTH }) => $TOTAL_WIDTH};
   border-top-left-radius: 10px;
-
-  & > div {
-    flex: 0 0 5rem; // mobile 3  gap 0.5  else 5 gap 1
-    aspect-ratio: 1 / 1;
-    background-color: white;
-    border-radius: 10px;
-    padding: 0.5rem;
-
-    & > img {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-  }
 `;

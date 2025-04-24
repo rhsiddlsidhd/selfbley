@@ -107,3 +107,11 @@ export const skillsKeys: TechnologyKey[] = [
   "backend",
   "etc",
 ];
+
+export const SKILL_ICON_DEFUALT_WIDTH = 5;
+
+export const SKILL_ICON_MOBILE_WIDTH = 3;
+
+export const SKILL_ICONS_DEFUALT_GAP = 1;
+
+export const SKILL_ICONS_MOBILE_GAP = 0.5;

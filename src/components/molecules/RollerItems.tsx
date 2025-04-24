@@ -1,43 +1,31 @@
-import { SetStateAction, useRef } from "react";
 import RollerItem from "../atoms/RollerItem";
-import { centerOffset, skillsKeys } from "../../constants/skillsConstants";
-import { SkillIcons } from "../organism/SkillContent";
+import { TechnologyKey, centerOffset } from "../../constants/skillsConstants";
 
 interface SkillRollerListProps {
+  marqueeSkillsKeys: TechnologyKey[];
   activeIndex: number;
-  setFilterIcons: React.Dispatch<React.SetStateAction<SkillIcons[]>>;
-  setIsHover: React.Dispatch<SetStateAction<boolean>>;
-  startAutoPlay: () => void;
-  stopAutoPlay: () => void;
+  underlineWidth: number;
+  underlineRef: React.RefObject<(HTMLParagraphElement | null)[]>;
 }
 
 export const RollerItems = ({
+  marqueeSkillsKeys,
   activeIndex,
-  setFilterIcons,
-  setIsHover,
-  startAutoPlay,
-  stopAutoPlay,
+  underlineRef,
+  underlineWidth,
 }: SkillRollerListProps) => {
-  const underlineRef = useRef<HTMLParagraphElement[]>([]);
-  const centerIndex = activeIndex + centerOffset;
-  const marqueeSkillsKeys = [...skillsKeys, ...skillsKeys];
-
   return (
     <>
-      {marqueeSkillsKeys.map((skill, i, arr) => {
-        const id = arr[centerIndex];
+      {marqueeSkillsKeys.map((category, i) => {
+        const isCenter = activeIndex + centerOffset === i;
         return (
           <RollerItem
-            centerIndex={centerIndex}
+            isCenter={isCenter}
             underlineRef={underlineRef}
-            id={id}
             idx={i}
-            setFilterIcons={setFilterIcons}
-            setIsHover={setIsHover}
-            skill={skill}
-            startAutoPlay={startAutoPlay}
-            stopAutoPlay={stopAutoPlay}
-            key={`${skill}-${i}`}
+            category={category}
+            underlineWidth={underlineWidth}
+            key={`${category}-${i}`}
           />
         );
       })}

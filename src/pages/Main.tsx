@@ -8,6 +8,7 @@ import InterView from "../components/organism/InterView";
 import Scratch from "../components/organism/Scratch";
 import BookSlider from "../components/organism/BookSlider";
 import SkillSection from "../components/organism/SkillSection";
+import Test from "../components/organism/Test";
 
 const Main = () => {
   const { type, setType } = useAnimationProgressStore();
@@ -38,7 +39,7 @@ const Main = () => {
           <Marquee />
           {/*scoll에 연결된 scale animtion을 이용한 skill 을 알려주는 section */}
           <SkillSection />
-          <div style={{ height: "100vh", backgroundColor: "white" }}></div>
+          <Test />
         </>
       )}
     </>

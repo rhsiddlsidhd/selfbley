@@ -1,75 +1,33 @@
 import { motion } from "motion/react";
-import React, { SetStateAction, useEffect, useState } from "react";
+import React from "react";
 import { css, styled } from "styled-components";
-import { technology } from "../../constants/skillsConstants";
-import { SkillIcons } from "../organism/SkillContent";
+import { centerOffset } from "../../constants/skillsConstants";
+
 interface RollerItemProps {
-  setFilterIcons: React.Dispatch<SetStateAction<SkillIcons[]>>;
-  setIsHover: React.Dispatch<SetStateAction<boolean>>;
-  stopAutoPlay: () => void;
-  startAutoPlay: () => void;
-  centerIndex: number;
-  id: string;
+  isCenter: boolean;
+  underlineWidth: number;
   idx: number;
-  skill: string;
+  category: string;
   underlineRef: React.RefObject<(HTMLParagraphElement | null)[]>;
 }
 
 const RollerItem = ({
-  setFilterIcons,
-  setIsHover,
-  startAutoPlay,
-  stopAutoPlay,
-  centerIndex,
-  id,
+  isCenter,
   idx,
-  skill,
+  category,
   underlineRef,
+  underlineWidth,
 }: RollerItemProps) => {
-  const [underLineWidth, setUnderLineWidth] = useState<number>(0);
-
-  useEffect(() => {
-    console.log(underlineRef);
-  }, [underlineRef]);
-
-  const createIcons = (id) => {
-    setFilterIcons(technology[id].items);
-  };
-
-  const createUnderline = (centerIndex: number) => {
-    const el = underlineRef.current[centerIndex];
-    if (el) {
-      const width = el.offsetWidth;
-      setUnderLineWidth(width);
-    }
-  };
-
-  const handleHoverStart = (id, centerIndex) => {
-    setIsHover(true);
-    createUnderline(centerIndex);
-    createIcons(id);
-
-    stopAutoPlay();
-  };
-
-  const handleHoverleave = (id) => {
-    startAutoPlay();
-    setIsHover(false);
-    setUnderLineWidth(0);
-  };
   return (
-    <Container
-      onHoverStart={() => handleHoverStart(id, centerIndex)}
-      onHoverEnd={() => handleHoverleave(id)}
-    >
+    <Container>
       <SkillFont
-        $center={idx === centerIndex}
+        $isCenter={isCenter}
         ref={(el) => {
           if (el) underlineRef.current[idx] = el;
         }}
-        $width={underLineWidth}
+        $width={underlineWidth}
       >
-        {skill}
+        {category}
       </SkillFont>
     </Container>
   );
@@ -84,9 +42,9 @@ const Container = styled(motion.div)`
   justify-content: center;
 `;
 
-const SkillFont = styled(motion.p)<{ $center: boolean; $width: number }>`
-  ${({ $center, $width }) =>
-    $center &&
+const SkillFont = styled(motion.p)<{ $isCenter: boolean; $width: number }>`
+  ${({ $isCenter, $width }) =>
+    $isCenter &&
     css`
       position: relative;
       font-weight: bold;
