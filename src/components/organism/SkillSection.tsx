@@ -32,7 +32,7 @@ const SkillSection: React.FC = () => {
    * Title, Content = > title = overvie , Content = Roller
    * p , Roller - RollerItem - SkillFont
    */
-  console.log("?");
+
   return (
     <Container ref={containerRef}>
       <StickySection

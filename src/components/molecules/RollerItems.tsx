@@ -1,11 +1,11 @@
-import { SetStateAction } from "react";
+import { SetStateAction, useRef } from "react";
 import RollerItem from "../atoms/RollerItem";
 import { centerOffset, skillsKeys } from "../../constants/skillsConstants";
+import { SkillIcons } from "../organism/SkillContent";
 
 interface SkillRollerListProps {
   activeIndex: number;
-
-  setFilterIcons: (val: any) => void;
+  setFilterIcons: React.Dispatch<React.SetStateAction<SkillIcons[]>>;
   setIsHover: React.Dispatch<SetStateAction<boolean>>;
   startAutoPlay: () => void;
   stopAutoPlay: () => void;
@@ -18,6 +18,7 @@ export const RollerItems = ({
   startAutoPlay,
   stopAutoPlay,
 }: SkillRollerListProps) => {
+  const underlineRef = useRef<HTMLParagraphElement[]>([]);
   const centerIndex = activeIndex + centerOffset;
   const marqueeSkillsKeys = [...skillsKeys, ...skillsKeys];
 
@@ -28,6 +29,7 @@ export const RollerItems = ({
         return (
           <RollerItem
             centerIndex={centerIndex}
+            underlineRef={underlineRef}
             id={id}
             idx={i}
             setFilterIcons={setFilterIcons}

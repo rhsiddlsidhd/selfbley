@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import React, { SetStateAction, useRef, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { css, styled } from "styled-components";
 import { technology } from "../../constants/skillsConstants";
 import { SkillIcons } from "../organism/SkillContent";
@@ -12,6 +12,7 @@ interface RollerItemProps {
   id: string;
   idx: number;
   skill: string;
+  underlineRef: React.RefObject<(HTMLParagraphElement | null)[]>;
 }
 
 const RollerItem = ({
@@ -23,9 +24,13 @@ const RollerItem = ({
   id,
   idx,
   skill,
+  underlineRef,
 }: RollerItemProps) => {
-  const underlineRef = useRef<(HTMLParagraphElement | null)[]>([]);
   const [underLineWidth, setUnderLineWidth] = useState<number>(0);
+
+  useEffect(() => {
+    console.log(underlineRef);
+  }, [underlineRef]);
 
   const createIcons = (id) => {
     setFilterIcons(technology[id].items);
@@ -60,7 +65,7 @@ const RollerItem = ({
       <SkillFont
         $center={idx === centerIndex}
         ref={(el) => {
-          underlineRef.current[idx] = el;
+          if (el) underlineRef.current[idx] = el;
         }}
         $width={underLineWidth}
       >
