@@ -1,33 +1,22 @@
+import { SetStateAction, useRef } from "react";
 import RollerItem from "../atoms/RollerItem";
-import { TechnologyKey, centerOffset } from "../../constants/skillsConstants";
+import { centerOffset, skillsKeys } from "../../constants/skillsConstants";
+import { SkillIcons } from "../organism/SkillContent";
 
 interface SkillRollerListProps {
-  marqueeSkillsKeys: TechnologyKey[];
-  centerIndex: number;
-  underlineWidth: number;
-  underlineRef: React.RefObject<(HTMLParagraphElement | null)[]>;
+  activeIndex: number;
 }
 
-export const RollerItems = ({
-  marqueeSkillsKeys,
-  centerIndex,
-  underlineRef,
-  underlineWidth,
-}: SkillRollerListProps) => {
+export const RollerItems = ({ activeIndex }: SkillRollerListProps) => {
+  const underlineRef = useRef<(HTMLParagraphElement | null)[]>([]);
+  const centerIndex = activeIndex + centerOffset;
+  const marqueeSkillsKeys = [...skillsKeys, ...skillsKeys];
+
   return (
     <>
-      {marqueeSkillsKeys.map((category, i) => {
-        const isCenter = centerIndex === i;
-        return (
-          <RollerItem
-            isCenter={isCenter}
-            underlineRef={underlineRef}
-            idx={i}
-            category={category}
-            underlineWidth={underlineWidth}
-            key={`${category}-${i}`}
-          />
-        );
+      {marqueeSkillsKeys.map((skill, i, arr) => {
+        const id = arr[centerIndex];
+        return <RollerItem underlineRef={underlineRef} key={`${skill}-${i}`} />;
       })}
     </>
   );

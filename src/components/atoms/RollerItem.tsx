@@ -1,7 +1,6 @@
 import { motion } from "motion/react";
 import React from "react";
 import { css, styled } from "styled-components";
-import { centerOffset } from "../../constants/skillsConstants";
 
 interface RollerItemProps {
   isCenter: boolean;
