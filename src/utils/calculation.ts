@@ -1,4 +1,7 @@
 import {
+  SKILL_CONTENT_DEFUALT_COLUMNS,
+  SKILL_CONTENT_MOBILE_COLUMNS,
+  SKILL_CONTENT_TOTAL_COLUMNS,
   SKILL_ICONS_DEFUALT_GAP,
   SKILL_ICONS_MOBILE_GAP,
   SKILL_ICON_DEFUALT_WIDTH,
@@ -30,4 +33,14 @@ export const getSKillIconsWidth = (
   totalLength: number
 ) => {
   return `${iconWidth * totalLength + iconGap * (totalLength - 1)}rem`;
+};
+
+export const getSkillContentActiveColumn = (mode: Mode) => {
+  return mode !== "mobile"
+    ? SKILL_CONTENT_DEFUALT_COLUMNS
+    : SKILL_CONTENT_MOBILE_COLUMNS;
+};
+
+export const getSkillContentWidth = (activeColumns: number) => {
+  return `${(100 / SKILL_CONTENT_TOTAL_COLUMNS) * activeColumns}%`;
 };

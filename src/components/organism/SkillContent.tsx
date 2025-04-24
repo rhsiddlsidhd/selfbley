@@ -1,8 +1,15 @@
 import { motion } from "motion/react";
 import { styled } from "styled-components";
-import { technology } from "../../constants/skillsConstants";
+import {
+  SKILL_CONTENT_TOTAL_COLUMNS,
+  technology,
+} from "../../constants/skillsConstants";
 import useScreenStore from "../../stores/useScreenStore";
 import RollingSkills from "./RollingSkills";
+import {
+  getSkillContentActiveColumn,
+  getSkillContentWidth,
+} from "../../utils/calculation";
 interface SkillContentProps {
   isSticky: boolean;
 }
@@ -15,27 +22,25 @@ export interface SkillIcons {
 const SkillContent = ({ isSticky }: SkillContentProps) => {
   const mode = useScreenStore((state) => state.mode);
 
-  const TOTAL_COLUMNS = 6;
-  const ACTIVE_COLUMENS = mode === "mobile" ? 4 : 2;
+  const activeColumns = getSkillContentActiveColumn(mode);
+
+  const contentWidth = getSkillContentWidth(activeColumns);
 
   return (
     <ContentWrapper
       animate={{
-        width: isSticky
-          ? `calc(100% / ${TOTAL_COLUMNS} *  ${ACTIVE_COLUMENS})`
-          : "100%", //mobile 에서는 4개 그외 2개
-
+        width: isSticky ? contentWidth : "100%",
         height: isSticky ? "50%" : "100%",
       }}
     >
-      <Ovewview
+      <motion.div
         animate={{
           display: isSticky ? "none" : "block",
           opacity: isSticky ? 0 : 1,
         }}
       >
         <p>{technology["overview"].description}</p>
-      </Ovewview>
+      </motion.div>
       <RollingSkills isSticky={isSticky} />
     </ContentWrapper>
   );
@@ -48,5 +53,3 @@ const ContentWrapper = styled(motion.div)`
   flex-direction: column;
   overflow: hidden;
 `;
-
-const Ovewview = styled(motion.div)``;

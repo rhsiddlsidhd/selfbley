@@ -42,7 +42,7 @@ const Container = styled(motion.div)`
   justify-content: center;
 `;
 
-const SkillFont = styled(motion.p)<{ $isCenter: boolean; $width: number }>`
+const SkillFont = styled.p<{ $isCenter: boolean; $width: number }>`
   ${({ $isCenter, $width }) =>
     $isCenter &&
     css`

@@ -3,21 +3,21 @@ import { TechnologyKey, centerOffset } from "../../constants/skillsConstants";
 
 interface SkillRollerListProps {
   marqueeSkillsKeys: TechnologyKey[];
-  activeIndex: number;
+  centerIndex: number;
   underlineWidth: number;
   underlineRef: React.RefObject<(HTMLParagraphElement | null)[]>;
 }
 
 export const RollerItems = ({
   marqueeSkillsKeys,
-  activeIndex,
+  centerIndex,
   underlineRef,
   underlineWidth,
 }: SkillRollerListProps) => {
   return (
     <>
       {marqueeSkillsKeys.map((category, i) => {
-        const isCenter = activeIndex + centerOffset === i;
+        const isCenter = centerIndex === i;
         return (
           <RollerItem
             isCenter={isCenter}
