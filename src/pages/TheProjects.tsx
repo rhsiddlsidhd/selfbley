@@ -15,7 +15,7 @@ import SlideInXOverlay from "../components/atoms/SlideInXOverlay";
 export type FilterType = "ALL" | "TEAM" | "SINGLE";
 
 export interface ProjectData {
-  mode: Exclude<BadgeTypes, "FE" | "BE" | "ETC">;
+  mode: Exclude<BadgeTypes, "frontend" | "backend" | "etc">;
   title: string;
   overView: string;
   socialLinks: { name: string; icon: string; href: string }[];
@@ -46,6 +46,7 @@ const TheProjects = () => {
   useEffect(() => {
     const getProjectDataApi = async () => {
       const data = await getProjectApi();
+
       if (data) setProjectData(data);
     };
     getProjectDataApi();

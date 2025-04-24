@@ -1,11 +1,18 @@
-import React, { useCallback } from "react";
-import { btnText } from "../../constants/skillsConstants";
-import { styled } from "styled-components";
-import { motion } from "motion/react";
+import React from "react";
 
+import { styled } from "styled-components";
+import { AnimatePresence, motion } from "motion/react";
+// ViewAllBtn 의 사이즈가 font 사이즈보다 작을떄는 Icon으로 대체
 const SKillModalBtn = React.memo(
-  ({ isSticky, isModal }: { isSticky: boolean; isModal: () => void }) => {
-    console.log("?");
+  ({
+    isSticky,
+    isModal,
+    text,
+  }: {
+    isSticky: boolean;
+    isModal: () => void;
+    text: string;
+  }) => {
     return (
       <ViewAllBtn
         animate={{
@@ -17,21 +24,21 @@ const SKillModalBtn = React.memo(
         whileTap={{ scale: 0.95 }}
         onClick={isModal}
       >
-        {btnText.split(" ").map((word, wordIdx) => (
-          <div
-            key={wordIdx}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "1rem",
-            }}
+        <AnimatePresence>
+          <WordsWrapper
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            {[...word].map((char, charIdx) => (
-              <p key={charIdx}>{char}</p>
+            {text.split(" ").map((word, i) => (
+              <Words key={i}>
+                {[...word].map((char, i) => (
+                  <p key={i}>{char}</p>
+                ))}
+              </Words>
             ))}
-          </div>
-        ))}
+          </WordsWrapper>
+        </AnimatePresence>
       </ViewAllBtn>
     );
   }
@@ -42,13 +49,32 @@ export default SKillModalBtn;
 const ViewAllBtn = styled(motion.div)`
   position: absolute;
   top: 50%;
-  right: 0;
-  width: clamp(50px, 5vw, 100px);
+  right: 0%;
+  width: clamp(40px, 5vw, 100px);
   height: 70%;
+  min-height: fit-content;
   border: 3px solid white;
-  border-radius: 10px;
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  cursor: pointer;
+`;
+
+const Words = styled.div`
   display: flex;
   flex-direction: column;
+  gap: clamp(0.25rem, 3vh, 1rem);
+
+  & > p {
+    display: flex;
+    justify-content: center;
+  }
+`;
+const WordsWrapper = styled(motion.div)`
+  display: flex;
+  height: 100%;
+
   justify-content: space-evenly;
-  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0, 3vh, 1rem);
 `;

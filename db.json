@@ -18,9 +18,9 @@
       ],
       "thumnail": "public/mountain.jpg",
       "technologies": {
-        "LANGUAGE": ["HTML", "CSS", "JAVASCRIPT"],
-        "FE": ["styled-components", "react", "redux", "zustand"],
-        "BE": ["NODE.JS", "EXPRESS"]
+        "language": ["HTML", "CSS", "JAVASCRIPT"],
+        "frontend": ["styled-components", "react", "redux", "zustand"],
+        "backend": ["NODE.JS", "EXPRESS"]
       },
       "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit.Placeat eum temporibus voluptatibus est expedita,similique nemo consequuntur voluptatem corrupti illumitaque quidem? Necessitatibus odio vitae officiisducimus earum dolorem repellendus. Lorem ipsum dolor sitamet consectetur adipisicing elit. Voluptate corporisculpa autem temporibus dolorem assumenda voluptatibusaliquid error numquam velit, consectetur mollitiadignissimos, odio similique dolorum esse iure veladipisci."
     },
@@ -42,8 +42,8 @@
       ],
       "thumnail": "public/mountain.jpg",
       "technologies": {
-        "FE": ["HTML", "CSS", "JAVASCRIPT"],
-        "BE": ["NODE.JS", "EXPRESS"]
+        "frontend": ["HTML", "CSS", "JAVASCRIPT"],
+        "backend": ["NODE.JS", "EXPRESS"]
       },
       "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit.Placeat eum temporibus voluptatibus est expedita,similique nemo consequuntur voluptatem corrupti illumitaque quidem? Necessitatibus odio vitae officiisducimus earum dolorem repellendus. Lorem ipsum dolor sitamet consectetur adipisicing elit. Voluptate corporisculpa autem temporibus dolorem assumenda voluptatibusaliquid error numquam velit, consectetur mollitiadignissimos, odio similique dolorum esse iure veladipisci."
     },
@@ -65,8 +65,9 @@
       ],
       "thumnail": "public/mountain.jpg",
       "technologies": {
-        "FE": ["HTML", "CSS", "JAVASCRIPT"],
-        "BE": ["NODE.JS", "EXPRESS"]
+        "frontend": ["HTML", "CSS", "JAVASCRIPT"],
+        "backend": ["NODE.JS", "EXPRESS"],
+        "etc": ["github", "figma"]
       },
       "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit.Placeat eum temporibus voluptatibus est expedita,similique nemo consequuntur voluptatem corrupti illumitaque quidem? Necessitatibus odio vitae officiisducimus earum dolorem repellendus. Lorem ipsum dolor sitamet consectetur adipisicing elit. Voluptate corporisculpa autem temporibus dolorem assumenda voluptatibusaliquid error numquam velit, consectetur mollitiadignissimos, odio similique dolorum esse iure veladipisci."
     }

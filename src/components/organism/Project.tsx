@@ -19,12 +19,8 @@ const Project = ({ data, index }: { data: ProjectData; index: number }) => {
   const screenMode = useScreenStore((state) => state.mode);
 
   const type = useAnimationProgressStore((state) => state.type);
-
-  const isBadgeType = (category: string): category is BadgeTypes => {
-    const validTypes = ["SINGLE", "TEAM", "FE", "BE", "ETC", "LANGUAGE"];
-    return validTypes.includes(category);
-  };
-
+  const entries = Object.entries(technologies) as [BadgeTypes, string[]][];
+  console.log(entries);
   return (
     <ProjectContainer $screenMode={screenMode}>
       <motion.section
@@ -69,12 +65,8 @@ const Project = ({ data, index }: { data: ProjectData; index: number }) => {
         </motion.section>
         <motion.section variants={slideInUp} className="technologies">
           <h6>Technologies & Tools</h6>
-          {Object.entries(technologies).map(([category, techList], i) => {
-            return (
-              isBadgeType(category) && (
-                <Badges key={i} category={category} techList={techList} />
-              )
-            );
+          {entries.map(([category, techList], i) => {
+            return <Badges key={i} category={category} techList={techList} />;
           })}
         </motion.section>
         <motion.section variants={slideInUp} className="description">

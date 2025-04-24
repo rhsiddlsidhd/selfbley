@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-export type BadgeTypes = "SINGLE" | "TEAM" | "FE" | "BE" | "ETC" | "LANGUAGE";
+export type BadgeTypes =
+  | "SINGLE"
+  | "TEAM"
+  | "frontend"
+  | "backend"
+  | "etc"
+  | "language";
 
 interface BadgeProps {
   type: BadgeTypes;
@@ -9,14 +15,12 @@ interface BadgeProps {
 
 const Badge = ({ type, name }: BadgeProps) => {
   const [color, setColor] = useState<string>("inherit");
-  console.log(type);
-  console.log("name", name);
   const createBadgeColor = (type: BadgeTypes) => {
     const colors = {
-      LANGUAGE: "rgb(253, 185, 11)",
-      FE: "rgb(52, 152, 219)",
-      BE: "rgb(39, 174, 96)",
-      ETC: "rgb(127, 140, 141)",
+      language: "rgb(253, 185, 11)",
+      frontend: "rgb(52, 152, 219)",
+      backend: "rgb(39, 174, 96)",
+      etc: "rgb(127, 140, 141)",
       SINGLE: "rgb(220, 53, 69)",
       TEAM: "rgb(119, 175, 156)",
     };

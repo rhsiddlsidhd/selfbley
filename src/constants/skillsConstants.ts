@@ -16,81 +16,36 @@ import github from "../assets/github.svg";
 
 export type TechnologyKey = keyof typeof technology;
 
-interface SkillArea {
-  key: TechnologyKey;
-  color: string;
-}
-
 export const VISIBLE_COUNT = 3;
 export const centerOffset = Math.floor(VISIBLE_COUNT / 2);
-const language = {
-  title: "language",
-  items: [
-    { name: "html", icon: html },
-    { name: "css", icon: css },
-    {
-      name: "javascript",
-      icon: javascript,
-    },
-    { name: "typescript", icon: typescript },
-  ],
-} as const;
-
-const frontend = {
-  title: "frontend",
-  items: [
-    { name: "styled-components", icon: styledComponents },
-    { name: "react", icon: react },
-    { name: "redux", icon: redux },
-    { name: "zustand", icon: zustand },
-  ],
-} as const;
-
-const backend = {
-  title: "backend",
-  items: [
-    { name: "nodeJs", icon: nodeJs },
-    { name: "express", icon: express },
-    { name: "mongodb", icon: mongodb },
-    { name: "firebase", icon: firebase },
-  ],
-} as const;
-
-const etc = {
-  title: "etc",
-  items: [
-    { name: "discord", icon: discord },
-    { name: "figma", icon: figma },
-    { name: "github", icon: github },
-  ],
-} as const;
-
-const overview = {
-  title: "overview",
-  description: "Learned SKILLS ",
-} as const;
-
-export const skillAreas: SkillArea[] = [
+const language = [
+  { name: "html", icon: html },
+  { name: "css", icon: css },
   {
-    key: "language",
-    color: "rgb(162, 123, 92)",
+    name: "javascript",
+    icon: javascript,
   },
-  {
-    key: "frontend",
-    color: "rgb(44, 54, 57)",
-  },
-  {
-    key: "backend",
-    color: "rgb(63, 78, 79)",
-  },
-  {
-    key: "overview",
-    color: "rgb(0,0,0)",
-  },
-  {
-    key: "etc",
-    color: "rgb(220, 215, 201)",
-  },
+  { name: "typescript", icon: typescript },
+];
+
+const frontend = [
+  { name: "styled-components", icon: styledComponents },
+  { name: "react", icon: react },
+  { name: "redux", icon: redux },
+  { name: "zustand", icon: zustand },
+];
+
+const backend = [
+  { name: "nodeJs", icon: nodeJs },
+  { name: "express", icon: express },
+  { name: "mongodb", icon: mongodb },
+  { name: "firebase", icon: firebase },
+];
+
+const etc = [
+  { name: "discord", icon: discord },
+  { name: "figma", icon: figma },
+  { name: "github", icon: github },
 ];
 
 export const technology = {
@@ -98,16 +53,9 @@ export const technology = {
   frontend,
   backend,
   etc,
-  overview,
 } as const;
 
-export const skillsKeys: TechnologyKey[] = [
-  "language",
-  "frontend",
-  "backend",
-  "etc",
-];
-
+export const skillOverview = "Learned SKILLS ";
 export const SKILL_ICON_DEFUALT_WIDTH = 5;
 
 export const SKILL_ICON_MOBILE_WIDTH = 3;
@@ -122,4 +70,6 @@ export const SKILL_CONTENT_MOBILE_COLUMNS = 4;
 
 export const SKILL_CONTENT_DEFUALT_COLUMNS = 2;
 
-export const btnText = "View All SKILLS";
+export const OPEN_MODAL_TEXT = "View All SKILLS";
+
+export const CLOSE_MODAL_TEXT = "Close All SKILLS";
