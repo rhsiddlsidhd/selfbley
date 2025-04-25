@@ -1,11 +1,7 @@
-import { motion, useMotionValueEvent, useScroll } from "motion/react";
-import React, { useEffect, useRef, useState } from "react";
-import styled, { css } from "styled-components";
-import discord from "../../assets/discord.svg";
+import { useMotionValueEvent, useScroll } from "motion/react";
+import React, { useRef, useState } from "react";
+import styled from "styled-components";
 
-import { technology, TechnologyKey } from "../../constants/skillsConstants";
-import { style } from "motion/react-client";
-import { easeInOut } from "motion";
 import SkillContent from "./SkillContent";
 
 const SkillSection: React.FC = () => {
@@ -51,7 +47,7 @@ export default SkillSection;
 const Container = styled.section`
   position: relative;
   width: 100vw;
-  height: 200vh;
+  height: 150vh;
   background-color: black;
 `;
 

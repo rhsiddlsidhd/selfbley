@@ -5,10 +5,10 @@ import MainLoading from "../components/loading/MainLoading";
 import Home from "../components/organism/Home";
 import Marquee from "../components/organism/Marquee";
 import InterView from "../components/organism/InterView";
-import Scratch from "../components/organism/Scratch";
+import ScratchSection from "../components/organism/ScratchSection";
 import BookSlider from "../components/organism/BookSlider";
 import SkillSection from "../components/organism/SkillSection";
-import Test from "../components/organism/Test";
+import ContactSection from "../components/organism/ContactSection";
 
 const Main = () => {
   const { type, setType } = useAnimationProgressStore();
@@ -34,12 +34,12 @@ const Main = () => {
           <Home />
           <Marquee />
           <InterView />
-          <Scratch />
+          <ScratchSection />
           <BookSlider />
           <Marquee />
           {/*scoll에 연결된 scale animtion을 이용한 skill 을 알려주는 section */}
           <SkillSection />
-          <Test />
+          <ContactSection />
         </>
       )}
     </>

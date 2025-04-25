@@ -43,6 +43,10 @@ const RollingSkills = ({ isSticky }: { isSticky: boolean }) => {
     }
   }, [activeIndex, category.length]);
 
+  useEffect(() => {
+    console.log(activeIndex, isSticky);
+  }, [activeIndex, isSticky]);
+
   const startAutoPlay = () => {
     if (intervalRef.current) return;
     intervalRef.current = setInterval(() => {
@@ -51,6 +55,7 @@ const RollingSkills = ({ isSticky }: { isSticky: boolean }) => {
   };
 
   const stopAutoPlay = () => {
+    console.log("stopAutoPlay", intervalRef.current);
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
