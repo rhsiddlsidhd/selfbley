@@ -2,5 +2,5 @@ export const ROUTES = {
   LOGO: "/",
   THESKILLS: "/skills",
   THEPROJECTS: "/projects",
-  CONTACT: "/career",
+  CONTACT: "/contact",
 } as const;

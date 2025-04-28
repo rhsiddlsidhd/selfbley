@@ -7,6 +7,8 @@ import TheProjects from "./pages/TheProjects";
 import Main from "./pages/Main";
 import TheSkills from "./pages/TheSkills";
 
+import ContactSection from "./components/organism/ContactSection";
+
 function App() {
   return (
     <Routes>
@@ -15,6 +17,7 @@ function App() {
         <Route path="/not-abailable" element={<NotAvailablePage />} />
         <Route path="/skills" element={<TheSkills />} />
         <Route path="/projects" element={<TheProjects />} />
+        <Route path="/contact" element={<ContactSection />} />
       </Route>
     </Routes>
   );

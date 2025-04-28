@@ -13,8 +13,9 @@ const Marquee = () => {
   return (
     <Container>
       <MarqueesWrapper>
-        {/* <MarqueeText>
-          {SKILLS.BE.map(({ name, icon }) => {
+        <MarqueeText>
+          FRONTEND DEVELOPER SHIN YOUNG JAE
+          {/* {SKILLS.BE.map(({ name, icon }) => {
             return <SkillsIcon key={name} src={icon} />;
           })}
         </MarqueeText>
@@ -26,8 +27,8 @@ const Marquee = () => {
         <MarqueeText>
           {SKILLS.ETC.map(({ name, icon }) => {
             return <SkillsIcon key={name} src={icon} />;
-          })}
-        </MarqueeText> */}
+          })} */}
+        </MarqueeText>
       </MarqueesWrapper>
     </Container>
   );

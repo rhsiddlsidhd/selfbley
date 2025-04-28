@@ -10,7 +10,7 @@ import {
 import { RollerItems } from "../molecules/RollerItems";
 import RollingSkillIcons from "../molecules/RollingSkillIcons";
 
-const RollingSkills = ({ isSticky }: { isSticky: boolean }) => {
+const RollingSkills = () => {
   const category = Object.keys(technology) as TechnologyKey[];
   const marqueeSkillsKeys: TechnologyKey[] = [...category, ...category];
   const underlineRef = useRef<HTMLParagraphElement[]>([]);
@@ -22,13 +22,11 @@ const RollingSkills = ({ isSticky }: { isSticky: boolean }) => {
 
   const centerIndex = activeIndex + centerOffset;
   useEffect(() => {
-    if (isSticky) {
-      startAutoPlay();
-    }
+    startAutoPlay();
     return () => {
       stopAutoPlay();
     };
-  }, [isSticky]);
+  }, []);
 
   useEffect(() => {
     if (activeIndex === category.length) {
@@ -43,10 +41,6 @@ const RollingSkills = ({ isSticky }: { isSticky: boolean }) => {
     }
   }, [activeIndex, category.length]);
 
-  useEffect(() => {
-    console.log(activeIndex, isSticky);
-  }, [activeIndex, isSticky]);
-
   const startAutoPlay = () => {
     if (intervalRef.current) return;
     intervalRef.current = setInterval(() => {
@@ -55,7 +49,6 @@ const RollingSkills = ({ isSticky }: { isSticky: boolean }) => {
   };
 
   const stopAutoPlay = () => {
-    console.log("stopAutoPlay", intervalRef.current);
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
@@ -88,7 +81,6 @@ const RollingSkills = ({ isSticky }: { isSticky: boolean }) => {
         }
         animate={{
           y: `-${activeIndex * (100 / 3)}%`,
-          opacity: isSticky ? 1 : 0,
         }}
         // 구조
         onHoverStart={handleHoverStart}

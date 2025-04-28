@@ -61,15 +61,13 @@ const SkillContent = ({ isSticky }: SkillContentProps) => {
             {skillOverview}
           </h2>
         </motion.div>
-        {isSticky && <RollingSkills isSticky={isSticky} />}
+        {isSticky && <RollingSkills />}
         <SKillModalBtn
           isSticky={isSticky}
           isModal={isToggleModal}
           text={!isModal ? OPEN_MODAL_TEXT : CLOSE_MODAL_TEXT}
         />
-        {isSticky && (
-          <SkillModal isModal={isModal} contentWidth={contentWidth} />
-        )}
+        <SkillModal isModal={isModal} contentWidth={contentWidth} />
       </ContentWrapper>
     </Container>
   );

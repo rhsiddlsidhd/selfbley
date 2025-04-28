@@ -20,7 +20,6 @@ const Project = ({ data, index }: { data: ProjectData; index: number }) => {
 
   const type = useAnimationProgressStore((state) => state.type);
   const entries = Object.entries(technologies) as [BadgeTypes, string[]][];
-  console.log(entries);
   return (
     <ProjectContainer $screenMode={screenMode}>
       <motion.section

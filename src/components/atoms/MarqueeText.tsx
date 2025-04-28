@@ -126,7 +126,7 @@ const Marquee = styled(motion.div)`
   min-width: min-content;
   z-index: 50;
   cursor: pointer;
-
+  font-size: 2rem;
   .firstMarquee {
     display: flex;
     flex-shrink: 0;

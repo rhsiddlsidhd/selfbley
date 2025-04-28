@@ -44,8 +44,9 @@ const CharList = styled.div<{ $mode: Mode }>`
   width: ${({ $mode }) => ($mode !== "mobile" ? "calc(100% / 6 * 4)" : "90%")};
   display: flex;
   flex-wrap: wrap;
+  /* font-family:  */
   & > span {
-    font-size: clamp(1.92rem, 5.12vw, 6.4rem);
+    font-size: clamp(2rem, 5.12vw, 6.4rem);
     font-weight: bold;
   }
 `;

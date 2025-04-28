@@ -8,10 +8,14 @@
   margin: 0;
   padding: 0;
   color: white;
-
   ::-webkit-scrollbar {
     display: none;
   }
+}
+
+@font-face {
+  font-family: "NanumMugunghwa";
+  src: url("/public/font/나눔손글씨\ 무궁화.ttf") format("truetype");
 }
 
 p {

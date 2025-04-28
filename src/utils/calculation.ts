@@ -1,3 +1,4 @@
+import { RefObject } from "react";
 import {
   SKILL_CONTENT_DEFUALT_COLUMNS,
   SKILL_CONTENT_MOBILE_COLUMNS,
@@ -43,4 +44,31 @@ export const getSkillContentActiveColumn = (mode: Mode) => {
 
 export const getSkillContentWidth = (activeColumns: number) => {
   return `${(100 / SKILL_CONTENT_TOTAL_COLUMNS) * activeColumns}%`;
+};
+
+export const calculateFontSize = ({
+  container,
+  texture,
+  initial,
+  offset,
+}: {
+  container: RefObject<HTMLDivElement | null>;
+  texture: RefObject<HTMLParagraphElement | null>;
+  initial: number;
+  offset: number;
+}): number => {
+  if (!container.current || !texture.current) return initial;
+
+  const containerWidth = container.current.offsetWidth;
+  let textureWidth = texture.current.offsetWidth;
+
+  let newFontSize = initial;
+
+  while (textureWidth < containerWidth) {
+    newFontSize += offset;
+    texture.current.style.fontSize = `${newFontSize}rem`;
+    textureWidth = texture.current.offsetWidth;
+  }
+
+  return newFontSize - offset;
 };
