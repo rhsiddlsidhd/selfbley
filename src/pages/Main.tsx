@@ -32,12 +32,12 @@ const Main = () => {
         <>
           {/* 컴포넌트명을 주 animation을 활용 */}
           <Home />
-          <Marquee />
+          <Marquee text="Dynamic & Alive" deg={-10} padding="3rem 0" />
+          <Marquee text="Function Component" reverse={true} />
           <InterView />
           <ScratchSection />
           <BookSlider />
-          <Marquee />
-          {/*scoll에 연결된 scale animtion을 이용한 skill 을 알려주는 section */}
+          <Marquee text="Architecture" padding="6rem 0" />
           <SkillSection />
           <ContactSection />
         </>

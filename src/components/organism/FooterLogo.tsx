@@ -1,13 +1,13 @@
-import React, { RefObject, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
-import paint1 from "../../assets/paint2.svg";
+import paint2 from "../../assets/splash_paint/paint2.svg";
 import { calculateFontSize } from "../../utils/calculation";
 
 const FooterLogo = () => {
   const textureRef = useRef<HTMLParagraphElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [fontSize, setFontSize] = useState<number>(1);
-  const logo = "FRONTEND";
+  const logo = "portfolio";
 
   useEffect(() => {
     const handelResize = () => {
@@ -28,12 +28,12 @@ const FooterLogo = () => {
   }, [fontSize]);
   return (
     <Container ref={containerRef}>
-      <PaintBackground src={paint1} alt="이미지" />
+      <PaintBackground src={paint2} alt="이미지" />
       <p
         style={{ fontSize: `${fontSize}rem`, fontWeight: "bold" }}
         ref={textureRef}
       >
-        {logo}
+        {logo.toUpperCase()}
       </p>
     </Container>
   );

@@ -13,6 +13,6 @@ export default defineConfig({
   assetsInclude: ["**/*.glb"],
   server: {
     host: "0.0.0.0",
-    port: 5173, // 기본 포트
+    port: 5175,
   },
 });

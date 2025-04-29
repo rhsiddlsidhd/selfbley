@@ -70,11 +70,12 @@ const MarqueeText = ({
   const multiplyChildren = useCallback(
     (multiplier: number) => {
       const arraySize = multiplier >= 0 ? multiplier : 0;
+
       return [...Array(arraySize)].map((_, i) => (
-        <Fragment key={i}>
+        <h1 key={i}>
           {children}
           {"\u00A0"}
-        </Fragment>
+        </h1>
       ));
     },
     [children]
@@ -90,21 +91,20 @@ const MarqueeText = ({
   };
 
   if (!isMounted) return null;
-  // animate={marqueeAnimation}
+
   return (
     <Marquees $deg={deg} $reverse={reverse} ref={containerRef}>
-      <Marquee animate={marqueeAnimation}>
-        <div className="firstMarquee" ref={textRef}>
-          {children}
-        </div>
-        {multiplyChildren(multiplier - 1)}
-      </Marquee>
-      <Marquee animate={marqueeAnimation}>
-        <div className="firstMarquee" ref={textRef}>
-          {children}
-        </div>
-        {multiplyChildren(multiplier - 1)}
-      </Marquee>
+      {Array.from({ length: 2 }, (_, i) => {
+        return (
+          <Marquee animate={marqueeAnimation} key={i}>
+            <h1 ref={textRef}>
+              {children}
+              {"\u00A0"}
+            </h1>
+            {multiplyChildren(multiplier - 1)}
+          </Marquee>
+        );
+      })}
     </Marquees>
   );
 };
@@ -113,22 +113,17 @@ export default MarqueeText;
 
 const Marquees = styled.div<{ $deg: number; $reverse: boolean }>`
   display: flex;
+  white-space: nowrap;
   flex-shrink: 0;
-  /* padding: 2rem; */
-
+  font-weight: bold;
   justify-content: ${({ $reverse }) => ($reverse ? "end" : "start")};
   transform: ${({ $deg }) => `rotate(${$deg}deg)`};
 `;
 
 const Marquee = styled(motion.div)`
   display: flex;
-  flex-shrink: 0;
-  min-width: min-content;
-  z-index: 50;
   cursor: pointer;
-  font-size: 2rem;
-  .firstMarquee {
-    display: flex;
-    flex-shrink: 0;
+  & > h1 {
+    margin: 0 2rem;
   }
 `;

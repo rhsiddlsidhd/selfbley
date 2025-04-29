@@ -72,3 +72,12 @@ export const calculateFontSize = ({
 
   return newFontSize - offset;
 };
+
+export const getScratchHighlightIndex = (
+  latest: number,
+  textLength: number
+) => {
+  const highlightIndex = Math.floor((Math.round(latest) / 100) * textLength);
+
+  return highlightIndex;
+};

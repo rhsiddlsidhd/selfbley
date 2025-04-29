@@ -1,18 +1,17 @@
-import React from "react";
-import { TEXTS } from "../../constants/textConstants";
+import React, { Fragment } from "react";
 import { motion } from "motion/react";
 
-const Title = () => {
+const Title = ({ text }: { text: string }) => {
   return (
-    <>
-      {[...TEXTS.TITLE].map((word, i) => {
+    <Fragment>
+      {[text].map((word, i) => {
         return (
-          <motion.span key={i} variants={titleItem}>
+          <motion.p key={i} variants={titleItem}>
             {word}
-          </motion.span>
+          </motion.p>
         );
       })}
-    </>
+    </Fragment>
   );
 };
 

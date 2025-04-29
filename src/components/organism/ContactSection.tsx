@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 import Scratch from "../molecules/Scratch";
 import Footer from "../../layout/Footer";
 import VerticalLine from "../atoms/VerticalLine";
-
+import paint1 from "../../assets/splash_paint/paint1.svg";
 import FooterLogo from "./FooterLogo";
 
 const ContactSection: React.FC = () => {
@@ -13,19 +13,23 @@ const ContactSection: React.FC = () => {
     target: scratchRef,
     offset: ["start start", "center start"],
   });
-
+  console.log("~");
   return (
     <Container>
       <VerticalLine page="MAIN" />
       <ScratchContainer ref={scratchRef}>
+        {/*  */}
         <Scratch
           scrollYProgress={scrollYProgress}
-          text="빠르게 변화하는 프론트엔드 기술 개발에 트렌드를 읽고 유연하게 받아 들여 성장을 지향합니다.  "
+          text="어제보다는 오늘 오늘보다는  "
           activeColor="#FFFFFF"
           inActiveColor="#383535"
         />
       </ScratchContainer>
-      <h1 style={{ margin: "6rem 0" }}>Contact Us</h1>
+      <h1 style={{ margin: "6rem 0", position: "relative" }}>
+        <PaintBackground src={paint1} />
+        Contact Us
+      </h1>
       <Footer />
       <FooterLogo />
     </Container>
@@ -40,6 +44,14 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const PaintBackground = styled.img`
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 50%;
+  height: 200%;
 `;
 
 const ScratchContainer = styled.div`

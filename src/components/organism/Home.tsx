@@ -9,6 +9,7 @@ import useAnimationProgressStore, {
 } from "../../stores/useAnimationProgress";
 
 import { useRef } from "react";
+import { ARROR_ICON, HOMETITLE } from "../../constants/textConstants";
 
 const Home = () => {
   const { type, setType } = useAnimationProgressStore();
@@ -32,6 +33,8 @@ const Home = () => {
     if (type === "INITIAL_LOAD") setType("ADD_ANIMATION");
   };
 
+  const splitText = HOMETITLE.toUpperCase().split(" ");
+
   return (
     <HomeContainer ref={containerRef}>
       <SlideInOverlay style={{ width }}></SlideInOverlay>
@@ -44,8 +47,10 @@ const Home = () => {
         animate={handleFadeAnimation(type)}
         onAnimationComplete={() => handleAnimationEnd(type)}
       >
-        <Title />
-        {type === "ADD_ANIMATION" && <Arrow />}
+        {splitText.map((text) => {
+          return <Title key={text} text={text} />;
+        })}
+        {type === "ADD_ANIMATION" && <Arrow text={ARROR_ICON} />}
       </TitleWrapper>
     </HomeContainer>
   );
@@ -95,7 +100,7 @@ const HomeContainer = styled.div`
 
 const TitleWrapper = styled(motion.h1)`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   position: fixed;
   top: 50%;

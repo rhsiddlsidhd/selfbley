@@ -15,10 +15,8 @@ interface Question {
 
 type Questions = Question[];
 
-export const TEXTS = {
-  TITLE: "FRONTEND",
-  ARROW_ICON: "⋙",
-};
+export const HOMETITLE = "hello World!";
+export const ARROR_ICON = "⋙";
 
 export const QUESTIONS: Questions = [
   {

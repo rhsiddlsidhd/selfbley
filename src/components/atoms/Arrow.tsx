@@ -1,11 +1,9 @@
-import React from "react";
 import { motion } from "motion/react";
-import { TEXTS } from "../../constants/textConstants";
 
-const Arrow = () => {
+const Arrow = ({ text }: { text: string }) => {
   return (
     <motion.div
-      initial={{ y: 30, opacity: 0 }}
+      initial={{ y: 10, opacity: 0 }}
       animate={{
         opacity: 1,
         y: 0,
@@ -19,11 +17,11 @@ const Arrow = () => {
       style={{
         position: "absolute",
         rotate: 90,
-        bottom: "-150%",
-        transformOrigin: "56% 50% 0",
+        bottom: "-50%",
+        transformOrigin: "59% 50% 0",
       }}
     >
-      {TEXTS.ARROW_ICON}
+      {text}
     </motion.div>
   );
 };

@@ -7,7 +7,7 @@ const Footer = () => {
     <Container>
       {/* 이메일 전화번호 / comment / 아이콘 github , blog / 제작자, 제작일  */}
       <ContactSection>
-        <address>rhsiddlsidhd1@google.com</address>
+        <address>rhsiddlsidhd1@gmail.com</address>
         <Icons>
           <li>
             <a href="http://www.naver.com" target="_blank">
@@ -46,22 +46,20 @@ const Container = styled.footer`
 const ContactSection = styled.section`
   display: flex;
   flex-wrap: wrap;
-  & > address {
+  & > address,
+  ul {
+    padding: 0.5rem;
     flex: 1 0 auto;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
   }
 `;
 
 const Icons = styled.ul`
-  flex: 1 0 auto;
   list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
+
   & > li {
     width: 50px;
     height: 50px;

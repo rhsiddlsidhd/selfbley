@@ -1,50 +1,29 @@
-# React + TypeScript + Vite
+# PORTFOLIO
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+총 3페이지로 이루어진 포트폴리오 입니다: MAIN, PROJECT, CONTACT
 
-Currently, two official plugins are available:
+MAIN Component
+Marquee, Scratch, slider, (Infinite)Roller 등 다양한 애니메이션을 층(Layer)처럼 쌓아 구현하였습니다.
+'About Me'를 주제로 한 질문(Question)과 함게 자기소개를 풀어냈습니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+PROJECT
+ALL,TEAM,SINGLE 필터 탭을 통해 프로젝트를 분류하여 소개합니다.
+개인 및 팀 프로젝트를 정리하여 보여주는 페이지입니다.
 
-## Expanding the ESLint configuration
+CONTACT
+문의 및 연락을 위한 정보를 제공합니다.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Technology
 
-- Configure the top-level `parserOptions` property like this:
+- typescript
+- styled-component
+- Framer Motion
+- React
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Description
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2D 디자인을 바탕으로 정적인 느낌을 받지 않도록 하기 위해 다양한 애니메이션들을 넣어서 반응형 포트폴리오로 준비하게 됐습니다.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Marquee : 중점적으로 생각하는 코드 스타일 키워드
+Scratch : 개발자로서 지향하는 가치관
+interview : 개발 일대기
