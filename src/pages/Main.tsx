@@ -33,7 +33,7 @@ const Main = () => {
           {/* 컴포넌트명을 주 animation을 활용 */}
           <Home />
           <Marquee text="Dynamic & Alive" deg={-10} padding="3rem 0" />
-          <Marquee text="Function Component" reverse={true} />
+          <Marquee text="Function Programming" reverse={true} />
           <InterView />
           <ScratchSection />
           <BookSlider />

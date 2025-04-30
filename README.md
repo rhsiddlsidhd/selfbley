@@ -3,7 +3,7 @@
 총 3페이지로 이루어진 포트폴리오 입니다: MAIN, PROJECT, CONTACT
 
 MAIN Component
-Marquee, Scratch, slider, (Infinite)Roller 등 다양한 애니메이션을 층(Layer)처럼 쌓아 구현하였습니다.
+Marquee, Scratch, slider, (Infinite)Roller 등 애니메이션을 담은 컴포넌트를 층(Layer)으로 쌓아 구현하였습니다.
 'About Me'를 주제로 한 질문(Question)과 함게 자기소개를 풀어냈습니다.
 
 PROJECT
