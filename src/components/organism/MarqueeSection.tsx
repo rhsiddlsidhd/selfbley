@@ -8,7 +8,7 @@ interface MarqueeProps {
   padding?: string;
 }
 
-const Marquee = ({ text, deg, reverse, padding }: MarqueeProps) => {
+const MarqueeSection = ({ text, deg, reverse, padding }: MarqueeProps) => {
   return (
     <Container $padding={padding}>
       <MarqueeText deg={deg} reverse={reverse}>
@@ -17,11 +17,12 @@ const Marquee = ({ text, deg, reverse, padding }: MarqueeProps) => {
     </Container>
   );
 };
-export default Marquee;
+export default MarqueeSection;
 const Container = styled.section<{ $padding?: string }>`
   position: relative;
   width: 100%;
   padding: ${({ $padding }) => $padding || 0};
   background-color: black;
   overflow: hidden;
+  z-index: 1;
 `;

@@ -19,6 +19,7 @@ CONTACT
 - styled-component
 - Framer Motion
 - React
+- Zustand
 
 ## Description
 

@@ -13,7 +13,6 @@ const ContactSection: React.FC = () => {
     target: scratchRef,
     offset: ["start start", "center start"],
   });
-  console.log("~");
   return (
     <Container>
       <VerticalLine page="MAIN" />

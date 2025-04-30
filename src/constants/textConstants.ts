@@ -20,6 +20,8 @@ interface Question {
 
 type Questions = Question[];
 
+export type QuestionsOmitSrc = Omit<Question,'src'> 
+
 export const HOMETITLE = "hello World!";
 export const ARROR_ICON = "⋙";
 

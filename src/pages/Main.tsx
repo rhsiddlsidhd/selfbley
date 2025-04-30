@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import useAnimationProgressStore from "../stores/useAnimationProgress";
 import MainLoading from "../components/loading/MainLoading";
 import Home from "../components/organism/Home";
-import Marquee from "../components/organism/Marquee";
-import InterView from "../components/organism/InterView";
+import MarqueeSection from "../components/organism/MarqueeSection";
+import ParallaxSection from "../components/organism/ParallaxSection";
 import ScratchSection from "../components/organism/ScratchSection";
 import BookSlider from "../components/organism/BookSlider";
 import SkillSection from "../components/organism/SkillSection";
@@ -32,12 +32,12 @@ const Main = () => {
         <>
           {/* 컴포넌트명을 주 animation을 활용 */}
           <Home />
-          <Marquee text="Dynamic & Alive" deg={-10} padding="3rem 0" />
-          <Marquee text="Function Programming" reverse={true} />
-          <InterView />
+          <MarqueeSection text="Dynamic & Alive" deg={-10} padding="3rem 0" />
+          <MarqueeSection text="Function Programming" reverse={true} />
+          <ParallaxSection />
           <ScratchSection />
           <BookSlider />
-          <Marquee text="Architecture" padding="6rem 0" />
+          <MarqueeSection text="Architecture" padding="6rem 0" />
           <SkillSection />
           <ContactSection />
         </>
