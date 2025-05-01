@@ -57,7 +57,7 @@ const PostIt = styled.h6<{ $mode: Mode; $top: number; $left: number }>`
   word-break: keep-all;
   font-weight: bold;
   padding: 3rem;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
 `;
 
 const BackgroundBlur = styled(motion.div)`

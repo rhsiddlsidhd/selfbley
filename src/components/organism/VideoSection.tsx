@@ -11,7 +11,7 @@ import useAnimationProgressStore, {
 import { useRef } from "react";
 import { ARROR_ICON, HOMETITLE } from "../../constants/textConstants";
 
-const Home = () => {
+const VideoSection = () => {
   const { type, setType } = useAnimationProgressStore();
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { amount: 0.5 });
@@ -56,7 +56,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default VideoSection;
 
 const SlideInOverlay = styled(motion.div)`
   width: 100%;

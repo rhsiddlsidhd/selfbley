@@ -34,7 +34,7 @@ export interface ExtendedBook extends Book {
 // 하나의 카드가 80vw + gap 15vw 라면 5vw 만큼 다음카드가 보일거고
 // background 또한 95vw 만큼 이동시에 바껴야한다.
 
-const BookSlider = () => {
+const SliderSection = () => {
   const containerRef = useRef(null);
   const mode = useScreenStore((state) => state.mode);
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -122,7 +122,7 @@ const BookSlider = () => {
   );
 };
 
-export default BookSlider;
+export default SliderSection;
 
 const Container = styled.section<{
   $totalBooks: number;

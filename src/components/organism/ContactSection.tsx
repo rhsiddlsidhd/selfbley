@@ -17,10 +17,10 @@ const ContactSection: React.FC = () => {
     <Container>
       <VerticalLine page="MAIN" />
       <ScratchContainer ref={scratchRef}>
-        {/*  */}
+        {" "}
         <Scratch
           scrollYProgress={scrollYProgress}
-          text="어제보다는 오늘 오늘보다는  "
+          text="해당 포트폴리오를 읽는 분들과 함께 성장할 기회를 기대하며, 저는 오늘도 맞닿은 문제를 해결을 하며 증명하기 위해 노력합니다. 감사합니다."
           activeColor="#FFFFFF"
           inActiveColor="#383535"
         />

@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
-import { ExtendedBook } from "../organism/BookSlider";
+import { ExtendedBook } from "../organism/SliderSection";
 import useScreenStore from "../../stores/useScreenStore";
 
 import IntroCardBody from "../atoms/IntroCardBody";

@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import SkillContent from "./SkillContent";
 
-const SkillSection: React.FC = () => {
+const RollerSection: React.FC = () => {
   // const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const [isSticky, setIsSticky] = useState<boolean>(false);
@@ -42,7 +42,7 @@ const SkillSection: React.FC = () => {
   );
 };
 
-export default SkillSection;
+export default RollerSection;
 
 const Container = styled.section`
   position: relative;

@@ -18,7 +18,7 @@
 
 import { styled } from "styled-components";
 import { motion, MotionValue } from "motion/react";
-import { ExtendedBook } from "../organism/BookSlider";
+import { ExtendedBook } from "../organism/SliderSection";
 
 const BookBackground = ({
   data,

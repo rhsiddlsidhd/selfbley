@@ -1,2 +1,2 @@
 export const scratchText =
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta repellat quam nisi eligendi, quia facilis repudiandae saepe nobis possimus, quibusdam ab quaerat.";
+  "타고난 재능에 한계는 있을 수 있지만, 탄탄한 기본기를 가진다면 그 한계를 더 높일 수 있다고 생각한다. ";
