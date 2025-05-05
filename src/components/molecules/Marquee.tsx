@@ -1,12 +1,7 @@
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { motion } from "motion/react";
+import Heading from "../atoms/Heading";
 
 interface MarqueeTextProps {
   children: string | React.ReactNode;
@@ -14,28 +9,11 @@ interface MarqueeTextProps {
   deg?: number;
 }
 
-const MarqueeText = ({
-  deg = 0,
-  reverse = false,
-  children,
-}: MarqueeTextProps) => {
+const Marquee = ({ deg = 0, reverse = false, children }: MarqueeTextProps) => {
   const [isMounted, setIsMounted] = useState(false);
   const [multiplier, setMultiplier] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
-
-  /**
-   * children 요소를 복사하여 뒤에 이어 붙여서 두배의 길이를 만든다.
-   * 하나의 children 요소의 길이만큼 translateX(-100%)의 길이만큼 이동했을때 translateX(0) 으로 전환
-   * 문제점 1.
-   *  if vw 가 children 요소보다 크다면?
-   *  if translateX(-100%) 시의 content내용과 translate(0%) 의 content내용이 이어지지 않는다면 ?
-   * if vw가 marquee 요소보다 조금 작을때 너무 많은 animation을 요구하면 ?
-   * => childrent 요소를 복사해서 ++
-   * => translateX의 비율을 총 복사된 길이만큼 이동되었을때 (즉,, 100%가 될수도 있을듯)
-   * => basic으로 clone을 1로 제공하여 잦은 animation 방지
-   *
-   */
 
   const calculateMultiplier = useCallback(() => {
     if (!containerRef.current || !textRef.current) return;
@@ -51,6 +29,17 @@ const MarqueeText = ({
     }
   }, []);
 
+  const multiplyChildren = useCallback(
+    (multiplier: number) => {
+      const arraySize = Math.max(multiplier, 0);
+
+      return [...Array(arraySize)].map((_, i) => (
+        <Heading key={i}>{children}</Heading>
+      ));
+    },
+    [children]
+  );
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -59,27 +48,13 @@ const MarqueeText = ({
     if (!isMounted) return;
 
     calculateMultiplier();
-    if (containerRef.current && textRef.current) {
+    if (containerRef.current) {
       const resizeObserver = new ResizeObserver(() => calculateMultiplier());
       resizeObserver.observe(containerRef.current);
-      resizeObserver.observe(textRef.current);
+
       return () => resizeObserver.disconnect();
     }
   }, [calculateMultiplier, isMounted]);
-
-  const multiplyChildren = useCallback(
-    (multiplier: number) => {
-      const arraySize = multiplier >= 0 ? multiplier : 0;
-
-      return [...Array(arraySize)].map((_, i) => (
-        <h1 key={i}>
-          {children}
-          {"\u00A0"}
-        </h1>
-      ));
-    },
-    [children]
-  );
 
   const marqueeAnimation = {
     x: reverse ? [0, "100%"] : [0, "-100%"],
@@ -93,25 +68,22 @@ const MarqueeText = ({
   if (!isMounted) return null;
 
   return (
-    <Marquees $deg={deg} $reverse={reverse} ref={containerRef}>
+    <MarqueeTrack $deg={deg} $reverse={reverse} ref={containerRef}>
       {Array.from({ length: 2 }, (_, i) => {
         return (
-          <Marquee animate={marqueeAnimation} key={i}>
-            <h1 ref={textRef}>
-              {children}
-              {"\u00A0"}
-            </h1>
+          <MarqueeMessage animate={marqueeAnimation} key={i}>
+            <Heading ref={textRef}>{children}</Heading>
             {multiplyChildren(multiplier - 1)}
-          </Marquee>
+          </MarqueeMessage>
         );
       })}
-    </Marquees>
+    </MarqueeTrack>
   );
 };
 
-export default MarqueeText;
+export default Marquee;
 
-const Marquees = styled.div<{ $deg: number; $reverse: boolean }>`
+const MarqueeTrack = styled.div<{ $deg: number; $reverse: boolean }>`
   display: flex;
   white-space: nowrap;
   flex-shrink: 0;
@@ -120,10 +92,10 @@ const Marquees = styled.div<{ $deg: number; $reverse: boolean }>`
   transform: ${({ $deg }) => `rotate(${$deg}deg)`};
 `;
 
-const Marquee = styled(motion.div)`
+const MarqueeMessage = styled(motion.div)`
   display: flex;
   cursor: pointer;
-  & > h1 {
-    margin: 0 2rem;
+  & > * {
+    margin: 0 3rem;
   }
 `;

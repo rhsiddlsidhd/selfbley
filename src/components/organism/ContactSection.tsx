@@ -20,7 +20,7 @@ const ContactSection: React.FC = () => {
         {" "}
         <Scratch
           scrollYProgress={scrollYProgress}
-          text="해당 포트폴리오를 읽는 분들과 함께 성장할 기회를 기대하며, 저는 오늘도 맞닿은 문제를 해결을 하며 증명하기 위해 노력합니다. 감사합니다."
+          text="저의 포트폴리오를 읽어주신 분들과 함께 성장할 기회를 기대하며, 저는 오늘도 맞닿은 문제를 해결을 하며 증명하기 위해 노력하겠습니다. 감사합니다."
           activeColor="#FFFFFF"
           inActiveColor="#383535"
         />

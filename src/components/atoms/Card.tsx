@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
-import styled, { css } from "styled-components";
+import { useEffect, useRef } from "react";
+import styled from "styled-components";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
-import { motion, wrap } from "motion/react";
+import { motion } from "motion/react";
 
 interface SkillsList {
   name: string;
@@ -24,7 +24,7 @@ const Card = ({
 
   return (
     <CardItem $mode={mode}>
-      {/* <InfoWrapper>
+      <InfoWrapper>
         {skillsList.map(({ name, icon }, _, arr) => {
           return (
             <SkillsIcon
@@ -38,7 +38,7 @@ const Card = ({
       </InfoWrapper>
       <TitleWrapper>
         <h6>{category}</h6>
-      </TitleWrapper> */}
+      </TitleWrapper>
     </CardItem>
   );
 };

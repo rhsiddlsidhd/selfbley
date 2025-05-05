@@ -1,4 +1,4 @@
-import MarqueeText from "../atoms/MarqueeText";
+import Marquee from "../molecules/Marquee";
 import styled from "styled-components";
 
 interface MarqueeProps {
@@ -11,9 +11,9 @@ interface MarqueeProps {
 const MarqueeSection = ({ text, deg, reverse, padding }: MarqueeProps) => {
   return (
     <Container $padding={padding}>
-      <MarqueeText deg={deg} reverse={reverse}>
+      <Marquee deg={deg} reverse={reverse}>
         {text}
-      </MarqueeText>
+      </Marquee>
     </Container>
   );
 };
