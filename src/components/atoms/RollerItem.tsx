@@ -26,7 +26,7 @@ const RollerItem = ({
         }}
         $width={underlineWidth}
       >
-        {category}
+        {category.toUpperCase()}
       </SkillFont>
     </Container>
   );

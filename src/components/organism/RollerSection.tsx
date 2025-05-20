@@ -30,12 +30,11 @@ const RollerSection: React.FC = () => {
 
   return (
     <Container ref={containerRef}>
+      {/* <BackgroundImage style={{ backgroundImage: `url(${winter})` }} /> */}
+
       <StickySection
-        style={{ position: isSticky ? "sticky" : "static", top: 0 }}
+        style={{ position: isSticky ? "sticky" : "relative", top: 0 }}
       >
-        {/* 컨텐츠 : skills 목록들을 grid 형태의 카드 형식으로 보여준다 */}
-        {/* <Skills isSticky={isSticky} scroll={scrollYProgress} /> */}
-        {/* 수정안: isSicky skills title들이 opacity로 나타난다. */}
         <SkillContent isSticky={isSticky} />
       </StickySection>
     </Container>
@@ -59,3 +58,11 @@ const StickySection = styled.div`
   justify-content: center;
   overflow: hidden;
 `;
+
+// const BackgroundImage = styled.div`
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// `;

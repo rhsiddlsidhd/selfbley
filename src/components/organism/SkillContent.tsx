@@ -1,9 +1,8 @@
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { styled } from "styled-components";
 import {
   CLOSE_MODAL_TEXT,
   OPEN_MODAL_TEXT,
-  skillOverview,
 } from "../../constants/skillsConstants";
 import useScreenStore from "../../stores/useScreenStore";
 import RollingSkills from "./RollingSkills";
@@ -14,6 +13,7 @@ import {
 import { useCallback, useState } from "react";
 import SKillModalBtn from "./SKillModalBtn";
 import SkillModal from "./SkillModal";
+
 interface SkillContentProps {
   isSticky: boolean;
 }
@@ -29,46 +29,31 @@ const SkillContent = ({ isSticky }: SkillContentProps) => {
   const activeColumns = getSkillContentActiveColumn(mode);
   const contentWidth = getSkillContentWidth(activeColumns);
 
-  const handleIsModal = () => {
-    setIsModal((prev) => {
-      if (prev === false) {
-        // stopAutoPlay();
-        return !isModal;
-      } else {
-        // startAutoPlay();
-        return !isModal;
-      }
-    });
-  };
-
-  const isToggleModal = useCallback(handleIsModal, [isModal]);
+  const isToggleModal = useCallback(() => setIsModal((prev) => !prev), []);
 
   return (
     <Container>
-      <ContentWrapper
-        animate={{
-          width: isSticky ? contentWidth : "100%",
-          height: isSticky ? "50%" : "100%",
-        }}
-      >
-        <motion.div
-          animate={{
-            display: isSticky ? "none" : "block",
-            opacity: isSticky ? 0 : 1,
-          }}
-        >
-          <h2 style={{ display: "flex", justifyContent: "center" }}>
-            {skillOverview}
-          </h2>
-        </motion.div>
-        {isSticky && <RollingSkills />}
-        <SKillModalBtn
-          isSticky={isSticky}
-          isModal={isToggleModal}
-          text={!isModal ? OPEN_MODAL_TEXT : CLOSE_MODAL_TEXT}
-        />
-        <SkillModal isModal={isModal} contentWidth={contentWidth} />
-      </ContentWrapper>
+      <AnimatePresence>
+        {isSticky && (
+          <ContentWrapper
+            initial={{ opacity: 0 }}
+            animate={{
+              width: isSticky ? contentWidth : "100%",
+              height: isSticky ? "50%" : "100%",
+              opacity: isSticky ? 1 : 0,
+            }}
+            exit={{ opacity: 0 }}
+          >
+            <RollingSkills />
+          </ContentWrapper>
+        )}
+      </AnimatePresence>
+      <SKillModalBtn
+        isSticky={isSticky}
+        isModal={isToggleModal}
+        text={!isModal ? OPEN_MODAL_TEXT : CLOSE_MODAL_TEXT}
+      />
+      <SkillModal isModal={isModal} contentWidth={contentWidth} />
     </Container>
   );
 };
@@ -85,7 +70,5 @@ const Container = styled.div`
 `;
 
 const ContentWrapper = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
 `;

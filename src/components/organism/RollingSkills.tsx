@@ -82,7 +82,6 @@ const RollingSkills = () => {
         animate={{
           y: `-${activeIndex * (100 / 3)}%`,
         }}
-        // 구조
         onHoverStart={handleHoverStart}
         onHoverEnd={handleHoverEnd}
       >
@@ -101,7 +100,6 @@ const RollingSkills = () => {
 export default RollingSkills;
 
 const Roller = styled(motion.div)`
-  flex: 1 0 auto;
   height: 100%;
   &:hover {
     cursor: pointer;
