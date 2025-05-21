@@ -158,9 +158,9 @@ const ProjectContainer = styled.main<{ $screenMode: Mode }>`
     }
 
     .thumnail {
-      background-color: red;
       margin: 3rem 0;
-      height: 12rem;
+      aspect-ratio: 16/9;
+
       & > img {
         width: 100%;
         height: 100%;

@@ -18,6 +18,7 @@ const MarqueeSection = ({ text, deg, reverse, padding }: MarqueeProps) => {
   );
 };
 export default MarqueeSection;
+
 const Container = styled.section<{ $padding?: string }>`
   position: relative;
   width: 100%;

@@ -12,6 +12,7 @@ import ContactSection from "../components/organism/ContactSection";
 
 const Main = () => {
   const { type, setType } = useAnimationProgressStore();
+  const src = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     window.scrollTo({
@@ -21,6 +22,16 @@ const Main = () => {
 
     return () => setType("INITIAL");
   }, [setType]);
+
+  useEffect(() => {
+    const handleAsync = async () => {
+      // const src = "http://localhost:8000";
+      const res = await fetch(`${src}/projects`);
+      const data = await res.json();
+      console.log("data", data);
+    };
+    handleAsync();
+  }, [src]);
 
   return (
     <>

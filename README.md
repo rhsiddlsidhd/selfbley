@@ -28,3 +28,7 @@ CONTACT
 Marquee : 중점적으로 생각하는 코드 스타일 키워드
 Scratch : 하고 싶은 말
 Parallax : 개발 일대기
+
+## Image 최적화
+
+thumnail : 50kb 이하
