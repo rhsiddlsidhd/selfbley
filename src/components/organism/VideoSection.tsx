@@ -8,7 +8,7 @@ import useAnimationProgressStore, {
   AnimationType,
 } from "../../stores/useAnimationProgress";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ARROR_ICON, HOMETITLE } from "../../constants/textConstants";
 import AnimatedSVG from "../atoms/AnimatedSVG";
 import AnimatedSVG1 from "../atoms/AnimatedSVG1";
@@ -26,6 +26,10 @@ const VideoSection = () => {
   });
   const width = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
+  useEffect(() => {
+    console.log(isInView);
+  }, [isInView]);
+
   const handleFadeAnimation = (
     type: AnimationType
   ): "show" | "hidden" | "exit" => {
@@ -42,11 +46,19 @@ const VideoSection = () => {
 
   return (
     <HomeContainer ref={containerRef}>
-      <AnimatedSVG />
-      <AnimatedSVG1 />
-      <AnimatedSVG2 />
-      <AnimatedSVG3 />
-      <AnimatedSVG4 />
+      {isInView && (
+        <ExampleSvgContainer>
+          <AnimatedSVG type={0} pathLength={[0, 1, 0, 0, 0]} />
+        </ExampleSvgContainer>
+      )}
+
+      <ExampleSvgContainer1>
+        <AnimatedSVG1 />
+      </ExampleSvgContainer1>
+
+      {/* <AnimatedSVG2 /> */}
+      {/* <AnimatedSVG3 /> */}
+      {/* <AnimatedSVG4 /> */}
 
       <SlideInOverlay style={{ width }}></SlideInOverlay>
       <VideoWrapper $isInView={isInView}>
@@ -68,9 +80,23 @@ const VideoSection = () => {
 };
 
 export default VideoSection;
+const ExampleSvgContainer = styled.div`
+  position: fixed;
+  top: 25vh;
+  left: 25%;
+  width: calc(100% / 4);
+  z-index: 99;
+`;
+
+const ExampleSvgContainer1 = styled.div`
+  position: absolute;
+  top: 0;
+  right: 10%;
+  width: 15%;
+  aspect-ratio: 1/1;
+`;
 
 const SlideInOverlay = styled(motion.div)`
-  width: 100%;
   height: 100%;
   position: absolute;
   background-color: black;
