@@ -10,6 +10,11 @@ import useAnimationProgressStore, {
 
 import { useRef } from "react";
 import { ARROR_ICON, HOMETITLE } from "../../constants/textConstants";
+import AnimatedSVG from "../atoms/AnimatedSVG";
+import AnimatedSVG1 from "../atoms/AnimatedSVG1";
+import AnimatedSVG2 from "../atoms/AnimatedSVG2";
+import AnimatedSVG3 from "../atoms/AnimatedSVG3";
+import AnimatedSVG4 from "../atoms/AnimatedSVG4";
 
 const VideoSection = () => {
   const { type, setType } = useAnimationProgressStore();
@@ -37,6 +42,12 @@ const VideoSection = () => {
 
   return (
     <HomeContainer ref={containerRef}>
+      <AnimatedSVG />
+      <AnimatedSVG1 />
+      <AnimatedSVG2 />
+      <AnimatedSVG3 />
+      <AnimatedSVG4 />
+
       <SlideInOverlay style={{ width }}></SlideInOverlay>
       <VideoWrapper $isInView={isInView}>
         <IntroVideos isInView={isInView} />

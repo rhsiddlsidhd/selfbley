@@ -18,7 +18,7 @@ const Arrow = ({ text }: { text: string }) => {
         position: "absolute",
         rotate: 90,
         bottom: "-50%",
-        transformOrigin: "59% 50% 0",
+        transformOrigin: "60% 50% 0",
       }}
     >
       {text}
