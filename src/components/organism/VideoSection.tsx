@@ -47,14 +47,15 @@ const VideoSection = () => {
   return (
     <HomeContainer ref={containerRef}>
       {isInView && (
-        <ExampleSvgContainer>
-          <AnimatedSVG type={0} pathLength={[0, 1, 0, 0, 0]} />
-        </ExampleSvgContainer>
+        <>
+          <ExampleSvgContainer>
+            <AnimatedSVG type={0} pathLength={[0, 1, 0, 0, 0]} />
+          </ExampleSvgContainer>
+          <ExampleSvgContainer1>
+            <AnimatedSVG4 />
+          </ExampleSvgContainer1>
+        </>
       )}
-
-      <ExampleSvgContainer1>
-        <AnimatedSVG1 />
-      </ExampleSvgContainer1>
 
       {/* <AnimatedSVG2 /> */}
       {/* <AnimatedSVG3 /> */}
@@ -89,11 +90,13 @@ const ExampleSvgContainer = styled.div`
 `;
 
 const ExampleSvgContainer1 = styled.div`
-  position: absolute;
-  top: 0;
-  right: 10%;
-  width: 15%;
-  aspect-ratio: 1/1;
+  position: fixed;
+  top: 50%;
+  right: 1rem;
+  width: calc(100% / 4);
+  aspect-ratio: 2/1;
+  transform: translate(0, -50%);
+  z-index: 99;
 `;
 
 const SlideInOverlay = styled(motion.div)`
