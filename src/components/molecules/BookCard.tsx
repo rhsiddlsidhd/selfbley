@@ -1,5 +1,5 @@
 import React from "react";
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 import { ExtendedBook } from "../organism/SliderSection";
 import useScreenStore from "../../stores/useScreenStore";
 
@@ -11,7 +11,7 @@ const BookCard = ({ book, idx }: { book: ExtendedBook; idx: number }) => {
   const { description, id, formattedDate, src, title } = book;
   const mode = useScreenStore((state) => state.mode);
   return (
-    <BookCardContainer>
+    <BookCardContainer $mode={mode}>
       {/* BOOkCARD 의 두가지 형태임 id가 intro 인가 아니면 북카드인가 */}
       {id === "intro" ? (
         <IntroCardBody description={description} />
@@ -31,30 +31,33 @@ const BookCard = ({ book, idx }: { book: ExtendedBook; idx: number }) => {
 
 export default BookCard;
 
-const BookCardContainer = styled.div`
+const BookCardContainer = styled.div<{ $mode: string }>`
   min-width: 200px;
-  max-width: calc(100vw / 6 * 4);
+  max-width: calc(100vw / 6 * 2);
   aspect-ratio: 3/ 4;
-  padding: 1rem;
-  border-radius: 10px;
   cursor: pointer;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
   gap: 1rem;
-
+  filter: brightness(1);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  background-color: white;
+  color: black;
   &:hover {
-    background-color: white;
+    background-color: #ff6a41;
     p,
     h5,
     h6,
     h4 {
-      color: black;
-    }
-    .meta > .updated_at {
-      border-bottom: 1px solid black;
+      color: white;
     }
   }
+
+  ${({ $mode }) =>
+    $mode === "mobile" &&
+    css`
+      max-width: calc(100vw / 6 * 4);
+    `}
 `;

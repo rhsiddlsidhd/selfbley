@@ -7,12 +7,10 @@ import Arrow from "../atoms/Arrow";
 import useAnimationProgressStore, {
   AnimationType,
 } from "../../stores/useAnimationProgress";
-
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { ARROR_ICON, HOMETITLE } from "../../constants/textConstants";
-import SignSVG from "../atoms/SignSVG";
-import SignSVGs from "../molecules/signSVGs";
-import MainSignSVGContainer from "./MainSignSVGContainer";
+import SignSVGContainer from "./SignSVGContainer";
+
 const VideoSection = () => {
   const { type, setType } = useAnimationProgressStore();
   const containerRef = useRef(null);
@@ -22,10 +20,6 @@ const VideoSection = () => {
     offset: ["start start", "end end"],
   });
   const width = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
-  useEffect(() => {
-    console.log(isInView);
-  }, [isInView]);
 
   const handleFadeAnimation = (
     type: AnimationType
@@ -43,12 +37,7 @@ const VideoSection = () => {
 
   return (
     <HomeContainer ref={containerRef}>
-      {/* {isInView && (
-        <ExampleSvgContainer>
-          <SignSVG type={0} />
-        </ExampleSvgContainer>
-      )} */}
-      <MainSignSVGContainer />
+      <SignSVGContainer isView={isInView} section="videoSection" />
       <SlideInOverlay style={{ width }}></SlideInOverlay>
       <VideoWrapper $isInView={isInView}>
         <IntroVideos isInView={isInView} />
@@ -69,44 +58,12 @@ const VideoSection = () => {
 };
 
 export default VideoSection;
-const ExampleSvgContainer3 = styled.div`
-  position: fixed;
-  top: 10vh;
-  right: 25%;
-  width: calc(100% / 4);
-  z-index: 99;
-`;
-
-const ExampleSvgContainer2 = styled.div`
-  position: fixed;
-  top: 50vh;
-  left: 70%;
-  width: calc(100% / 4);
-  z-index: 99;
-`;
-
-const ExampleSvgContainer = styled.div`
-  position: fixed;
-  top: 25vh;
-  left: 25%;
-  width: calc(100% / 4);
-  z-index: 99;
-`;
-
-const ExampleSvgContainer1 = styled.div`
-  position: fixed;
-  top: 23vh;
-  right: 10%;
-  width: 15%;
-  aspect-ratio: 1/1;
-  z-index: 99;
-`;
 
 const SlideInOverlay = styled(motion.div)`
   height: 100%;
   position: absolute;
   background-color: black;
-  z-index: 1;
+  z-index: 0;
 `;
 
 const fadeVariants = {

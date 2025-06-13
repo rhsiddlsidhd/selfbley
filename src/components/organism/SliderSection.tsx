@@ -148,6 +148,7 @@ const StickyArea = styled.div<{ $mode: Mode }>`
     css`
       padding-top: 6rem;
     `}
+  z-index: 21;
 `;
 
 const SectionIntro = styled.div`
@@ -167,7 +168,6 @@ const CardScroller = styled(motion.div)<{
   height: ${({ $mode }) => ($mode === "mobile" ? "80vh" : "60vh")};
   display: flex;
   gap: ${({ $gap }) => `${$gap}vw`};
-  background-color: #00000047;
 `;
 
 const SlideContainer = styled.div<{ $width: number }>`

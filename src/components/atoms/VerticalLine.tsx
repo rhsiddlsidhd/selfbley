@@ -28,7 +28,8 @@ const VerticalLineContainer = styled.div<{ $page: Page }>`
   position: fixed;
   background-color: transparent;
   display: flex;
-  z-index: 20;
+  z-index: 10;
+
   pointer-events: none;
 `;
 
@@ -37,7 +38,7 @@ const VerticalLineSection = styled.section<{
   $mode: Mode;
 }>`
   border-right: ${({ $borderRemoveItem }) =>
-    !$borderRemoveItem && "2px solid #7178852b "};
+    !$borderRemoveItem && "3px solid #7178852b "};
   flex: 1;
   &:first-child,
   &:last-child {

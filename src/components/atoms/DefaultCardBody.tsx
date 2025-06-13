@@ -41,31 +41,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   word-break: keep-all;
-  .meta {
-    flex: 1 0 20%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    flex-shrink: 0;
-    gap: 0.5rem;
-    & > h5,
-    h6 {
-      height: 50%;
-    }
-    .updated_at {
-      width: fit-content;
-      border-bottom: 1px solid white;
-    }
-  }
+  padding: 0.5rem;
   .title {
-    flex: 2 0 30%;
     font-weight: bold;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .description {
-    flex: 3 0 50%;
-    /* font-size: clamp(0.725rem, 2vw, 1.5rem); */
   }
 `;

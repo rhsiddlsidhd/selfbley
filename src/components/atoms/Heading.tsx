@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 
 interface HeadingProps {
   children: React.ReactNode;
@@ -6,7 +7,11 @@ interface HeadingProps {
 }
 
 const Heading = ({ children, ref }: HeadingProps) => {
-  return <h1 ref={ref}>{children}</h1>;
+  return <Text ref={ref}>{children}</Text>;
 };
 
 export default Heading;
+
+const Text = styled.h1`
+  font-size: inherit;
+`;

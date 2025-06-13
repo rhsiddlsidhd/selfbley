@@ -43,14 +43,7 @@ const Main = () => {
         <>
           {/* 컴포넌트명을 주 animation을 활용 */}
           <VideoSection />
-          <MarqueeSection text="Dynamic & Alive" deg={-10} padding="3rem 0" />
-          <MarqueeSection
-            text="Function Programming"
-            deg={-10}
-            padding="3rem 0"
-            reverse={true}
-          />
-          <MarqueeSection text="Architecture" padding="3rem 0" />
+          <MarqueeSection text="Dynamic & Alive" type="top" />
           <ParallaxSection />
           <ScratchSection />
           <SliderSection />

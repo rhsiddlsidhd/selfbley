@@ -12,13 +12,11 @@ const Thumbnail = ({ src }: { src: string }) => {
 export default Thumbnail;
 
 const Container = styled.div`
-  border-radius: 1rem;
   width: 100%;
   height: 40%;
   img {
     width: 100%;
     height: 100%;
-    border-radius: 1rem;
     object-fit: cover;
   }
 `;

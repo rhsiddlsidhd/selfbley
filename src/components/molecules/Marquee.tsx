@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { motion } from "motion/react";
 import Heading from "../atoms/Heading";
-
 interface MarqueeTextProps {
   children: string | React.ReactNode;
   reverse?: boolean;
@@ -90,6 +89,8 @@ const MarqueeTrack = styled.div<{ $deg: number; $reverse: boolean }>`
   font-weight: bold;
   justify-content: ${({ $reverse }) => ($reverse ? "end" : "start")};
   transform: ${({ $deg }) => `rotate(${$deg}deg)`};
+  padding: 3rem 0;
+  z-index: 2;
 `;
 
 const MarqueeMessage = styled(motion.div)`
