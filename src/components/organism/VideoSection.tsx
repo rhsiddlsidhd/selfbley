@@ -10,12 +10,9 @@ import useAnimationProgressStore, {
 
 import { useEffect, useRef } from "react";
 import { ARROR_ICON, HOMETITLE } from "../../constants/textConstants";
-import AnimatedSVG from "../atoms/AnimatedSVG";
-import AnimatedSVG1 from "../atoms/AnimatedSVG1";
-import AnimatedSVG2 from "../atoms/AnimatedSVG2";
-import AnimatedSVG3 from "../atoms/AnimatedSVG3";
-import AnimatedSVG4 from "../atoms/AnimatedSVG4";
-
+import SignSVG from "../atoms/SignSVG";
+import SignSVGs from "../molecules/signSVGs";
+import MainSignSVGContainer from "./MainSignSVGContainer";
 const VideoSection = () => {
   const { type, setType } = useAnimationProgressStore();
   const containerRef = useRef(null);
@@ -46,21 +43,12 @@ const VideoSection = () => {
 
   return (
     <HomeContainer ref={containerRef}>
-      {isInView && (
-        <>
-          <ExampleSvgContainer>
-            <AnimatedSVG type={0} pathLength={[0, 1, 0, 0, 0]} />
-          </ExampleSvgContainer>
-          <ExampleSvgContainer1>
-            <AnimatedSVG4 />
-          </ExampleSvgContainer1>
-        </>
-      )}
-
-      {/* <AnimatedSVG2 /> */}
-      {/* <AnimatedSVG3 /> */}
-      {/* <AnimatedSVG4 /> */}
-
+      {/* {isInView && (
+        <ExampleSvgContainer>
+          <SignSVG type={0} />
+        </ExampleSvgContainer>
+      )} */}
+      <MainSignSVGContainer />
       <SlideInOverlay style={{ width }}></SlideInOverlay>
       <VideoWrapper $isInView={isInView}>
         <IntroVideos isInView={isInView} />
@@ -81,6 +69,22 @@ const VideoSection = () => {
 };
 
 export default VideoSection;
+const ExampleSvgContainer3 = styled.div`
+  position: fixed;
+  top: 10vh;
+  right: 25%;
+  width: calc(100% / 4);
+  z-index: 99;
+`;
+
+const ExampleSvgContainer2 = styled.div`
+  position: fixed;
+  top: 50vh;
+  left: 70%;
+  width: calc(100% / 4);
+  z-index: 99;
+`;
+
 const ExampleSvgContainer = styled.div`
   position: fixed;
   top: 25vh;
@@ -91,11 +95,10 @@ const ExampleSvgContainer = styled.div`
 
 const ExampleSvgContainer1 = styled.div`
   position: fixed;
-  top: 50%;
-  right: 1rem;
-  width: calc(100% / 4);
-  aspect-ratio: 2/1;
-  transform: translate(0, -50%);
+  top: 23vh;
+  right: 10%;
+  width: 15%;
+  aspect-ratio: 1/1;
   z-index: 99;
 `;
 
