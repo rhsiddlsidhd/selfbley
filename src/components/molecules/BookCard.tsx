@@ -1,4 +1,3 @@
-import React from "react";
 import { css, styled } from "styled-components";
 import { ExtendedBook } from "../organism/SliderSection";
 import useScreenStore from "../../stores/useScreenStore";
@@ -36,15 +35,15 @@ const BookCardContainer = styled.div<{ $mode: string }>`
   max-width: calc(100vw / 6 * 2);
   aspect-ratio: 3/ 4;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  gap: 1rem;
-  filter: brightness(1);
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   background-color: white;
   color: black;
+  ${({ $mode }) =>
+    $mode === "mobile" &&
+    css`
+      max-width: calc(100vw / 6 * 4);
+    `}
+
   &:hover {
     background-color: #ff6a41;
     p,
@@ -54,10 +53,4 @@ const BookCardContainer = styled.div<{ $mode: string }>`
       color: white;
     }
   }
-
-  ${({ $mode }) =>
-    $mode === "mobile" &&
-    css`
-      max-width: calc(100vw / 6 * 4);
-    `}
 `;

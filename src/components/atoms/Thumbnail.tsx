@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const Thumbnail = ({ src }: { src: string }) => {
@@ -12,7 +11,6 @@ const Thumbnail = ({ src }: { src: string }) => {
 export default Thumbnail;
 
 const Container = styled.div`
-  width: 100%;
   height: 40%;
   img {
     width: 100%;

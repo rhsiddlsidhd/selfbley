@@ -10,12 +10,12 @@ const Footer = () => {
         <address>rhsiddlsidhd1@gmail.com</address>
         <Icons>
           <li>
-            <a href="http://www.naver.com" target="_blank">
+            <a href="https://github.com/rhsiddlsidhd/selfbley" target="_blank">
               <img src={github} />
             </a>
           </li>
           <li>
-            <a href="http://www.naver.com" target="_blank">
+            <a href="https://endless-growth.tistory.com/" target="_blank">
               <img src="https://t1.daumcdn.net/cfile/tistory/9935084A5B9541D014" />
             </a>
           </li>
@@ -59,13 +59,16 @@ const ContactSection = styled.section`
 
 const Icons = styled.ul`
   list-style: none;
-
   & > li {
     width: 50px;
     height: 50px;
     & > a > img {
       width: 100%;
       height: 100%;
+    }
+    &:hover {
+      transform: scale(1.15);
+      transition: transform 0.3s ease-in-out;
     }
   }
 `;

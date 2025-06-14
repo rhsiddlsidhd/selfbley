@@ -17,8 +17,9 @@ const NavWrapper = styled.header`
   background-color: transparent;
   font-weight: bold;
   display: flex;
-  z-index: 20;
-  /* background-color: #1b19176f; */
+  z-index: 99;
+  background-color: #1b19176f;
+  backdrop-filter: blur(10px);
   & > div {
     flex: 1;
     & > p {

@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { motion } from "motion/react";
 import Heading from "../atoms/Heading";
 interface MarqueeTextProps {
-  children: string | React.ReactNode;
+  text: string;
   reverse?: boolean;
   deg?: number;
 }
 
-const Marquee = ({ deg = 0, reverse = false, children }: MarqueeTextProps) => {
+const Marquee = ({ deg = 0, reverse = false, text }: MarqueeTextProps) => {
   const [isMounted, setIsMounted] = useState(false);
   const [multiplier, setMultiplier] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -33,10 +33,10 @@ const Marquee = ({ deg = 0, reverse = false, children }: MarqueeTextProps) => {
       const arraySize = Math.max(multiplier, 0);
 
       return [...Array(arraySize)].map((_, i) => (
-        <Heading key={i}>{children}</Heading>
+        <Heading key={i} renderContent={text} />
       ));
     },
-    [children]
+    [text]
   );
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const Marquee = ({ deg = 0, reverse = false, children }: MarqueeTextProps) => {
       {Array.from({ length: 2 }, (_, i) => {
         return (
           <MarqueeMessage animate={marqueeAnimation} key={i}>
-            <Heading ref={textRef}>{children}</Heading>
+            <Heading ref={textRef} renderContent={text} />
             {multiplyChildren(multiplier - 1)}
           </MarqueeMessage>
         );

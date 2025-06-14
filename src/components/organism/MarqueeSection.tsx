@@ -44,9 +44,7 @@ const MarqueeSection = ({ text, type, deg, reverse }: MarqueeProps) => {
         section="topMarqueeSection"
         $position="absolute"
       />
-      <Marquee deg={deg} reverse={reverse}>
-        {text}
-      </Marquee>
+      <Marquee deg={deg} reverse={reverse} text={text} />
     </Container>
   );
 };
@@ -57,4 +55,5 @@ const Container = styled.section`
   width: 100%;
   font-size: clamp(5rem, 8vw, 10rem);
   z-index: 0;
+  overflow: hidden;
 `;

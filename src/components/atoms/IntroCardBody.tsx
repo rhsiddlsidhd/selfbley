@@ -18,9 +18,8 @@ const Container = styled.div`
   height: 60%;
   overflow: auto;
   word-break: keep-all;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
   padding: 0.5rem;
+  & > h6 {
+    margin-bottom: 1rem;
+  }
 `;

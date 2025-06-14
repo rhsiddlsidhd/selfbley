@@ -1,4 +1,3 @@
-import React from "react";
 import { Mode } from "../../stores/useScreenStore";
 import styled from "styled-components";
 
@@ -38,8 +37,6 @@ export default DefaultCardBody;
 const Container = styled.div`
   height: 60%;
   overflow: scroll;
-  display: flex;
-  flex-direction: column;
   word-break: keep-all;
   padding: 0.5rem;
   .title {

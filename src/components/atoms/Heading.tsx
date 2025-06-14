@@ -1,13 +1,36 @@
 import React from "react";
 import styled from "styled-components";
+import { motion } from "motion/react";
 
 interface HeadingProps {
-  children: React.ReactNode;
+  renderContent: string;
   ref?: React.Ref<HTMLHeadingElement | null>;
 }
 
-const Heading = ({ children, ref }: HeadingProps) => {
-  return <Text ref={ref}>{children}</Text>;
+const Heading = ({ renderContent, ref }: HeadingProps) => {
+  return (
+    <Text ref={ref}>
+      {[...renderContent].map((word, i) => {
+        return (
+          <motion.span
+            initial={{ filter: "blur(0px)" }}
+            animate={{
+              filter: "blur(6px)",
+              transition: {
+                delay: i * 0.4,
+                duration: 4,
+                ease: "linear",
+                repeat: Infinity,
+              },
+            }}
+            key={`${Math.random()}- ${word} `}
+          >
+            {word}
+          </motion.span>
+        );
+      })}
+    </Text>
+  );
 };
 
 export default Heading;

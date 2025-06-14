@@ -28,7 +28,7 @@ export default function SignSVG({ type, color = "whitesmoke" }: SignSVGProps) {
           opacity: getSVGConfig(type).opacity,
         }}
         transition={{
-          duration: 10,
+          duration: 8,
           times: getSVGConfig(type).times,
           ease: "linear",
           repeat: Infinity,

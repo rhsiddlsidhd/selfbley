@@ -16,7 +16,7 @@ interface CreateTabUnderlineProps {
   ref: RefObject<Record<ROUTESKeys, HTMLParagraphElement | null>>;
 }
 
-const Nav = () => {
+const Nav = ({ onCloseMenu }: { onCloseMenu?: () => void }) => {
   const mode = useScreenStore((state) => state.mode);
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -35,6 +35,7 @@ const Nav = () => {
       setActiveTab(width);
     }
   };
+
   return (
     <>
       {mode !== "mobile" ? (
@@ -78,6 +79,7 @@ const Nav = () => {
                   key={__tab}
                   id={__tab}
                   onClick={() => {
+                    if (onCloseMenu) onCloseMenu();
                     setTimeout(() => {
                       handleNavigate({
                         routes: ROUTES,

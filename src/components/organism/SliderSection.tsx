@@ -56,9 +56,13 @@ const SliderSection = () => {
   const maxOffsetX = (bookData.length - 1) * CARD_TOTAL_WIDTH;
   const maxOffsetY = bookData.length * BOOK_SECTION_HEIGHT;
   const rawX = useTransform(mid, [0, 1], [0, -maxOffsetX]);
-  const rawY = useTransform(mid, [0, 0.25, 1], [0, 25, 25]);
+
+  // const rawY = useTransform(mid, [0, 0.25, 1], [0, 25, 25]);
+  const rawY = useTransform(mid, [0, 1], [0, 0]);
+
   const initialY = useTransform(initial, [0, 1], [INITIAL_Y_OFFSET, 0]);
-  const lastY = useTransform(last, [0, 1], [maxOffsetY - 75, maxOffsetY]);
+  // const lastY = useTransform(last, [0, 1], [maxOffsetY - 75, maxOffsetY]);
+  const lastY = useTransform(last, [0, 1], [maxOffsetY - 100, maxOffsetY]);
   const x = useMotionTemplate`${rawX}vw`;
   const initialTranslateY = useMotionTemplate`${initialY}%`;
   const lastTranslateY = useMotionTemplate`${lastY}%`;
@@ -83,6 +87,7 @@ const SliderSection = () => {
         isLast: idx === arr.length - 1,
       })
     );
+    console.log("Re", result);
     setBookData(result);
   }, [mode]);
 
@@ -107,7 +112,6 @@ const SliderSection = () => {
           $gap={CARD_WRAPPER_GAP}
           style={{ x }}
           $totalBooks={bookData.length}
-          $mode={mode}
         >
           {bookData.map((book, idx) => {
             return (
@@ -128,51 +132,42 @@ const Container = styled.section<{
   $totalBooks: number;
   $bookSectionHeight: number;
 }>`
+  position: relative;
   height: ${({ $totalBooks, $bookSectionHeight }) =>
     $totalBooks * $bookSectionHeight}vh;
-  width: 100vw;
-  position: relative;
 `;
 
 const StickyArea = styled.div<{ $mode: Mode }>`
   position: sticky;
   top: 0;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  overflow: hidden;
   ${({ $mode }) =>
     $mode === "mobile" &&
     css`
       padding-top: 6rem;
     `}
+  overflow: hidden;
   z-index: 21;
 `;
 
 const SectionIntro = styled.div`
   max-width: 350px;
-  margin-top: 5rem;
-  margin-bottom: 1rem;
-  padding-left: 1rem;
+  padding: 6rem 0 1rem 1rem;
 `;
 
 const CardScroller = styled(motion.div)<{
   $totalBooks: number;
-  $mode: Mode;
-
   $gap: number;
 }>`
   width: ${({ $totalBooks }) => $totalBooks * 100}vw;
-  height: ${({ $mode }) => ($mode === "mobile" ? "80vh" : "60vh")};
+  height: 70vh;
+  position: relative;
   display: flex;
-  gap: ${({ $gap }) => `${$gap}vw`};
+  gap: ${({ $gap }) => `${$gap}vw`}; // 제거할 필요성 높음
 `;
 
 const SlideContainer = styled.div<{ $width: number }>`
   width: ${({ $width }) => `${$width}vw`};
   min-width: 200px;
-  flex-shrink: 0;
   display: flex;
+  padding-left: 1rem;
 `;

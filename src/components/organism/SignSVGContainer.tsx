@@ -1,22 +1,25 @@
 import { styled } from "styled-components";
 import SignSVG from "../atoms/SignSVG";
 import {
+  parallaxSignSVGPosition,
   topMarqueeSignSVGPositions,
   videoSectionSignSGVPositions,
 } from "../../constants/svg/sign-positions";
 
-type Sections = "videoSection" | "topMarqueeSection";
+type Sections = "videoSection" | "topMarqueeSection" | "parallaxSection";
 
 interface SignSVGContainerProps {
   isView: boolean;
   section: Sections;
   $position?: string;
+  $color?: string;
 }
 
 const SignSVGContainer = ({
   isView,
   section,
   $position,
+  $color,
 }: SignSVGContainerProps) => {
   /**
    * Props로 어떤 섹션인지 구분하고
@@ -29,6 +32,8 @@ const SignSVGContainer = ({
         return videoSectionSignSGVPositions;
       case "topMarqueeSection":
         return topMarqueeSignSVGPositions;
+      case "parallaxSection":
+        return parallaxSignSVGPosition;
     }
   };
 
@@ -39,7 +44,7 @@ const SignSVGContainer = ({
           ({ id, top, left, right, bottom, transform, width = 1 }) => {
             return (
               <SVGWrapper
-                key={id}
+                key={`${id}-${Math.random()}`}
                 style={{
                   top,
                   left,
@@ -50,7 +55,7 @@ const SignSVGContainer = ({
                 }}
                 $position={$position || "fixed"}
               >
-                <SignSVG type={id}></SignSVG>
+                <SignSVG color={$color} type={id}></SignSVG>
               </SVGWrapper>
             );
           }

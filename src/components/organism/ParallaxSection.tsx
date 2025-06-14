@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { useMotionValueEvent, useScroll, useTransform } from "motion/react";
@@ -6,6 +6,7 @@ import { QUESTIONS } from "../../constants/textConstants";
 import ParallaxBackground from "../molecules/ParallaxBackground";
 import PostIts from "../molecules/PostIts";
 import { getParallaxActiveIndex } from "../../utils/calculation";
+import SignSVGContainer from "./SignSVGContainer";
 
 const ParallaxSection = () => {
   const questionsLength = QUESTIONS.length;
@@ -41,6 +42,11 @@ const ParallaxSection = () => {
 
   return (
     <Container ref={containerRef} $length={questionsLength}>
+      <SignSVGContainer
+        isView={true}
+        section="parallaxSection"
+        $position="absolute"
+      />
       <ParallaxBackground
         activeIndex={activeIndex}
         scrollYProgressStart={scrollYProgressStart}

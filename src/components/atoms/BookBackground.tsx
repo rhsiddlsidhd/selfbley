@@ -55,8 +55,9 @@ const Background = styled.div<{ $source: string }>`
   width: 100%;
   height: 100%;
   background-image: ${({ $source }) => `url(${$source})`};
-  background-size: cover;
+  /* background-size: cover; */
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: top;
-  filter: blur(0.5rem) brightness(0.4);
+  filter: blur(0.5rem);
 `;
