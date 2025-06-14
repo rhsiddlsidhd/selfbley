@@ -1,5 +1,10 @@
 import bookintro from "../assets/bookIntro.jpg";
 import bookJpg from "../assets/books.jpg";
+import lizard_2560 from "../assets/book_section/background/lizard-background-2560.webp";
+import lizard_1280 from "../assets/book_section/background/lizard-background-1280.webp";
+import lizard_760 from "../assets/book_section/background/lizard-background-760.webp";
+import lizard_thumnail_320 from "../assets/book_section/thumnail/lizard-thumnail-320.webp";
+import lizard_thumnail_640 from "../assets/book_section/thumnail/lizard-thumnail-640.webp";
 import deepJpg from "../assets/deep.jpg";
 import structureJpg from "../assets/structure3.jpg";
 import darkJpg from "../assets/dark.jpg";
@@ -32,20 +37,23 @@ export class Book implements BookInterface {
     public updatedAt: number,
     public title: string,
     public description: string,
-    public src: string
+    public src: string,
+    public thumnail: string
   ) {
     this.formattedDate = formatDate(updatedAt);
   }
 }
 
-const intro = new Book("intro", 12345678, "", BOOKINTRO, bookintro);
+const intro = new Book("intro", 12345678, "", BOOKINTRO, bookintro, "");
 
 const interview = new Book(
   "interview",
   20250101,
   "면접을 위한 CS 전공지식 노트",
   "Lorem ipsum dolor sit amet consectetur adipisicing elit.Optio, Lorem ipsum dolor sit amet consectetur adipisicing elit.Optio ",
-  bookJpg
+  //bookJpg
+  `${lizard_2560} 2560w, ${lizard_1280} 1280w, ${lizard_760} 760w`,
+  `${lizard_thumnail_320} 320w, ${lizard_thumnail_640} 640w`
 );
 
 const learningJs = new Book(
@@ -53,7 +61,8 @@ const learningJs = new Book(
   20250102,
   "Learning Javascript Data Structures and Algorithms",
   "Lorem ipsum dolor sit amet consectetur adipisicing elit.Optio, Lorem ipsum dolor sit amet consectetur adipisicing elit.Optio ",
-  darkJpg
+  darkJpg,
+  ""
 );
 
 const deepJs = new Book(
@@ -61,7 +70,8 @@ const deepJs = new Book(
   20250103,
   "Deep Javascript",
   "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-  deepJpg
+  deepJpg,
+  ""
 );
 
 const gracefulTs = new Book(
@@ -69,7 +79,8 @@ const gracefulTs = new Book(
   20250106,
   "우아한 타입스크립트 with 리액트",
   "vel tempora dolorum repellendus at, est illum rerum reprehenderit quasi voluptates temporibus eligendi eos corporis deserunt sint eius.",
-  structureJpg
+  structureJpg,
+  ""
 );
 
 export const books = [intro, interview, learningJs, deepJs, gracefulTs];

@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 const Thumbnail = ({ src }: { src: string }) => {
+  console.log("Z", src);
   return (
     <Container>
-      <img src={src} alt="thumbnail" />
+      <img srcSet={src} alt="thumbnail" />
     </Container>
   );
 };
@@ -11,7 +12,9 @@ const Thumbnail = ({ src }: { src: string }) => {
 export default Thumbnail;
 
 const Container = styled.div`
+  width: 100%;
   height: 40%;
+  overflow: hidden;
   img {
     width: 100%;
     height: 100%;

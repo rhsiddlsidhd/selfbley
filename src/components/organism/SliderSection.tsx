@@ -87,7 +87,7 @@ const SliderSection = () => {
         isLast: idx === arr.length - 1,
       })
     );
-    console.log("Re", result);
+    console.log("z", result);
     setBookData(result);
   }, [mode]);
 
@@ -151,7 +151,7 @@ const StickyArea = styled.div<{ $mode: Mode }>`
 
 const SectionIntro = styled.div`
   max-width: 350px;
-  padding: 6rem 0 1rem 1rem;
+  padding: 6rem 0 1rem 2rem;
 `;
 
 const CardScroller = styled(motion.div)<{
@@ -169,5 +169,5 @@ const SlideContainer = styled.div<{ $width: number }>`
   width: ${({ $width }) => `${$width}vw`};
   min-width: 200px;
   display: flex;
-  padding-left: 1rem;
+  padding-left: 2rem;
 `;

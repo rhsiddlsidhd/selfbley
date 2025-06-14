@@ -1,13 +1,12 @@
 import { css, styled } from "styled-components";
 import { ExtendedBook } from "../organism/SliderSection";
 import useScreenStore from "../../stores/useScreenStore";
-
 import IntroCardBody from "../atoms/IntroCardBody";
 import DefaultCardBody from "../atoms/DefaultCardBody";
 import Thumbnail from "../atoms/Thumbnail";
 
 const BookCard = ({ book, idx }: { book: ExtendedBook; idx: number }) => {
-  const { description, id, formattedDate, src, title } = book;
+  const { description, id, formattedDate, src, title, thumnail } = book;
   const mode = useScreenStore((state) => state.mode);
   return (
     <BookCardContainer $mode={mode}>
@@ -23,7 +22,7 @@ const BookCard = ({ book, idx }: { book: ExtendedBook; idx: number }) => {
           description={description}
         />
       )}
-      <Thumbnail src={src} />
+      <Thumbnail src={thumnail} />
     </BookCardContainer>
   );
 };
@@ -34,10 +33,13 @@ const BookCardContainer = styled.div<{ $mode: string }>`
   min-width: 200px;
   max-width: calc(100vw / 6 * 2);
   aspect-ratio: 3/ 4;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   background-color: white;
   color: black;
+  cursor: pointer;
   ${({ $mode }) =>
     $mode === "mobile" &&
     css`

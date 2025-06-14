@@ -35,7 +35,6 @@ const DefaultCardBody = ({
 export default DefaultCardBody;
 
 const Container = styled.div`
-  height: 60%;
   overflow: scroll;
   word-break: keep-all;
   padding: 0.5rem;

@@ -41,7 +41,7 @@ const BookBackground = ({
             initial={false}
             animate={{ opacity: i === activeIndex ? 1 : 0 }}
           >
-            <Background $source={src} />
+            <Background srcSet={src} />
           </motion.div>
         );
       })}
@@ -51,13 +51,8 @@ const BookBackground = ({
 
 export default BookBackground;
 
-const Background = styled.div<{ $source: string }>`
+const Background = styled.img`
   width: 100%;
   height: 100%;
-  background-image: ${({ $source }) => `url(${$source})`};
-  /* background-size: cover; */
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: top;
-  filter: blur(0.5rem);
+  filter: blur(5px) brightness(0.3);
 `;

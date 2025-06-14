@@ -46,7 +46,7 @@ const Container = styled(motion.section)`
   position: relative;
 `;
 
-const PostIt = styled.h6<{ $mode: Mode; $top: number; $left: number }>`
+const PostIt = styled.p<{ $mode: Mode; $top: number; $left: number }>`
   position: absolute;
   display: flex;
   top: ${({ $top }) => `${$top}%`};
@@ -56,6 +56,7 @@ const PostIt = styled.h6<{ $mode: Mode; $top: number; $left: number }>`
     $mode !== "desktop" ? `calc(100% / 6 * 4)` : `calc(100% / 6 * 2)`};
   word-break: keep-all;
   font-weight: bold;
+  font-size: clamp(0.75rem, 2vw, 3rem);
   padding: 3rem;
   backdrop-filter: blur(20px);
 `;

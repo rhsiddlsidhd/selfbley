@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { useMotionValueEvent, useScroll, useTransform } from "motion/react";
@@ -41,7 +41,7 @@ const ParallaxSection = () => {
   }, []);
 
   return (
-    <Container ref={containerRef} $length={questionsLength}>
+    <Container ref={containerRef}>
       <SignSVGContainer
         isView={true}
         section="parallaxSection"
@@ -60,7 +60,7 @@ const ParallaxSection = () => {
 
 export default ParallaxSection;
 
-const Container = styled.section<{ $length: number }>`
+const Container = styled.section`
   position: relative;
-  height: ${({ $length }) => `${$length * 100}vh`};
+  height: fit-content;
 `;

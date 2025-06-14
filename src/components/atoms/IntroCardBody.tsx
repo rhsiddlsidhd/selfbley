@@ -15,7 +15,6 @@ const IntroCardBody = ({ description }: { description: string }) => {
 export default IntroCardBody;
 
 const Container = styled.div`
-  height: 60%;
   overflow: auto;
   word-break: keep-all;
   padding: 0.5rem;
