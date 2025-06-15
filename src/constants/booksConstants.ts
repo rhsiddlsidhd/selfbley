@@ -1,13 +1,20 @@
 import bookintro from "../assets/bookIntro.jpg";
 import bookJpg from "../assets/books.jpg";
 import lizard_2560 from "../assets/book_section/background/lizard-background-2560.webp";
+import lizard_1920 from "../assets/book_section/background/lizard-background-1920.webp";
 import lizard_1280 from "../assets/book_section/background/lizard-background-1280.webp";
 import lizard_760 from "../assets/book_section/background/lizard-background-760.webp";
-import lizard_thumnail_320 from "../assets/book_section/thumnail/lizard-thumnail-320.webp";
-import lizard_thumnail_640 from "../assets/book_section/thumnail/lizard-thumnail-640.webp";
+import lizard_320 from "../assets/book_section/thumnail/lizard-thumnail-320.webp";
+import lizard_640 from "../assets/book_section/thumnail/lizard-thumnail-640.webp";
 import deepJpg from "../assets/deep.jpg";
 import structureJpg from "../assets/structure3.jpg";
 import darkJpg from "../assets/dark.jpg";
+import algorithms_2560 from "../assets/book_section/background/algorithms-background-2560.webp";
+import algorithms_1920 from "../assets/book_section/background/algorithms-background-1920.webp";
+import algorithms_1280 from "../assets/book_section/background/algorithms-background-1280.webp";
+import algorithms_760 from "../assets/book_section/background/algorithms-background-760.webp";
+import algorithms_640 from "../assets/book_section/thumnail/algorithms-thumnail-640.webp";
+import algorithms_320 from "../assets/book_section/thumnail/algorithms-thumnail-320.webp";
 import { BOOKINTRO } from "./textConstants";
 
 interface BookInterface {
@@ -51,9 +58,8 @@ const interview = new Book(
   20250101,
   "면접을 위한 CS 전공지식 노트",
   "Lorem ipsum dolor sit amet consectetur adipisicing elit.Optio, Lorem ipsum dolor sit amet consectetur adipisicing elit.Optio ",
-  //bookJpg
-  `${lizard_2560} 2560w, ${lizard_1280} 1280w, ${lizard_760} 760w`,
-  `${lizard_thumnail_320} 320w, ${lizard_thumnail_640} 640w`
+  `${lizard_2560} 2560w, ${lizard_1920} 1920w, ${lizard_1280} 1280w, ${lizard_760} 760w`,
+  `${lizard_320} 320w, ${lizard_640} 640w`
 );
 
 const learningJs = new Book(
@@ -61,8 +67,8 @@ const learningJs = new Book(
   20250102,
   "Learning Javascript Data Structures and Algorithms",
   "Lorem ipsum dolor sit amet consectetur adipisicing elit.Optio, Lorem ipsum dolor sit amet consectetur adipisicing elit.Optio ",
-  darkJpg,
-  ""
+  `${algorithms_2560} 2560w, ${algorithms_1920} 1920w, ${algorithms_1280} 1280w, ${algorithms_760} 760w`,
+  `${algorithms_640} 640w, ${algorithms_320} 320w`
 );
 
 const deepJs = new Book(
@@ -70,8 +76,8 @@ const deepJs = new Book(
   20250103,
   "Deep Javascript",
   "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-  deepJpg,
-  ""
+  `${lizard_2560} 2560w, ${lizard_1920} 1920w, ${lizard_1280} 1280w, ${lizard_760} 760w`,
+  `${lizard_320} 320w, ${lizard_640} 640w`
 );
 
 const gracefulTs = new Book(

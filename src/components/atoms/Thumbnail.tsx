@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const Thumbnail = ({ src }: { src: string }) => {
-  console.log("Z", src);
   return (
     <Container>
       <img srcSet={src} alt="thumbnail" />
