@@ -1,66 +1,53 @@
 import styled from "styled-components";
-import palm from "../../assets/palm.jpg";
-import mountains from "../../assets/mountains.jpg";
-import railroad from "../../assets/railroad.jpg";
-import sunset from "../../assets/sunset.jpg";
-import person from "../../assets/person.jpg";
 import { useEffect, useState } from "react";
+import { weatherImgs } from "../../constants/imgs";
 
 const MainLoading = ({
   onLoadingComplete,
+  isVisible,
 }: {
   onLoadingComplete: () => void;
+  isVisible: boolean;
 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const imgSrcs = [
-    `${palm}`,
-    `${mountains}`,
-    `${railroad}`,
-    `${sunset}`,
-    `${person}`,
-  ];
 
   useEffect(() => {
+    if (!isVisible) return;
     const intervalId = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % imgSrcs.length);
+      setActiveIndex((prev) => (prev + 1) % weatherImgs.length);
     }, 100);
 
     const timeoutId = setTimeout(() => {
       onLoadingComplete();
     }, 1500);
+
     return () => {
       clearTimeout(timeoutId);
       clearInterval(intervalId);
     };
-  }, [imgSrcs.length, onLoadingComplete]);
-
+  }, [isVisible, onLoadingComplete]);
   return (
-    <Container>
-      <Wrapper>
-        <img src={imgSrcs[activeIndex]} alt="이미지" />
-      </Wrapper>
+    <Container $isVisible={isVisible}>
+      <Wrapper srcSet={weatherImgs[activeIndex].srcSet} alt="이미지" />
     </Container>
   );
 };
 
 export default MainLoading;
 
-const Container = styled.div`
-  width: 100%;
+const Container = styled.div<{ $isVisible: boolean }>`
   height: 100vh;
   position: relative;
+  display: ${({ $isVisible }) => ($isVisible ? "block" : "none")};
 `;
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: purple;
-  filter: brightness(90%);
-  clip-path: polygon(45% 40%, 55% 40%, 55% 60%, 45% 60%);
-  & > img {
-    position: absolute;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-  }
+const Wrapper = styled.img`
+  position: absolute;
+  width: 10vw;
+  min-width: 80px;
+  max-width: 320px;
+  height: 10vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;

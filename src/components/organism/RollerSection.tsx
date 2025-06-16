@@ -5,8 +5,6 @@ import styled from "styled-components";
 import SkillContent from "./SkillContent";
 
 const RollerSection: React.FC = () => {
-  // const [activeIndex, setActiveIndex] = useState<number>(0);
-
   const [isSticky, setIsSticky] = useState<boolean>(false);
 
   const containerRef = useRef(null);

@@ -54,8 +54,8 @@ export const parallaxSignSVGPosition: SVGs[] = [
   { id: 1, top: "10%", left: "5%", width: 0.5 },
   { id: 2, top: "25%", right: "15%", width: 2 },
   { id: 3, top: "50%", left: "5%", width: 1 },
-  { id: 0, top: "55%", right: "5%", width: 2 },
-  { id: 1, top: "65%", right: "40%", width: 1.5 },
+  { id: 0, top: "80%", right: "5%", width: 2 },
+  { id: 1, top: "60%", right: "30%", width: 1.5 },
   { id: 2, top: "90%", right: "35%", width: 1 },
 ];
 

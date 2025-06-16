@@ -17,7 +17,10 @@ const FooterLogo = () => {
         initial: fontSize,
         offset: 0.25,
       });
-      setFontSize(newFontSize);
+
+      if (newFontSize !== fontSize) {
+        setFontSize(newFontSize);
+      }
     };
     handelResize();
     window.addEventListener("resize", handelResize);
@@ -26,6 +29,7 @@ const FooterLogo = () => {
       window.removeEventListener("resize", handelResize);
     };
   }, [fontSize]);
+
   return (
     <Container ref={containerRef}>
       <PaintBackground src={paint2} alt="이미지" />

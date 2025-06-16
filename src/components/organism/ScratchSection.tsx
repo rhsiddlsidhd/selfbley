@@ -38,9 +38,5 @@ const Container = styled.section`
   height: 50vh;
   min-height: fit-content;
   background-color: #ff6a41;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
   padding: 6rem 0;
 `;

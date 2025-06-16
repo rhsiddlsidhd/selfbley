@@ -14,12 +14,15 @@ import SignSVGContainer from "./SignSVGContainer";
 const VideoSection = () => {
   const { type, setType } = useAnimationProgressStore();
   const containerRef = useRef(null);
+
   const isInView = useInView(containerRef, { amount: 0.5 });
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  const width = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
+  const width = useTransform(scrollYProgress, [0, 1], ["0", "100%"]);
 
   const handleFadeAnimation = (
     type: AnimationType
@@ -38,10 +41,21 @@ const VideoSection = () => {
   return (
     <HomeContainer ref={containerRef}>
       <SignSVGContainer isView={isInView} section="videoSection" />
-      <SlideInOverlay style={{ width }}></SlideInOverlay>
-      <VideoWrapper $isInView={isInView}>
-        <IntroVideos isInView={isInView} />
-      </VideoWrapper>
+      <Overlay
+        initial={{ width: "10vw", height: "10vh" }}
+        animate={{ width: "100vw", height: "100vh" }}
+        transition={{ duration: 2, delay: 2 }}
+        style={{ opacity: isInView ? 1 : 0 }}
+        onAnimationComplete={() => {
+          if (type === "PAGE_TRANSITION") {
+            setType("INITIAL_LOAD");
+          }
+        }}
+      >
+        <VideoWrapper>
+          <IntroVideos isInView={isInView} />
+        </VideoWrapper>
+      </Overlay>
       <TitleWrapper
         variants={fadeVariants}
         initial={{ opacity: 0 }}
@@ -53,17 +67,35 @@ const VideoSection = () => {
         })}
         {type === "ADD_ANIMATION" && <Arrow text={ARROR_ICON} />}
       </TitleWrapper>
+      <SlideInOverlay style={{ width }} />
     </HomeContainer>
   );
 };
 
 export default VideoSection;
 
+const HomeContainer = styled.section`
+  position: relative;
+  height: 200vh;
+`;
+
+const Overlay = styled(motion.div)`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+`;
+
+const VideoWrapper = styled.div`
+  height: 100vh;
+  position: relative;
+`;
+
 const SlideInOverlay = styled(motion.div)`
-  height: 100%;
   position: absolute;
   background-color: black;
-  z-index: 0;
+  height: 100%;
 `;
 
 const fadeVariants = {
@@ -78,26 +110,6 @@ const fadeVariants = {
     display: "none",
   },
 };
-
-const VideoWrapper = styled.div<{ $isInView: boolean }>`
-  & > video {
-    width: 100%;
-    height: 100%;
-    position: ${({ $isInView }) => ($isInView ? "fixed" : "absolute")};
-    top: 0;
-    left: 0;
-    object-fit: cover;
-    filter: brightness(85%);
-    z-index: -1;
-  }
-  opacity: ${({ $isInView }) => ($isInView ? 1 : 0)};
-`;
-
-const HomeContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 200vh;
-`;
 
 const TitleWrapper = styled(motion.h1)`
   display: flex;
