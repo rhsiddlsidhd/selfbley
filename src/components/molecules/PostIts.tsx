@@ -12,13 +12,13 @@ const PostIts = ({
   blurTranslate: MotionValue<string>;
 }) => {
   const mode = useScreenStore((state) => state.mode);
-
+  console.log(questions);
   return (
     <Fragment>
       {questions.map((q, i) => {
         const { question, style } = q;
         return (
-          <Container key={i}>
+          <QuestionSection key={i}>
             <BackgroundBlur
               style={{
                 position: "absolute",
@@ -31,7 +31,7 @@ const PostIts = ({
             <PostIt $mode={mode} $top={style.top} $left={style.left}>
               {question}
             </PostIt>
-          </Container>
+          </QuestionSection>
         );
       })}
     </Fragment>
@@ -40,9 +40,8 @@ const PostIts = ({
 
 export default PostIts;
 
-const Container = styled(motion.section)`
+const QuestionSection = styled(motion.section)`
   height: 100vh;
-  min-height: fit-content;
   position: relative;
 `;
 
