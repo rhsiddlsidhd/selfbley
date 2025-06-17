@@ -8,6 +8,9 @@ import ParallaxSection from "../components/organism/ParallaxSection";
 import ScratchSection from "../components/organism/ScratchSection";
 import SliderSection from "../components/organism/SliderSection";
 import RollerSection from "../components/organism/RollerSection";
+// const RollerSection = lazy(
+//   () => import("../components/organism/RollerSection")
+// );
 
 const ContactSection = lazy(
   () => import("../components/organism/ContactSection")
@@ -37,7 +40,7 @@ const Main = () => {
   //   handleAsync();
   // }, [src]);
   return (
-    <>
+    <div>
       <VerticalLine page="MAIN" />
       <MainLoading
         onLoadingComplete={() => setType("PAGE_TRANSITION")}
@@ -50,13 +53,14 @@ const Main = () => {
         <ScratchSection />
         <SliderSection />
         <RollerSection />
-        {type !== "INITIAL" && (
-          <Suspense fallback={<div>로딩중</div>}>
+
+        {type === "ADD_ANIMATION" && (
+          <Suspense fallback={<h1>로딩중</h1>}>
             <ContactSection />
           </Suspense>
         )}
       </PageWrapper>
-    </>
+    </div>
   );
 };
 

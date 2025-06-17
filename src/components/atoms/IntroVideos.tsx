@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import intro from "../../assets/video/webm/snowboard.webm";
 import { motion } from "motion/react";
 
-import { homeVideosMp4, homeVideosWebm } from "../../constants/videos";
+import { homeVideos } from "../../constants/videos";
 import styled from "styled-components";
 
 const IntroVideos = ({ isInView }: { isInView: boolean }) => {
@@ -12,7 +11,7 @@ const IntroVideos = ({ isInView }: { isInView: boolean }) => {
   useEffect(() => {
     if (!isInView) return;
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % homeVideosMp4.length);
+      setActiveIndex((prev) => (prev + 1) % homeVideos.length);
     }, 5000);
 
     return () => {
@@ -35,7 +34,7 @@ const IntroVideos = ({ isInView }: { isInView: boolean }) => {
 
   return (
     <>
-      {homeVideosMp4.map((source, i) => (
+      {homeVideos.map((video, i) => (
         <Video
           key={i}
           ref={(el) => {
@@ -44,7 +43,6 @@ const IntroVideos = ({ isInView }: { isInView: boolean }) => {
           muted
           autoPlay
           loop
-          poster={intro}
           initial={{
             opacity: 0,
           }}
@@ -53,7 +51,8 @@ const IntroVideos = ({ isInView }: { isInView: boolean }) => {
           }}
           transition={{ duration: 0.3 }}
         >
-          <source src={source} type="video/webm" />
+          <source src={video.webm} type="video/webm" />
+          <source src={video.mp4} type="video/mp4" />
         </Video>
       ))}
     </>
@@ -70,5 +69,4 @@ const Video = styled(motion.video)`
   object-fit: cover;
   filter: blur(5px);
   z-index: -1;
-  border: 3px solid white;
 `;

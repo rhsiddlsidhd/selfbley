@@ -41,11 +41,14 @@ const VideoSection = () => {
   return (
     <HomeContainer ref={containerRef}>
       <SignSVGContainer isView={isInView} section="videoSection" />
+
       <Overlay
-        initial={{ width: "10vw", height: "10vh" }}
-        animate={{ width: "100vw", height: "100vh" }}
-        transition={{ duration: 2, delay: 2 }}
-        style={{ opacity: isInView ? 1 : 0 }}
+        initial={{ width: "20vw", height: "20%" }}
+        animate={{ width: "100vw", height: "100%" }}
+        transition={{ duration: 1, delay: 2 }}
+        style={{
+          opacity: isInView ? 1 : 0,
+        }}
         onAnimationComplete={() => {
           if (type === "PAGE_TRANSITION") {
             setType("INITIAL_LOAD");
@@ -56,6 +59,7 @@ const VideoSection = () => {
           <IntroVideos isInView={isInView} />
         </VideoWrapper>
       </Overlay>
+
       <TitleWrapper
         variants={fadeVariants}
         initial={{ opacity: 0 }}

@@ -23,14 +23,13 @@ const VerticalLine = ({ page }: { page: Page }) => {
 export default VerticalLine;
 
 const VerticalLineContainer = styled.div<{ $page: Page }>`
+  display: flex;
   width: 100%;
   height: 100%;
   position: fixed;
-  background-color: transparent;
-  display: flex;
-  z-index: 10;
-
+  top: 0;
   pointer-events: none;
+  z-index: 89;
 `;
 
 const VerticalLineSection = styled.section<{

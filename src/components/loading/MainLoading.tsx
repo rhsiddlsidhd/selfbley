@@ -26,6 +26,7 @@ const MainLoading = ({
       clearInterval(intervalId);
     };
   }, [isVisible, onLoadingComplete]);
+
   return (
     <Container $isVisible={isVisible}>
       <Wrapper srcSet={weatherImgs[activeIndex].srcSet} alt="이미지" />
@@ -43,10 +44,8 @@ const Container = styled.div<{ $isVisible: boolean }>`
 
 const Wrapper = styled.img`
   position: absolute;
-  width: 10vw;
-  min-width: 80px;
-  max-width: 320px;
-  height: 10vh;
+  width: 20vw;
+  height: 20%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

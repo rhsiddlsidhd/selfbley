@@ -19,3 +19,8 @@ export const homeVideosWebm = [
   `${tennis_webm}`,
   `${programming_webm}`,
 ] as const;
+
+export const homeVideos = homeVideosMp4.map((mp4, i) => ({
+  mp4,
+  webm: homeVideosWebm[i],
+}));

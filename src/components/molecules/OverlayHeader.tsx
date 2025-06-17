@@ -29,40 +29,24 @@ const OverlayHeader = () => {
 
   return (
     <>
-      <div
-        onClick={() => {
-          closeOverlayMenu();
-        }}
-      >
-        <Logo
-          styles={`left: 50%; transform: translate(-50%, 0%); margin-top:3rem; position:fixed; `}
-        />
-      </div>
-      {!isView && (
-        <MenuBtn onClick={openOverlayMenu}>
-          <h3>Menu</h3>
-        </MenuBtn>
-      )}
+      <Logo
+        styles={`left: 50%; transform: translate(-50%, 0%); margin-top:3rem; position:fixed; `}
+        onCloseMenu={closeOverlayMenu}
+      />
+
       {(isView || animationProgress) && (
         <NavWrapper
           $animationProgress={animationProgress}
           onAnimationEnd={(e) => endSlideAnimation(e)}
         >
-          <div onClick={closeOverlayMenu}>
-            <Logo
-              styles={`left: 50%; transform: translate(-50%, 0%); top:0; margin-top:3rem; position: fixed;`}
-            />
-
-            {/* Nav 하나 하나 TEXT closeOverlayMenu 핸들러 어떻게 넣을지 고민해야함 */}
-            <MenuItems>
-              <Nav />
-              <MenuBtn $isView={isView}>
-                <h3>Close</h3>
-              </MenuBtn>
-            </MenuItems>
-          </div>
+          <Nav onCloseMenu={closeOverlayMenu} />
         </NavWrapper>
       )}
+      <MenuBtn
+        onClick={() => (!isView ? openOverlayMenu() : closeOverlayMenu())}
+      >
+        <h3>{!isView ? "Menu" : "Close"}</h3>
+      </MenuBtn>
     </>
   );
 };
@@ -89,21 +73,15 @@ const SlideOut = keyframes`
     }
 `;
 
-const MenuItems = styled.section`
-  /* height: calc(65vh - 20rem); */
-  height: calc(100vh - 15rem);
-  display: flex;
-  flex-direction: column;
-
-  /* background-color: red; */
-`;
-
 const NavWrapper = styled.div<{ $animationProgress: boolean }>`
+  position: fixed;
   width: 100%;
   height: 100vh;
-  /* min-height: 20rem; */
-  padding-top: 10rem;
+  padding: 10rem 0;
   background-color: black;
+  overflow: scroll;
+  z-index: 90;
+
   animation: ${({ $animationProgress }) =>
     $animationProgress
       ? css`
@@ -112,38 +90,18 @@ const NavWrapper = styled.div<{ $animationProgress: boolean }>`
       : css`
           ${SlideIn} 2s ease forwards
         `};
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  overflow: scroll;
-  z-index: 25;
-  /* background-color: pink; */
 `;
 
-const MenuBtn = styled.button<{ $isView?: boolean }>`
-  border: none;
+const MenuBtn = styled.button`
   color: white;
   background-color: black;
-  /* position: fixed;
+  position: fixed;
   bottom: 0;
   left: 50%;
-  transform: translate(-50%, -50%); */
-  /* position: ; */
-  ${({ $isView }) =>
-    !$isView &&
-    css`
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    `}
-  align-self: center;
+  transform: translate(-50%, -50%);
   padding: 1.5rem;
   border: 3px solid gray;
   border-radius: 15%;
   cursor: pointer;
-  z-index: 22;
-  margin-top: 1rem;
+  z-index: 99;
 `;

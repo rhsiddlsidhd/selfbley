@@ -2,60 +2,54 @@ import styled, { css } from "styled-components";
 import { useNavigate } from "react-router";
 
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
-import { ROUTES } from "../../constants/routes";
-import { ROUTESKeys } from "../../types/routes";
-import { handleNavigate } from "../../utils/navigation";
+
+import { LOGO_PATH } from "../../constants/routes/index";
 
 interface LogoProps {
   styles?: string;
+  onCloseMenu?: () => void;
 }
 
-const Logo = ({ styles = "" }: LogoProps) => {
+const Logo = ({ styles = "", onCloseMenu }: LogoProps) => {
   const mode = useScreenStore((state) => state.mode);
   const navigate = useNavigate();
   return (
-    <Container $mode={mode} $styles={styles}>
-      <Section
-        id="LOGO"
-        onClick={(e) => {
-          handleNavigate({
-            routes: ROUTES,
-            tab: e.currentTarget.id as ROUTESKeys,
-            navigate,
-          });
-        }}
-      >
-        <Overlay className="logo" $mode={mode}></Overlay>
-        <Title className="logo">FRONTEND</Title>
-      </Section>
+    <Container
+      $mode={mode}
+      $styles={styles}
+      onClick={() => {
+        if (onCloseMenu) {
+          onCloseMenu();
+          setTimeout(() => {
+            navigate(LOGO_PATH);
+          }, 1000);
+        } else {
+          navigate(LOGO_PATH);
+        }
+      }}
+    >
+      <Overlay className="logo" $mode={mode}></Overlay>
+      <Title className="logo">FRONTEND</Title>
     </Container>
   );
 };
 
 export default Logo;
 
-const Container = styled.div<{ $mode: Mode; $styles: string }>`
-  position: absolute;
-  left: 0;
+const Container = styled.a<{ $mode: Mode; $styles: string }>`
   font-size: ${({ $mode, theme }) =>
     $mode !== "mobile" ? theme.fontSize.m : theme.fontSize.h4};
+  cursor: pointer;
   ${({ $styles }) =>
     css`
       ${$styles}
     `}
-  z-index:22;
+  z-index: 99;
 `;
 
-const Section = styled.div`
-  position: relative;
-  cursor: pointer;
-  padding: 0 1rem;
-`;
-
-const Overlay = styled.p<{ $mode: Mode }>`
+const Overlay = styled.div<{ $mode: Mode }>`
   font-size: ${({ $mode, theme }) =>
     $mode !== "mobile" ? theme.fontSize.l : theme.fontSize.h3};
-
   &::before {
     content: "PORTFOLIO";
     position: absolute;
@@ -95,4 +89,6 @@ const Overlay = styled.p<{ $mode: Mode }>`
 
 const Title = styled.p`
   font-weight: bold;
+  display: flex;
+  align-items: center;
 `;
