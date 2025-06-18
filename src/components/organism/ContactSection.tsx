@@ -1,4 +1,4 @@
-import { useScroll } from "motion/react";
+import { motion, useScroll } from "motion/react";
 import { useRef } from "react";
 import { styled } from "styled-components";
 import Scratch from "../molecules/Scratch";
@@ -15,7 +15,11 @@ const ContactSection: React.FC = () => {
     offset: ["start start", "center start"],
   });
   return (
-    <Container>
+    <Container
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, backgroundColor: "black" }}
+      transition={{ duration: 1 }}
+    >
       <VerticalLine page="MAIN" />
       <ScratchContainer ref={scratchRef}>
         <Scratch
@@ -37,7 +41,7 @@ const ContactSection: React.FC = () => {
 
 export default ContactSection;
 
-const Container = styled.section`
+const Container = styled(motion.section)`
   position: relative;
   min-height: fit-content;
   display: flex;

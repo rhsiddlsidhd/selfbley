@@ -50,7 +50,7 @@ const Container = styled(motion.div)`
   height: 100vh;
   position: fixed;
   display: flex;
-  background-color: transparent;
+
   & > section {
     flex: 1;
   }

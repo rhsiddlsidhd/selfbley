@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
         }
     }
     body{
-        background-color: #010101;
+        background-color: transparent;
         color: white;
     }
     p{

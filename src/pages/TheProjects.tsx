@@ -44,6 +44,7 @@ const TheProjects = () => {
   };
 
   useEffect(() => {
+    setType("INITIAL");
     const getProjectDataApi = async () => {
       const data = await getProjectApi();
 

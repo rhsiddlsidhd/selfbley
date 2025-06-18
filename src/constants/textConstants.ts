@@ -1,15 +1,15 @@
-import tennis_0_2560 from "../assets/parallax_section/background/tennis-0-2560.webp";
-import tennis_0_1920 from "../assets/parallax_section/background/tennis-0-1920.webp";
-import tennis_0_1280 from "../assets/parallax_section/background/tennis-0-1280.webp";
-import tennis_0_760 from "../assets/parallax_section/background/tennis-0-760.webp";
-import tennis_1_2560 from "../assets/parallax_section/background/tennis-1-2560.webp";
-import tennis_1_1920 from "../assets/parallax_section/background/tennis-1-1920.webp";
-import tennis_1_1280 from "../assets/parallax_section/background/tennis-1-1280.webp";
-import tennis_1_760 from "../assets/parallax_section/background/tennis-1-760.webp";
-import tennis_2_2560 from "../assets/parallax_section/background/tennis-2-2560.webp";
-import tennis_2_1920 from "../assets/parallax_section/background/tennis-2-1920.webp";
-import tennis_2_1280 from "../assets/parallax_section/background/tennis-2-1280.webp";
-import tennis_2_760 from "../assets/parallax_section/background/tennis-2-760.webp";
+import tennis_0_2560 from "../assets/background_img/tennis-0-2560.webp";
+import tennis_0_1920 from "../assets/background_img/tennis-0-1920.webp";
+import tennis_0_1280 from "../assets/background_img/tennis-0-1280.webp";
+import tennis_0_760 from "../assets/background_img/tennis-0-760.webp";
+import tennis_1_2560 from "../assets/background_img/tennis-1-2560.webp";
+import tennis_1_1920 from "../assets/background_img/tennis-1-1920.webp";
+import tennis_1_1280 from "../assets/background_img/tennis-1-1280.webp";
+import tennis_1_760 from "../assets/background_img/tennis-1-760.webp";
+import tennis_2_2560 from "../assets/background_img/tennis-2-2560.webp";
+import tennis_2_1920 from "../assets/background_img/tennis-2-1920.webp";
+import tennis_2_1280 from "../assets/background_img/tennis-2-1280.webp";
+import tennis_2_760 from "../assets/background_img/tennis-2-760.webp";
 type Range<
   N extends number,
   Result extends number[] = []

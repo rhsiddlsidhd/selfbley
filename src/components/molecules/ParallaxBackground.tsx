@@ -17,7 +17,6 @@ const ParallaxBackground = ({
   const totalLength = imgs.length;
   const initialY = useTransform(scrollYProgressStart, [0, 1], ["-50%", "0%"]);
   const lastY = useTransform(scrollYProgressEnd, [0, 1], ["0%", "-50%"]);
-  console.log(totalLength);
   return (
     <BackgroundWrapper>
       {imgs.map((src, i) => {
@@ -57,6 +56,7 @@ const BackgroundImage = styled(motion.img)`
   width: 100%;
   height: 100vh;
   position: absolute;
-  filter: grayscale(80%) brightness(60%);
+  filter: grayscale(100%) brightness(70%) blur(5px);
+
   object-fit: cover;
 `;

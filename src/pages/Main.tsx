@@ -8,6 +8,7 @@ import ParallaxSection from "../components/organism/ParallaxSection";
 import ScratchSection from "../components/organism/ScratchSection";
 import SliderSection from "../components/organism/SliderSection";
 import RollerSection from "../components/organism/RollerSection";
+import { motion } from "motion/react";
 // const RollerSection = lazy(
 //   () => import("../components/organism/RollerSection")
 // );
@@ -20,6 +21,8 @@ import styled from "styled-components";
 
 const Main = () => {
   const { type, setType } = useAnimationProgressStore();
+
+  console.log(type);
 
   useEffect(() => {
     window.scrollTo({
@@ -39,8 +42,9 @@ const Main = () => {
   //   };
   //   handleAsync();
   // }, [src]);
+
   return (
-    <div>
+    <motion.div style={{ backgroundColor: "black" }}>
       <VerticalLine page="MAIN" />
       <MainLoading
         onLoadingComplete={() => setType("PAGE_TRANSITION")}
@@ -60,7 +64,7 @@ const Main = () => {
           </Suspense>
         )}
       </PageWrapper>
-    </div>
+    </motion.div>
   );
 };
 

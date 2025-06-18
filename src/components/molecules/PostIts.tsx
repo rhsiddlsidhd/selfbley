@@ -12,7 +12,6 @@ const PostIts = ({
   blurTranslate: MotionValue<string>;
 }) => {
   const mode = useScreenStore((state) => state.mode);
-  console.log(questions);
   return (
     <Fragment>
       {questions.map((q, i) => {

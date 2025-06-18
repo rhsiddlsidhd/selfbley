@@ -1,42 +1,42 @@
-import lizard_2560 from "../assets/book_section/background/lizard-background-2560.webp";
-import lizard_1920 from "../assets/book_section/background/lizard-background-1920.webp";
-import lizard_1280 from "../assets/book_section/background/lizard-background-1280.webp";
-import lizard_760 from "../assets/book_section/background/lizard-background-760.webp";
-import lizard_320 from "../assets/book_section/thumnail/lizard-thumnail-320.webp";
-import lizard_640 from "../assets/book_section/thumnail/lizard-thumnail-640.webp";
-import lizard_480 from "../assets/book_section/thumnail/lizard-thumnail-480.webp";
+import lizard_2560 from "../assets/background_img/lizard-background-2560.webp";
+import lizard_1920 from "../assets/background_img/lizard-background-1920.webp";
+import lizard_1280 from "../assets/background_img/lizard-background-1280.webp";
+import lizard_760 from "../assets/background_img/lizard-background-760.webp";
+import lizard_320 from "../assets/thumbnail_img/lizard-thumnail-320.webp";
+import lizard_640 from "../assets/thumbnail_img/lizard-thumnail-640.webp";
+import lizard_480 from "../assets/thumbnail_img/lizard-thumnail-480.webp";
 
-import algorithms_2560 from "../assets/book_section/background/algorithms-background-2560.webp";
-import algorithms_1920 from "../assets/book_section/background/algorithms-background-1920.webp";
-import algorithms_1280 from "../assets/book_section/background/algorithms-background-1280.webp";
-import algorithms_760 from "../assets/book_section/background/algorithms-background-760.webp";
-import algorithms_640 from "../assets/book_section/thumnail/algorithms-thumnail-640.webp";
-import algorithms_320 from "../assets/book_section/thumnail/algorithms-thumnail-320.webp";
-import algorithms_480 from "../assets/book_section/thumnail/algorithms-thumnail-480.webp";
+import algorithms_2560 from "../assets/background_img/algorithms-background-2560.webp";
+import algorithms_1920 from "../assets/background_img/algorithms-background-1920.webp";
+import algorithms_1280 from "../assets/background_img/algorithms-background-1280.webp";
+import algorithms_760 from "../assets/background_img/algorithms-background-760.webp";
+import algorithms_640 from "../assets/thumbnail_img/algorithms-thumnail-640.webp";
+import algorithms_320 from "../assets/thumbnail_img/algorithms-thumnail-320.webp";
+import algorithms_480 from "../assets/thumbnail_img/algorithms-thumnail-480.webp";
 
-import note_2560 from "../assets/book_section/background/note-background-2560.webp";
-import note_1920 from "../assets/book_section/background/note-background-1920.webp";
-import note_1280 from "../assets/book_section/background/note-background-1280.webp";
-import note_760 from "../assets/book_section/background/note-background-760.webp";
-import note_640 from "../assets/book_section/thumnail/note-thumnail-640.webp";
-import note_320 from "../assets/book_section/thumnail/note-thumnail-320.webp";
-import note_480 from "../assets/book_section/thumnail/note-thumnail-480.webp";
+import note_2560 from "../assets/background_img/note-background-2560.webp";
+import note_1920 from "../assets/background_img/note-background-1920.webp";
+import note_1280 from "../assets/background_img/note-background-1280.webp";
+import note_760 from "../assets/background_img/note-background-760.webp";
+import note_640 from "../assets/thumbnail_img/note-thumnail-640.webp";
+import note_320 from "../assets/thumbnail_img/note-thumnail-320.webp";
+import note_480 from "../assets/thumbnail_img/note-thumnail-480.webp";
 
-import woowa_2560 from "../assets/book_section/background/woowabrothers-background-2560.webp";
-import woowa_1920 from "../assets/book_section/background/woowabrothers-background-1920.webp";
-import woowa_1280 from "../assets/book_section/background/woowabrothers-background-1280.webp";
-import woowa_760 from "../assets/book_section/background/woowabrothers-background-760.webp";
-import woowa_640 from "../assets/book_section/thumnail/woowabrothers-thumnail-640.webp";
-import woowa_320 from "../assets/book_section/thumnail/woowabrothers-thumnail-320.webp";
-import woowa_480 from "../assets/book_section/thumnail/woowabrothers-thumnail-480.webp";
+import woowa_2560 from "../assets/background_img/woowabrothers-background-2560.webp";
+import woowa_1920 from "../assets/background_img/woowabrothers-background-1920.webp";
+import woowa_1280 from "../assets/background_img/woowabrothers-background-1280.webp";
+import woowa_760 from "../assets/background_img/woowabrothers-background-760.webp";
+import woowa_640 from "../assets/thumbnail_img/woowabrothers-thumnail-640.webp";
+import woowa_320 from "../assets/thumbnail_img/woowabrothers-thumnail-320.webp";
+import woowa_480 from "../assets/thumbnail_img/woowabrothers-thumnail-480.webp";
 
-import book_intro_2560 from "../assets/book_section/background/book-section-intro-2560.webp";
-import book_intro_1920 from "../assets/book_section/background/book-section-intro-1920.webp";
-import book_intro_1280 from "../assets/book_section/background/book-section-intro-1280.webp";
-import book_intro_760 from "../assets/book_section/background/book-section-intro-760.webp";
-import book_intro_640 from "../assets/book_section/thumnail/book-section-intro-640.webp";
-import book_intro_320 from "../assets/book_section/thumnail/book-section-intro-320.webp";
-import book_intro_480 from "../assets/book_section/thumnail/book-section-intro-480.webp";
+import book_intro_2560 from "../assets/background_img/book-section-intro-2560.webp";
+import book_intro_1920 from "../assets/background_img/book-section-intro-1920.webp";
+import book_intro_1280 from "../assets/background_img/book-section-intro-1280.webp";
+import book_intro_760 from "../assets/background_img/book-section-intro-760.webp";
+import book_intro_640 from "../assets/thumbnail_img/book-section-intro-640.webp";
+import book_intro_320 from "../assets/thumbnail_img/book-section-intro-320.webp";
+import book_intro_480 from "../assets/thumbnail_img/book-section-intro-480.webp";
 
 import { BOOKINTRO } from "./textConstants";
 

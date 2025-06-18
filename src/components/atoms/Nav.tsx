@@ -3,16 +3,35 @@ import { useNavigate } from "react-router";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import { NAV_PATHS } from "../../constants/routes";
 
+const typedEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][] => {
+  return Object.entries(obj) as [keyof T, T[keyof T]][];
+};
+
 const Nav = ({ onCloseMenu }: { onCloseMenu?: () => void }) => {
   const mode = useScreenStore((state) => state.mode);
   const navigate = useNavigate();
 
+  const preloadPage = (tab: keyof typeof NAV_PATHS) => {
+    switch (tab) {
+      case "THESKILLS":
+        import("../../pages/TheSkills");
+        break;
+      case "THEPROJECTS":
+        import("../../pages/TheProjects");
+        break;
+      case "CONTACT":
+        import("../../components/organism/ContactSection");
+        break;
+    }
+  };
+
   return (
     <>
-      {Object.entries(NAV_PATHS).map(([id, path]) => {
+      {typedEntries(NAV_PATHS).map(([tab, path]) => {
         return (
-          <NavItems key={id} $mode={mode}>
+          <NavItems key={tab} $mode={mode}>
             <p
+              onMouseEnter={() => preloadPage(tab)}
               onClick={() => {
                 if (onCloseMenu) {
                   onCloseMenu();
@@ -24,7 +43,7 @@ const Nav = ({ onCloseMenu }: { onCloseMenu?: () => void }) => {
                 }
               }}
             >
-              {id}
+              {tab}
             </p>
           </NavItems>
         );

@@ -87,7 +87,6 @@ const SliderSection = () => {
         isLast: idx === arr.length - 1,
       })
     );
-    console.log("z", result);
     setBookData(result);
   }, [mode]);
 
