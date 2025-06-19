@@ -7,9 +7,10 @@ import useAnimationProgressStore from "../../stores/useAnimationProgress";
 const SlideInXOverlay = () => {
   const mode = useScreenStore((state) => state.mode);
   const { setType, type } = useAnimationProgressStore();
+
   return (
     <AnimatePresence key={mode}>
-      {type === "PAGE_TRANSITION" && (
+      {/* {type === "PAGE_TRANSITION" && (
         <Overlay
           initial="hidden"
           animate="show"
@@ -19,7 +20,17 @@ const SlideInXOverlay = () => {
             setType("INITIAL_LOAD");
           }}
         />
-      )}
+      )} */}
+      <Overlay
+        initial="hidden"
+        animate="show"
+        exit="end"
+        variants={mode === "mobile" ? mobileOverlay : overlay}
+        onAnimationComplete={() => {
+          setType("INITIAL_LOAD");
+        }}
+        style={{ border: "3px solid blue" }}
+      />
     </AnimatePresence>
   );
 };

@@ -1,48 +1,45 @@
 import { motion } from "motion/react";
 import styled from "styled-components";
+import useAnimationProgressStore, {
+  AnimationType,
+} from "../stores/useAnimationProgress";
+import SlideInXOverlay from "../components/atoms/SlideInXOverlay";
+import { useEffect } from "react";
 
 const NotAvailable = () => {
+  const { type, setType } = useAnimationProgressStore();
+  useEffect(() => {
+    console.log(type);
+  }, [type]);
+
   return (
-    <Wrapper>
-      <VerticalBack
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        exit="hidden"
-      >
-        {Array.from({ length: 6 }, (_, i) => (
-          <motion.div variants={sectionVariants} key={i}>
-            {i}
-          </motion.div>
-        ))}
-      </VerticalBack>
-      <h1>ㅋㄷㅋㄷ</h1>
-    </Wrapper>
+    // <Wrapper
+    // variants={containerVariants}
+    // initial="hidden"
+    // animate="visible"
+    // exit="hidden"
+    // $type={type}
+    // onAnimationComplete={() => setType("PAGE_TRANSITION")}
+    // >
+    //   {type === "INITIAL" &&
+    //     Array.from({ length: 6 }, (_, i) => (
+    //       <motion.div variants={sectionVariants} key={i}>
+    //         {i}
+    //       </motion.div>
+    //     ))}
+    //   {type === "PAGE_TRANSITION" && <SlideInXOverlay />}
+    //   {type !== "INITIAL" && <h1>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</h1>}
+    // </Wrapper>
+    <>{type === "PAGE_TRANSITION" && <h1>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</h1>}</>
   );
 };
 
 export default NotAvailable;
 
-const VerticalBack = styled(motion.div)`
-  display: flex;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  height: 100vh;
-  & > div {
-    flex: 1;
-    color: red;
-    font-size: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-`;
-
 const containerVariants = {
-  hidden: { opacity: 0 },
+  hidden: { x: "100%" },
   visible: {
-    opacity: 1,
+    x: 0,
     transition: {
       staggerChildren: 0.2,
       staggerDirection: -1,
@@ -51,17 +48,19 @@ const containerVariants = {
 };
 
 const sectionVariants = {
-  hidden: { x: "500%", backgroundColor: "transparent" },
+  hidden: { x: "100%", backgroundColor: "black" },
   visible: {
     x: 0,
-    backgroundColor: "#FFD34F",
-    transition: { type: "tween", duration: 0.5 },
+    backgroundColor: "#ffd34f",
+    transition: { type: "tween", duration: 10 },
   },
 };
 
-const Wrapper = styled(motion.div)`
+const Wrapper = styled(motion.div)<{ $type: AnimationType }>`
+  position: ${({ $type }) => ($type === "INITIAL" ? "fixed" : "relative")};
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
-
-  z-index: 50;
+  background-color: #ffd34f;
 `;
