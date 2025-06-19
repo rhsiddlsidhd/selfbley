@@ -90,7 +90,6 @@ const MarqueeTrack = styled.div<{ $deg: number; $reverse: boolean }>`
   justify-content: ${({ $reverse }) => ($reverse ? "end" : "start")};
   transform: ${({ $deg }) => `rotate(${$deg}deg)`};
   padding: 3rem 0;
-  z-index: 2;
 `;
 
 const MarqueeMessage = styled(motion.div)`

@@ -26,7 +26,7 @@ const ProjectFilter = ({
     <FilterWrapper
       initial="hidden"
       animate={
-        type === "INITIAL_LOAD" || type === "PROJECT_DISPLAY"
+        type === "SLIDE_FADEOUT" || type === "PROJECT_DISPLAY"
           ? "show"
           : "hidden"
       }

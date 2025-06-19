@@ -18,17 +18,20 @@ const ContactSection = lazy(
 );
 
 import styled from "styled-components";
+import usePageTransitionStore from "../stores/usePageTransitionStore";
 
 const Main = () => {
-  const { type, setType } = useAnimationProgressStore();
+  // const { type, setType } = useAnimationProgressStore();
+  const { state, setState } = usePageTransitionStore();
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-    setType("INITIAL");
-  }, [setType]);
+    console.log(state);
+  }, [state]);
+
   //   const src = import.meta.env.VITE_BASE_URL;
   // useEffect(() => {
   //   const handleAsync = async () => {
@@ -44,11 +47,12 @@ const Main = () => {
     <motion.div style={{ backgroundColor: "black" }}>
       <VerticalLine page="MAIN" />
       <MainLoading
-        onLoadingComplete={() => setType("PAGE_TRANSITION")}
-        isVisible={type === "INITIAL"}
+        onLoadingComplete={() => setState("IDLE")}
+        isVisible={state === "ENTER"}
       />
-      <PageWrapper $isVisible={type !== "INITIAL"}>
+      <PageWrapper $isVisible={state === "IDLE"}>
         <VideoSection />
+        {/* <VideoSection />
         <MarqueeSection text="Dynamic & Alive" type="top" />
         <ParallaxSection />
         <ScratchSection />
@@ -59,7 +63,7 @@ const Main = () => {
           <Suspense fallback={<h1>로딩중</h1>}>
             <ContactSection />
           </Suspense>
-        )}
+        )} */}
       </PageWrapper>
     </motion.div>
   );

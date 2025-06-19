@@ -6,7 +6,9 @@ export type AnimationType =
   | "PROJECT_DISPLAY"
   | "INITIAL"
   | "ADD_ANIMATION"
-  | "FLIP_TRANSITION";
+  | "FLIP_TRANSITION"
+  | "SLIDE_FADEOUT"
+  | "LOADING";
 
 interface UseAnimationProgressStore {
   type: AnimationType;

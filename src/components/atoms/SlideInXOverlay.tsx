@@ -10,27 +10,17 @@ const SlideInXOverlay = () => {
 
   return (
     <AnimatePresence key={mode}>
-      {/* {type === "PAGE_TRANSITION" && (
+      {type === "FLIP_TRANSITION" && (
         <Overlay
           initial="hidden"
           animate="show"
           exit="end"
           variants={mode === "mobile" ? mobileOverlay : overlay}
           onAnimationComplete={() => {
-            setType("INITIAL_LOAD");
+            setType("SLIDE_FADEOUT");
           }}
         />
-      )} */}
-      <Overlay
-        initial="hidden"
-        animate="show"
-        exit="end"
-        variants={mode === "mobile" ? mobileOverlay : overlay}
-        onAnimationComplete={() => {
-          setType("INITIAL_LOAD");
-        }}
-        style={{ border: "3px solid blue" }}
-      />
+      )}
     </AnimatePresence>
   );
 };
@@ -54,11 +44,12 @@ const overlay = {
 };
 
 const Overlay = styled(motion.div)`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: #ffd34f;
-  z-index: 11;
+  /* background-color: blue; */
+  z-index: 21;
 `;

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ProjectLoading from "../components/loading/ProjectLoading";
 import styled, { css } from "styled-components";
 import { motion } from "motion/react";
 import { BadgeTypes } from "../components/atoms/Badge";
@@ -9,7 +8,6 @@ import useScreenStore, { Mode } from "../stores/useScreenStore";
 import { getProjectApi } from "../api/projectApi";
 import ProjectAside from "../components/organism/ProjectAside";
 import ProjectFilter from "../components/organism/ProjectFilter";
-import useAnimationProgressStore from "../stores/useAnimationProgress";
 import SlideInXOverlay from "../components/atoms/SlideInXOverlay";
 
 export type FilterType = "ALL" | "TEAM" | "SINGLE";
@@ -27,7 +25,6 @@ export interface ProjectData {
 }
 
 const TheProjects = () => {
-  const { type, setType } = useAnimationProgressStore();
   const mode = useScreenStore((state) => state.mode);
   const [selectedFilter, setSelectedFilter] = useState<FilterType>("ALL");
   const [projectData, setProjectData] = useState<ProjectData[]>([]);
@@ -44,47 +41,37 @@ const TheProjects = () => {
   };
 
   useEffect(() => {
-    setType("INITIAL");
     const getProjectDataApi = async () => {
       const data = await getProjectApi();
 
       if (data) setProjectData(data);
     };
     getProjectDataApi();
-
-    return () => setType("INITIAL");
-  }, [setType]);
+  }, []);
 
   return (
-    <>
-      {type === "INITIAL" ? (
-        <ProjectLoading onLoadingComplete={() => setType("PAGE_TRANSITION")} />
-      ) : (
-        <Container>
-          {/* overlay */}
-          <SlideInXOverlay />
-          <VerticalLine page="THEPROJECTS" />
-          <ProjectContent>
-            <ProjectFilter
-              setSelectedFilter={setSelectedFilter}
-              selectedFilter={selectedFilter}
-            />
-            <ProjectWrapper $mode={mode}>
-              {filteredData(projectData).map((data, i) => {
-                return (
-                  <Project
-                    key={`${i} ${selectedFilter}`}
-                    data={data}
-                    index={i + 1}
-                  />
-                );
-              })}
-            </ProjectWrapper>
-          </ProjectContent>
-          <ProjectAside />
-        </Container>
-      )}
-    </>
+    <Container>
+      <SlideInXOverlay />
+      <VerticalLine page="THEPROJECTS" />
+      <ProjectContent>
+        <ProjectFilter
+          setSelectedFilter={setSelectedFilter}
+          selectedFilter={selectedFilter}
+        />
+        <ProjectWrapper $mode={mode}>
+          {filteredData(projectData).map((data, i) => {
+            return (
+              <Project
+                key={`${i} ${selectedFilter}`}
+                data={data}
+                index={i + 1}
+              />
+            );
+          })}
+        </ProjectWrapper>
+      </ProjectContent>
+      <ProjectAside />
+    </Container>
   );
 };
 
@@ -94,11 +81,12 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   position: relative;
-  background-color: #ffd34f;
+  z-index: 2;
 `;
 
 const ProjectWrapper = styled.div<{ $mode: Mode }>`
   //mobile
+
   ${({ $mode }) =>
     $mode === "mobile" &&
     css`

@@ -36,7 +36,6 @@ const BookBackground = ({
               height: "100vh",
               position: isFixed ? "fixed" : "absolute",
               top: 0,
-              zIndex: -1,
             }}
             initial={false}
             animate={{ opacity: i === activeIndex ? 1 : 0 }}

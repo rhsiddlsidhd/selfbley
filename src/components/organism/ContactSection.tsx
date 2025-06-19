@@ -1,5 +1,5 @@
 import { motion, useScroll } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { styled } from "styled-components";
 import Scratch from "../molecules/Scratch";
 import Footer from "../../layout/Footer";
@@ -7,13 +7,19 @@ import VerticalLine from "../atoms/VerticalLine";
 import paint1 from "../../assets/splash_paint/paint1.svg";
 import FooterLogo from "./FooterLogo";
 import { contactScratchText } from "../../constants/scratchConstants";
+import useAnimationProgressStore from "../../stores/useAnimationProgress";
 
 const ContactSection: React.FC = () => {
+  const { type } = useAnimationProgressStore();
   const scratchRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: scratchRef,
     offset: ["start start", "center start"],
   });
+
+  useEffect(() => {
+    console.log(type);
+  }, [type]);
   return (
     <Container
       initial={{ opacity: 0 }}
@@ -43,7 +49,6 @@ export default ContactSection;
 
 const Container = styled(motion.section)`
   position: relative;
-  min-height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;

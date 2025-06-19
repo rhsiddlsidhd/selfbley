@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 
 import styled from "styled-components";
 import useAnimationProgressStore from "../../stores/useAnimationProgress";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 const FlipTransition = ({
   color,
@@ -18,12 +18,20 @@ const FlipTransition = ({
   const total = count;
   const arrayLength = total - 1;
 
+  useEffect(() => {
+    setType("PAGE_TRANSITION");
+  }, [setType]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 1 } }}
-      style={{ position: "absolute", width: "100%", height: "100%" }}
+      exit={{ opacity: 0.8, transition: { duration: 1.5 } }}
+      style={{
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+      }}
     >
       <ItemRow variants={containerVariants} initial="hidden" animate="visible">
         {Array.from({ length: total }, (_, i) => {
@@ -47,13 +55,11 @@ const FlipTransition = ({
                 }
               }}
               key={i}
-            >
-              <h1>{i}</h1>
-            </Item>
+            />
           );
         })}
       </ItemRow>
-      {type === "FLIP_TRANSITION" && children}
+      {type !== "PAGE_TRANSITION" && children}
     </motion.div>
   );
 };
@@ -73,7 +79,6 @@ const ItemRow = styled(motion.div)`
 
 const Item = styled(motion.div)`
   flex: 1;
-
   transform-origin: right;
 `;
 

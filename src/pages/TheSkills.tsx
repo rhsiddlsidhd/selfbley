@@ -7,11 +7,6 @@ import { useEffect } from "react";
 const TheSkills = () => {
   const navigate = useNavigate();
 
-  const { type, setType } = useAnimationProgressStore();
-  // useEffect(() => {
-  //   console.log(type);
-  //   if (type !== "FLIP_TRANSITION") setType("INITIAL");
-  // }, [type, setType]);
   return (
     <Container>
       <button

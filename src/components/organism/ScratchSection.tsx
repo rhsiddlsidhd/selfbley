@@ -39,4 +39,5 @@ const Container = styled.section`
   min-height: fit-content;
   background-color: #ff6a41;
   padding: 6rem 0;
+  z-index: 2;
 `;

@@ -10,6 +10,12 @@ import useAnimationProgressStore, {
 import { useRef } from "react";
 import { ARROR_ICON, HOMETITLE } from "../../constants/textConstants";
 import SignSVGContainer from "./SignSVGContainer";
+// INITIAL
+
+// 3가지 애니메이션 사용
+// 1. background 커지는거
+// 2. title이 SLIDE IN
+// 3. Arrow FADE IN
 
 const VideoSection = () => {
   const { type, setType } = useAnimationProgressStore();
@@ -50,7 +56,7 @@ const VideoSection = () => {
           opacity: isInView ? 1 : 0,
         }}
         onAnimationComplete={() => {
-          if (type === "PAGE_TRANSITION") {
+          if (type === "INITIAL") {
             setType("INITIAL_LOAD");
           }
         }}
@@ -85,6 +91,8 @@ const HomeContainer = styled.section`
 
 const Overlay = styled(motion.div)`
   position: fixed;
+  width: 100vw;
+  height: 100%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
