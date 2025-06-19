@@ -10,7 +10,7 @@ const SlideInXOverlay = () => {
 
   return (
     <AnimatePresence key={mode}>
-      {type === "FLIP_TRANSITION" && (
+      {type === "INITIAL" && (
         <Overlay
           initial="hidden"
           animate="show"
@@ -50,6 +50,5 @@ const Overlay = styled(motion.div)`
   width: 100%;
   height: 100%;
   background-color: #ffd34f;
-  /* background-color: blue; */
   z-index: 21;
 `;

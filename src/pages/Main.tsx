@@ -19,18 +19,12 @@ const ContactSection = lazy(
 
 import styled from "styled-components";
 import usePageTransitionStore from "../stores/usePageTransitionStore";
+import { useLocation } from "react-router";
 
 const Main = () => {
   // const { type, setType } = useAnimationProgressStore();
   const { state, setState } = usePageTransitionStore();
-
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-    console.log(state);
-  }, [state]);
+  const location = useLocation();
 
   //   const src = import.meta.env.VITE_BASE_URL;
   // useEffect(() => {
@@ -43,23 +37,27 @@ const Main = () => {
   //   handleAsync();
   // }, [src]);
 
+  useEffect(() => {
+    console.log("!", location.pathname);
+  }, [location]);
+
   return (
     <motion.div style={{ backgroundColor: "black" }}>
       <VerticalLine page="MAIN" />
       <MainLoading
         onLoadingComplete={() => setState("IDLE")}
-        isVisible={state === "ENTER"}
+        isVisible={state === "ENTER" && location.pathname === "/"}
       />
-      <PageWrapper $isVisible={state === "IDLE"}>
+      <PageWrapper $isVisible={state !== "ENTER"}>
         <VideoSection />
-        {/* <VideoSection />
+        {/* <VideoSection /> */}
         <MarqueeSection text="Dynamic & Alive" type="top" />
         <ParallaxSection />
-        <ScratchSection />
-        <SliderSection />
-        <RollerSection />
+        {/* <ScratchSection /> */}
+        {/* <SliderSection /> */}
+        {/* <RollerSection /> */}
 
-        {type === "ADD_ANIMATION" && (
+        {/* {type === "ADD_ANIMATION" && (
           <Suspense fallback={<h1>로딩중</h1>}>
             <ContactSection />
           </Suspense>

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type PageTransitionState = "IDLE" | "ENTER" | "EXIT";
+export type PageTransitionState = "LOADING" | "IDLE" | "ENTER" | "EXIT";
 
 interface UsePageTransitionStore {
   state: PageTransitionState;
@@ -8,7 +8,7 @@ interface UsePageTransitionStore {
 }
 
 const usePageTransitionStore = create<UsePageTransitionStore>((set) => ({
-  state: "IDLE",
+  state: "LOADING",
   setState: (state: PageTransitionState) => set({ state }),
 }));
 

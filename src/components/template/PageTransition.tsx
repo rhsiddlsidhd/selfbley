@@ -2,13 +2,18 @@ import { motion } from "motion/react";
 import React, { useEffect } from "react";
 
 import usePageTransitionStore from "../../stores/usePageTransitionStore";
+import { useLocation } from "react-router";
 
 const PageTransition = ({ children }: { children: React.ReactNode }) => {
-  const { setState } = usePageTransitionStore();
+  const { state, setState } = usePageTransitionStore();
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    console.log("state", state);
     setState("ENTER");
-  }, [setState]);
+    // return () => setState("EXIT");
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}

@@ -1,8 +1,9 @@
 import { motion } from "motion/react";
 
 import styled from "styled-components";
-import useAnimationProgressStore from "../../stores/useAnimationProgress";
+
 import { ReactNode, useEffect } from "react";
+import usePageTransitionStore from "../../stores/usePageTransitionStore";
 
 const FlipTransition = ({
   color,
@@ -13,14 +14,15 @@ const FlipTransition = ({
   color?: string;
   count?: number;
 }) => {
-  const { type, setType } = useAnimationProgressStore();
-
+  const { state, setState } = usePageTransitionStore();
   const total = count;
   const arrayLength = total - 1;
 
   useEffect(() => {
-    setType("PAGE_TRANSITION");
-  }, [setType]);
+    console.log("state", state);
+    setState("ENTER");
+    return () => setState("EXIT");
+  }, [setState, state]);
 
   return (
     <motion.div
@@ -50,7 +52,7 @@ const FlipTransition = ({
               onAnimationComplete={() => {
                 if (i === 0) {
                   setTimeout(() => {
-                    setType("FLIP_TRANSITION");
+                    setState("IDLE");
                   }, 1000);
                 }
               }}
@@ -59,7 +61,7 @@ const FlipTransition = ({
           );
         })}
       </ItemRow>
-      {type !== "PAGE_TRANSITION" && children}
+      {state === "IDLE" && children}
     </motion.div>
   );
 };

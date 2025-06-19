@@ -4,12 +4,11 @@ import styled from "styled-components";
 import IntroVideos from "../atoms/IntroVideos";
 import Title from "../atoms/Title";
 import Arrow from "../atoms/Arrow";
-import useAnimationProgressStore, {
-  AnimationType,
-} from "../../stores/useAnimationProgress";
-import { useRef } from "react";
+import useAnimationProgressStore from "../../stores/useAnimationProgress";
+import { useEffect, useMemo, useRef } from "react";
 import { ARROR_ICON, HOMETITLE } from "../../constants/textConstants";
 import SignSVGContainer from "./SignSVGContainer";
+import { handleFadeAnimation } from "../../utils/validation";
 // INITIAL
 
 // 3가지 애니메이션 사용
@@ -20,64 +19,52 @@ import SignSVGContainer from "./SignSVGContainer";
 const VideoSection = () => {
   const { type, setType } = useAnimationProgressStore();
   const containerRef = useRef(null);
-
+  const typeRef = useRef(type);
   const isInView = useInView(containerRef, { amount: 0.5 });
-
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
-
   const width = useTransform(scrollYProgress, [0, 1], ["0", "100%"]);
+  const splitText = useMemo(() => HOMETITLE.toUpperCase().split(" "), []);
 
-  const handleFadeAnimation = (
-    type: AnimationType
-  ): "show" | "hidden" | "exit" => {
-    if (!isInView) return "exit";
+  useEffect(() => {
+    typeRef.current = type;
+  }, [type]);
 
-    return ["INITIAL_LOAD", "ADD_ANIMATION"].includes(type) ? "show" : "hidden";
-  };
-
-  const handleAnimationEnd = (type: AnimationType): void => {
-    if (type === "INITIAL_LOAD") setType("ADD_ANIMATION");
-  };
-
-  const splitText = HOMETITLE.toUpperCase().split(" ");
-
+  useEffect(() => {
+    return () => setType("INITIAL");
+  }, [setType]);
   return (
     <HomeContainer ref={containerRef}>
       <SignSVGContainer isView={isInView} section="videoSection" />
-
+      <SlideInOverlay style={{ width }} />
       <Overlay
         initial={{ width: "20vw", height: "20%" }}
         animate={{ width: "100vw", height: "100%" }}
         transition={{ duration: 1, delay: 2 }}
         style={{
-          opacity: isInView ? 1 : 0,
+          display: isInView ? "block" : "none",
         }}
-        onAnimationComplete={() => {
-          if (type === "INITIAL") {
-            setType("INITIAL_LOAD");
-          }
-        }}
+        onAnimationComplete={() =>
+          type === "INITIAL" && setType("BACKGROUND_VIDEO_VIEW")
+        }
       >
-        <VideoWrapper>
-          <IntroVideos isInView={isInView} />
-        </VideoWrapper>
+        <IntroVideos isInView={isInView} />
       </Overlay>
-
       <TitleWrapper
         variants={fadeVariants}
         initial={{ opacity: 0 }}
-        animate={handleFadeAnimation(type)}
-        onAnimationComplete={() => handleAnimationEnd(type)}
+        animate={handleFadeAnimation({ type, isInView })}
+        onAnimationComplete={() =>
+          type === "BACKGROUND_VIDEO_VIEW" && setType("ADD_ANIMATION")
+        }
       >
         {splitText.map((text) => {
           return <Title key={text} text={text} />;
         })}
         {type === "ADD_ANIMATION" && <Arrow text={ARROR_ICON} />}
       </TitleWrapper>
-      <SlideInOverlay style={{ width }} />
     </HomeContainer>
   );
 };
@@ -91,23 +78,18 @@ const HomeContainer = styled.section`
 
 const Overlay = styled(motion.div)`
   position: fixed;
-  width: 100vw;
-  height: 100%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   overflow: hidden;
 `;
 
-const VideoWrapper = styled.div`
-  height: 100vh;
-  position: relative;
-`;
-
 const SlideInOverlay = styled(motion.div)`
   position: absolute;
   background-color: black;
+  width: 100%;
   height: 100%;
+  z-index: 1;
 `;
 
 const fadeVariants = {
