@@ -15,7 +15,7 @@ const MarqueeSection = ({ text, type, deg, reverse }: MarqueeProps) => {
   const MaqueeSectionConfig = {
     top: {
       height: "100vh",
-      backgroundColor: "black",
+      backgroundColor: "#111010",
       left: "0%",
     },
     bottom: {

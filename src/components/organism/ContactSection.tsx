@@ -17,7 +17,7 @@ const ContactSection: React.FC = () => {
   return (
     <Container
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, backgroundColor: "black" }}
+      animate={{ opacity: 1, backgroundColor: "#000000" }}
       transition={{ duration: 1 }}
     >
       <VerticalLine page="MAIN" />

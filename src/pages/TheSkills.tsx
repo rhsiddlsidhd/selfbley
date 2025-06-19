@@ -8,14 +8,10 @@ const TheSkills = () => {
   const navigate = useNavigate();
 
   const { type, setType } = useAnimationProgressStore();
-  useEffect(() => {
-    setType("INITIAL");
-  }, [setType]);
-
-  useEffect(() => {
-    console.log(type);
-  }, [type]);
-
+  // useEffect(() => {
+  //   console.log(type);
+  //   if (type !== "FLIP_TRANSITION") setType("INITIAL");
+  // }, [type, setType]);
   return (
     <Container>
       <button
@@ -51,16 +47,17 @@ const Container = styled(motion.div)`
   position: relative;
   width: 100%;
   height: 100vh;
-  background-color: #a0d2eb;
+  background-color: rgb(160, 210, 235);
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  z-index: 2;
 `;
 
 const Text = styled.div`
   font-size: 2rem;
-  color: white;
+  color: rgb(255, 255, 255);
   position: absolute;
   top: 30%;
   left: 50%;

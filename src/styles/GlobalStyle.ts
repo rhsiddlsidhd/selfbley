@@ -10,7 +10,8 @@ const GlobalStyle = createGlobalStyle`
         }
     }
     body{
-        background-color: transparent;
+        /* background-color: transparent; */
+        background-color: black;
         color: white;
     }
     p{

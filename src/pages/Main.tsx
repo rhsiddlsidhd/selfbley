@@ -22,15 +22,12 @@ import styled from "styled-components";
 const Main = () => {
   const { type, setType } = useAnimationProgressStore();
 
-  console.log(type);
-
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-
-    return () => setType("INITIAL");
+    setType("INITIAL");
   }, [setType]);
   //   const src = import.meta.env.VITE_BASE_URL;
   // useEffect(() => {
