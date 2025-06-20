@@ -2,33 +2,50 @@ import { useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import paint2 from "../../assets/splash_paint/paint2.svg";
 import { calculateFontSize } from "../../utils/calculation";
+import { logo } from "../../constants/textConstants";
 
 const FooterLogo = () => {
   const textureRef = useRef<HTMLParagraphElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [fontSize, setFontSize] = useState<number>(1);
-  const logo = "portfolio";
+  const resizeHandler = useRef<() => void>(null);
 
   useEffect(() => {
-    const handelResize = () => {
+    resizeHandler.current = () => {
       const newFontSize = calculateFontSize({
         container: containerRef,
         texture: textureRef,
         initial: fontSize,
         offset: 0.25,
       });
-
-      if (newFontSize !== fontSize) {
-        setFontSize(newFontSize);
-      }
-    };
-    handelResize();
-    window.addEventListener("resize", handelResize);
-
-    return () => {
-      window.removeEventListener("resize", handelResize);
+      setFontSize(newFontSize);
     };
   }, [fontSize]);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    let requestId: number | null = null;
+
+    const observer = new ResizeObserver(() => {
+      if (requestId) {
+        cancelAnimationFrame(requestId);
+      }
+      requestId = requestAnimationFrame(() => {
+        if (resizeHandler.current) {
+          resizeHandler.current();
+        }
+      });
+    });
+    observer.observe(containerRef.current);
+
+    return () => {
+      if (requestId) {
+        cancelAnimationFrame(requestId);
+      }
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <Container ref={containerRef}>

@@ -23,6 +23,7 @@ const Main = () => {
   const [animationProgress, setAnimationProgress] =
     useState<AnimationProgressTypes>("INITIAL");
 
+  console.log("animationProgress", animationProgress);
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -46,7 +47,8 @@ const Main = () => {
         <ScratchSection />
         <SliderSection />
         <RollerSection />
-        {animationProgress === "FADE" && <ContactSection />}
+        {/* {animationProgress === "FADE" && <ContactSection />} */}
+        <ContactSection />
       </PageWrapper>
     </motion.div>
   );

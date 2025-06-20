@@ -13,6 +13,8 @@ const GlobalStyle = createGlobalStyle`
         /* background-color: transparent; */
         background-color: black;
         color: white;
+        width: 100vw;
+        position: relative;
     }
     p{
         word-break: keep-all;

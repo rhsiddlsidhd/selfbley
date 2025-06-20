@@ -38,15 +38,13 @@ const VideoSection = ({
     <HomeContainer ref={containerRef}>
       <SignSVGContainer isView={isInView} section="videoSection" />
       <SlideInOverlay style={{ width }} />
-      <Overlay
-        initial={{ width: "20vw", height: "20%" }}
-        animate={{ width: "100vw", height: "100%" }}
-        transition={{ duration: 1, delay: 2 }}
-        style={{
-          display: isInView ? "block" : "none",
-        }}
-        onAnimationComplete={() => state === "SCALE" && setState("SLIDE")}
-      >
+      <Overlay style={{ display: isInView ? "block" : "none" }}>
+        <Content
+          initial={{ scale: 0.2 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1, delay: 2 }}
+          onAnimationComplete={() => state === "SCALE" && setState("SLIDE")}
+        />
         <IntroVideos isInView={isInView} />
       </Overlay>
       <TitleWrapper
@@ -73,10 +71,22 @@ const HomeContainer = styled.section`
 
 const Overlay = styled(motion.div)`
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Content = styled(motion.div)`
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  border: 3px solid red;
   overflow: hidden;
+  /* background-color: black; */
+  background: transparent;
 `;
 
 const SlideInOverlay = styled(motion.div)`
