@@ -40,12 +40,13 @@ const VideoSection = ({
       <SlideInOverlay style={{ width }} />
       <Overlay style={{ display: isInView ? "block" : "none" }}>
         <Content
-          initial={{ scale: 0.2 }}
-          animate={{ scale: 1 }}
+          initial={{ width: "20vw", height: "20vh" }}
+          animate={{ width: "100vw", height: "100vh" }}
           transition={{ duration: 1, delay: 2 }}
           onAnimationComplete={() => state === "SCALE" && setState("SLIDE")}
-        />
-        <IntroVideos isInView={isInView} />
+        >
+          <IntroVideos isInView={isInView} />
+        </Content>
       </Overlay>
       <TitleWrapper
         variants={fadeVariants}
@@ -74,19 +75,14 @@ const Overlay = styled(motion.div)`
   width: 100vw;
   height: 100vh;
   top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const Content = styled(motion.div)`
   position: absolute;
-  width: 100%;
-  height: 100vh;
-  border: 3px solid red;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   overflow: hidden;
-  /* background-color: black; */
-  background: transparent;
 `;
 
 const SlideInOverlay = styled(motion.div)`
