@@ -1,12 +1,12 @@
 import { Route, Routes, useLocation } from "react-router";
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy } from "react";
 import Header from "./layout/Header";
-import Main from "./pages/Main";
+
 import LoadingContainer from "./components/organism/LoadingContainer";
 import { AnimatePresence } from "motion/react";
 import PageTransition from "./components/template/PageTransition";
 import FlipTransition from "./components/template/FlipTransition";
-
+const Main = lazy(() => import("./pages/Main"));
 const NotAvailablePage = lazy(() => import("./pages/NotAvailable"));
 const TheSkills = lazy(() => import("./pages/TheSkills"));
 const TheProjects = lazy(() => import("./pages/TheProjects"));

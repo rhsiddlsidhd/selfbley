@@ -30,17 +30,6 @@ const Main = () => {
   const [animationProgress, setAnimationProgress] =
     useState<AnimationProgressTypes>("INITIAL");
 
-  //   const src = import.meta.env.VITE_BASE_URL;
-  // useEffect(() => {
-  //   const handleAsync = async () => {
-  //     // const src = "http://localhost:8000";
-  //     const res = await fetch(`${src}/projects`);
-  //     const data = await res.json();
-  //     // console.log("data", data);
-  //   };
-  //   handleAsync();
-  // }, [src]);
-
   return (
     <motion.div style={{ backgroundColor: "black" }}>
       <VerticalLine page="MAIN" />
@@ -48,16 +37,18 @@ const Main = () => {
         onLoadingComplete={() => setAnimationProgress("SCALE")}
         isVisible={animationProgress === "INITIAL"}
       />
-      <PageWrapper $isVisible={animationProgress !== "INITIAL"}>
+      <PageWrapper
+        style={{ display: animationProgress !== "INITIAL" ? "block" : "none" }}
+      >
         <VideoSection
           state={animationProgress}
           setState={setAnimationProgress}
         />
         <MarqueeSection text="Dynamic & Alive" type="top" />
         <ParallaxSection />
-        {/* <ScratchSection /> */}
-        {/* <SliderSection /> */}
-        {/* <RollerSection /> */}
+        <ScratchSection />
+        <SliderSection />
+        <RollerSection />
 
         {/* {type === "ADD_ANIMATION" && (
           <Suspense fallback={<h1>로딩중</h1>}>
@@ -71,8 +62,6 @@ const Main = () => {
 
 export default Main;
 
-const PageWrapper = styled.div<{ $isVisible: boolean }>`
-  display: ${({ $isVisible }) => ($isVisible ? "block" : "none")};
+const PageWrapper = styled.div`
   position: relative;
-  height: fit-content;
 `;
