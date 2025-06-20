@@ -4,8 +4,9 @@ import { motion } from "motion/react";
 import { ProjectData } from "../../pages/TheProjects";
 import Badges from "../molecules/Badges";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
-import useAnimationProgressStore from "../../stores/useAnimationProgress";
 import { AnimationProgressTypes } from "../../pages/Main";
+import github from "../../assets/github.svg";
+import tistory from "../../assets/tistory.svg";
 
 const Project = ({
   data,
@@ -22,12 +23,13 @@ const Project = ({
     overView,
     socialLinks,
     technologies,
-    thumnail,
+    thumbnail,
     title,
+    deployUrl,
   } = data;
   const screenMode = useScreenStore((state) => state.mode);
-  console.log("state", state);
   const entries = Object.entries(technologies) as [BadgeTypes, string[]][];
+
   return (
     <ProjectContainer $screenMode={screenMode}>
       <motion.section
@@ -39,7 +41,7 @@ const Project = ({
         <p>{index}</p>
         <Badge type={mode} name={mode} />
         <aside>
-          {socialLinks.map(({ name, href, icon }) => {
+          {socialLinks.map(({ name, href }) => {
             return (
               <motion.a
                 href={href}
@@ -47,7 +49,7 @@ const Project = ({
                 key={name}
                 whileHover={{ scale: 1.1 }}
               >
-                <img src={icon} />
+                <img src={name === "github" ? github : tistory} />
               </motion.a>
             );
           })}
@@ -63,13 +65,21 @@ const Project = ({
           <h4>{title}</h4>
           <p>{overView}</p>
         </motion.section>
-        <motion.section variants={slideInUp}>
-          <article>
-            <figure className="thumnail">
-              <img src={thumnail} alt="썸네일이미지" />
-            </figure>
-          </article>
-        </motion.section>
+        <Thumbnail
+          variants={slideInUp}
+          target="_blank"
+          href={deployUrl}
+          onClick={(e) => {
+            if (!deployUrl || deployUrl === "#") {
+              e.preventDefault();
+              alert("서비스 준비중입니다.");
+            }
+          }}
+        >
+          <figure className="thumbnail">
+            <img src={thumbnail} alt="썸네일이미지" />
+          </figure>
+        </Thumbnail>
         <motion.section variants={slideInUp} className="technologies">
           <h6>Technologies & Tools</h6>
           {entries.map(([category, techList], i) => {
@@ -86,6 +96,17 @@ const Project = ({
 };
 
 export default Project;
+const Thumbnail = styled(motion.a)`
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  * {
+    &:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+  }
+`;
 
 const container = {
   hidden: { opacity: 0 },
@@ -142,9 +163,14 @@ const ProjectContainer = styled.main<{ $screenMode: Mode }>`
     & > aside {
       display: flex;
       gap: 1rem;
-      & > a > img {
+      & > a {
         width: clamp(2rem, 2.5vw, 5rem);
-        height: clamp(2rem, 2.5vw, 5rem);
+        aspect-ratio: 1/1;
+        & > img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
     }
   }
@@ -165,7 +191,7 @@ const ProjectContainer = styled.main<{ $screenMode: Mode }>`
       font-size: clamp(0.725rem, 2vw, 2.8rem);
     }
 
-    .thumnail {
+    .thumbnail {
       margin: 3rem 0;
       aspect-ratio: 16/9;
 

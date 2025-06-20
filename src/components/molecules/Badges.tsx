@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Badge, { BadgeTypes } from "../atoms/Badge";
 interface BadgesProps {

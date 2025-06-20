@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { motion } from "motion/react";
 
 const Title = ({ text }: { text: string }) => {

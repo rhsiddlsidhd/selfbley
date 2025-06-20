@@ -1,4 +1,3 @@
-import React from "react";
 import { motion, MotionValue } from "motion/react";
 
 const ProgressBar = (width: MotionValue<string>) => {

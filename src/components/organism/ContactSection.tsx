@@ -7,11 +7,9 @@ import VerticalLine from "../atoms/VerticalLine";
 import paint1 from "../../assets/splash_paint/paint1.svg";
 import FooterLogo from "./FooterLogo";
 import { contactScratchText } from "../../constants/scratchConstants";
-import useAnimationProgressStore from "../../stores/useAnimationProgress";
 import usePageTransitionStore from "../../stores/usePageTransitionStore";
 
 const ContactSection: React.FC = () => {
-  const { type } = useAnimationProgressStore();
   const { state, setState } = usePageTransitionStore();
   const scratchRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -21,7 +19,6 @@ const ContactSection: React.FC = () => {
 
   useEffect(() => {
     setState("ENTER");
-    console.log(state);
   }, [state, setState]);
   return (
     <Container

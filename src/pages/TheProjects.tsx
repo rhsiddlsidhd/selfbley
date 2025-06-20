@@ -17,10 +17,11 @@ export interface ProjectData {
   title: string;
   overView: string;
   socialLinks: { name: string; icon: string; href: string }[];
-  thumnail: string;
+  thumbnail: string;
   technologies: Partial<
     Record<Exclude<BadgeTypes, "SINGLE" | "TEAM">, string[]>
   >;
+  deployUrl: string;
   description: string;
 }
 
@@ -50,7 +51,6 @@ const TheProjects = () => {
   useEffect(() => {
     const getProjectDataApi = async () => {
       const data = await getProjectApi();
-
       if (data) setProjectData(data);
     };
     getProjectDataApi();

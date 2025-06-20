@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import styled from "styled-components";
 import { technology } from "../../constants/skillsConstants";
 import { BadgeTypes } from "../atoms/Badge";

@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
-import useAnimationProgressStore from "../stores/useAnimationProgress";
-import { useEffect } from "react";
 
 const TheSkills = () => {
   const navigate = useNavigate();

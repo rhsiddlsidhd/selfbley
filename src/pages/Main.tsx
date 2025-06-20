@@ -1,6 +1,5 @@
 import VerticalLine from "../components/atoms/VerticalLine";
-import { lazy, Suspense, useEffect, useState } from "react";
-import useAnimationProgressStore from "../stores/useAnimationProgress";
+import { useEffect, useState } from "react";
 import MainLoading from "../components/loading/MainLoading";
 import VideoSection from "../components/organism/VideoSection";
 import MarqueeSection from "../components/organism/MarqueeSection";
@@ -9,15 +8,9 @@ import ScratchSection from "../components/organism/ScratchSection";
 import SliderSection from "../components/organism/SliderSection";
 import RollerSection from "../components/organism/RollerSection";
 import { motion } from "motion/react";
-// const RollerSection = lazy(
-//   () => import("../components/organism/RollerSection")
-// );
-
-const ContactSection = lazy(
-  () => import("../components/organism/ContactSection")
-);
 
 import styled from "styled-components";
+import ContactSection from "../components/organism/ContactSection";
 
 export type AnimationProgressTypes =
   | "INITIAL"
@@ -29,6 +22,10 @@ export type AnimationProgressTypes =
 const Main = () => {
   const [animationProgress, setAnimationProgress] =
     useState<AnimationProgressTypes>("INITIAL");
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <motion.div style={{ backgroundColor: "black" }}>
@@ -49,12 +46,7 @@ const Main = () => {
         <ScratchSection />
         <SliderSection />
         <RollerSection />
-
-        {/* {type === "ADD_ANIMATION" && (
-          <Suspense fallback={<h1>로딩중</h1>}>
-            <ContactSection />
-          </Suspense>
-        )} */}
+        {animationProgress === "FADE" && <ContactSection />}
       </PageWrapper>
     </motion.div>
   );

@@ -1,4 +1,3 @@
-import React from "react";
 import { styled } from "styled-components";
 import github from "../assets/github.svg";
 

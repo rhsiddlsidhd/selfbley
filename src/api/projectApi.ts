@@ -1,6 +1,7 @@
 export const getProjectApi = async () => {
   try {
-    const res = await fetch("http://localhost:3000/projects");
+    const url = import.meta.env.VITE_BASE_URL;
+    const res = await fetch(`${url}/projects`);
     if (res.status !== 200) {
       throw new Error(`response fail! status:${res.status}`);
     }

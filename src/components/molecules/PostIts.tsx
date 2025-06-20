@@ -1,5 +1,5 @@
 import { MotionValue, motion } from "motion/react";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { styled } from "styled-components";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import { QuestionsOmitSrc } from "../../constants/textConstants";

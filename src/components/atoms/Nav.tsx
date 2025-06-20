@@ -83,4 +83,5 @@ const NavItems = styled.a<{ $mode: Mode }>`
       }
     }
   }
+  z-index: 99;
 `;

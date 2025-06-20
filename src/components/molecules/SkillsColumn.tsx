@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import React, { useEffect } from "react";
 import Icon from "../atoms/Icon";
 import { styled } from "styled-components";
 import useScreenStore from "../../stores/useScreenStore";

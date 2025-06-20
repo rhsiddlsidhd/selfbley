@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import paint2 from "../../assets/splash_paint/paint2.svg";
 import { calculateFontSize } from "../../utils/calculation";

@@ -1,6 +1,5 @@
 import { MotionValue } from "motion";
 import { useMotionTemplate, useTransform } from "motion/react";
-import React from "react";
 interface UseScrollTemplatePctValue {
   scroll: MotionValue<number>;
   input: number[];

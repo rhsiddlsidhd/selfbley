@@ -1,11 +1,7 @@
 import { motion } from "motion/react";
-import React, { useEffect } from "react";
+import React from "react";
 
 const PageTransition = ({ children }: { children: React.ReactNode }) => {
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
