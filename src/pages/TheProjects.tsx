@@ -8,7 +8,7 @@ import useScreenStore, { Mode } from "../stores/useScreenStore";
 import { getProjectApi } from "../api/projectApi";
 import ProjectAside from "../components/organism/ProjectAside";
 import ProjectFilter from "../components/organism/ProjectFilter";
-import SlideInXOverlay from "../components/atoms/SlideInXOverlay";
+import { AnimationProgressTypes } from "./Main";
 
 export type FilterType = "ALL" | "TEAM" | "SINGLE";
 
@@ -28,6 +28,13 @@ const TheProjects = () => {
   const mode = useScreenStore((state) => state.mode);
   const [selectedFilter, setSelectedFilter] = useState<FilterType>("ALL");
   const [projectData, setProjectData] = useState<ProjectData[]>([]);
+  const [animationProcess, setAnimationProcess] =
+    useState<AnimationProgressTypes>("INITIAL");
+  const [isView, setIsView] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setIsView(true), 1500);
+  }, []);
 
   const filteredData = (data: ProjectData[]) => {
     switch (selectedFilter) {
@@ -51,25 +58,30 @@ const TheProjects = () => {
 
   return (
     <Container>
-      <SlideInXOverlay />
       <VerticalLine page="THEPROJECTS" />
-      <ProjectContent>
-        <ProjectFilter
-          setSelectedFilter={setSelectedFilter}
-          selectedFilter={selectedFilter}
-        />
-        <ProjectWrapper $mode={mode}>
-          {filteredData(projectData).map((data, i) => {
-            return (
-              <Project
-                key={`${i} ${selectedFilter}`}
-                data={data}
-                index={i + 1}
-              />
-            );
-          })}
-        </ProjectWrapper>
-      </ProjectContent>
+
+      {isView && (
+        <ProjectContent>
+          <ProjectFilter
+            setSelectedFilter={setSelectedFilter}
+            selectedFilter={selectedFilter}
+            state={animationProcess}
+            setState={setAnimationProcess}
+          />
+          <ProjectWrapper $mode={mode}>
+            {filteredData(projectData).map((data, i) => {
+              return (
+                <Project
+                  state={animationProcess}
+                  key={`${i} ${selectedFilter}`}
+                  data={data}
+                  index={i + 1}
+                />
+              );
+            })}
+          </ProjectWrapper>
+        </ProjectContent>
+      )}
       <ProjectAside />
     </Container>
   );
@@ -81,7 +93,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   position: relative;
-  z-index: 2;
+  z-index: 7;
 `;
 
 const ProjectWrapper = styled.div<{ $mode: Mode }>`

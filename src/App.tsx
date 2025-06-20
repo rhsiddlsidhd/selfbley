@@ -1,5 +1,5 @@
 import { Route, Routes, useLocation } from "react-router";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import Header from "./layout/Header";
 import Main from "./pages/Main";
 import LoadingContainer from "./components/organism/LoadingContainer";
@@ -16,6 +16,7 @@ const ContactSection = lazy(
 
 function App() {
   const location = useLocation();
+
   return (
     <Suspense fallback={<LoadingContainer />}>
       <AnimatePresence mode="sync">

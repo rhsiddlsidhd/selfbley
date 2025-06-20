@@ -1,5 +1,5 @@
 import VerticalLine from "../components/atoms/VerticalLine";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import useAnimationProgressStore from "../stores/useAnimationProgress";
 import MainLoading from "../components/loading/MainLoading";
 import VideoSection from "../components/organism/VideoSection";
@@ -18,13 +18,17 @@ const ContactSection = lazy(
 );
 
 import styled from "styled-components";
-import usePageTransitionStore from "../stores/usePageTransitionStore";
-import { useLocation } from "react-router";
 
+export type AnimationProgressTypes =
+  | "INITIAL"
+  | "SCALE"
+  | "SLIDE"
+  | "FADE"
+  | "PENDING"
+  | "FLIP";
 const Main = () => {
-  // const { type, setType } = useAnimationProgressStore();
-  const { state, setState } = usePageTransitionStore();
-  const location = useLocation();
+  const [animationProgress, setAnimationProgress] =
+    useState<AnimationProgressTypes>("INITIAL");
 
   //   const src = import.meta.env.VITE_BASE_URL;
   // useEffect(() => {
@@ -37,20 +41,18 @@ const Main = () => {
   //   handleAsync();
   // }, [src]);
 
-  useEffect(() => {
-    console.log("!", location.pathname);
-  }, [location]);
-
   return (
     <motion.div style={{ backgroundColor: "black" }}>
       <VerticalLine page="MAIN" />
       <MainLoading
-        onLoadingComplete={() => setState("IDLE")}
-        isVisible={state === "ENTER" && location.pathname === "/"}
+        onLoadingComplete={() => setAnimationProgress("SCALE")}
+        isVisible={animationProgress === "INITIAL"}
       />
-      <PageWrapper $isVisible={state !== "ENTER"}>
-        <VideoSection />
-        {/* <VideoSection /> */}
+      <PageWrapper $isVisible={animationProgress !== "INITIAL"}>
+        <VideoSection
+          state={animationProgress}
+          setState={setAnimationProgress}
+        />
         <MarqueeSection text="Dynamic & Alive" type="top" />
         <ParallaxSection />
         {/* <ScratchSection /> */}

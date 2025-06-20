@@ -4,11 +4,12 @@ import styled from "styled-components";
 import IntroVideos from "../atoms/IntroVideos";
 import Title from "../atoms/Title";
 import Arrow from "../atoms/Arrow";
-import useAnimationProgressStore from "../../stores/useAnimationProgress";
-import { useEffect, useMemo, useRef } from "react";
+
+import { useMemo, useRef } from "react";
 import { ARROR_ICON, HOMETITLE } from "../../constants/textConstants";
 import SignSVGContainer from "./SignSVGContainer";
 import { handleFadeAnimation } from "../../utils/validation";
+import { AnimationProgressTypes } from "../../pages/Main";
 // INITIAL
 
 // 3가지 애니메이션 사용
@@ -16,10 +17,15 @@ import { handleFadeAnimation } from "../../utils/validation";
 // 2. title이 SLIDE IN
 // 3. Arrow FADE IN
 
-const VideoSection = () => {
-  const { type, setType } = useAnimationProgressStore();
+const VideoSection = ({
+  state,
+  setState,
+}: {
+  state: AnimationProgressTypes;
+  setState: React.Dispatch<React.SetStateAction<AnimationProgressTypes>>;
+}) => {
   const containerRef = useRef(null);
-  const typeRef = useRef(type);
+
   const isInView = useInView(containerRef, { amount: 0.5 });
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -28,13 +34,6 @@ const VideoSection = () => {
   const width = useTransform(scrollYProgress, [0, 1], ["0", "100%"]);
   const splitText = useMemo(() => HOMETITLE.toUpperCase().split(" "), []);
 
-  useEffect(() => {
-    typeRef.current = type;
-  }, [type]);
-
-  useEffect(() => {
-    return () => setType("INITIAL");
-  }, [setType]);
   return (
     <HomeContainer ref={containerRef}>
       <SignSVGContainer isView={isInView} section="videoSection" />
@@ -46,24 +45,20 @@ const VideoSection = () => {
         style={{
           display: isInView ? "block" : "none",
         }}
-        onAnimationComplete={() =>
-          type === "INITIAL" && setType("BACKGROUND_VIDEO_VIEW")
-        }
+        onAnimationComplete={() => state === "SCALE" && setState("SLIDE")}
       >
         <IntroVideos isInView={isInView} />
       </Overlay>
       <TitleWrapper
         variants={fadeVariants}
         initial={{ opacity: 0 }}
-        animate={handleFadeAnimation({ type, isInView })}
-        onAnimationComplete={() =>
-          type === "BACKGROUND_VIDEO_VIEW" && setType("ADD_ANIMATION")
-        }
+        animate={handleFadeAnimation({ state, isInView })}
+        onAnimationComplete={() => state === "SLIDE" && setState("FADE")}
       >
         {splitText.map((text) => {
           return <Title key={text} text={text} />;
         })}
-        {type === "ADD_ANIMATION" && <Arrow text={ARROR_ICON} />}
+        {state === "FADE" && <Arrow text={ARROR_ICON} />}
       </TitleWrapper>
     </HomeContainer>
   );
@@ -113,5 +108,5 @@ const TitleWrapper = styled(motion.h1)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
+  z-index: 4;
 `;

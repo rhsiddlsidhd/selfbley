@@ -1,15 +1,13 @@
-import { AnimationType } from "../../stores/useAnimationProgress";
+import { AnimationProgressTypes } from "../../pages/Main";
 
 export const handleFadeAnimation = ({
-  type,
+  state,
   isInView,
 }: {
-  type: AnimationType;
+  state: AnimationProgressTypes;
   isInView: boolean;
 }): "show" | "hidden" | "exit" => {
   if (!isInView) return "exit";
 
-  return ["BACKGROUND_VIDEO_VIEW", "ADD_ANIMATION"].includes(type)
-    ? "show"
-    : "hidden";
+  return ["SLIDE", "FADE"].includes(state) ? "show" : "hidden";
 };

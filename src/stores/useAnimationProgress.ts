@@ -9,6 +9,7 @@ export type AnimationType =
   | "FLIP_TRANSITION"
   | "SLIDE_FADEOUT"
   | "BACKGROUND_VIDEO_VIEW"
+  | "PENDING"
   | "LOADING";
 
 interface UseAnimationProgressStore {

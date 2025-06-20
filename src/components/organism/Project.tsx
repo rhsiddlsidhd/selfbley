@@ -5,8 +5,17 @@ import { ProjectData } from "../../pages/TheProjects";
 import Badges from "../molecules/Badges";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import useAnimationProgressStore from "../../stores/useAnimationProgress";
+import { AnimationProgressTypes } from "../../pages/Main";
 
-const Project = ({ data, index }: { data: ProjectData; index: number }) => {
+const Project = ({
+  data,
+  index,
+  state,
+}: {
+  data: ProjectData;
+  index: number;
+  state: AnimationProgressTypes;
+}) => {
   const {
     description,
     mode,
@@ -17,15 +26,14 @@ const Project = ({ data, index }: { data: ProjectData; index: number }) => {
     title,
   } = data;
   const screenMode = useScreenStore((state) => state.mode);
-
-  const type = useAnimationProgressStore((state) => state.type);
+  console.log("state", state);
   const entries = Object.entries(technologies) as [BadgeTypes, string[]][];
   return (
     <ProjectContainer $screenMode={screenMode}>
       <motion.section
         className="project_overview"
         initial="hidden"
-        animate={type === "PROJECT_DISPLAY" ? "show" : "hidden"}
+        animate={state === "SLIDE" ? "show" : "hidden"}
         variants={slideInUp}
       >
         <p>{index}</p>
@@ -47,7 +55,7 @@ const Project = ({ data, index }: { data: ProjectData; index: number }) => {
       </motion.section>
       <motion.section
         initial="hidden"
-        animate={type === "PROJECT_DISPLAY" ? "show" : "hidden"}
+        animate={state === "SLIDE" ? "show" : "hidden"}
         variants={container}
         className="project_detail"
       >

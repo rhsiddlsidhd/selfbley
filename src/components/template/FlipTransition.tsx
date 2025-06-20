@@ -2,8 +2,10 @@ import { motion } from "motion/react";
 
 import styled from "styled-components";
 
-import { ReactNode, useEffect } from "react";
-import usePageTransitionStore from "../../stores/usePageTransitionStore";
+import { ReactNode, useState } from "react";
+import { AnimationProgressTypes } from "../../pages/Main";
+
+import SlideInXOverlay from "../atoms/SlideInXOverlay";
 
 const FlipTransition = ({
   color,
@@ -14,28 +16,24 @@ const FlipTransition = ({
   color?: string;
   count?: number;
 }) => {
-  const { state, setState } = usePageTransitionStore();
+  const [animationProgress, setAnimationProgress] =
+    useState<AnimationProgressTypes>("INITIAL");
+
   const total = count;
   const arrayLength = total - 1;
-
-  useEffect(() => {
-    console.log("state", state);
-    setState("ENTER");
-    return () => setState("EXIT");
-  }, [setState, state]);
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0.8, transition: { duration: 1.5 } }}
+      exit={{ opacity: 0, transition: { duration: 0.8 } }}
       style={{
         position: "absolute",
         width: "100%",
         height: "100%",
       }}
     >
-      <ItemRow variants={containerVariants} initial="hidden" animate="visible">
+      <ItemRow variants={containerVariants} initial="hidden" animate="show">
         {Array.from({ length: total }, (_, i) => {
           const reversedIndex = arrayLength - i;
           const delay = reversedIndex * 0.1;
@@ -43,7 +41,7 @@ const FlipTransition = ({
             <Item
               variants={sectionVariants}
               transition={{
-                duration: 1,
+                duration: 0.3,
                 type: "tween",
                 ease: "easeIn",
                 delay,
@@ -51,9 +49,7 @@ const FlipTransition = ({
               style={{ backgroundColor: color }}
               onAnimationComplete={() => {
                 if (i === 0) {
-                  setTimeout(() => {
-                    setState("IDLE");
-                  }, 1000);
+                  setAnimationProgress("FLIP");
                 }
               }}
               key={i}
@@ -61,7 +57,14 @@ const FlipTransition = ({
           );
         })}
       </ItemRow>
-      {state === "IDLE" && children}
+      <SlideInXOverlay
+        state={animationProgress}
+        setState={setAnimationProgress}
+        color={color}
+      />
+      <div style={{ opacity: animationProgress !== "INITIAL" ? 1 : 0 }}>
+        {children}
+      </div>
     </motion.div>
   );
 };
@@ -76,7 +79,7 @@ const ItemRow = styled(motion.div)`
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 1;
+  z-index: 5;
 `;
 
 const Item = styled(motion.div)`
@@ -86,12 +89,12 @@ const Item = styled(motion.div)`
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
+  show: {
     opacity: 1,
   },
 };
 
 const sectionVariants = {
   hidden: { transform: "scaleX(0)" },
-  visible: { transform: "scaleX(1)" },
+  show: { transform: "scaleX(1)" },
 };

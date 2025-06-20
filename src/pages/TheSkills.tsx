@@ -47,7 +47,7 @@ const Container = styled(motion.div)`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  z-index: 2;
+  z-index: 5;
 `;
 
 const Text = styled.div`
