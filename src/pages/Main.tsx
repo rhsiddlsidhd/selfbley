@@ -1,8 +1,7 @@
 import VerticalLine from "../components/atoms/VerticalLine";
 import { useEffect, useState } from "react";
 import MainLoading from "../components/loading/MainLoading";
-import VideoSection from "../components/organism/VideoSection";
-import MarqueeSection from "../components/organism/MarqueeSection";
+
 import ParallaxSection from "../components/organism/ParallaxSection";
 import ScratchSection from "../components/organism/ScratchSection";
 import SliderSection from "../components/organism/SliderSection";
@@ -11,6 +10,8 @@ import { motion } from "motion/react";
 
 import styled from "styled-components";
 import ContactSection from "../components/organism/ContactSection";
+import MarqueeSection from "../components/organism/MarqueeSection";
+import VideoSection from "../components/organism/VideoSection";
 
 export type AnimationProgressTypes =
   | "INITIAL"
@@ -22,21 +23,32 @@ export type AnimationProgressTypes =
 const Main = () => {
   const [animationProgress, setAnimationProgress] =
     useState<AnimationProgressTypes>("INITIAL");
-
-  console.log("animationProgress", animationProgress);
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+  useEffect(() => {
+    console.log(animationProgress);
+  }, [animationProgress]);
 
   return (
-    <motion.div style={{ backgroundColor: "black" }}>
+    <motion.div
+      style={{
+        backgroundColor: "black",
+        height: animationProgress === "INITIAL" ? "100vh" : "fit-content",
+        // overflow: animationProgress === "INITIAL" ? "hidden" : "auto",
+      }}
+    >
       <VerticalLine page="MAIN" />
       <MainLoading
         onLoadingComplete={() => setAnimationProgress("SCALE")}
         isVisible={animationProgress === "INITIAL"}
       />
       <PageWrapper
-        style={{ display: animationProgress !== "INITIAL" ? "block" : "none" }}
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: animationProgress !== "INITIAL" ? 1 : 0,
+        }}
+        transition={{ duration: 0.3 }}
       >
         <VideoSection
           state={animationProgress}
@@ -47,7 +59,6 @@ const Main = () => {
         <ScratchSection />
         <SliderSection />
         <RollerSection />
-        {/* {animationProgress === "FADE" && <ContactSection />} */}
         <ContactSection />
       </PageWrapper>
     </motion.div>
@@ -56,6 +67,6 @@ const Main = () => {
 
 export default Main;
 
-const PageWrapper = styled.div`
+const PageWrapper = styled(motion.div)`
   position: relative;
 `;

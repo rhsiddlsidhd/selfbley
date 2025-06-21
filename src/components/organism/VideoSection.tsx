@@ -35,19 +35,22 @@ const VideoSection = ({
   const splitText = useMemo(() => HOMETITLE.toUpperCase().split(" "), []);
 
   return (
-    <HomeContainer ref={containerRef}>
+    <HomeContainer
+      ref={containerRef}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isInView ? 1 : 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <SignSVGContainer isView={isInView} section="videoSection" />
       <SlideInOverlay style={{ width }} />
-      <Overlay style={{ display: isInView ? "block" : "none" }}>
-        <Content
-          initial={{ width: "20vw", height: "20vh" }}
-          animate={{ width: "100vw", height: "100vh" }}
-          transition={{ duration: 1, delay: 2 }}
-          onAnimationComplete={() => state === "SCALE" && setState("SLIDE")}
-        >
-          <IntroVideos isInView={isInView} />
-        </Content>
-      </Overlay>
+      <Overlay
+        style={{ display: isInView ? "block" : "none" }}
+        initial={{ scale: 0.2 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1, delay: 2 }}
+        onAnimationComplete={() => state === "SCALE" && setState("SLIDE")}
+      />
+      <IntroVideos isInView={isInView} />
       <TitleWrapper
         variants={fadeVariants}
         initial={{ opacity: 0 }}
@@ -65,24 +68,19 @@ const VideoSection = ({
 
 export default VideoSection;
 
-const HomeContainer = styled.section`
+const HomeContainer = styled(motion.section)`
   position: relative;
   height: 200vh;
 `;
 
 const Overlay = styled(motion.div)`
   position: fixed;
+  border: thick solid black;
+  top: 0;
   width: 100vw;
   height: 100vh;
-  top: 0;
-`;
-
-const Content = styled(motion.div)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  overflow: hidden;
+  z-index: 10;
+  box-shadow: 0 0 0 200vmax rgba(0, 0, 0, 1);
 `;
 
 const SlideInOverlay = styled(motion.div)`

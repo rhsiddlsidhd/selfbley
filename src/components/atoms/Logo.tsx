@@ -13,10 +13,12 @@ interface LogoProps {
 const Logo = ({ styles = "", onCloseMenu }: LogoProps) => {
   const mode = useScreenStore((state) => state.mode);
   const navigate = useNavigate();
+
   return (
     <Container
       $mode={mode}
       $styles={styles}
+      onMouseEnter={() => import("../../pages/Main")}
       onClick={() => {
         if (onCloseMenu) {
           onCloseMenu();

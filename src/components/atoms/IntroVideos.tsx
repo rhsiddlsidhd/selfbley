@@ -33,7 +33,7 @@ const IntroVideos = ({ isInView }: { isInView: boolean }) => {
   }, [activeIndex]);
 
   return (
-    <VideoWrapper>
+    <Videowrapper>
       {homeVideos.map((video, i) => (
         <Video
           key={i}
@@ -55,17 +55,17 @@ const IntroVideos = ({ isInView }: { isInView: boolean }) => {
           <source src={video.mp4} type="video/mp4" />
         </Video>
       ))}
-    </VideoWrapper>
+    </Videowrapper>
   );
 };
 
 export default IntroVideos;
 
-const VideoWrapper = styled.div`
+const Videowrapper = styled.div`
   position: fixed;
+  top: 0;
   width: 100vw;
   height: 100vh;
-  top: 0;
 `;
 
 const Video = styled(motion.video)`
@@ -73,6 +73,6 @@ const Video = styled(motion.video)`
   height: 100%;
   position: absolute;
   object-fit: cover;
-  filter: blur(5px);
-  z-index: -1;
+  filter: blur(10px);
+  z-index: 1;
 `;
