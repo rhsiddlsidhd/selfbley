@@ -33,7 +33,9 @@ const Nav = ({ onCloseMenu }: { onCloseMenu?: () => void }) => {
             <p
               onMouseEnter={() => preloadPage(tab)}
               onClick={() => {
-                if (onCloseMenu) {
+                if (path === "/skills") {
+                  alert("서비스 준비중입니다.");
+                } else if (onCloseMenu) {
                   onCloseMenu();
                   setTimeout(() => {
                     navigate(path);

@@ -7,8 +7,10 @@ const LoadingContainer = () => {
     speed: 2,
   };
   return (
-    <Container>
-      <Fade option={option}>LOADING</Fade>
+    <Container style={{}}>
+      <div>
+        <Fade option={option}>LOADING</Fade>
+      </div>
     </Container>
   );
 };
@@ -16,8 +18,13 @@ const LoadingContainer = () => {
 export default LoadingContainer;
 
 const Container = styled(motion.div)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100vh;
+  background-color: inherit;
+  & > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
