@@ -34,5 +34,5 @@ const NavWrapper = styled.header`
   a:last-child {
     flex: 0.5;
   }
-  z-index: 90;
+  z-index: 99;
 `;

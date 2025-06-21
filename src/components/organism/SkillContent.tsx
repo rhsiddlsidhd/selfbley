@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import {
   CLOSE_MODAL_TEXT,
   OPEN_MODAL_TEXT,
-  VERTICAL_COUNT_2,
+  VERTICAL_COUNT_3,
   VERTICAL_COUNT_4,
   VERTICAL_TOTAL_LINE,
 } from "../../constants/skillsConstants";
@@ -45,7 +45,7 @@ const SkillContent = ({ isSticky }: SkillContentProps) => {
             }}
             exit={{ opacity: 0 }}
             $total={VERTICAL_TOTAL_LINE}
-            $count={mode === "mobile" ? VERTICAL_COUNT_4 : VERTICAL_COUNT_2}
+            $count={mode === "mobile" ? VERTICAL_COUNT_4 : VERTICAL_COUNT_3}
           >
             <RollingSkills />
           </ContentWrapper>

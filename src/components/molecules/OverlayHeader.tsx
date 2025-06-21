@@ -80,7 +80,7 @@ const NavWrapper = styled.div<{ $animationProgress: boolean }>`
   padding: 10rem 0;
   background-color: black;
   overflow: scroll;
-  z-index: 90;
+  z-index: 99;
 
   animation: ${({ $animationProgress }) =>
     $animationProgress

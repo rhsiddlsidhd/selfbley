@@ -1,5 +1,5 @@
 import VerticalLine from "../components/atoms/VerticalLine";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MainLoading from "../components/loading/MainLoading";
 
 import ParallaxSection from "../components/organism/ParallaxSection";
@@ -23,9 +23,6 @@ export type AnimationProgressTypes =
 const Main = () => {
   const [animationProgress, setAnimationProgress] =
     useState<AnimationProgressTypes>("INITIAL");
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
 
   return (
     <motion.div

@@ -56,7 +56,6 @@ const RollingSkills = () => {
   const handleHoverStart = () => {
     const id = marqueeSkillsKeys[centerIndex];
     setIsHover(id);
-
     stopAutoPlay();
   };
 
@@ -78,8 +77,10 @@ const RollingSkills = () => {
         animate={{
           y: `-${activeIndex * (100 / 3)}%`,
         }}
-        onHoverStart={handleHoverStart}
-        onHoverEnd={handleHoverEnd}
+        onMouseEnter={handleHoverStart}
+        onMouseLeave={handleHoverEnd}
+        onTouchStart={handleHoverStart}
+        onTouchEnd={handleHoverEnd}
       >
         {marqueeSkillsKeys.map((k, idx) => {
           const isCenter = idx === centerIndex;
