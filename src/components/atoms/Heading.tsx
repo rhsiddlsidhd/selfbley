@@ -15,7 +15,7 @@ const Heading = ({ renderContent, ref }: HeadingProps) => {
           <motion.span
             initial={{ filter: "blur(0px)" }}
             animate={{
-              filter: "blur(6px)",
+              filter: "blur(4px)",
               transition: {
                 delay: i * 0.4,
                 duration: 4,
@@ -23,7 +23,7 @@ const Heading = ({ renderContent, ref }: HeadingProps) => {
                 repeat: Infinity,
               },
             }}
-            key={`${Math.random()}- ${word} `}
+            key={`${i}- ${word} `}
           >
             {word}
           </motion.span>

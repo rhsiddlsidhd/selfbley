@@ -8,7 +8,7 @@ const ScratchSection = () => {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["end end", "center start"],
+    offset: ["end end", "start start"],
   });
 
   /**
@@ -38,6 +38,8 @@ const Container = styled.section`
   height: 50vh;
   min-height: fit-content;
   background-color: #ff6a41;
-  padding: 6rem 0;
-  z-index: 2;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

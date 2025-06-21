@@ -37,8 +37,7 @@ const Container = styled.footer`
   & > section {
     flex: 1 0 auto;
     flex-wrap: wrap;
-  }
-  & > section:first-child {
+    z-index: 90;
   }
 `;
 

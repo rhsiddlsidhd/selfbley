@@ -3,13 +3,13 @@ import { styled } from "styled-components";
 import {
   CLOSE_MODAL_TEXT,
   OPEN_MODAL_TEXT,
+  VERTICAL_COUNT_2,
+  VERTICAL_COUNT_4,
+  VERTICAL_TOTAL_LINE,
 } from "../../constants/skillsConstants";
 import useScreenStore from "../../stores/useScreenStore";
 import RollingSkills from "./RollingSkills";
-import {
-  getSkillContentActiveColumn,
-  getSkillContentWidth,
-} from "../../utils/calculation";
+
 import { useCallback, useState } from "react";
 import SKillModalBtn from "./SKillModalBtn";
 import SkillModal from "./SkillModal";
@@ -23,11 +23,14 @@ export interface SkillIcons {
   icon: string;
 }
 
+/**
+ * width 로 고정 사이즈를 두고
+ * scale로 animation
+ */
+
 const SkillContent = ({ isSticky }: SkillContentProps) => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const mode = useScreenStore((state) => state.mode);
-  const activeColumns = getSkillContentActiveColumn(mode);
-  const contentWidth = getSkillContentWidth(activeColumns);
 
   const isToggleModal = useCallback(() => setIsModal((prev) => !prev), []);
 
@@ -36,13 +39,13 @@ const SkillContent = ({ isSticky }: SkillContentProps) => {
       <AnimatePresence>
         {isSticky && (
           <ContentWrapper
-            initial={{ opacity: 0 }}
+            initial={{ scale: 0 }}
             animate={{
-              width: isSticky ? contentWidth : "100%",
-              height: isSticky ? "50%" : "100%",
-              opacity: isSticky ? 1 : 0,
+              scale: 1,
             }}
             exit={{ opacity: 0 }}
+            $total={VERTICAL_TOTAL_LINE}
+            $count={mode === "mobile" ? VERTICAL_COUNT_4 : VERTICAL_COUNT_2}
           >
             <RollingSkills />
           </ContentWrapper>
@@ -53,7 +56,7 @@ const SkillContent = ({ isSticky }: SkillContentProps) => {
         isModal={isToggleModal}
         text={!isModal ? OPEN_MODAL_TEXT : CLOSE_MODAL_TEXT}
       />
-      <SkillModal isModal={isModal} contentWidth={contentWidth} />
+      <SkillModal isModal={isModal} />
     </Container>
   );
 };
@@ -61,7 +64,6 @@ const SkillContent = ({ isSticky }: SkillContentProps) => {
 export default SkillContent;
 
 const Container = styled.div`
-  width: 100%;
   height: 100%;
   position: relative;
   display: flex;
@@ -69,6 +71,9 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const ContentWrapper = styled(motion.div)`
+const ContentWrapper = styled(motion.div)<{ $total: number; $count: number }>`
+  overflow: hidden;
+  width: ${({ $count, $total }) => `calc(100% / ${$total} * ${$count})`};
+  height: 50vh;
   overflow: hidden;
 `;

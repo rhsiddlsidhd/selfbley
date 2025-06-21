@@ -29,7 +29,7 @@ const VerticalLineContainer = styled.div<{ $page: Page }>`
   position: fixed;
   top: 0;
   pointer-events: none;
-  z-index: 89;
+  z-index: 80;
 `;
 
 const VerticalLineSection = styled.section<{

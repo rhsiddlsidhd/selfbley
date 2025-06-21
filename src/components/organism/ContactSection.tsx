@@ -1,5 +1,5 @@
 import { motion, useScroll } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { styled } from "styled-components";
 import Scratch from "../molecules/Scratch";
 import Footer from "../../layout/Footer";
@@ -7,19 +7,14 @@ import VerticalLine from "../atoms/VerticalLine";
 import paint1 from "../../assets/splash_paint/paint1.svg";
 import FooterLogo from "./FooterLogo";
 import { contactScratchText } from "../../constants/scratchConstants";
-import usePageTransitionStore from "../../stores/usePageTransitionStore";
 
 const ContactSection: React.FC = () => {
-  const { state, setState } = usePageTransitionStore();
   const scratchRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: scratchRef,
-    offset: ["start start", "center start"],
+    offset: ["end end", "start start"],
   });
 
-  useEffect(() => {
-    setState("ENTER");
-  }, [state, setState]);
   return (
     <Container
       initial={{ opacity: 0 }}
@@ -35,7 +30,7 @@ const ContactSection: React.FC = () => {
           inActiveColor="#383535"
         />
       </ScratchContainer>
-      <h1 style={{ margin: "6rem 0", position: "relative" }}>
+      <h1 style={{ margin: "6rem 0", position: "relative", zIndex: 90 }}>
         <PaintBackground src={paint1} />
         Contact Us
       </h1>
@@ -63,11 +58,10 @@ const PaintBackground = styled.img`
 `;
 
 const ScratchContainer = styled.div`
-  padding: 6rem 0;
-  height: 50vh;
-  min-height: fit-content;
   width: 100%;
+  min-height: 50vh;
+  word-wrap: break-word;
   display: flex;
-  align-items: end;
+  align-items: center;
   justify-content: center;
 `;

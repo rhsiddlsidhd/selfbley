@@ -54,6 +54,6 @@ const Container = styled.section`
   position: relative;
   width: 100%;
   font-size: clamp(5rem, 8vw, 10rem);
-  z-index: 2;
+  z-index: 1;
   overflow: hidden;
 `;

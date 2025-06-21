@@ -1,17 +1,18 @@
 import { motion } from "motion/react";
 import { useMemo } from "react";
 import styled from "styled-components";
-import { technology } from "../../constants/skillsConstants";
+import {
+  technology,
+  VERTICAL_COUNT_2,
+  VERTICAL_COUNT_4,
+  VERTICAL_TOTAL_LINE,
+} from "../../constants/skillsConstants";
 import { BadgeTypes } from "../atoms/Badge";
 import Badges from "../molecules/Badges";
+import useScreenStore from "../../stores/useScreenStore";
 
-const SkillModal = ({
-  isModal,
-  contentWidth,
-}: {
-  isModal: boolean;
-  contentWidth: string;
-}) => {
+const SkillModal = ({ isModal }: { isModal: boolean }) => {
+  const mode = useScreenStore((state) => state.mode);
   const data = useMemo(
     () =>
       Object.entries(technology).map(([category, items]) => ({
@@ -24,7 +25,8 @@ const SkillModal = ({
   return (
     <Container
       animate={{ y: isModal ? "-50%" : "150%" }}
-      style={{ width: contentWidth, x: "-50%" }}
+      $total={VERTICAL_TOTAL_LINE}
+      $count={mode === "mobile" ? VERTICAL_COUNT_4 : VERTICAL_COUNT_2}
     >
       {data.map(({ category, techList }, i) => {
         return (
@@ -40,13 +42,13 @@ const SkillModal = ({
 
 export default SkillModal;
 
-const Container = styled(motion.div)`
-  height: 70vh;
+const Container = styled(motion.div)<{ $total: number; $count: number }>`
+  width: ${({ $count, $total }) => `calc(100% / ${$total} * ${$count})`};
+  min-height: 50vh;
   background-color: #ffd34f;
   border-radius: 10px;
   position: absolute;
   top: 50%;
-  left: 50%;
   display: flex;
   flex-direction: column;
   overflow: auto;

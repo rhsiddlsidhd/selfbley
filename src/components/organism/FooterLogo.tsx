@@ -34,6 +34,7 @@ const Container = styled.div`
     font-size: 17.5vw;
     font-weight: bold;
   }
+  z-index: 90;
 `;
 
 const PaintBackground = styled.img`

@@ -55,5 +55,4 @@ const CharList = styled.div<{ $mode: Mode }>`
     font-size: clamp(2rem, 5.12vw, 6.4rem);
     font-weight: bold;
   }
-  margin: auto;
 `;

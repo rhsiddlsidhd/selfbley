@@ -26,16 +26,13 @@ const Main = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
-  useEffect(() => {
-    console.log(animationProgress);
-  }, [animationProgress]);
 
   return (
     <motion.div
       style={{
         backgroundColor: "black",
         height: animationProgress === "INITIAL" ? "100vh" : "fit-content",
-        // overflow: animationProgress === "INITIAL" ? "hidden" : "auto",
+        overflow: animationProgress === "INITIAL" ? "hidden" : "visible",
       }}
     >
       <VerticalLine page="MAIN" />

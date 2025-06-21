@@ -1,8 +1,4 @@
-import { RefObject } from "react";
 import {
-  SKILL_CONTENT_DEFUALT_COLUMNS,
-  SKILL_CONTENT_MOBILE_COLUMNS,
-  SKILL_CONTENT_TOTAL_COLUMNS,
   SKILL_ICONS_DEFUALT_GAP,
   SKILL_ICONS_MOBILE_GAP,
   SKILL_ICON_DEFUALT_WIDTH,
@@ -15,8 +11,6 @@ import { MotionValue } from "motion";
 export const calculatetabWidth = ({ id, ref }: CalculatetabWidth) => {
   const el = ref.current[id];
   if (!el) return 0;
-
-  console.log("!?");
 
   return el.offsetWidth;
 };
@@ -37,43 +31,6 @@ export const getSKillIconsWidth = (
   totalLength: number
 ) => {
   return `${iconWidth * totalLength + iconGap * (totalLength - 1)}rem`;
-};
-
-export const getSkillContentActiveColumn = (mode: Mode) => {
-  return mode !== "mobile"
-    ? SKILL_CONTENT_DEFUALT_COLUMNS
-    : SKILL_CONTENT_MOBILE_COLUMNS;
-};
-
-export const getSkillContentWidth = (activeColumns: number) => {
-  return `${(100 / SKILL_CONTENT_TOTAL_COLUMNS) * activeColumns}%`;
-};
-
-export const calculateFontSize = ({
-  container,
-  texture,
-  initial,
-  offset,
-}: {
-  container: RefObject<HTMLDivElement | null>;
-  texture: RefObject<HTMLParagraphElement | null>;
-  initial: number;
-  offset: number;
-}): number => {
-  if (!container.current || !texture.current) return initial;
-
-  const containerWidth = container.current.offsetWidth;
-  let textureWidth = texture.current.offsetWidth;
-
-  let newFontSize = initial;
-
-  while (textureWidth < containerWidth) {
-    newFontSize += offset;
-    texture.current.style.fontSize = `${newFontSize}rem`;
-    textureWidth = texture.current.offsetWidth;
-  }
-
-  return newFontSize - offset;
 };
 
 export const getScratchHighlightIndex = (

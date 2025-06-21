@@ -57,6 +57,7 @@ const PostIt = styled.p<{ $mode: Mode; $top: number; $left: number }>`
   font-size: clamp(0.75rem, 2vw, 3rem);
   padding: 3rem;
   backdrop-filter: blur(20px);
+  z-index: 90;
 `;
 
 const BackgroundBlur = styled(motion.div)`
