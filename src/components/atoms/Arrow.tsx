@@ -47,5 +47,4 @@ const ImgWrapper = styled(motion.div)`
 
   left: 50%;
   bottom: -50%;
-  border: 1px solid red;
 `;
