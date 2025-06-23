@@ -6,7 +6,7 @@ import Title from "../atoms/Title";
 import Arrow from "../atoms/Arrow";
 
 import { useMemo, useRef } from "react";
-import { ARROR_ICON, HOMETITLE } from "../../constants/textConstants";
+import { HOMETITLE } from "../../constants/textConstants";
 import SignSVGContainer from "./SignSVGContainer";
 import { handleFadeAnimation } from "../../utils/validation";
 import { AnimationProgressTypes } from "../../pages/Main";
@@ -77,7 +77,7 @@ const VideoSection = ({
         {splitText.map((text) => {
           return <Title key={text} text={text} />;
         })}
-        {state === "FADE" && <Arrow text={ARROR_ICON} />}
+        {state === "FADE" && <Arrow />}
       </TitleWrapper>
     </HomeContainer>
   );

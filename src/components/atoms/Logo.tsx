@@ -46,7 +46,7 @@ const Container = styled.a<{ $mode: Mode; $styles: string }>`
     css`
       ${$styles}
     `}
-  z-index: 99;
+  z-index: 101;
 `;
 
 const Overlay = styled.div<{ $mode: Mode }>`

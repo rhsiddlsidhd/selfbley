@@ -103,5 +103,5 @@ const MenuBtn = styled.button`
   border: 3px solid gray;
   border-radius: 15%;
   cursor: pointer;
-  z-index: 99;
+  z-index: 101;
 `;

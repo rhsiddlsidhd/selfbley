@@ -10,6 +10,7 @@ import tennis_2_2560 from "../assets/background_img/tennis-2-2560.webp";
 import tennis_2_1920 from "../assets/background_img/tennis-2-1920.webp";
 import tennis_2_1280 from "../assets/background_img/tennis-2-1280.webp";
 import tennis_2_760 from "../assets/background_img/tennis-2-760.webp";
+
 type Range<
   N extends number,
   Result extends number[] = []
@@ -31,7 +32,6 @@ type Questions = Question[];
 export type QuestionsOmitSrc = Omit<Question, "src">;
 
 export const HOMETITLE = "hello World!";
-export const ARROR_ICON = "⋙";
 
 export const QUESTIONS: Questions = [
   {
