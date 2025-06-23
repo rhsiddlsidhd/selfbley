@@ -3,11 +3,10 @@ import { styled } from "styled-components";
 import {
   CLOSE_MODAL_TEXT,
   OPEN_MODAL_TEXT,
-  VERTICAL_COUNT_3,
-  VERTICAL_COUNT_4,
+  VERTICAL_COUNT_2,
   VERTICAL_TOTAL_LINE,
 } from "../../constants/skillsConstants";
-import useScreenStore from "../../stores/useScreenStore";
+
 import RollingSkills from "./RollingSkills";
 
 import { useCallback, useState } from "react";
@@ -30,7 +29,6 @@ export interface SkillIcons {
 
 const SkillContent = ({ isSticky }: SkillContentProps) => {
   const [isModal, setIsModal] = useState<boolean>(false);
-  const mode = useScreenStore((state) => state.mode);
 
   const isToggleModal = useCallback(() => setIsModal((prev) => !prev), []);
 
@@ -45,7 +43,7 @@ const SkillContent = ({ isSticky }: SkillContentProps) => {
             }}
             exit={{ opacity: 0 }}
             $total={VERTICAL_TOTAL_LINE}
-            $count={mode === "mobile" ? VERTICAL_COUNT_4 : VERTICAL_COUNT_3}
+            $count={VERTICAL_COUNT_2}
           >
             <RollingSkills />
           </ContentWrapper>

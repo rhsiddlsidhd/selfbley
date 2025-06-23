@@ -95,11 +95,11 @@ const RollingSkills = () => {
               <p
                 style={{
                   position: "relative",
-                  fontSize: isCenter ? "2rem" : "1.5rem",
+                  fontSize: isCenter ? "4vw" : "3vw",
                   fontWeight: isCenter ? "bold" : "lighter",
                 }}
               >
-                {k}
+                {k.toUpperCase()}
                 <Underline
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: isCenter && isHover ? 1 : 0, opacity: 1 }}

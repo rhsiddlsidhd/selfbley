@@ -65,5 +65,4 @@ const BackgroundBlur = styled(motion.div)`
   aspect-ratio: 1 / 1;
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-  z-index: -1;
 `;
