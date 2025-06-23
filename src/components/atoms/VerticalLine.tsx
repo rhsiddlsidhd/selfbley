@@ -37,7 +37,7 @@ const VerticalLineSection = styled.section<{
   $mode: Mode;
 }>`
   border-right: ${({ $borderRemoveItem }) =>
-    !$borderRemoveItem && "3px solid #7178852b "};
+    !$borderRemoveItem && "1px solid #7178852b "};
   flex: 1;
   &:first-child,
   &:last-child {

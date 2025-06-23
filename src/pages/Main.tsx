@@ -1,5 +1,5 @@
 import VerticalLine from "../components/atoms/VerticalLine";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import MainLoading from "../components/loading/MainLoading";
 
 import ParallaxSection from "../components/organism/ParallaxSection";
@@ -46,9 +46,6 @@ const Main = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("loaded", loaded);
-  }, [loaded]);
   return (
     <motion.div
       style={{

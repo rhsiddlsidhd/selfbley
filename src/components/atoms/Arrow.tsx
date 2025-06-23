@@ -4,10 +4,11 @@ import styled from "styled-components";
 const Arrow = () => {
   return (
     <ImgWrapper
-      initial={{ y: 10, opacity: 0 }}
+      initial={{ y: 10, opacity: 0, x: "-50%" }}
       animate={{
         opacity: 1,
         y: 0,
+        x: "-50%",
         transition: {
           duration: 1,
           type: "spring",
@@ -15,14 +16,6 @@ const Arrow = () => {
           repeatType: "reverse",
         },
       }}
-      style={
-        {
-          // position: "absolute",
-          // rotate: 90,
-          // bottom: "-50%",
-          // transformOrigin: "60% 50% 0",
-        }
-      }
     >
       <svg
         width="100%"
@@ -51,5 +44,8 @@ const ImgWrapper = styled(motion.div)`
   position: absolute;
   width: 10vw;
   aspect-ratio: 1/1;
+
+  left: 50%;
   bottom: -50%;
+  border: 1px solid red;
 `;
