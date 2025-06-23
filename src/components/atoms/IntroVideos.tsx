@@ -4,7 +4,16 @@ import { motion } from "motion/react";
 import { homeVideos } from "../../constants/videos";
 import styled from "styled-components";
 
-const IntroVideos = ({ isInView }: { isInView: boolean }) => {
+const IntroVideos = ({
+  isInView,
+  isLoaded,
+  handelElementLoaded,
+}: {
+  isInView: boolean;
+  isLoaded: boolean;
+
+  handelElementLoaded: (i: number) => void;
+}) => {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
@@ -33,28 +42,31 @@ const IntroVideos = ({ isInView }: { isInView: boolean }) => {
   }, [activeIndex]);
 
   return (
-    <Videowrapper>
-      {homeVideos.map((video, i) => (
-        <Video
-          key={i}
-          ref={(el) => {
-            videoRefs.current[i] = el;
-          }}
-          muted
-          autoPlay
-          loop
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: i === activeIndex ? 1 : 0,
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          <source src={video.webm} type="video/webm" />
-          <source src={video.mp4} type="video/mp4" />
-        </Video>
-      ))}
+    <Videowrapper style={{ opacity: isLoaded ? 1 : 0 }}>
+      {homeVideos.map((video, i) => {
+        const startIndex = i + 0;
+
+        return (
+          <Video
+            key={i}
+            ref={(el) => {
+              videoRefs.current[i] = el;
+            }}
+            muted
+            autoPlay
+            loop
+            preload="auto"
+            onCanPlayThrough={() => {
+              handelElementLoaded(startIndex);
+              console.log(`onLoadedData ${startIndex}`);
+            }}
+            style={{ opacity: i === activeIndex ? 1 : 0 }}
+          >
+            <source src={video.webm} type="video/webm" />
+            <source src={video.mp4} type="video/mp4" />
+          </Video>
+        );
+      })}
     </Videowrapper>
   );
 };
@@ -74,5 +86,4 @@ const Video = styled(motion.video)`
   position: absolute;
   object-fit: cover;
   filter: blur(10px);
-  z-index: 1;
 `;

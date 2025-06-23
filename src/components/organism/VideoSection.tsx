@@ -10,7 +10,13 @@ import { ARROR_ICON, HOMETITLE } from "../../constants/textConstants";
 import SignSVGContainer from "./SignSVGContainer";
 import { handleFadeAnimation } from "../../utils/validation";
 import { AnimationProgressTypes } from "../../pages/Main";
-// INITIAL
+
+/**
+ * 비디오 section이 Mount 되었을때
+ * Video srcSet이 전부 로드 되지 않았다면
+ * loading 페이지를 보여주고 로드되었으면
+ * 비디오를 보여주고 Overlay animation 보여주기
+ */
 
 // 3가지 애니메이션 사용
 // 1. background 커지는거
@@ -20,9 +26,13 @@ import { AnimationProgressTypes } from "../../pages/Main";
 const VideoSection = ({
   state,
   setState,
+  handelElementLoaded,
+  loaded,
 }: {
   state: AnimationProgressTypes;
   setState: React.Dispatch<React.SetStateAction<AnimationProgressTypes>>;
+  handelElementLoaded: (i: number) => void;
+  loaded: boolean;
 }) => {
   const containerRef = useRef(null);
 
@@ -43,18 +53,25 @@ const VideoSection = ({
     >
       <SignSVGContainer isView={isInView} section="videoSection" />
       <SlideInOverlay style={{ width }} />
-      <Overlay
-        style={{ display: isInView ? "block" : "none" }}
-        initial={{ scale: 0.2 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 1, delay: 2 }}
-        onAnimationComplete={() => state === "SCALE" && setState("SLIDE")}
+      {loaded && (
+        <Overlay
+          initial={{ scale: 0.2 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1, delay: 1 }}
+          onAnimationComplete={() => state === "SCALE" && setState("SLIDE")}
+        />
+      )}
+
+      <IntroVideos
+        isInView={isInView}
+        isLoaded={loaded}
+        handelElementLoaded={handelElementLoaded}
       />
-      <IntroVideos isInView={isInView} />
       <TitleWrapper
         variants={fadeVariants}
         initial={{ opacity: 0 }}
         animate={handleFadeAnimation({ state, isInView })}
+        onAnimationStart={() => console.log("SLIDE-ANIMATION")}
         onAnimationComplete={() => state === "SLIDE" && setState("FADE")}
       >
         {splitText.map((text) => {

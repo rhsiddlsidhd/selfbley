@@ -7,20 +7,9 @@ import run_mp4 from "../../assets/video/mp4/run.mp4";
 import tennis_mp4 from "../../assets/video/mp4/tennis.mp4";
 import programming_mp4 from "../../assets/video/mp4/programming.mp4";
 
-export const homeVideosMp4 = [
-  `${snowboard_mp4}`,
-  `${run_mp4}`,
-  `${tennis_mp4}`,
-  `${programming_mp4}`,
+export const homeVideos = [
+  { mp4: snowboard_mp4, webm: snowboard_webm },
+  { mp4: run_mp4, webm: run_webm },
+  { mp4: tennis_mp4, webm: tennis_webm },
+  { mp4: programming_mp4, webm: programming_webm },
 ] as const;
-export const homeVideosWebm = [
-  `${snowboard_webm}`,
-  `${run_webm}`,
-  `${tennis_webm}`,
-  `${programming_webm}`,
-] as const;
-
-export const homeVideos = homeVideosMp4.map((mp4, i) => ({
-  mp4,
-  webm: homeVideosWebm[i],
-}));
