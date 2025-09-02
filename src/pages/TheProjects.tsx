@@ -19,7 +19,7 @@ export interface ProjectData {
   title: string;
   overView: string;
   socialLinks: { name: string; icon: string; href: string }[];
-  thumnail: string;
+  thumbnail: string;
   technologies: Partial<
     Record<Exclude<BadgeTypes, "SINGLE" | "TEAM">, string[]>
   >;

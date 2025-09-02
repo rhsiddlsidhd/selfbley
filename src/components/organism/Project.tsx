@@ -13,7 +13,7 @@ const Project = ({ data, index }: { data: ProjectData; index: number }) => {
     overView,
     socialLinks,
     technologies,
-    thumnail,
+    thumbnail,
     title,
   } = data;
   const screenMode = useScreenStore((state) => state.mode);
@@ -58,7 +58,7 @@ const Project = ({ data, index }: { data: ProjectData; index: number }) => {
         <motion.section variants={slideInUp}>
           <article>
             <figure className="thumnail">
-              <img src={thumnail} alt="썸네일이미지" />
+              <img src={`/public/${thumbnail}`} alt="썸네일이미지" />
             </figure>
           </article>
         </motion.section>
