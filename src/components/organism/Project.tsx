@@ -66,19 +66,9 @@ const Project = ({
           <h4>{title}</h4>
           <p>{overView}</p>
         </motion.section>
-        <Thumbnail
-          variants={slideInUp}
-          target="_blank"
-          href={deployUrl}
-          onClick={(e) => {
-            if (!deployUrl || deployUrl === "#") {
-              e.preventDefault();
-              alert("서비스 준비중입니다.");
-            }
-          }}
-        >
+        <Thumbnail variants={slideInUp} target="_blank" href={deployUrl}>
           <figure className="thumbnail">
-            <img src={thumbnail} alt="썸네일이미지" />
+            <img src={`/public/${thumbnail}`} alt="썸네일이미지" />
           </figure>
         </Thumbnail>
         <motion.section variants={slideInUp} className="technologies">
