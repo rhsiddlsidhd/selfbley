@@ -68,7 +68,7 @@ const Project = ({
         </motion.section>
         <Thumbnail variants={slideInUp} target="_blank" href={deployUrl}>
           <figure className="thumbnail">
-            <img src={`/public/${thumbnail}`} alt="썸네일이미지" />
+            <img src={`/${thumbnail}`} alt="썸네일이미지" />
           </figure>
         </Thumbnail>
         <motion.section variants={slideInUp} className="technologies">
