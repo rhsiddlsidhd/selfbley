@@ -31,4 +31,16 @@ Parallax : 개발 일대기
 
 ## Image 최적화
 
-thumnail : 50kb 이하
+Book SLider Section
+
+- BackgroundImg
+  - 사이즈: 최대 500kb 이하
+  - 확장자: .webp
+- Thumnail
+  - 사이즈: 최대 110kb 이하
+  - 확장자: .webp
+
+Parallax Section
+
+- BackgroundImg
+  - 사이즈: 최대 500kb 이하하

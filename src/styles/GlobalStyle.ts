@@ -10,8 +10,10 @@ const GlobalStyle = createGlobalStyle`
         }
     }
     body{
-        background-color: #010101;
+
+        background-color: black;
         color: white;
+        position: relative;
     }
     p{
         word-break: keep-all;

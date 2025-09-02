@@ -3,17 +3,21 @@ import React from "react";
 import styled from "styled-components";
 import { FilterType } from "../../pages/TheProjects";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
-import useAnimationProgressStore from "../../stores/useAnimationProgress";
+import { AnimationProgressTypes } from "../../pages/Main";
 
 const ProjectFilter = ({
   setSelectedFilter,
   selectedFilter,
+  state,
+  setState,
 }: {
   setSelectedFilter: React.Dispatch<React.SetStateAction<FilterType>>;
   selectedFilter: FilterType;
+  state: AnimationProgressTypes;
+  setState: React.Dispatch<React.SetStateAction<AnimationProgressTypes>>;
 }) => {
   const filterTabs = ["ALL", "TEAM", "SINGLE"] as const;
-  const { type, setType } = useAnimationProgressStore();
+
   const mode = useScreenStore((state) => state.mode);
   const isSelected = (tab: FilterType) => selectedFilter === tab;
   const handleFilterChange = (e: React.MouseEvent, tab: FilterType) => {
@@ -25,14 +29,10 @@ const ProjectFilter = ({
   return (
     <FilterWrapper
       initial="hidden"
-      animate={
-        type === "INITIAL_LOAD" || type === "PROJECT_DISPLAY"
-          ? "show"
-          : "hidden"
-      }
+      animate={state === "INITIAL" || state === "SLIDE" ? "show" : "hidden"}
       variants={slideInUp}
       $mode={mode}
-      onAnimationComplete={() => setType("PROJECT_DISPLAY")}
+      onAnimationComplete={() => setState("SLIDE")}
     >
       {filterTabs.map((tab, i) => {
         return (

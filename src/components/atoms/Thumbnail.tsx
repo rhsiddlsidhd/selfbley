@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Thumbnail = ({ src }: { src: string }) => {
   return (
     <Container>
-      <img srcSet={src} alt="thumbnail" />
+      <img srcSet={src} alt="thumbnail" loading="lazy" />
     </Container>
   );
 };

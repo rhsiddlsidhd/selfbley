@@ -1,4 +1,3 @@
-import React from "react";
 import { styled } from "styled-components";
 import github from "../assets/github.svg";
 
@@ -38,8 +37,7 @@ const Container = styled.footer`
   & > section {
     flex: 1 0 auto;
     flex-wrap: wrap;
-  }
-  & > section:first-child {
+    z-index: 90;
   }
 `;
 

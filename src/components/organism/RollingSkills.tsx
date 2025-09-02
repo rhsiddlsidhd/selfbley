@@ -1,23 +1,21 @@
 import { motion } from "motion/react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-
 import {
   TechnologyKey,
   centerOffset,
   technology,
 } from "../../constants/skillsConstants";
-import { RollerItems } from "../molecules/RollerItems";
 import RollingSkillIcons from "../molecules/RollingSkillIcons";
 
 const RollingSkills = () => {
   const category = Object.keys(technology) as TechnologyKey[];
   const marqueeSkillsKeys: TechnologyKey[] = [...category, ...category];
-  const underlineRef = useRef<HTMLParagraphElement[]>([]);
+
   const [isHover, setIsHover] = useState<TechnologyKey | null>(null);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(true);
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [underlineWidth, setUnderlindeWidth] = useState<number>(0);
+
   const intervalRef = useRef<NodeJS.Timeout>(null);
 
   const centerIndex = activeIndex + centerOffset;
@@ -58,8 +56,6 @@ const RollingSkills = () => {
   const handleHoverStart = () => {
     const id = marqueeSkillsKeys[centerIndex];
     setIsHover(id);
-    const width = underlineRef.current[centerIndex].offsetWidth;
-    setUnderlindeWidth(width);
     stopAutoPlay();
   };
 
@@ -68,7 +64,6 @@ const RollingSkills = () => {
     if (isHover !== null) {
       setIsHover(null);
     }
-    setUnderlindeWidth(0);
   };
 
   return (
@@ -82,15 +77,38 @@ const RollingSkills = () => {
         animate={{
           y: `-${activeIndex * (100 / 3)}%`,
         }}
-        onHoverStart={handleHoverStart}
-        onHoverEnd={handleHoverEnd}
+        onMouseEnter={handleHoverStart}
+        onMouseLeave={handleHoverEnd}
+        onTouchStart={handleHoverStart}
+        onTouchEnd={handleHoverEnd}
       >
-        <RollerItems
-          centerIndex={centerIndex}
-          underlineRef={underlineRef}
-          underlineWidth={underlineWidth}
-          marqueeSkillsKeys={marqueeSkillsKeys}
-        />
+        {marqueeSkillsKeys.map((k, idx) => {
+          const isCenter = idx === centerIndex;
+
+          return (
+            <Item
+              initial={{ scale: 1 }}
+              animate={{ scale: isCenter && isHover ? 1.2 : 1 }}
+              transition={{ duration: 0.3 }}
+              key={idx}
+            >
+              <p
+                style={{
+                  position: "relative",
+                  fontSize: isCenter ? "4vw" : "3vw",
+                  fontWeight: isCenter ? "bold" : "lighter",
+                }}
+              >
+                {k.toUpperCase()}
+                <Underline
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: isCenter && isHover ? 1 : 0, opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </p>
+            </Item>
+          );
+        })}
       </Roller>
       <RollingSkillIcons isHover={isHover} />
     </>
@@ -98,9 +116,26 @@ const RollingSkills = () => {
 };
 
 export default RollingSkills;
+const Underline = styled(motion.div)`
+  position: absolute;
+  bottom: -0.5rem;
+  border: 2px solid white;
+  transform-origin: left;
+  width: 100%;
+`;
+const Item = styled(motion.li)`
+  flex: 3 0 calc(100% / 3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
-const Roller = styled(motion.div)`
+const Roller = styled(motion.ul)`
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  z-index: 99;
   &:hover {
     cursor: pointer;
   }

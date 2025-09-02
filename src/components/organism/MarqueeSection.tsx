@@ -15,7 +15,7 @@ const MarqueeSection = ({ text, type, deg, reverse }: MarqueeProps) => {
   const MaqueeSectionConfig = {
     top: {
       height: "100vh",
-      backgroundColor: "black",
+      backgroundColor: "#000000",
       left: "0%",
     },
     bottom: {
@@ -54,6 +54,6 @@ const Container = styled.section`
   position: relative;
   width: 100%;
   font-size: clamp(5rem, 8vw, 10rem);
-  z-index: 0;
+  z-index: 1;
   overflow: hidden;
 `;

@@ -1,26 +1,36 @@
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 
 import useScreenStore from "../../stores/useScreenStore";
 import styled from "styled-components";
-import useAnimationProgressStore from "../../stores/useAnimationProgress";
 
-const SlideInXOverlay = () => {
+import { AnimationProgressTypes } from "../../pages/Main";
+
+const SlideInXOverlay = ({
+  state,
+  setState,
+  color,
+}: {
+  state: AnimationProgressTypes;
+  setState: React.Dispatch<React.SetStateAction<AnimationProgressTypes>>;
+  color?: string;
+}) => {
   const mode = useScreenStore((state) => state.mode);
-  const { setType, type } = useAnimationProgressStore();
+
   return (
-    <AnimatePresence key={mode}>
-      {type === "PAGE_TRANSITION" && (
+    <>
+      {state === "FLIP" && (
         <Overlay
           initial="hidden"
           animate="show"
           exit="end"
           variants={mode === "mobile" ? mobileOverlay : overlay}
           onAnimationComplete={() => {
-            setType("INITIAL_LOAD");
+            setState("PENDING");
           }}
+          style={{ backgroundColor: color }}
         />
       )}
-    </AnimatePresence>
+    </>
   );
 };
 //
@@ -43,11 +53,10 @@ const overlay = {
 };
 
 const Overlay = styled(motion.div)`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #ffd34f;
-  z-index: 11;
+  z-index: 21;
 `;

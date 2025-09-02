@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { motion } from "motion/react";
 import Heading from "../atoms/Heading";
@@ -90,7 +90,6 @@ const MarqueeTrack = styled.div<{ $deg: number; $reverse: boolean }>`
   justify-content: ${({ $reverse }) => ($reverse ? "end" : "start")};
   transform: ${({ $deg }) => `rotate(${$deg}deg)`};
   padding: 3rem 0;
-  z-index: 2;
 `;
 
 const MarqueeMessage = styled(motion.div)`

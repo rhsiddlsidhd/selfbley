@@ -1,4 +1,4 @@
-import { useScroll } from "motion/react";
+import { motion, useScroll } from "motion/react";
 import { useRef } from "react";
 import { styled } from "styled-components";
 import Scratch from "../molecules/Scratch";
@@ -12,10 +12,15 @@ const ContactSection: React.FC = () => {
   const scratchRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: scratchRef,
-    offset: ["start start", "center start"],
+    offset: ["end end", "start start"],
   });
+
   return (
-    <Container>
+    <Container
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, backgroundColor: "#000000" }}
+      transition={{ duration: 1 }}
+    >
       <VerticalLine page="MAIN" />
       <ScratchContainer ref={scratchRef}>
         <Scratch
@@ -25,7 +30,7 @@ const ContactSection: React.FC = () => {
           inActiveColor="#383535"
         />
       </ScratchContainer>
-      <h1 style={{ margin: "6rem 0", position: "relative" }}>
+      <h1 style={{ margin: "6rem 0", position: "relative", zIndex: 90 }}>
         <PaintBackground src={paint1} />
         Contact Us
       </h1>
@@ -37,9 +42,8 @@ const ContactSection: React.FC = () => {
 
 export default ContactSection;
 
-const Container = styled.section`
+const Container = styled(motion.section)`
   position: relative;
-  min-height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,11 +58,10 @@ const PaintBackground = styled.img`
 `;
 
 const ScratchContainer = styled.div`
-  padding: 6rem 0;
-  height: 50vh;
-  min-height: fit-content;
   width: 100%;
+  min-height: 50vh;
+  word-wrap: break-word;
   display: flex;
-  align-items: end;
+  align-items: center;
   justify-content: center;
 `;

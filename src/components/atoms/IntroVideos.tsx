@@ -1,26 +1,32 @@
 import { useEffect, useRef, useState } from "react";
-import tennis from "../../assets/tennis.mp4";
-import snowboard from "../../assets/snowboard.mp4";
-import programming from "../../assets/programming.mp4";
-import run from "../../assets/run.mp4";
 import { motion } from "motion/react";
 
-import intro from "../../assets/sunset.jpg";
-import useAnimationProgressStore from "../../stores/useAnimationProgress";
+import { homeVideos } from "../../constants/videos";
+import styled from "styled-components";
 
-const IntroVideos = ({ isInView }: { isInView: boolean }) => {
-  const videos = [`${tennis}`, `${snowboard}`, `${run}`, `${programming}`];
+const IntroVideos = ({
+  isInView,
+  isLoaded,
+  handelElementLoaded,
+}: {
+  isInView: boolean;
+  isLoaded: boolean;
+
+  handelElementLoaded: (i: number) => void;
+}) => {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const { setType, type } = useAnimationProgressStore();
 
   useEffect(() => {
+    if (!isInView) return;
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % videos.length);
+      setActiveIndex((prev) => (prev + 1) % homeVideos.length);
     }, 5000);
 
-    return () => clearInterval(interval);
-  }, [videos.length]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [isInView]);
 
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
@@ -36,39 +42,48 @@ const IntroVideos = ({ isInView }: { isInView: boolean }) => {
   }, [activeIndex]);
 
   return (
-    <>
-      {videos.map((source, i) => (
-        <motion.video
-          key={i}
-          ref={(el) => {
-            videoRefs.current[i] = el;
-          }}
-          muted
-          autoPlay
-          loop
-          src={source}
-          poster={intro}
-          initial={{
-            opacity: 1,
-            clipPath: `polygon(45% 40%, 55% 40%, 55% 60%, 45% 60%)`,
-          }}
-          animate={{
-            opacity: i === activeIndex ? 1 : 0,
-            clipPath:
-              i === activeIndex
-                ? `polygon(0 0, 100% 0, 100% 100%, 0 100%)`
-                : `polygon(0 0, 100% 0, 100% 100%, 0 100%)`,
-          }}
-          onAnimationComplete={() => {
-            if (activeIndex === 0 && type === "PAGE_TRANSITION") {
-              setType("INITIAL_LOAD");
-            }
-          }}
-          transition={{ clipPath: { duration: 1, delay: 1 } }}
-        />
-      ))}
-    </>
+    <Videowrapper style={{ opacity: isLoaded ? 1 : 0 }}>
+      {homeVideos.map((video, i) => {
+        const startIndex = i + 0;
+
+        return (
+          <Video
+            key={i}
+            ref={(el) => {
+              videoRefs.current[i] = el;
+            }}
+            muted
+            autoPlay
+            loop
+            preload="auto"
+            onCanPlayThrough={() => {
+              handelElementLoaded(startIndex);
+              console.log(`onLoadedData ${startIndex}`);
+            }}
+            style={{ opacity: i === activeIndex ? 1 : 0 }}
+          >
+            <source src={video.webm} type="video/webm" />
+            <source src={video.mp4} type="video/mp4" />
+          </Video>
+        );
+      })}
+    </Videowrapper>
   );
 };
 
 export default IntroVideos;
+
+const Videowrapper = styled.div`
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+`;
+
+const Video = styled(motion.video)`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+  filter: blur(10px);
+`;

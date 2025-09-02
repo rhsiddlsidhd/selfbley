@@ -87,7 +87,6 @@ const SliderSection = () => {
         isLast: idx === arr.length - 1,
       })
     );
-    console.log("z", result);
     setBookData(result);
   }, [mode]);
 
@@ -146,7 +145,7 @@ const StickyArea = styled.div<{ $mode: Mode }>`
       padding-top: 6rem;
     `}
   overflow: hidden;
-  z-index: 21;
+  z-index: 90;
 `;
 
 const SectionIntro = styled.div`

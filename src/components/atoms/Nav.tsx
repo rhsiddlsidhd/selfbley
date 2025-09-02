@@ -1,159 +1,89 @@
-import React, { RefObject, useRef, useState } from "react";
-
-import Logo from "./Logo";
 import styled from "styled-components";
-
 import { useNavigate } from "react-router";
+import useScreenStore, { Mode } from "../../stores/useScreenStore";
+import { NAV_PATHS } from "../../constants/routes";
 
-import useScreenStore from "../../stores/useScreenStore";
-import { ROUTES } from "../../constants/routes";
-import { ROUTESKeys } from "../../types/routes";
-import { handleNavigate } from "../../utils/navigation";
-import { calculatetabWidth } from "../../utils/calculation";
-
-interface CreateTabUnderlineProps {
-  e: React.MouseEvent;
-  ref: RefObject<Record<ROUTESKeys, HTMLParagraphElement | null>>;
-}
+const typedEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][] => {
+  return Object.entries(obj) as [keyof T, T[keyof T]][];
+};
 
 const Nav = ({ onCloseMenu }: { onCloseMenu?: () => void }) => {
   const mode = useScreenStore((state) => state.mode);
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<number>(0);
-  const tabRef = useRef<Record<ROUTESKeys, HTMLParagraphElement | null>>({
-    LOGO: null,
-    THESKILLS: null,
-    THEPROJECTS: null,
-    CONTACT: null,
-  });
 
-  const createTabUnderline = ({ e, ref }: CreateTabUnderlineProps) => {
-    const id = e.currentTarget.id as ROUTESKeys;
-
-    const width = calculatetabWidth({ id, ref });
-    if (width) {
-      setActiveTab(width);
+  const preloadPage = (tab: keyof typeof NAV_PATHS) => {
+    switch (tab) {
+      case "THESKILLS":
+        import("../../pages/TheSkills");
+        break;
+      case "THEPROJECTS":
+        import("../../pages/TheProjects");
+        break;
+      case "CONTACT":
+        import("../../components/organism/ContactSection");
+        break;
     }
   };
 
   return (
     <>
-      {mode !== "mobile" ? (
-        <>
-          {Object.keys(ROUTES).map((tab, index) => {
-            const __tab = tab as ROUTESKeys;
-            return (
-              <div key={__tab}>
-                {index === 0 && <Logo styles="margin:1rem 0;" />}
-                {index !== 0 && (
-                  <ExpandText
-                    $activeTab={activeTab}
-                    id={__tab}
-                    ref={(el: HTMLParagraphElement | null) => {
-                      tabRef.current[__tab] = el;
-                    }}
-                    onClick={() =>
-                      handleNavigate({ routes: ROUTES, tab: __tab, navigate })
-                    }
-                    onMouseEnter={(e) => createTabUnderline({ e, ref: tabRef })}
-                  >
-                    {__tab}
-                  </ExpandText>
-                )}
-              </div>
-            );
-          })}
-        </>
-      ) : (
-        <>
-          {Object.keys(ROUTES)
-            .filter((route) => route !== "LOGO")
-            .map((tab) => {
-              const __tab = tab as ROUTESKeys;
-              return (
-                <OverlayText
-                  ref={(el: HTMLParagraphElement | null) => {
-                    tabRef.current[__tab] = el;
-                  }}
-                  $activeTab={activeTab}
-                  key={__tab}
-                  id={__tab}
-                  onClick={() => {
-                    if (onCloseMenu) onCloseMenu();
-                    setTimeout(() => {
-                      handleNavigate({
-                        routes: ROUTES,
-                        tab: __tab,
-                        navigate,
-                      });
-                    }, 900);
-                  }}
-                  onMouseEnter={(e) => createTabUnderline({ e, ref: tabRef })}
-                >
-                  {__tab}
-                </OverlayText>
-              );
-            })}
-        </>
-      )}
+      {typedEntries(NAV_PATHS).map(([tab, path]) => {
+        return (
+          <NavItems key={tab} $mode={mode}>
+            <p
+              onMouseEnter={() => preloadPage(tab)}
+              onClick={() => {
+                if (path === "/skills") {
+                  alert("서비스 준비중입니다.");
+                } else if (onCloseMenu) {
+                  onCloseMenu();
+                  setTimeout(() => {
+                    navigate(path);
+                  }, 1000);
+                } else {
+                  navigate(path);
+                }
+              }}
+            >
+              {tab}
+            </p>
+          </NavItems>
+        );
+      })}
     </>
   );
 };
 
 export default Nav;
 
-const OverlayText = styled.p<{ $activeTab: number }>`
-  color: white;
-  font-size: clamp(2rem, 15vw, 8rem);
-  margin: auto 0;
-  height: fit-content;
-  width: fit-content;
-  position: relative;
-  &:hover {
+const NavItems = styled.a<{ $mode: Mode }>`
+  font-size: ${(props) =>
+    props.$mode !== "mobile" ? props.theme.fontSize.m : "10vw"};
+
+  padding-left: ${({ $mode }) => ($mode !== "mobile" ? "1rem" : 0)};
+  & > p {
+    position: relative;
     cursor: pointer;
-    color: ${(props) => props.theme.colors.lightCyan};
-    transition: color 0.5s ease-in-out;
+    width: fit-content;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
     &::after {
-      width: ${(props) => props.$activeTab}px;
-      background-color: ${(props) => props.theme.colors.lightCyan};
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.5rem;
+      height: 3px;
+      width: 100%;
+      background-color: white;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1s ease-in-out;
+    }
+    &:hover {
+      &::after {
+        transform: scaleX(1);
+      }
     }
   }
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: white;
-    transition: width 1s ease, background-color 1s ease;
-  }
-`;
-
-const ExpandText = styled.p<{ $activeTab: number }>`
-  margin-left: 1rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  font-size: ${(props) => props.theme.fontSize.m};
-  position: relative;
-
-  &:hover {
-    cursor: pointer;
-    color: ${(props) => props.theme.colors.lightCyan};
-    transition: color 0.5s ease-in-out;
-    &::after {
-      width: ${(props) => props.$activeTab}px;
-      background-color: ${(props) => props.theme.colors.lightCyan};
-    }
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -0.2rem;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: white;
-    transition: width 1s ease, background-color 1s ease;
-  }
+  z-index: 99;
 `;

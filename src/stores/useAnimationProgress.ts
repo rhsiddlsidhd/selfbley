@@ -5,7 +5,12 @@ export type AnimationType =
   | "INITIAL_LOAD"
   | "PROJECT_DISPLAY"
   | "INITIAL"
-  | "ADD_ANIMATION";
+  | "ADD_ANIMATION"
+  | "FLIP_TRANSITION"
+  | "SLIDE_FADEOUT"
+  | "BACKGROUND_VIDEO_VIEW"
+  | "PENDING"
+  | "LOADING";
 
 interface UseAnimationProgressStore {
   type: AnimationType;

@@ -6,8 +6,12 @@ import DefaultCardBody from "../atoms/DefaultCardBody";
 import Thumbnail from "../atoms/Thumbnail";
 
 const BookCard = ({ book, idx }: { book: ExtendedBook; idx: number }) => {
-  const { description, id, formattedDate, src, title, thumnail } = book;
+  const { description, id, formattedDate, title, thumnail } = book;
   const mode = useScreenStore((state) => state.mode);
+  /**
+   * id === 'intro'
+   * Container 자체를 따로 두어서 구분분
+   */
   return (
     <BookCardContainer $mode={mode}>
       {/* BOOkCARD 의 두가지 형태임 id가 intro 인가 아니면 북카드인가 */}

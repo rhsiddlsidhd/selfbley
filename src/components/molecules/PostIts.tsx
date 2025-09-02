@@ -1,5 +1,5 @@
 import { MotionValue, motion } from "motion/react";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { styled } from "styled-components";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import { QuestionsOmitSrc } from "../../constants/textConstants";
@@ -12,13 +12,12 @@ const PostIts = ({
   blurTranslate: MotionValue<string>;
 }) => {
   const mode = useScreenStore((state) => state.mode);
-
   return (
     <Fragment>
       {questions.map((q, i) => {
         const { question, style } = q;
         return (
-          <Container key={i}>
+          <QuestionSection key={i}>
             <BackgroundBlur
               style={{
                 position: "absolute",
@@ -31,7 +30,7 @@ const PostIts = ({
             <PostIt $mode={mode} $top={style.top} $left={style.left}>
               {question}
             </PostIt>
-          </Container>
+          </QuestionSection>
         );
       })}
     </Fragment>
@@ -40,9 +39,8 @@ const PostIts = ({
 
 export default PostIts;
 
-const Container = styled(motion.section)`
+const QuestionSection = styled(motion.section)`
   height: 100vh;
-  min-height: fit-content;
   position: relative;
 `;
 
@@ -59,6 +57,7 @@ const PostIt = styled.p<{ $mode: Mode; $top: number; $left: number }>`
   font-size: clamp(0.75rem, 2vw, 3rem);
   padding: 3rem;
   backdrop-filter: blur(20px);
+  z-index: 90;
 `;
 
 const BackgroundBlur = styled(motion.div)`
@@ -66,5 +65,4 @@ const BackgroundBlur = styled(motion.div)`
   aspect-ratio: 1 / 1;
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-  z-index: -1;
 `;

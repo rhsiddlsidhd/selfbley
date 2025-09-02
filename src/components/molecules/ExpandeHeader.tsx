@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import Nav from "../atoms/Nav";
+import Logo from "../atoms/Logo";
 
 const ExpandeHeader = () => {
   return (
     <NavWrapper>
+      <Logo
+        styles={`position:relative; display:flex; justify-content: center;`}
+      />
       <Nav />
     </NavWrapper>
   );
@@ -13,21 +17,22 @@ export default ExpandeHeader;
 
 const NavWrapper = styled.header`
   width: 100%;
+  padding: 0.5rem 0;
   position: fixed;
-  background-color: transparent;
-  font-weight: bold;
   display: flex;
-  z-index: 99;
   background-color: #1b19176f;
-  backdrop-filter: blur(10px);
-  & > div {
+  backdrop-filter: blur(2px);
+  & > a {
     flex: 1;
-    & > p {
-      width: fit-content;
+    & p {
+      height: 100%;
+      display: flex;
+      align-items: center;
     }
   }
-  & > div:first-child,
-  div:last-child {
+  & > a:first-child,
+  a:last-child {
     flex: 0.5;
   }
+  z-index: 99;
 `;

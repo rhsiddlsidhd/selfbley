@@ -1,21 +1,11 @@
-import styled from "styled-components";
+import useAnimationProgressStore from "../stores/useAnimationProgress";
 
 const NotAvailable = () => {
+  const { type } = useAnimationProgressStore();
+
   return (
-    <Wrapper>
-      <Img src="/assets/commingSoon.jpg" alt="서비스가 준비중입니다." />
-    </Wrapper>
+    <>{type === "PAGE_TRANSITION" && <h1>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</h1>}</>
   );
 };
 
 export default NotAvailable;
-
-const Wrapper = styled.div`
-  height: 100vh;
-`;
-
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-`;

@@ -1,66 +1,66 @@
 import styled from "styled-components";
-import palm from "../../assets/palm.jpg";
-import mountains from "../../assets/mountains.jpg";
-import railroad from "../../assets/railroad.jpg";
-import sunset from "../../assets/sunset.jpg";
-import person from "../../assets/person.jpg";
 import { useEffect, useState } from "react";
+import { weatherImgs } from "../../constants/imgs";
 
 const MainLoading = ({
   onLoadingComplete,
+  setState,
+  isVisible,
 }: {
-  onLoadingComplete: () => void;
+  onLoadingComplete: boolean;
+  isVisible: boolean;
+  setState: () => void;
 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const imgSrcs = [
-    `${palm}`,
-    `${mountains}`,
-    `${railroad}`,
-    `${sunset}`,
-    `${person}`,
-  ];
 
   useEffect(() => {
+    if (!isVisible) return;
+
     const intervalId = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % imgSrcs.length);
+      setActiveIndex((prev) => (prev + 1) % weatherImgs.length);
     }, 100);
 
-    const timeoutId = setTimeout(() => {
-      onLoadingComplete();
-    }, 1500);
+    if (onLoadingComplete) {
+      clearInterval(intervalId);
+      setState();
+    }
+
     return () => {
-      clearTimeout(timeoutId);
       clearInterval(intervalId);
     };
-  }, [imgSrcs.length, onLoadingComplete]);
+  }, [isVisible, onLoadingComplete, setState]);
 
   return (
-    <Container>
-      <Wrapper>
-        <img src={imgSrcs[activeIndex]} alt="이미지" />
-      </Wrapper>
+    <Container $isVisible={isVisible}>
+      {weatherImgs.map((img, i) => (
+        <img
+          key={i}
+          srcSet={img.srcSet}
+          alt={`weather image ${i}`}
+          style={{
+            opacity: i === activeIndex ? 1 : 0,
+          }}
+        />
+      ))}
     </Container>
   );
 };
 
 export default MainLoading;
 
-const Container = styled.div`
-  width: 100%;
-  height: 100vh;
-  position: relative;
-`;
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: purple;
-  filter: brightness(90%);
-  clip-path: polygon(45% 40%, 55% 40%, 55% 60%, 45% 60%);
+const Container = styled.div<{ $isVisible: boolean }>`
+  width: 20vw;
+  height: 20%;
+  display: ${({ $isVisible }) => ($isVisible ? "block" : "none")};
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   & > img {
-    position: absolute;
-    object-fit: cover;
     width: 100%;
     height: 100%;
+    position: absolute;
+    object-fit: cover;
   }
+  z-index: 99;
 `;

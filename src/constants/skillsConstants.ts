@@ -70,6 +70,12 @@ export const SKILL_CONTENT_MOBILE_COLUMNS = 4;
 
 export const SKILL_CONTENT_DEFUALT_COLUMNS = 2;
 
+export const VERTICAL_COUNT_4 = 4;
+export const VERTICAL_COUNT_3 = 3;
+export const VERTICAL_COUNT_2 = 2;
+
+export const VERTICAL_TOTAL_LINE = 6;
+
 export const OPEN_MODAL_TEXT = "View All SKILLS";
 
 export const CLOSE_MODAL_TEXT = "Close All SKILLS";

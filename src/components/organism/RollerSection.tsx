@@ -5,8 +5,6 @@ import styled from "styled-components";
 import SkillContent from "./SkillContent";
 
 const RollerSection: React.FC = () => {
-  // const [activeIndex, setActiveIndex] = useState<number>(0);
-
   const [isSticky, setIsSticky] = useState<boolean>(false);
 
   const containerRef = useRef(null);
@@ -30,8 +28,6 @@ const RollerSection: React.FC = () => {
 
   return (
     <Container ref={containerRef}>
-      {/* <BackgroundImage style={{ backgroundImage: `url(${winter})` }} /> */}
-
       <StickySection
         style={{ position: isSticky ? "sticky" : "relative", top: 0 }}
       >
@@ -45,24 +41,12 @@ export default RollerSection;
 
 const Container = styled.section`
   position: relative;
-  width: 100vw;
   height: 150vh;
   background-color: black;
 `;
 
 const StickySection = styled.div`
-  width: 100%;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
+  z-index: 90;
 `;
-
-// const BackgroundImage = styled.div`
-//   position: absolute;
-//   width: 100%;
-//   height: 100%;
-//   background-repeat: no-repeat;
-//   background-size: cover;
-// `;
