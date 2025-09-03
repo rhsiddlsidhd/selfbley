@@ -98,7 +98,7 @@ const Container = styled.div`
 
 const ProjectWrapper = styled.div<{ $mode: Mode }>`
   //mobile
-
+  width: 100%;
   ${({ $mode }) =>
     $mode === "mobile" &&
     css`
@@ -106,7 +106,7 @@ const ProjectWrapper = styled.div<{ $mode: Mode }>`
       display: flex;
       align-items: center;
       flex-direction: column;
-    `}
+    `};
 `;
 
 const ProjectContent = styled(motion.div)`
