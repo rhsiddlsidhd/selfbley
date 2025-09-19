@@ -43,15 +43,17 @@ const Project = ({
         <Badge type={mode} name={mode} />
         <aside>
           {socialLinks.map(({ name, href }) => {
+            const isDisabled = href === "#";
             return (
-              <motion.a
-                href={href}
+              <SocialIcon
+                href={isDisabled ? undefined : href}
                 id={name}
                 key={name}
+                isDisabled={isDisabled}
                 whileHover={{ scale: 1.1 }}
               >
                 <img src={name === "github" ? github : tistory} />
-              </motion.a>
+              </SocialIcon>
             );
           })}
         </aside>
@@ -85,6 +87,16 @@ const Project = ({
     </ProjectContainer>
   );
 };
+
+const SocialIcon = styled(motion.a)<{ isDisabled: boolean }>`
+  ${({ isDisabled }) =>
+    isDisabled &&
+    `
+    pointer-events:none;
+    opacity:0.5;
+    cursor:not-allowed;
+  `}
+`;
 
 export default Project;
 const Thumbnail = styled(motion.a)`
