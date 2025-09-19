@@ -30,7 +30,7 @@ const FetchNaverApiBook = async (q) => {
 
 // Vercel 서버리스 함수로 내보낼 핸들러 함수입니다.
 // 이 함수가 클라이언트의 API 요청을 처리합니다.
-module.exports = async (req, res) => {
+const handler = async (req, res) => {
   try {
     const query = req.query.q;
 
@@ -53,3 +53,5 @@ module.exports = async (req, res) => {
     return res.status(status).json({ success: false, message, data: null });
   }
 };
+
+export default handler;
