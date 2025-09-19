@@ -21,7 +21,7 @@ const Footer = () => {
         </Icons>
       </ContactSection>
       <CopylightSection>
-        <div>Copylight @ 2025, Shin YoungJae. All rights reserved. </div>
+        <div>Copyright @ 2025, Shin YoungJae. All rights reserved. </div>
       </CopylightSection>
     </Container>
   );
