@@ -28,12 +28,24 @@ import BookCard from "../molecules/BookCard";
 // 하나의 카드가 80vw + gap 15vw 라면 5vw 만큼 다음카드가 보일거고
 // background 또한 95vw 만큼 이동시에 바껴야한다.
 
+export interface BookData {
+  author: string;
+  description: string;
+  discount: string;
+  image: string;
+  isbn: string;
+  link: string;
+  pubdate: string;
+  publisher: string;
+  title: string;
+}
+
 const SliderSection = () => {
   const containerRef = useRef(null);
   const mode = useScreenStore((state) => state.mode);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isFixed, setIsFixed] = useState<boolean>(false);
-  const [bookData, setBookData] = useState<any[]>([]);
+  const [bookData, setBookData] = useState<BookData[]>([]);
   const { scrollYProgress: initial } = useScroll({
     target: containerRef,
     offset: ["start end", "start start"],
@@ -51,11 +63,10 @@ const SliderSection = () => {
   const maxOffsetY = bookData.length * BOOK_SECTION_HEIGHT;
   const rawX = useTransform(mid, [0, 1], [0, -maxOffsetX]);
 
-  // const rawY = useTransform(mid, [0, 0.25, 1], [0, 25, 25]);
   const rawY = useTransform(mid, [0, 1], [0, 0]);
 
   const initialY = useTransform(initial, [0, 1], [INITIAL_Y_OFFSET, 0]);
-  // const lastY = useTransform(last, [0, 1], [maxOffsetY - 75, maxOffsetY]);
+
   const lastY = useTransform(last, [0, 1], [maxOffsetY - 100, maxOffsetY]);
   const x = useMotionTemplate`${rawX}vw`;
   const initialTranslateY = useMotionTemplate`${initialY}%`;
@@ -96,7 +107,6 @@ const SliderSection = () => {
 
     fetchPromiseAll();
   }, []);
-  console.log(bookData);
   return (
     <Container
       ref={containerRef}

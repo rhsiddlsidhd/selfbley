@@ -51,8 +51,7 @@ const TheProjects = () => {
   useEffect(() => {
     const getProjectDataApi = async () => {
       const data = await getProjectApi();
-      const query = "리액트 훅을 활용한 마이크로 상태 관리";
-      console.log(encodeURI(query));
+
       if (data) setProjectData(data);
     };
     getProjectDataApi();

@@ -58,7 +58,6 @@ const IntroVideos = ({
             preload="auto"
             onCanPlayThrough={() => {
               handelElementLoaded(startIndex);
-              console.log(`onLoadedData ${startIndex}`);
             }}
             style={{ opacity: i === activeIndex ? 1 : 0 }}
           >

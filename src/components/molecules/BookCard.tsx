@@ -2,8 +2,9 @@ import { css, styled } from "styled-components";
 import useScreenStore from "../../stores/useScreenStore";
 import DefaultCardBody from "../atoms/DefaultCardBody";
 import Thumbnail from "../atoms/Thumbnail";
+import { BookData } from "../organism/SliderSection";
 
-const BookCard = ({ book, idx }: { book: any; idx: number }) => {
+const BookCard = ({ book, idx }: { book: BookData; idx: number }) => {
   const { title, description, image, author, publisher } = book;
   const mode = useScreenStore((state) => state.mode);
 

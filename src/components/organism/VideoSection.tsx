@@ -71,7 +71,6 @@ const VideoSection = ({
         variants={fadeVariants}
         initial={{ opacity: 0 }}
         animate={handleFadeAnimation({ state, isInView })}
-        onAnimationStart={() => console.log("SLIDE-ANIMATION")}
         onAnimationComplete={() => state === "SLIDE" && setState("FADE")}
       >
         {splitText.map((text) => {

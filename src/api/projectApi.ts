@@ -5,14 +5,13 @@ const repoURL = import.meta.env.VITE_GITHUB_REPO_URL;
 export const getProjectApi = async () => {
   try {
     const url = `${baseURL}/${id}/${repoURL}/projects`;
-    console.log("url", url);
 
     const res = await fetch(url);
     if (res.status !== 200) {
       throw new Error(`response fail! status:${res.status}`);
     }
     const data = await res.json();
-    console.log("data", data);
+
     return data;
   } catch (e) {
     if (e instanceof Error) {
