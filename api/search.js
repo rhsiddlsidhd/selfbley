@@ -9,9 +9,7 @@ const CLIENT_SECRET = process.env.NAVER_CLIENT_SECRET;
 // Naver Open API에서 책 정보를 검색하는 비동기 함수
 const FetchNaverApiBook = async (q) => {
   const res = await fetch(
-    `https://openapi.naver.com/v1/search/book.json?query=${encodeURIComponent(
-      q
-    )}`,
+    `https://openapi.naver.com/v1/search/book.json?query=${q}`,
     {
       method: "GET",
       headers: {
@@ -38,13 +36,11 @@ module.exports = async (req, res) => {
 
     // 검색어가 없는 경우 400 Bad Request 응답
     if (!query) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "검색어를 입력해주세요.",
-          data: null,
-        });
+      return res.status(400).json({
+        success: false,
+        message: "검색어를 입력해주세요.",
+        data: null,
+      });
     }
 
     const data = await FetchNaverApiBook(query);
