@@ -4,30 +4,28 @@ import styled from "styled-components";
 interface DefaultCardBodyProps {
   mode: Mode;
   idx: number;
-  formattedDate: string;
+  author: string;
   title: string;
   description: string;
+  publisher: string;
 }
 
 const DefaultCardBody = ({
   description,
-  formattedDate,
-  idx,
-  mode,
+  author,
+  publisher,
   title,
 }: DefaultCardBodyProps) => {
   return (
     <Container>
-      <div className="meta">
-        <h6 className="index">{mode !== "mobile" ? idx + 1 : idx}</h6>
-        <p className="updated_at">{formattedDate}</p>
+      <div>
+        <p className="title">{title}</p>
+        <p className="author">
+          <span>{author} 지음</span>
+          <span>{publisher}</span>
+        </p>
       </div>
-      <div className="title">
-        <p>{title}</p>
-      </div>
-      <div className="description">
-        <p>{description}</p>
-      </div>
+      <p className="description">{description}</p>
     </Container>
   );
 };
@@ -35,10 +33,30 @@ const DefaultCardBody = ({
 export default DefaultCardBody;
 
 const Container = styled.div`
-  overflow: scroll;
-  word-break: keep-all;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 0.5rem;
+  height: 40%;
   .title {
-    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .author {
+    display: flex;
+    gap: 0.25rem;
+    opacity: 0.5;
+    font-size: 0.8rem;
+  }
+  .description {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.875rem;
   }
 `;

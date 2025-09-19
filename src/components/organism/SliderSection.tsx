@@ -9,25 +9,19 @@ import {
 } from "framer-motion";
 
 import {
+  BOOKSTITLE,
   BOOK_SECTION_HEIGHT,
-  Book,
   CARD_TOTAL_WIDTH,
   CARD_WRAPPER_GAP,
   CARD_WRAPPER_WIDTH,
   INITIAL_Y_OFFSET,
-  books,
 } from "../../constants/booksConstants";
 import { BOOKINTRO } from "../../constants/textConstants";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import { isScrollingBookSection } from "../../utils/calculation";
 import BookBackground from "../atoms/BookBackground";
-import { getVisibleBooks } from "../../utils/transform";
-import BookCard from "../molecules/BookCard";
 
-export interface ExtendedBook extends Book {
-  isFirst: boolean;
-  isLast: boolean;
-}
+import BookCard from "../molecules/BookCard";
 
 //background 의 setInAcitive 또한 카드의 넓이만큼 이동했을때 변해야한다 .
 // 한 화면에 카드를 두장씩 보여주기 위해선 하나의 카드가 100vw 만큼의 넓이를 가져가면 볼 수 없다.
@@ -39,7 +33,7 @@ const SliderSection = () => {
   const mode = useScreenStore((state) => state.mode);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isFixed, setIsFixed] = useState<boolean>(false);
-  const [bookData, setBookData] = useState<ExtendedBook[]>([]);
+  const [bookData, setBookData] = useState<any[]>([]);
   const { scrollYProgress: initial } = useScroll({
     target: containerRef,
     offset: ["start end", "start start"],
@@ -79,17 +73,30 @@ const SliderSection = () => {
     setActiveIndex((prev) => (prev !== newIndex ? newIndex : prev));
   });
 
-  useEffect(() => {
-    const result = getVisibleBooks(books, mode, BOOKINTRO).map(
-      (item, idx, arr) => ({
-        ...item,
-        isFirst: idx === 0,
-        isLast: idx === arr.length - 1,
-      })
-    );
-    setBookData(result);
-  }, [mode]);
+  const fetchApiHandler = async (query: string) => {
+    const BASE_URL =
+      import.meta.env.MODE === "development"
+        ? "http://localhost:8080"
+        : import.meta.env.VITE_PROJECTS_BASE_URL;
 
+    const res = await fetch(`${BASE_URL}/api/search?q=${encodeURI(query)}`);
+
+    const { data } = await res.json();
+    const book = data.items[0];
+
+    return book;
+  };
+
+  useEffect(() => {
+    const fetchPromiseAll = async () => {
+      const promises = BOOKSTITLE.map((book) => fetchApiHandler(book));
+      const results = await Promise.all(promises);
+      setBookData(results);
+    };
+
+    fetchPromiseAll();
+  }, []);
+  console.log(bookData);
   return (
     <Container
       ref={containerRef}

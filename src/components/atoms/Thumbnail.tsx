@@ -12,11 +12,11 @@ export default Thumbnail;
 
 const Container = styled.div`
   width: 100%;
-  height: 40%;
+  height: 60%;
   overflow: hidden;
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill;
   }
 `;

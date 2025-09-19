@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 import { motion, MotionValue } from "motion/react";
-import { ExtendedBook } from "../organism/SliderSection";
 
 const BookBackground = ({
   data,
@@ -10,7 +9,7 @@ const BookBackground = ({
   lastTranslateY,
   generalY,
 }: {
-  data: ExtendedBook[];
+  data: any[];
   isFixed: boolean;
   activeIndex: number;
   initialTranslateY: MotionValue<string>;
@@ -19,7 +18,7 @@ const BookBackground = ({
 }) => {
   return (
     <>
-      {data.map(({ src, isFirst, isLast }, i) => {
+      {data.map(({ image, isFirst, isLast }, i) => {
         const y = isFixed
           ? generalY
           : isFirst
@@ -40,7 +39,7 @@ const BookBackground = ({
             initial={false}
             animate={{ opacity: i === activeIndex ? 1 : 0 }}
           >
-            <Background srcSet={src} />
+            <Background src={image} />
           </motion.div>
         );
       })}
@@ -53,6 +52,6 @@ export default BookBackground;
 const Background = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   filter: blur(5px) brightness(0.3);
 `;

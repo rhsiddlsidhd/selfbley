@@ -1,37 +1,29 @@
 import styled from "styled-components";
 import { motion } from "motion/react";
-import { useNavigate } from "react-router";
 
 const TheSkills = () => {
-  const navigate = useNavigate();
+  // const fetchApiHandler = async (query: string) => {
+  //   const res = await fetch(
+  //     `http://localhost:8080/api/search?q=${encodeURI(query)}`
+  //   );
 
-  return (
-    <Container>
-      <button
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
-        onClick={() => navigate("/not-abailable")}
-      >
-        <h1>다음페이지</h1>
-      </button>
-      <button
-        style={{
-          position: "absolute",
-          top: "70%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
-        onClick={() => navigate("/contact")}
-      >
-        <h1>contact</h1>
-      </button>
-      <Text>이건 Skills 페이지 텍스트입니다.</Text>
-    </Container>
-  );
+  //   const { data } = await res.json();
+  //   const book = data.items[0];
+
+  //   return book;
+  // };
+
+  // useEffect(() => {
+  //   const fetchPromiseAll = async () => {
+  //     const promises = BOOKSTITLE.map((book) => fetchApiHandler(book));
+  //     const results = await Promise.all(promises);
+  //     console.log("results", results);
+  //   };
+
+  //   fetchPromiseAll();
+  // }, []);
+
+  return <Container></Container>;
 };
 
 export default TheSkills;
@@ -46,13 +38,4 @@ const Container = styled(motion.div)`
   align-items: center;
   overflow: hidden;
   z-index: 5;
-`;
-
-const Text = styled.div`
-  font-size: 2rem;
-  color: rgb(255, 255, 255);
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translateX(-50%);
 `;
