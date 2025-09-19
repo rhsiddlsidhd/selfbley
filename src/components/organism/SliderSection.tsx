@@ -88,7 +88,8 @@ const SliderSection = () => {
     const BASE_URL =
       import.meta.env.MODE === "development"
         ? "http://localhost:8080"
-        : import.meta.env.VITE_PROJECTS_BASE_URL;
+        : import.meta.env.VITE_DEPLOY_URL;
+    console.log("BASE_URL", `${BASE_URL}/api/search?q=${encodeURI(query)}`);
 
     const res = await fetch(`${BASE_URL}/api/search?q=${encodeURI(query)}`);
 
