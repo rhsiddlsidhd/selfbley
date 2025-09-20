@@ -3,13 +3,21 @@ import useScreenStore from "../../stores/useScreenStore";
 import DefaultCardBody from "../atoms/DefaultCardBody";
 import Thumbnail from "../atoms/Thumbnail";
 import { BookData } from "../organism/SliderSection";
+import useBookStore from "../../stores/bookStore";
+import { useNavigate } from "react-router";
 
 const BookCard = ({ book, idx }: { book: BookData; idx: number }) => {
   const { title, description, image, author, publisher } = book;
+  const navigate = useNavigate();
   const mode = useScreenStore((state) => state.mode);
-
+  const addBook = useBookStore((state) => state.addBook);
+  const handleClick = (book: BookData) => {
+    console.log("book", book);
+    addBook(book);
+    navigate("/skills");
+  };
   return (
-    <BookCardContainer $mode={mode}>
+    <BookCardContainer $mode={mode} onClick={() => handleClick(book)}>
       <DefaultCardBody
         idx={idx}
         mode={mode}

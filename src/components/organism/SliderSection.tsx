@@ -123,7 +123,6 @@ const SliderSection = () => {
         generalY={generalY}
       />
       <StickyArea $mode={mode}>
-        {/* 가로스크롤 Content = Intro + 가로스크롤 or 가로스크롤(Intro 포함) */}
         {mode !== "mobile" && <SectionIntro>{BOOKINTRO}</SectionIntro>}
         <CardScroller
           $gap={CARD_WRAPPER_GAP}

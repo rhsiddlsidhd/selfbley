@@ -43,13 +43,17 @@ const Container = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.125rem;
+    margin-bottom: 0.25rem;
   }
   .author {
     display: flex;
     gap: 0.25rem;
     opacity: 0.5;
     font-size: 0.8rem;
+    & > span {
+      margin: auto;
+    }
   }
   .description {
     display: -webkit-box;

@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { motion, MotionValue } from "motion/react";
+import { BookData } from "../organism/SliderSection";
 
 const BookBackground = ({
   data,
@@ -9,7 +10,7 @@ const BookBackground = ({
   lastTranslateY,
   generalY,
 }: {
-  data: any[];
+  data: BookData[];
   isFixed: boolean;
   activeIndex: number;
   initialTranslateY: MotionValue<string>;
@@ -18,12 +19,12 @@ const BookBackground = ({
 }) => {
   return (
     <>
-      {data.map(({ image, isFirst, isLast }, i) => {
+      {data.map(({ image }, i) => {
         const y = isFixed
           ? generalY
-          : isFirst
+          : i === 0
           ? initialTranslateY
-          : isLast
+          : i === data.length - 1
           ? lastTranslateY
           : generalY;
         return (
