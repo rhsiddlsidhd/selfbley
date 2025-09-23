@@ -6,7 +6,8 @@ import LoadingContainer from "./components/organism/LoadingContainer";
 import { AnimatePresence } from "motion/react";
 import PageTransition from "./components/template/PageTransition";
 import FlipTransition from "./components/template/FlipTransition";
-import TheBook from "./pages/TheBook";
+import BookPage from "./pages/BookPage";
+
 const Main = lazy(() => import("./pages/Main"));
 const NotAvailablePage = lazy(() => import("./pages/NotAvailable"));
 const TheSkills = lazy(() => import("./pages/TheSkills"));
@@ -31,7 +32,7 @@ function App() {
                 </PageTransition>
               }
             />
-            <Route path="book" element={<TheBook />} />
+            <Route path="book" element={<BookPage />} />
             <Route path="/not-abailable" element={<NotAvailablePage />} />
             <Route
               path="/skills"

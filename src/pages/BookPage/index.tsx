@@ -1,24 +1,14 @@
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import useBookStore from "../stores/bookStore";
+
 import { useNavigate, useSearchParams } from "react-router";
+import useBookStore from "../../stores/bookStore";
+import { BookReview } from "./type";
+import { bookReviews } from "./constant";
 
-const BASE_URL =
-  import.meta.env.MODE === "development"
-    ? "http://localhost:8080"
-    : import.meta.env.VITE_DEPLOY_URL;
-
-interface BookApiData {
-  author: string;
-  description: string;
-  id: string;
-  title: string;
-  updatedAt: number;
-}
-
-const TheBook = () => {
-  const [viewData, setViewData] = useState<BookApiData | null>(null);
+const BookPage = () => {
+  const [viewData, setViewData] = useState<BookReview[] | null>(null);
   const getData = useBookStore((state) => state.book);
   const navigate = useNavigate();
   const query = useSearchParams()[0].get("q");
@@ -27,22 +17,8 @@ const TheBook = () => {
     if (!getData || !query) {
       navigate("/");
     } else {
-      const fetchData = async (query: string) => {
-        try {
-          const res = await fetch(`${BASE_URL}/api/book?q=${query}`);
-
-          const { success, data } = await res.json();
-
-          if (!res.ok || !success) throw new Error("Failed to fetch book data");
-
-          const { book } = data;
-
-          setViewData(book);
-        } catch {
-          navigate("/");
-        }
-      };
-      fetchData(query);
+      const data = bookReviews.filter((item) => item.id === getData.isbn);
+      setViewData(data);
     }
   }, [getData, query, navigate]);
 
@@ -81,7 +57,7 @@ const TheBook = () => {
           >
             <SectionTitle>후기</SectionTitle>
             <BooksGrid>
-              {[viewData].map((item, index) => (
+              {viewData.map((item, index) => (
                 <BookCard
                   key={item.id}
                   initial={{ y: 30, opacity: 0 }}
@@ -115,7 +91,7 @@ const TheBook = () => {
   );
 };
 
-export default TheBook;
+export default BookPage;
 
 const Container = styled(motion.div)`
   min-height: 100vh;
