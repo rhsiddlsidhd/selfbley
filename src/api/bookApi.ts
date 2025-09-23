@@ -5,12 +5,12 @@ const repoURL = import.meta.env.VITE_GITHUB_REPO_URL;
 export const getBookApi = async () => {
   try {
     const url = `${baseURL}/${id}/${repoURL}/books`;
-
     const res = await fetch(url);
-    if (res.status !== 200) {
-      throw new Error(`response fail! status:${res.status}`);
-    }
     const data = await res.json();
+
+    if (res.status !== 200) {
+      throw new Error(`res error fail status(${res.status}) : ${data.error}`);
+    }
 
     return data;
   } catch (e) {

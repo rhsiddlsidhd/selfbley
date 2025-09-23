@@ -12,9 +12,8 @@ const BookCard = ({ book, idx }: { book: BookData; idx: number }) => {
   const mode = useScreenStore((state) => state.mode);
   const addBook = useBookStore((state) => state.addBook);
   const handleClick = (book: BookData) => {
-    console.log("book", book);
     addBook(book);
-    navigate("/skills");
+    navigate(`/book?q=${book.isbn}`);
   };
   return (
     <BookCardContainer $mode={mode} onClick={() => handleClick(book)}>

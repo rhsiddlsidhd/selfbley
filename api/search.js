@@ -1,7 +1,7 @@
 const CLIENT_ID = process.env.NAVER_CLIENT_ID;
 const CLIENT_SECRET = process.env.NAVER_CLIENT_SECRET;
 
-const FetchNaverApiBook = async (q) => {
+const fetchNaverApiBook = async (q) => {
   const res = await fetch(
     `https://openapi.naver.com/v1/search/book.json?query=${q}`,
     {
@@ -34,7 +34,7 @@ const handler = async (req, res) => {
       });
     }
 
-    const data = await FetchNaverApiBook(query);
+    const data = await fetchNaverApiBook(query);
 
     return res.status(200).json({ success: true, message: "검색 성공", data });
   } catch (e) {
