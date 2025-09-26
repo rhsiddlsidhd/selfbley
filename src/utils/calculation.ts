@@ -5,15 +5,8 @@ import {
   SKILL_ICON_MOBILE_WIDTH,
 } from "../constants/skillsConstants";
 import { Mode } from "../stores/useScreenStore";
-import { CalculatetabWidth } from "../types/helper";
+
 import { MotionValue } from "motion";
-
-export const calculatetabWidth = ({ id, ref }: CalculatetabWidth) => {
-  const el = ref.current[id];
-  if (!el) return 0;
-
-  return el.offsetWidth;
-};
 
 export const isScrollingBookSection = (n: number) => n > 0 && n < 1;
 

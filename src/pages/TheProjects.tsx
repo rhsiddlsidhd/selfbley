@@ -28,7 +28,7 @@ export interface ProjectData {
 const TheProjects = () => {
   const mode = useScreenStore((state) => state.mode);
   const [selectedFilter, setSelectedFilter] = useState<FilterType>("ALL");
-  const [projectData, setProjectData] = useState<ProjectData[]>([]);
+  const [projectData, setProjectData] = useState<ProjectData[] | null>(null);
   const [animationProcess, setAnimationProcess] =
     useState<AnimationProgressTypes>("INITIAL");
   const [isView, setIsView] = useState(false);
@@ -49,10 +49,9 @@ const TheProjects = () => {
   };
 
   useEffect(() => {
-    const getProjectDataApi = async () => {
-      const data = await getProjectApi();
-
-      if (data) setProjectData(data);
+    const getProjectDataApi = async (): Promise<void> => {
+      const res = await getProjectApi();
+      setProjectData(res.success ? res.data : []);
     };
     getProjectDataApi();
   }, []);
@@ -70,16 +69,20 @@ const TheProjects = () => {
             setState={setAnimationProcess}
           />
           <ProjectWrapper $mode={mode}>
-            {filteredData(projectData).map((data, i) => {
-              return (
-                <Project
-                  state={animationProcess}
-                  key={`${i} ${selectedFilter}`}
-                  data={data}
-                  index={i + 1}
-                />
-              );
-            })}
+            {projectData && projectData.length > 0 ? (
+              filteredData(projectData).map((data, i) => {
+                return (
+                  <Project
+                    state={animationProcess}
+                    key={`${i} ${selectedFilter}`}
+                    data={data}
+                    index={i + 1}
+                  />
+                );
+              })
+            ) : (
+              <p>프로젝트 데이터가 없습니다.</p>
+            )}
           </ProjectWrapper>
         </ProjectContent>
       )}
