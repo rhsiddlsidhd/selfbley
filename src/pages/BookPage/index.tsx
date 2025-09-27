@@ -22,19 +22,19 @@ const BookPage = () => {
       navigate("/");
     } else {
       const data = bookReviews.filter((item) => item.id === getData.isbn);
+
       setViewData(data[0] ?? null);
       setLoading(false);
+      requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+      });
     }
   }, [getData, query, navigate]);
 
   if (loading) return <LoadingContainer />;
 
   return (
-    <Container
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-    >
+    <Container>
       <ContentWrapper>
         <MainBookSection>
           <ImgWrapper

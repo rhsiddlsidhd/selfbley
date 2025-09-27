@@ -32,7 +32,14 @@ function App() {
                 </PageTransition>
               }
             />
-            <Route path="book" element={<BookPage />} />
+            <Route
+              path="book"
+              element={
+                <PageTransition>
+                  <BookPage />
+                </PageTransition>
+              }
+            />
             <Route path="/not-abailable" element={<NotAvailablePage />} />
             <Route
               path="/skills"
