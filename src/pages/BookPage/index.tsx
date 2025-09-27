@@ -6,9 +6,13 @@ import { useNavigate, useSearchParams } from "react-router";
 import useBookStore from "../../stores/bookStore";
 import { BookReview } from "./type";
 import { bookReviews } from "./constant";
+import Link from "../../components/atoms/Link";
+import SocialSVGIcon from "../../components/molecules/SocialIcon";
+import LoadingContainer from "../../components/organism/LoadingContainer";
 
 const BookPage = () => {
-  const [viewData, setViewData] = useState<BookReview[] | null>(null);
+  const [viewData, setViewData] = useState<BookReview | null>(null);
+  const [loading, setLoading] = useState(true);
   const getData = useBookStore((state) => state.book);
   const navigate = useNavigate();
   const query = useSearchParams()[0].get("q");
@@ -18,9 +22,12 @@ const BookPage = () => {
       navigate("/");
     } else {
       const data = bookReviews.filter((item) => item.id === getData.isbn);
-      setViewData(data);
+      setViewData(data[0] ?? null);
+      setLoading(false);
     }
   }, [getData, query, navigate]);
+
+  if (loading) return <LoadingContainer />;
 
   return (
     <Container
@@ -48,41 +55,54 @@ const BookPage = () => {
             <BookSubtitle>선택한 도서</BookSubtitle>
           </BookInfo>
         </MainBookSection>
-
+        {!viewData && (
+          <RelatedBooksSection
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            데이터가 없습니다.
+          </RelatedBooksSection>
+        )}
         {viewData && (
           <RelatedBooksSection
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <SectionTitle>후기</SectionTitle>
+            <SectionTitle>
+              <h2>후기</h2>
+              <Link
+                href={viewData.tistory}
+                $isDisabled={viewData.tistory === "#"}
+              >
+                <SocialSVGIcon type="tistory" $size="md" />
+              </Link>
+            </SectionTitle>
             <BooksGrid>
-              {viewData.map((item, index) => (
-                <BookCard
-                  key={item.id}
-                  initial={{ y: 30, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-                  whileHover={{
-                    y: -10,
-                    boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
-                    scale: 1.02,
-                  }}
-                >
-                  <CardImageWrapper>
-                    <CardImage src={getData?.image} alt={item.title} />
-                  </CardImageWrapper>
-                  <CardContent>
-                    <CardTitle>{item.title}</CardTitle>
-                    <CardAuthor>{item.author}</CardAuthor>
-                    <CardDescription>
-                      {item.description === "#"
-                        ? "준비중입니다."
-                        : item.description}
-                    </CardDescription>
-                  </CardContent>
-                </BookCard>
-              ))}
+              <BookCard
+                key={viewData.id}
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                whileHover={{
+                  y: -10,
+                  boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
+                  scale: 1.02,
+                }}
+              >
+                <CardImageWrapper>
+                  <CardImage src={getData?.image} alt={viewData.title} />
+                </CardImageWrapper>
+                <CardContent>
+                  <CardTitle>{viewData.title}</CardTitle>
+                  <CardAuthor>{viewData.author}</CardAuthor>
+                  <CardDescription>
+                    {viewData.description === "#"
+                      ? "준비중입니다."
+                      : viewData.description}
+                  </CardDescription>
+                </CardContent>
+              </BookCard>
             </BooksGrid>
           </RelatedBooksSection>
         )}
@@ -188,12 +208,17 @@ const RelatedBooksSection = styled(motion.div)`
   margin-top: 2rem;
 `;
 
-const SectionTitle = styled.h2`
-  font-size: 1.8rem;
-  color: white;
-  text-align: center;
+const SectionTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
   margin-bottom: 2.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  & > h2 {
+    color: white;
+    font-size: 1.8rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
 `;
 
 const BooksGrid = styled.div`

@@ -5,8 +5,8 @@ import { ProjectData } from "../../pages/TheProjects";
 import Badges from "../molecules/Badges";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import { AnimationProgressTypes } from "../../pages/Main";
-import github from "../../assets/github.svg";
-import tistory from "../../assets/tistory.svg";
+import SocialSVGIcon from "../molecules/SocialIcon";
+import Link from "../atoms/Link";
 
 const Project = ({
   data,
@@ -45,15 +45,13 @@ const Project = ({
           {socialLinks.map(({ name, href }) => {
             const isDisabled = href === "#";
             return (
-              <SocialIcon
-                href={isDisabled ? undefined : href}
-                id={name}
-                key={name}
-                isDisabled={isDisabled}
-                whileHover={{ scale: 1.1 }}
-              >
-                <img src={name === "github" ? github : tistory} />
-              </SocialIcon>
+              <Link href={href} key={name} $isDisabled={isDisabled}>
+                <SocialSVGIcon
+                  $size="custom"
+                  $custom="clamp(2rem, 2.5vw, 5rem)"
+                  type={name}
+                />
+              </Link>
             );
           })}
         </aside>
@@ -87,16 +85,6 @@ const Project = ({
     </ProjectContainer>
   );
 };
-
-const SocialIcon = styled(motion.a)<{ isDisabled: boolean }>`
-  ${({ isDisabled }) =>
-    isDisabled &&
-    `
-    pointer-events:none;
-    opacity:0.5;
-    cursor:not-allowed;
-  `}
-`;
 
 export default Project;
 const Thumbnail = styled(motion.a)`
@@ -166,21 +154,11 @@ const ProjectContainer = styled.main<{ $screenMode: Mode }>`
     & > aside {
       display: flex;
       gap: 1rem;
-      & > a {
-        width: clamp(2rem, 2.5vw, 5rem);
-        aspect-ratio: 1/1;
-        & > img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
     }
   }
 
   .project_detail {
     flex: 1;
-
     .title,
     .technologies,
     .description {

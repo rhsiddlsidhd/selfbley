@@ -4,4 +4,5 @@ export interface BookReview {
   id: string;
   title: string;
   updatedAt: number;
+  tistory: string;
 }
