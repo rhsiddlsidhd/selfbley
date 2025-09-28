@@ -23,15 +23,15 @@ export const bookReviews: BookReview[] = [
   {
     id: "9791191600759",
     updatedAt: 20250102,
-    author: "쏙쏙 들어오는 함수형 코딩",
-    title: "Learning Javascript Data Structures and Algorithms",
+    author: "에릭 노드먼",
+    title: "쏙쏙 들어오는 함수형 코딩",
     description: "#",
     tistory: "#",
   },
   {
     id: "9791158392239",
     updatedAt: 20250106,
-    author: "Who Are You",
+    author: "이웅모",
     title: "모던 자바스크립트 Deep Dive",
     description: "#",
     tistory: "#",
@@ -39,9 +39,10 @@ export const bookReviews: BookReview[] = [
   {
     id: "9788966263745",
     updatedAt: 20250106,
-    author: "Who Are You",
+    author: "윤동균",
     title: "프론트엔드 성능 최적화 가이드",
-    description: "#",
-    tistory: "#",
+    description:
+      "다양한 Animation을 포함한 포트폴리오를 만들고 돌아보니 페이지의 렌더링 속도가 현저히 느려지는 것을 보고 이때 최적화에 대한 관심을 자연스럽게 가지게 되었다. 물론 당시에 포트폴리오의 문제점은 보이지만 어떤 부분을 개선해야만 하는건지 짚어낼 수 조차 없었기에 최적화 정의부터 천천히 구글링을 통해 또는 책을 통해 학습해 나갔다. 그렇게 눈에 보이는 문제점 그리고 보이지 않던 문제점들이 더 많이 보이기 시작했다. 우선 Animation을 다양하게 포함하고 있기에 Performance 탭을 확인했을 때 많은 Animation 병목 현상이 발생하고 있음을 확인했다. 이 시기에 페이지가 어떻게 만들어지는지 브라우저 렌더링에 대한 부분을 깊게 헤아리게 되었던 것 같다. 일례로, Menu Tab들을 hover 했을 때 underline을 그려주는 Animation을 구현했던 부분도 width 값을 상태로 관리하면서 CSS에 직접 반영했는데, 이 방식이 리플로우와 리페인트를 유발했다. 여러 Animation 요소가 이러한 방식으로 동작하다 보니 겹겹이 쌓여 전체 렌더링 속도 저하로 이어졌다. 이후 해당 Animation을 transform scale 0 ~ 1 또는 opacity 0 ~ 1 과 같이 컴포지션 단계에서 처리되는 속성으로 변경하자, 리플로우와 리페인트를 일으키던 요소의 문제점을 해소할 수 있었다. 이 경험을 계기로 Animation을 GPU 컴포지션 단계에서 처리되도록 습관화하게 되었다. 이러한 부분이 Lighthouse 탭에서 FCP, LCP 와 같은 점수에 반영되고 이는 곧 사용자 경험(UX)로 직결됨을 배웠다. 이 외에도 FCP,LCP에 영향을 끼치는 부분은 다양했다. 코드 구조뿐만 아니라 이미지 파일, 동영상 파일, 네트워크 등 다양한 요소가 영향을 미친다는 점을 깨달았다. 결국, 내가 아는 만큼 문제점이 보이기 시작한다는 것을 이때 크게 체감할 수 있었다. 이상적으로는 프로젝트를 시작하기 전, 발생할 수 있는 문제를 예측하고 사전에 제거하는 것이 최선이겠지만 항상 그럴 수는 없다. 중요한 것은 발생한 문제를 정확히 인식하고 개선해 나가며 그 과정을 반복하는 것이다. 이를 통해 지식은 쌓이고, 단순히 “알고 있다”는 수준을 넘어 실제 코드에 자연스럽게 적용되는 습관으로 자리 잡아야 한다고 느꼈다.",
+    tistory: "https://endless-growth.tistory.com/56",
   },
 ];
