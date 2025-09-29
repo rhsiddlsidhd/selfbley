@@ -151,6 +151,7 @@ const Container = styled.section<{
   position: relative;
   height: ${({ $totalBooks, $bookSectionHeight }) =>
     $totalBooks * $bookSectionHeight}vh;
+  background-color: black;
 `;
 
 const StickyArea = styled.div<{ $mode: Mode }>`

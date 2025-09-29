@@ -9,5 +9,5 @@ export const handleFadeAnimation = ({
 }): "show" | "hidden" | "exit" => {
   if (!isInView) return "exit";
 
-  return ["SLIDE", "FADE"].includes(state) ? "show" : "hidden";
+  return ["SCALE", "FADE"].includes(state) ? "show" : "hidden";
 };

@@ -1,21 +1,28 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
-
 import { homeVideos } from "../../constants/videos";
 import styled from "styled-components";
-
-const IntroVideos = ({
-  isInView,
-  isLoaded,
-  handelElementLoaded,
-}: {
-  isInView: boolean;
-  isLoaded: boolean;
-
-  handelElementLoaded: (i: number) => void;
-}) => {
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+import ImageTransitionLoader from "../loading/ImageTransitionLoader";
+// { isInView }: { isInView: boolean }
+const IntroVideos = ({ isInView }: { isInView: boolean }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const count = useRef<number>(0);
+  const [loaded, setLoaded] = useState(false);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const startTimeRef = useRef<number>(Date.now());
+  const [minTimeReached, setMinTimeReached] = useState(false);
+
+  const MIN_LOADING_TIME = 2000;
+
+  useEffect(() => {
+    startTimeRef.current = Date.now();
+
+    const minTimer = setTimeout(() => {
+      setMinTimeReached(true);
+    }, MIN_LOADING_TIME);
+
+    return () => clearTimeout(minTimer);
+  }, []);
 
   useEffect(() => {
     if (!isInView) return;
@@ -29,23 +36,45 @@ const IntroVideos = ({
   }, [isInView]);
 
   useEffect(() => {
+    if (!isInView) return;
     videoRefs.current.forEach((video, index) => {
-      if (video) {
+      if (video && isInView) {
+        const videoElement = video as HTMLVideoElement;
+
         if (index === activeIndex) {
-          video.play();
+          videoElement.currentTime = 0;
+          videoElement.play().catch(() => {});
         } else {
-          video.pause();
-          video.currentTime = 0;
+          videoElement.pause();
+          videoElement.currentTime = 0;
         }
       }
     });
-  }, [activeIndex]);
+  }, [activeIndex, isInView]);
 
+  const handleVideoLoaded = () => {
+    count.current += 1;
+
+    if (count.current === homeVideos.length) {
+      const elapsedTime = Date.now() - startTimeRef.current;
+      console.log(`All videos loaded in: ${elapsedTime}ms`);
+
+      if (elapsedTime >= MIN_LOADING_TIME) {
+        setLoaded(true);
+      } else {
+        const remainingTime = MIN_LOADING_TIME - elapsedTime;
+        setTimeout(() => {
+          setLoaded(true);
+        }, remainingTime);
+      }
+    }
+  };
+
+  const shouldShowContent = loaded && minTimeReached;
   return (
-    <Videowrapper style={{ opacity: isLoaded ? 1 : 0 }}>
+    <Videowrapper>
+      {!shouldShowContent && <ImageTransitionLoader />}
       {homeVideos.map((video, i) => {
-        const startIndex = i + 0;
-
         return (
           <Video
             key={i}
@@ -55,14 +84,12 @@ const IntroVideos = ({
             muted
             autoPlay
             loop
+            playsInline
             preload="auto"
-            onCanPlayThrough={() => {
-              handelElementLoaded(startIndex);
-            }}
+            onCanPlayThrough={handleVideoLoaded}
             style={{ opacity: i === activeIndex ? 1 : 0 }}
           >
             <source src={video.webm} type="video/webm" />
-            <source src={video.mp4} type="video/mp4" />
           </Video>
         );
       })}
@@ -84,5 +111,5 @@ const Video = styled(motion.video)`
   height: 100%;
   position: absolute;
   object-fit: cover;
-  filter: blur(10px);
+  filter: blur(5px);
 `;

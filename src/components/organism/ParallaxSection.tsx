@@ -63,4 +63,5 @@ export default ParallaxSection;
 const Container = styled.section`
   position: relative;
   height: fit-content;
+  background-color: black;
 `;

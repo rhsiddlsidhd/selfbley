@@ -25,17 +25,12 @@ import { AnimationProgressTypes } from "../../pages/Main";
 
 const VideoSection = ({
   state,
-  setState,
-  handelElementLoaded,
-  loaded,
+  dispatch,
 }: {
   state: AnimationProgressTypes;
-  setState: React.Dispatch<React.SetStateAction<AnimationProgressTypes>>;
-  handelElementLoaded: (i: number) => void;
-  loaded: boolean;
+  dispatch: React.Dispatch<React.SetStateAction<AnimationProgressTypes>>;
 }) => {
   const containerRef = useRef(null);
-
   const isInView = useInView(containerRef, { amount: 0.5 });
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -45,33 +40,25 @@ const VideoSection = ({
   const splitText = useMemo(() => HOMETITLE.toUpperCase().split(" "), []);
 
   return (
-    <HomeContainer
-      ref={containerRef}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isInView ? 1 : 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <HomeContainer ref={containerRef}>
       <SignSVGContainer isView={isInView} section="videoSection" />
       <SlideInOverlay style={{ width }} />
-      {loaded && (
-        <Overlay
-          initial={{ scale: 0.2 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          onAnimationComplete={() => state === "SCALE" && setState("SLIDE")}
-        />
-      )}
-
-      <IntroVideos
-        isInView={isInView}
-        isLoaded={loaded}
-        handelElementLoaded={handelElementLoaded}
+      <Overlay
+        initial={{ scale: 0.2 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1, delay: 2.5 }}
+        onAnimationComplete={() => dispatch("SCALE")}
       />
+
+      <IntroVideos isInView={isInView} />
+
       <TitleWrapper
         variants={fadeVariants}
         initial={{ opacity: 0 }}
-        animate={handleFadeAnimation({ state, isInView })}
-        onAnimationComplete={() => state === "SLIDE" && setState("FADE")}
+        animate={handleFadeAnimation({ state: state, isInView })}
+        onAnimationComplete={() =>
+          dispatch((prev) => (prev === "SCALE" ? "FADE" : prev))
+        }
       >
         {splitText.map((text) => {
           return <Title key={text} text={text} />;
@@ -86,12 +73,12 @@ export default VideoSection;
 
 const HomeContainer = styled(motion.section)`
   position: relative;
+  background-color: transparent;
   height: 200vh;
 `;
 
 const Overlay = styled(motion.div)`
   position: fixed;
-  border: thick solid black;
   top: 0;
   width: 100vw;
   height: 100vh;

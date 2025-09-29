@@ -91,7 +91,9 @@ const BookPage = () => {
                 }}
               >
                 <CardImageWrapper>
-                  <CardImage src={getData?.image} alt={viewData.title} />
+                  {getData && (
+                    <CardImage src={getData.image} alt={viewData.title} />
+                  )}
                 </CardImageWrapper>
                 <CardContent>
                   <CardTitle>{viewData.title}</CardTitle>
