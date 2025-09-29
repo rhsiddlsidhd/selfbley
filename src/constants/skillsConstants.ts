@@ -1,59 +1,18 @@
-import html from "../assets/html.svg";
-import css from "../assets/css.svg";
-import styledComponents from "../assets/styled-components.svg";
-import javascript from "../assets/javascript.svg";
-import typescript from "../assets/typescript.svg";
-import react from "../assets/react.svg";
-import redux from "../assets/redux.svg";
-import zustand from "../assets/zustand.svg";
-import nodeJs from "../assets/nodeJs.svg";
-import express from "../assets/express.svg";
-import mongodb from "../assets/mongodb.svg";
-import firebase from "../assets/firebase.svg";
-import discord from "../assets/discord.svg";
-import figma from "../assets/figma.svg";
-import github from "../assets/github.svg";
-
 export type TechnologyKey = keyof typeof technology;
-
 export const VISIBLE_COUNT = 3;
 export const centerOffset = Math.floor(VISIBLE_COUNT / 2);
-const language = [
-  { name: "html", icon: html },
-  { name: "css", icon: css },
-  {
-    name: "javascript",
-    icon: javascript,
-  },
-  { name: "typescript", icon: typescript },
-];
+const language = ["html", "css", "javascript", "typescript"];
+const frontend = ["styledComponents", "react", "nextJs", "redux", "zustand"];
+const backend = ["nodeJs", "nextJs", "express", "mongodb", "firebase"];
 
-const frontend = [
-  { name: "styled-components", icon: styledComponents },
-  { name: "react", icon: react },
-  { name: "redux", icon: redux },
-  { name: "zustand", icon: zustand },
-];
-
-const backend = [
-  { name: "nodeJs", icon: nodeJs },
-  { name: "express", icon: express },
-  { name: "mongodb", icon: mongodb },
-  { name: "firebase", icon: firebase },
-];
-
-const etc = [
-  { name: "discord", icon: discord },
-  { name: "figma", icon: figma },
-  { name: "github", icon: github },
-];
+const etc = ["discord", "figma", "github"];
 
 export const technology = {
   language,
   frontend,
   backend,
   etc,
-} as const;
+};
 
 export const skillOverview = "Learned SKILLS ";
 export const SKILL_ICON_DEFUALT_WIDTH = 5;

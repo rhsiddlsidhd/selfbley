@@ -20,47 +20,55 @@ const RollingSkillIcons = memo(
     const mode = useScreenStore((state) => state.mode);
     const ICON_WIDTH = getSkillIconWidth(mode);
     const ICONS_GAP = getSkillIconsGap(mode);
-    const techs = isHover ? technology[isHover] : [];
-    const ICONS_TOTAL_WIDTH = getSKillIconsWidth(
-      ICON_WIDTH,
-      ICONS_GAP,
-      techs.length
-    );
+    // const techs = isHover ? technology[isHover] : [];
+    // const ICONS_TOTAL_WIDTH = getSKillIconsWidth(
+    //   ICON_WIDTH,
+    //   ICONS_GAP,
+    //   techs.length
+    // );
+
+    // technology 4개의 key를 전부 뿌려서 Wrapper 4개를 미리 로드
+    // 이후 hover 한 key값만 Animated 적용시켜버리기
 
     return (
-      <IconsBoxContainer>
-        <AnimatePresence>
-          {isHover && (
+      <AnimatePresence>
+        {Object.keys(technology).map((key) => {
+          const techKey = key as TechnologyKey;
+          const techs = technology[techKey];
+          const ICONS_TOTAL_WIDTH = getSKillIconsWidth(
+            ICON_WIDTH,
+            ICONS_GAP,
+            techs.length
+          );
+
+          // 현재 hover된 key인지 확인
+          const isCurrentHover = isHover === techKey;
+          return (
             <IconWrapper
+              key={techKey}
               initial={{ y: "100%" }}
-              animate={{ y: 0 }}
+              animate={{ y: isCurrentHover ? 0 : "100%" }}
               exit={{ y: "100%" }}
               $ICONS_GAP={ICONS_GAP}
               $TOTAL_WIDTH={ICONS_TOTAL_WIDTH}
+              style={{
+                opacity: isCurrentHover ? 1 : 0,
+              }}
             >
-              {techs.map(({ icon, name }) => {
-                return (
-                  <Icon $ICON_WIDTH={ICON_WIDTH} key={name}>
-                    <img src={icon} alt="아이콘" />
-                  </Icon>
-                );
-              })}
+              {techs.map((tech, i) => (
+                <Icon $ICON_WIDTH={ICON_WIDTH} key={i}>
+                  <img src={`/skills/${tech}.svg`} alt={tech} />
+                </Icon>
+              ))}
             </IconWrapper>
-          )}
-        </AnimatePresence>
-      </IconsBoxContainer>
+          );
+        })}
+      </AnimatePresence>
     );
   }
 );
 
 export default RollingSkillIcons;
-
-const IconsBoxContainer = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  z-index: -1;
-`;
 
 const Icon = styled.div<{ $ICON_WIDTH: number }>`
   flex: 0 0 ${({ $ICON_WIDTH }) => `${$ICON_WIDTH}rem`};
@@ -79,6 +87,10 @@ const IconWrapper = styled(motion.div)<{
   $ICONS_GAP: number;
   $TOTAL_WIDTH: string;
 }>`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
   display: flex;
   justify-content: end;
   gap: ${({ $ICONS_GAP }) => `${$ICONS_GAP}rem`};

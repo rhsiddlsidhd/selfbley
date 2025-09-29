@@ -15,9 +15,9 @@ const SkillModal = ({ isModal }: { isModal: boolean }) => {
   const mode = useScreenStore((state) => state.mode);
   const data = useMemo(
     () =>
-      Object.entries(technology).map(([category, items]) => ({
+      Object.entries(technology).map(([category, techs]) => ({
         category: category as BadgeTypes,
-        techList: items.map((item) => item.name),
+        techList: techs.map((tech) => tech),
       })),
     []
   );
