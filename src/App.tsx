@@ -18,7 +18,14 @@ function App() {
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
         <Route element={<Header />}>
-          <Route path="/" element={<Main />} />
+          <Route
+            path="/"
+            element={
+              <PageTransition>
+                <Main />
+              </PageTransition>
+            }
+          />
           <Route
             path="book"
             element={
