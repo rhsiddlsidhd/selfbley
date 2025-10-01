@@ -6,7 +6,7 @@ import {
   videoSectionSignSGVPositions,
 } from "../../constants/svg/sign-positions";
 
-type Sections = "videoSection" | "topMarqueeSection" | "parallaxSection";
+type Sections = "hero" | "topMarqueeSection" | "parallaxSection";
 
 interface SignSVGContainerProps {
   isView: boolean;
@@ -28,7 +28,7 @@ const SignSVGContainer = ({
 
   const getSignSGVPositions = (section: Sections) => {
     switch (section) {
-      case "videoSection":
+      case "hero":
         return videoSectionSignSGVPositions;
       case "topMarqueeSection":
         return topMarqueeSignSVGPositions;

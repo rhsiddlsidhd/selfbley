@@ -92,7 +92,7 @@ const RollingSkills = () => {
               transition={{ duration: 0.3 }}
               key={idx}
             >
-              <p
+              <div
                 style={{
                   position: "relative",
                   fontSize: isCenter ? "4vw" : "3vw",
@@ -105,7 +105,7 @@ const RollingSkills = () => {
                   animate={{ scale: isCenter && isHover ? 1 : 0, opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 />
-              </p>
+              </div>
             </Item>
           );
         })}

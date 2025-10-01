@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { styled } from "styled-components";
 import Scratch from "../molecules/Scratch";
 import Footer from "../../layout/Footer";
-import VerticalLine from "../atoms/VerticalLine";
+
 import paint1 from "../../assets/splash_paint/paint1.svg";
 import FooterLogo from "./FooterLogo";
 import { contactScratchText } from "../../constants/scratchConstants";
@@ -21,7 +21,6 @@ const ContactSection: React.FC = () => {
       animate={{ opacity: 1, backgroundColor: "#000000" }}
       transition={{ duration: 1 }}
     >
-      <VerticalLine page="MAIN" />
       <ScratchContainer ref={scratchRef}>
         <Scratch
           scrollYProgress={scrollYProgress}

@@ -1,14 +1,13 @@
-import VerticalLine from "../components/atoms/VerticalLine";
 import { useState } from "react";
-
 import ParallaxSection from "../components/organism/ParallaxSection";
 import ScratchSection from "../components/organism/ScratchSection";
 import SliderSection from "../components/organism/SliderSection";
 import RollerSection from "../components/organism/RollerSection";
 import { motion } from "motion/react";
 import ContactSection from "../components/organism/ContactSection";
-import MarqueeSection from "../components/organism/MarqueeSection";
-import VideoSection from "../components/organism/VideoSection";
+
+import HeroSection from "../components/organism/section/HeroSection";
+import MarqueeSection from "../components/organism/section/marqueeSection/index";
 
 export type AnimationProgressTypes =
   | "INITIAL"
@@ -30,9 +29,8 @@ const Main = () => {
         overflow: animationProgress === "INITIAL" ? "hidden" : "visible",
       }}
     >
-      <VerticalLine page="MAIN" />
-      <VideoSection state={animationProgress} dispatch={setAnimationProgress} />
-      <MarqueeSection text="Dynamic & Alive" type="top" />
+      <HeroSection state={animationProgress} dispatch={setAnimationProgress} />
+      <MarqueeSection />
       <ParallaxSection />
       <ScratchSection />
       <SliderSection />

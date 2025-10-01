@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 import { motion } from "motion/react";
 import { BadgeTypes } from "../components/atoms/Badge";
 import Project from "../components/organism/Project";
-import VerticalLine from "../components/atoms/VerticalLine";
 import useScreenStore, { Mode } from "../stores/useScreenStore";
 import { getProjectApi } from "../api/projectApi";
 import ProjectAside from "../components/organism/ProjectAside";
@@ -59,8 +58,6 @@ const TheProjects = () => {
 
   return (
     <Container>
-      <VerticalLine page="THEPROJECTS" />
-
       {isView && (
         <ProjectContent>
           <ProjectFilter

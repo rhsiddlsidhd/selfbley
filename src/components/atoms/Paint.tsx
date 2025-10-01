@@ -4,7 +4,7 @@ import styled from "styled-components";
 interface PaintProps {
   src: string;
   width: string;
-  height: string;
+  height?: string;
   top?: string;
   left?: string;
   right?: string;
