@@ -161,7 +161,6 @@ const Container = styled.section<{
   height: ${({ $totalBooks, $bookSectionHeight }) =>
     $totalBooks * $bookSectionHeight}vh;
   background-color: black;
-  border: 2px solid red;
 `;
 
 const StickyArea = styled.div<{ $mode: Mode }>`
@@ -180,12 +179,11 @@ const CardScroller = styled(motion.div)<{
   height: 100%;
   position: relative;
   display: flex;
-  border: 5px solid pink;
 `;
 
 const SlideContainer = styled.div<{ $width: number }>`
   width: ${({ $width }) => `${$width}vw`};
   min-width: 200px;
-  border: 2px solid blue;
+
   margin: auto;
 `;

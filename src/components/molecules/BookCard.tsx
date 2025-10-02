@@ -1,5 +1,5 @@
-import { css, styled } from "styled-components";
-import useScreenStore from "../../stores/useScreenStore";
+import { styled } from "styled-components";
+import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import DefaultCardBody from "../atoms/DefaultCardBody";
 import Thumbnail from "../atoms/Thumbnail";
 import { BookData } from "../organism/SliderSection";
@@ -17,6 +17,7 @@ const BookCard = ({ book, idx }: { book: BookData; idx: number }) => {
   };
   return (
     <BookCardContainer $mode={mode} onClick={() => handleClick(book)}>
+      <Thumbnail src={image} />
       <DefaultCardBody
         idx={idx}
         mode={mode}
@@ -25,32 +26,27 @@ const BookCard = ({ book, idx }: { book: BookData; idx: number }) => {
         publisher={publisher}
         description={description}
       />
-      <Thumbnail src={image} />
     </BookCardContainer>
   );
 };
 
 export default BookCard;
 
-const BookCardContainer = styled.div<{ $mode: string }>`
+const BookCardContainer = styled.div<{ $mode: Mode }>`
   min-width: 200px;
-  max-width: calc(100vw / 6 * 5);
-  aspect-ratio: 21/9;
+  width: ${({ $mode }) =>
+    `calc(100vw / 6 * ${$mode === "mobile" ? 5 : $mode === "tablet" ? 4 : 2})`};
+  max-width: 575px;
+  aspect-ratio: 3/4;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   background-color: white;
   color: black;
   cursor: pointer;
-  border: 5px solid green;
+
   margin: auto;
-  ${({ $mode }) =>
-    $mode === "mobile" &&
-    css`
-      max-width: calc(100vw / 6 * 5);
-      aspect-ratio: 3/4;
-      flex-direction: column;
-      justify-content: space-between;
-    `}
 
   &:hover {
     background-color: #ff6a41;
