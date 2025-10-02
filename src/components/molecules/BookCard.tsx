@@ -34,19 +34,22 @@ export default BookCard;
 
 const BookCardContainer = styled.div<{ $mode: string }>`
   min-width: 200px;
-  max-width: calc(100vw / 6 * 2);
-  aspect-ratio: 3/ 4;
+  max-width: calc(100vw / 6 * 5);
+  aspect-ratio: 21/9;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   background-color: white;
   color: black;
   cursor: pointer;
+  border: 5px solid green;
+  margin: auto;
   ${({ $mode }) =>
     $mode === "mobile" &&
     css`
-      max-width: calc(100vw / 6 * 4);
+      max-width: calc(100vw / 6 * 5);
+      aspect-ratio: 3/4;
+      flex-direction: column;
+      justify-content: space-between;
     `}
 
   &:hover {

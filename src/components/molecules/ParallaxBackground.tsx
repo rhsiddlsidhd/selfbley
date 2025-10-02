@@ -50,6 +50,7 @@ export default ParallaxBackground;
 const BackgroundWrapper = styled(motion.div)`
   position: sticky;
   top: 0;
+  z-index: 1;
 `;
 
 const BackgroundImage = styled(motion.img)`
@@ -57,6 +58,5 @@ const BackgroundImage = styled(motion.img)`
   height: 100vh;
   position: absolute;
   filter: grayscale(100%) brightness(70%) blur(5px);
-
   object-fit: cover;
 `;

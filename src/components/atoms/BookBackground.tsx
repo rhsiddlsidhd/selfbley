@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
-import { motion, MotionValue } from "motion/react";
+import { motion, MotionValue, useMotionValueEvent } from "motion/react";
 import { BookData } from "../organism/SliderSection";
+import { useEffect } from "react";
 
 const BookBackground = ({
   data,
@@ -32,10 +33,13 @@ const BookBackground = ({
             key={i}
             style={{
               y,
-              width: "100%",
-              height: "100vh",
-              position: isFixed ? "fixed" : "absolute",
+              width: "90%",
+              height: "90vh",
+              position: "fixed",
+              left: "50%",
+              x: "-50%",
               top: 0,
+              zIndex: 0,
             }}
             initial={false}
             animate={{ opacity: i === activeIndex ? 1 : 0 }}

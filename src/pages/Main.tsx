@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 import ContactSection from "../components/organism/ContactSection";
 import HeroSection from "../components/organism/section/HeroSection";
 import MarqueeSection from "../components/organism/section/marqueeSection/index";
+import styled from "styled-components";
 
 export type AnimationProgressTypes =
   | "INITIAL"
@@ -33,6 +34,7 @@ const Main = () => {
       <ParallaxSection />
       <ScratchSection />
       <SliderSection />
+      <Section></Section>
       <RollerSection />
       <ContactSection />
     </motion.div>
@@ -40,3 +42,10 @@ const Main = () => {
 };
 
 export default Main;
+
+const Section = styled.div`
+  position: relative;
+  height: 100vh;
+  background-color: gray;
+  z-index: 90;
+`;

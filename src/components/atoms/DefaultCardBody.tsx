@@ -1,4 +1,4 @@
-import { Mode } from "../../stores/useScreenStore";
+import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import styled from "styled-components";
 
 interface DefaultCardBodyProps {
@@ -16,8 +16,9 @@ const DefaultCardBody = ({
   publisher,
   title,
 }: DefaultCardBodyProps) => {
+  const mode = useScreenStore((state) => state.mode);
   return (
-    <Container>
+    <Container $mode={mode}>
       <div>
         <p className="title">{title}</p>
         <p className="author">
@@ -32,12 +33,21 @@ const DefaultCardBody = ({
 
 export default DefaultCardBody;
 
-const Container = styled.div`
+// 데스크탑은 가로카드 모바일은 세로카드
+//모바일이 아닐 경우 Des width : 60% height : 100%
+//모바일 인 경우 Des width: 100% height : 40%
+
+const Container = styled.div<{ $mode: Mode }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 0.5rem;
-  height: 40%;
+  /* flex: ${({ $mode }) => ($mode !== "mobile" ? 0.6 : 0.4)};
+  flex-grow: 0;
+  flex-shrink: 0; */
+
+  width: ${({ $mode }) => ($mode !== "mobile" ? "60%" : "100%")};
+  height: ${({ $mode }) => ($mode !== "mobile" ? "100%" : "40%")};
   .title {
     overflow: hidden;
     text-overflow: ellipsis;

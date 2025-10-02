@@ -35,9 +35,9 @@ const Container = styled.section`
   position: relative;
   display: flex;
   align-items: center;
-  background-color: black;
   height: 100vh;
   min-height: fit-content;
-  z-index: 1;
+  background-color: black;
+  z-index: 10;
   overflow: hidden;
 `;
