@@ -2,9 +2,8 @@ import { useScroll } from "motion/react";
 import { useRef } from "react";
 import styled from "styled-components";
 import Scratch from "../molecules/Scratch";
-import { scratchText } from "../../constants/scratchConstants";
 
-const ScratchSection = () => {
+const ScratchSection = ({ text }: { text: string }) => {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -22,7 +21,7 @@ const ScratchSection = () => {
   return (
     <Container ref={containerRef}>
       <Scratch
-        text={scratchText}
+        text={text}
         scrollYProgress={scrollYProgress}
         activeColor="rgba(250, 247, 247, 0.973)"
         inActiveColor="rgb(255, 140, 108)"

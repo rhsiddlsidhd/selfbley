@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 import ContactSection from "../components/organism/ContactSection";
 import HeroSection from "../components/organism/section/HeroSection";
 import MarqueeSection from "../components/organism/section/marqueeSection/index";
+import { scratchText } from "../constants/scratchConstants";
 
 export type AnimationProgressTypes =
   | "INITIAL"
@@ -31,8 +32,9 @@ const Main = () => {
       <HeroSection state={animationProgress} dispatch={setAnimationProgress} />
       <MarqueeSection />
       <ParallaxSection />
-      <ScratchSection />
+      <ScratchSection text={scratchText} />
       <SliderSection />
+      <MarqueeSection />
       <RollerSection />
       <ContactSection />
     </motion.div>

@@ -28,9 +28,7 @@ const RollerSection: React.FC = () => {
 
   return (
     <Container ref={containerRef}>
-      <StickySection
-        style={{ position: isSticky ? "sticky" : "relative", top: 0 }}
-      >
+      <StickySection style={{ position: "sticky", top: 0 }}>
         <SkillContent isSticky={isSticky} />
       </StickySection>
     </Container>

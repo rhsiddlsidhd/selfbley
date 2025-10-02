@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import {
   motion,
   useScroll,
@@ -15,8 +15,9 @@ import {
   CARD_WRAPPER_GAP,
   CARD_WRAPPER_WIDTH,
   INITIAL_Y_OFFSET,
+  LAST_Y_OFFSET,
 } from "../../constants/booksConstants";
-import { BOOKINTRO } from "../../constants/textConstants";
+
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import { isScrollingBookSection } from "../../utils/calculation";
 import BookBackground from "../atoms/BookBackground";
@@ -60,14 +61,14 @@ const SliderSection = () => {
   });
 
   const maxOffsetX = (bookData.length - 1) * CARD_TOTAL_WIDTH;
-  const maxOffsetY = bookData.length * BOOK_SECTION_HEIGHT;
+
   const rawX = useTransform(mid, [0, 1], [0, -maxOffsetX]);
 
   const rawY = useTransform(mid, [0, 1], [0, 0]);
 
   const initialY = useTransform(initial, [0, 1], [INITIAL_Y_OFFSET, 0]);
 
-  const lastY = useTransform(last, [0, 1], [maxOffsetY - 100, maxOffsetY]);
+  const lastY = useTransform(last, [0, 1], [0, LAST_Y_OFFSET]);
   const x = useMotionTemplate`${rawX}vw`;
   const initialTranslateY = useMotionTemplate`${initialY}%`;
   const lastTranslateY = useMotionTemplate`${lastY}%`;
@@ -81,15 +82,19 @@ const SliderSection = () => {
       Math.round(offsetX / CARD_TOTAL_WIDTH),
       bookData.length - 1
     );
-    setActiveIndex((prev) => (prev !== newIndex ? newIndex : prev));
+
+    setActiveIndex(newIndex);
   });
+
+  useMotionValueEvent(lastTranslateY, "change", (latest) =>
+    console.log("latest", latest)
+  );
 
   const fetchApiHandler = async (query: string) => {
     const BASE_URL =
       import.meta.env.MODE === "development"
         ? "http://localhost:8080"
         : import.meta.env.VITE_DEPLOY_URL;
-    // console.log("BASE_URL", `${BASE_URL}/api/search?q=${encodeURI(query)}`);
 
     const res = await fetch(`${BASE_URL}/api/search?q=${encodeURI(query)}`);
 
@@ -108,6 +113,7 @@ const SliderSection = () => {
 
     fetchPromiseAll();
   }, []);
+
   return (
     <Container
       ref={containerRef}
@@ -122,8 +128,8 @@ const SliderSection = () => {
         lastTranslateY={lastTranslateY}
         generalY={generalY}
       />
+
       <StickyArea $mode={mode}>
-        {mode !== "mobile" && <SectionIntro>{BOOKINTRO}</SectionIntro>}
         <CardScroller
           $gap={CARD_WRAPPER_GAP}
           style={{ x }}
@@ -156,19 +162,10 @@ const Container = styled.section<{
 
 const StickyArea = styled.div<{ $mode: Mode }>`
   position: sticky;
+  height: 100vh;
   top: 0;
-  ${({ $mode }) =>
-    $mode === "mobile" &&
-    css`
-      padding-top: 6rem;
-    `}
   overflow: hidden;
   z-index: 90;
-`;
-
-const SectionIntro = styled.div`
-  max-width: 350px;
-  padding: 6rem 0 1rem 2rem;
 `;
 
 const CardScroller = styled(motion.div)<{
@@ -176,15 +173,14 @@ const CardScroller = styled(motion.div)<{
   $gap: number;
 }>`
   width: ${({ $totalBooks }) => $totalBooks * 100}vw;
-  height: 70vh;
+  height: 100%;
   position: relative;
   display: flex;
-  gap: ${({ $gap }) => `${$gap}vw`}; // 제거할 필요성 높음
 `;
 
 const SlideContainer = styled.div<{ $width: number }>`
   width: ${({ $width }) => `${$width}vw`};
   min-width: 200px;
-  display: flex;
-  padding-left: 2rem;
+
+  margin: auto;
 `;

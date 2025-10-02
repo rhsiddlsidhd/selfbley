@@ -1,4 +1,4 @@
-import { Mode } from "../../stores/useScreenStore";
+import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import styled from "styled-components";
 
 interface DefaultCardBodyProps {
@@ -16,44 +16,43 @@ const DefaultCardBody = ({
   publisher,
   title,
 }: DefaultCardBodyProps) => {
+  const mode = useScreenStore((state) => state.mode);
   return (
-    <Container>
+    <Container $mode={mode}>
+      <p className="title">{title}</p>
       <div>
-        <p className="title">{title}</p>
-        <p className="author">
-          <span>{author} 지음</span>
-          <span>{publisher}</span>
-        </p>
+        <p className="info">{author} 지음</p>
+        <p className="info">{publisher}</p>
+        {mode !== "mobile" && <p className="description">{description}</p>}
       </div>
-      <p className="description">{description}</p>
     </Container>
   );
 };
 
 export default DefaultCardBody;
 
-const Container = styled.div`
+const Container = styled.div<{ $mode: Mode }>`
+  flex: 4;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0.5rem;
-  height: 40%;
+  gap: 0.5rem;
+  padding: 1rem;
+
   .title {
     overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     text-overflow: ellipsis;
-    white-space: nowrap;
+
     font-weight: 600;
     font-size: 1.125rem;
     margin-bottom: 0.25rem;
   }
-  .author {
-    display: flex;
-    gap: 0.25rem;
+  .info {
     opacity: 0.5;
     font-size: 0.8rem;
-    & > span {
-      margin: auto;
-    }
   }
   .description {
     display: -webkit-box;
