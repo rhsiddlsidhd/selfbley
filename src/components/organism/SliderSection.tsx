@@ -6,7 +6,6 @@ import {
   useTransform,
   useMotionTemplate,
   useMotionValueEvent,
-  useInView,
 } from "framer-motion";
 
 import {
@@ -44,7 +43,6 @@ export interface BookData {
 
 const SliderSection = () => {
   const containerRef = useRef(null);
-  const isView = useInView(containerRef, { amount: 0.1 });
   const mode = useScreenStore((state) => state.mode);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isFixed, setIsFixed] = useState<boolean>(false);
@@ -122,16 +120,15 @@ const SliderSection = () => {
       $totalBooks={bookData.length}
       $bookSectionHeight={BOOK_SECTION_HEIGHT}
     >
-      {isView && (
-        <BookBackground
-          data={bookData}
-          isFixed={isFixed}
-          activeIndex={activeIndex}
-          initialTranslateY={initialTranslateY}
-          lastTranslateY={lastTranslateY}
-          generalY={generalY}
-        />
-      )}
+      <BookBackground
+        data={bookData}
+        isFixed={isFixed}
+        activeIndex={activeIndex}
+        initialTranslateY={initialTranslateY}
+        lastTranslateY={lastTranslateY}
+        generalY={generalY}
+      />
+
       <StickyArea $mode={mode}>
         <CardScroller
           $gap={CARD_WRAPPER_GAP}
