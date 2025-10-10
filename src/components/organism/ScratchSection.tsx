@@ -3,7 +3,20 @@ import { useRef } from "react";
 import styled from "styled-components";
 import Scratch from "../molecules/Scratch";
 
-const ScratchSection = ({ text }: { text: string }) => {
+interface ScratchSectionProps {
+  text: string;
+  bgColor?: string;
+  activeColor?: string;
+  inActiveColor?: string;
+}
+
+const ScratchSection = ({
+  text,
+  bgColor = "#ff6a41",
+  activeColor = "#faf7f7f8",
+  // inActiveColor = "#ff8c6c",
+  inActiveColor = "#ff6a41",
+}: ScratchSectionProps) => {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -19,12 +32,12 @@ const ScratchSection = ({ text }: { text: string }) => {
    */
 
   return (
-    <Container ref={containerRef}>
+    <Container ref={containerRef} style={{ backgroundColor: bgColor }}>
       <Scratch
         text={text}
         scrollYProgress={scrollYProgress}
-        activeColor="rgba(250, 247, 247, 0.973)"
-        inActiveColor="rgb(255, 140, 108)"
+        activeColor={activeColor}
+        inActiveColor={inActiveColor}
       />
     </Container>
   );
@@ -36,7 +49,6 @@ const Container = styled.section`
   position: relative;
   height: 50vh;
   min-height: fit-content;
-  background-color: #ff6a41;
   z-index: 90;
   display: flex;
   align-items: center;

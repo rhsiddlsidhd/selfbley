@@ -86,10 +86,6 @@ const SliderSection = () => {
     setActiveIndex(newIndex);
   });
 
-  useMotionValueEvent(lastTranslateY, "change", (latest) =>
-    console.log("latest", latest)
-  );
-
   const fetchApiHandler = async (query: string) => {
     const BASE_URL =
       import.meta.env.MODE === "development"
@@ -128,7 +124,6 @@ const SliderSection = () => {
         lastTranslateY={lastTranslateY}
         generalY={generalY}
       />
-
       <StickyArea $mode={mode}>
         <CardScroller
           $gap={CARD_WRAPPER_GAP}
@@ -181,6 +176,5 @@ const CardScroller = styled(motion.div)<{
 const SlideContainer = styled.div<{ $width: number }>`
   width: ${({ $width }) => `${$width}vw`};
   min-width: 200px;
-
   margin: auto;
 `;

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import styled from "styled-components";
 import { homeVideos } from "../../../constants/videos";
@@ -14,6 +14,16 @@ const Videos = ({ isInView }: { isInView: boolean }) => {
   });
 
   const { activeIndex } = useActiveIndex({ isInView, max: homeVideos.length });
+
+  useEffect(() => {
+    if (!videoRefs.current) return;
+    videoRefs.current.forEach((video, i) => {
+      if (!video) return;
+      video.pause();
+      video.currentTime = 0;
+      if (i === activeIndex) video.play();
+    });
+  }, [activeIndex]);
 
   return (
     <Videowrapper>
@@ -32,7 +42,7 @@ const Videos = ({ isInView }: { isInView: boolean }) => {
               playsInline
               preload="auto"
               onCanPlayThrough={handleVideoLoaded}
-              animate={{ opacity: i === activeIndex ? 1 : 0 }}
+              animate={{ zIndex: i === activeIndex ? 10 : 0 }}
             >
               <source src={video.webm} type="video/webm" />
             </Video>
@@ -49,7 +59,6 @@ const Videowrapper = styled.div`
   top: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 5;
 `;
 
 const Video = styled(motion.video)`
@@ -57,5 +66,4 @@ const Video = styled(motion.video)`
   height: 100%;
   position: absolute;
   object-fit: cover;
-  filter: blur(5px);
 `;

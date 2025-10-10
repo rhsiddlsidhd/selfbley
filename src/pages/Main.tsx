@@ -7,7 +7,7 @@ import { motion } from "motion/react";
 import ContactSection from "../components/organism/ContactSection";
 import HeroSection from "../components/organism/section/HeroSection";
 import MarqueeSection from "../components/organism/section/marqueeSection/index";
-import { scratchText } from "../constants/scratchConstants";
+import { contactScratchText, scratchText } from "../constants/scratchConstants";
 
 export type AnimationProgressTypes =
   | "INITIAL"
@@ -36,6 +36,12 @@ const Main = () => {
       <SliderSection />
       <MarqueeSection />
       <RollerSection />
+      <ScratchSection
+        text={contactScratchText}
+        bgColor="black"
+        activeColor="#FFFFFF"
+        inActiveColor="black"
+      />
       <ContactSection />
     </motion.div>
   );
