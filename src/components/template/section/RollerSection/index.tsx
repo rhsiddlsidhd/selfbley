@@ -1,8 +1,7 @@
 import { useMotionValueEvent, useScroll } from "motion/react";
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-
-import SkillContent from "./SkillContent";
+import SkillContent from "../../../organism/SkillContent";
 
 const RollerSection: React.FC = () => {
   const [isSticky, setIsSticky] = useState<boolean>(false);
@@ -41,6 +40,7 @@ const Container = styled.section`
   position: relative;
   height: 150vh;
   background-color: black;
+  z-index: 7;
 `;
 
 const StickySection = styled.div`

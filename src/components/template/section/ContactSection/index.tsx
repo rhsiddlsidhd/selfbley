@@ -1,11 +1,7 @@
 import { motion } from "motion/react";
-
 import { styled } from "styled-components";
-
-import Footer from "../../layout/Footer";
-
-import paint1 from "../../assets/splash_paint/paint1.svg";
-import FooterLogo from "./FooterLogo";
+import Footer from "../../../../layout/Footer";
+import FooterLogo from "../../../organism/FooterLogo";
 
 const ContactSection: React.FC = () => {
   return (
@@ -15,7 +11,7 @@ const ContactSection: React.FC = () => {
       transition={{ duration: 1 }}
     >
       <h1 style={{ margin: "6rem 0", position: "relative", zIndex: 90 }}>
-        <PaintBackground src={paint1} />
+        <PaintBackground src="/paint/paint1.svg" />
         Contact Us
       </h1>
       <Footer />
@@ -32,6 +28,7 @@ const Container = styled(motion.section)`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  z-index: 7;
   height: 100vh;
 `;
 

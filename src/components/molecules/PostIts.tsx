@@ -2,19 +2,13 @@ import { MotionValue, motion } from "motion/react";
 import { Fragment } from "react";
 import { styled } from "styled-components";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
-import { QuestionsOmitSrc } from "../../constants/textConstants";
+import { QUESTIONS } from "../../constants/textConstants";
 
-const PostIts = ({
-  questions,
-  blurTranslate,
-}: {
-  questions: QuestionsOmitSrc[];
-  blurTranslate: MotionValue<string>;
-}) => {
+const PostIts = ({ blurTranslate }: { blurTranslate: MotionValue<string> }) => {
   const mode = useScreenStore((state) => state.mode);
   return (
     <Fragment>
-      {questions.map((q, i) => {
+      {QUESTIONS.map((q, i) => {
         const { question, style } = q;
         return (
           <QuestionSection key={i}>

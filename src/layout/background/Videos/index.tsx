@@ -19,9 +19,10 @@ const Videos = ({ isInView }: { isInView: boolean }) => {
     if (!videoRefs.current) return;
     videoRefs.current.forEach((video, i) => {
       if (!video) return;
-      video.pause();
       video.currentTime = 0;
-      if (i === activeIndex) video.play();
+      if (i === activeIndex && video.paused) video.play();
+
+      if (i !== activeIndex && !video.paused) video.pause();
     });
   }, [activeIndex]);
 

@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <Container>
       {/* 이메일 전화번호 / comment / 아이콘 github , blog / 제작자, 제작일  */}
-      <ContactSection>
+      <Content>
         <address>rhsiddlsidhd1@gmail.com</address>
         <Icons>
           <li>
@@ -19,7 +19,7 @@ const Footer = () => {
             </a>
           </li>
         </Icons>
-      </ContactSection>
+      </Content>
       <CopylightSection>
         <div>Copyright @ 2025, Shin YoungJae. All rights reserved. </div>
       </CopylightSection>
@@ -41,7 +41,7 @@ const Container = styled.footer`
   }
 `;
 
-const ContactSection = styled.section`
+const Content = styled.section`
   display: flex;
   flex-wrap: wrap;
   & > address,

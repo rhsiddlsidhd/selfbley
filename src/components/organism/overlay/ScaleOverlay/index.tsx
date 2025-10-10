@@ -1,14 +1,15 @@
-import { motion, useTransform } from "motion/react";
+import { motion, MotionValue, useTransform } from "motion/react";
 import styled from "styled-components";
-import useScreenStore from "../../stores/useScreenStore";
+import useScreenStore from "../../../../stores/useScreenStore";
+
+interface ScaleOverlayProps {
+  scrollYProgress: MotionValue<number>;
+}
 
 const OverlayItemRow = ({
   scrollYProgress,
   offset,
-}: {
-  scrollYProgress: any;
-  offset: number;
-}) => {
+}: ScaleOverlayProps & { offset: number }) => {
   const scale = useTransform(scrollYProgress, [offset, 0.95], [0, 1]);
   return (
     <Item
@@ -22,7 +23,7 @@ const OverlayItemRow = ({
   );
 };
 
-const Overlay = ({ scrollYProgress }: { scrollYProgress: any }) => {
+const ScaleOverlay = ({ scrollYProgress }: ScaleOverlayProps) => {
   const mode = useScreenStore((state) => state.mode);
 
   return (
@@ -40,7 +41,7 @@ const Overlay = ({ scrollYProgress }: { scrollYProgress: any }) => {
   );
 };
 
-export default Overlay;
+export default ScaleOverlay;
 
 const Container = styled(motion.div)`
   position: fixed;
@@ -56,5 +57,4 @@ const Item = styled(motion.div)`
   flex: 1;
   background-color: black;
   transform-origin: left top;
-  /* transform: scaleX(0.6); */
 `;

@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import { styled } from "styled-components";
-import paint2 from "../../assets/splash_paint/paint2.svg";
 
 import { logo } from "../../constants/textConstants";
 
@@ -10,13 +9,8 @@ const FooterLogo = () => {
 
   return (
     <Container ref={containerRef}>
-      <PaintBackground src={paint2} alt="이미지" />
-      <p
-        // style={{ fontSize: `${fontSize}rem`, fontWeight: "bold" }}
-        ref={textureRef}
-      >
-        {logo.toUpperCase()}
-      </p>
+      <PaintBackground src="/paint/paint2.svg" alt="이미지" />
+      <p ref={textureRef}>{logo.toUpperCase()}</p>
     </Container>
   );
 };

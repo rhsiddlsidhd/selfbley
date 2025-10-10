@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import Paint from "../../../atoms/Paint";
 import Marquee from "../../../molecules/Marquee";
-import SignSVGContainer from "../../SignSVGContainer";
+import SignSVGContainer from "../../../organism/SignSVGContainer";
 
-const MarqueeSection = () => {
+const MarqueeSection = ({ text }: { text: string }) => {
   return (
     <Container>
       <Paint
@@ -18,14 +18,12 @@ const MarqueeSection = () => {
         bottom="30%"
         right="0"
       />
-
       <SignSVGContainer
         isView={true}
         section="topMarqueeSection"
         $position="absolute"
       />
-
-      <Marquee text="Dynamic Alive Spatial depth" />
+      <Marquee text={text} />
     </Container>
   );
 };

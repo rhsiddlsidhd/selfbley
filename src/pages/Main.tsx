@@ -1,13 +1,14 @@
 import { useState } from "react";
-import ParallaxSection from "../components/organism/ParallaxSection";
-import ScratchSection from "../components/organism/ScratchSection";
-import SliderSection from "../components/organism/SliderSection";
-import RollerSection from "../components/organism/RollerSection";
 import { motion } from "motion/react";
-import ContactSection from "../components/organism/ContactSection";
-import HeroSection from "../components/organism/section/HeroSection";
-import MarqueeSection from "../components/organism/section/marqueeSection/index";
 import { contactScratchText, scratchText } from "../constants/scratchConstants";
+import HeroSection from "../components/template/section/HeroSection";
+import styled from "styled-components";
+import MarqueeSection from "../components/template/section/MarqueeSection";
+import ParallaxSection from "../components/template/section/ParallaxSection";
+import ScratchSection from "../components/template/section/ScratchSection";
+import SliderSection from "../components/template/section/SliderSection";
+import RollerSection from "../components/template/section/RollerSection";
+import ContactSection from "../components/template/section/ContactSection";
 
 export type AnimationProgressTypes =
   | "INITIAL"
@@ -29,12 +30,18 @@ const Main = () => {
         overflow: animationProgress === "INITIAL" ? "hidden" : "visible",
       }}
     >
-      <HeroSection state={animationProgress} dispatch={setAnimationProgress} />
-      <MarqueeSection />
+      <ScreenReveal
+        initial={{ scale: 0.2 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1, delay: 2.5 }}
+        onAnimationComplete={() => setAnimationProgress("SCALE")}
+      />
+      <HeroSection animationProgress={animationProgress} />
+      <MarqueeSection text="Dynamic Alive Spatial depth" />
       <ParallaxSection />
       <ScratchSection text={scratchText} />
       <SliderSection />
-      <MarqueeSection />
+      <MarqueeSection text="Readability Reusability Maintainability" />
       <RollerSection />
       <ScratchSection
         text={contactScratchText}
@@ -48,3 +55,12 @@ const Main = () => {
 };
 
 export default Main;
+
+const ScreenReveal = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  box-shadow: 0 0 0 200vmax rgba(0, 0, 0, 1);
+`;

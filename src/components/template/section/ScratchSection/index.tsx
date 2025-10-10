@@ -1,7 +1,7 @@
 import { useScroll } from "motion/react";
 import { useRef } from "react";
 import styled from "styled-components";
-import Scratch from "../molecules/Scratch";
+import Scratch from "../../../molecules/Scratch";
 
 interface ScratchSectionProps {
   text: string;
@@ -49,7 +49,7 @@ const Container = styled.section`
   position: relative;
   height: 50vh;
   min-height: fit-content;
-  z-index: 90;
+  z-index: 7;
   display: flex;
   align-items: center;
   justify-content: center;
