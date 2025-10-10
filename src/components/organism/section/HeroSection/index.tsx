@@ -1,4 +1,4 @@
-import { motion, useInView, useScroll, useTransform } from "motion/react";
+import { motion, useInView, useScroll } from "motion/react";
 import styled from "styled-components";
 import React, { useRef } from "react";
 import { AnimationProgressTypes } from "../../../../pages/Main";
@@ -6,6 +6,7 @@ import SignSVGContainer from "../../SignSVGContainer";
 import Videos from "../../../../layout/background/Videos";
 import { handleFadeAnimation } from "../../../../utils/validation";
 import { BottomArrowIcon } from "../../../atoms/Icon/index";
+import Overlay from "../../../../layout/Overlay";
 
 const WELCOMEINTRO = "hello World!";
 
@@ -22,7 +23,6 @@ const HeroSection = ({
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  const width = useTransform(scrollYProgress, [0, 1], ["0", "100%"]);
 
   return (
     <HomeContainer ref={containerRef}>
@@ -33,7 +33,8 @@ const HeroSection = ({
         transition={{ duration: 1, delay: 2.5 }}
         onAnimationComplete={() => dispatch("SCALE")}
       />
-      <ScrollOverlay style={{ width }} />
+
+      <Overlay scrollYProgress={scrollYProgress} />
       <Videos isInView={isInView} />
       <ContentWrapper
         variants={contentOpacity}
@@ -104,14 +105,6 @@ const ScreenReveal = styled(motion.div)`
   height: 100vh;
   z-index: 10;
   box-shadow: 0 0 0 200vmax rgba(0, 0, 0, 1);
-`;
-
-const ScrollOverlay = styled(motion.div)`
-  position: absolute;
-  background-color: black;
-  width: 100%;
-  height: 100%;
-  z-index: 6;
 `;
 
 const contentOpacity = {
