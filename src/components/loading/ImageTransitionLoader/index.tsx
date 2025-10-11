@@ -16,7 +16,13 @@ const ImageTransitionLoader = () => {
   }, [activeIndex]);
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100vh" }}>
+    <div
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "100vh",
+      }}
+    >
       <ImageWrapper>
         {weatherImgs.map((img, i) => (
           <img
@@ -47,5 +53,4 @@ const ImageWrapper = styled.div`
     position: absolute;
     object-fit: cover;
   }
-  z-index: 99;
 `;

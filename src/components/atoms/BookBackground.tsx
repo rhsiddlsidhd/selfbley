@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { motion, MotionValue } from "motion/react";
-import { BookData } from "../organism/SliderSection";
+import { BookData } from "../template/section/SliderSection";
 
 const BookBackground = ({
   data,

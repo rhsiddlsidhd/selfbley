@@ -150,7 +150,6 @@ const Container = styled.section<{
   height: ${({ $totalBooks, $bookSectionHeight }) =>
     $totalBooks * $bookSectionHeight}vh;
   background-color: black;
-  z-index: 6;
 `;
 
 const StickyArea = styled.div<{ $mode: Mode }>`
@@ -158,7 +157,7 @@ const StickyArea = styled.div<{ $mode: Mode }>`
   height: 100vh;
   top: 0;
   overflow: hidden;
-  z-index: 90;
+  z-index: 5;
 `;
 
 const CardScroller = styled(motion.div)<{

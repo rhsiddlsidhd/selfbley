@@ -61,6 +61,7 @@ const ScreenReveal = styled(motion.div)`
   top: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 10;
+  z-index: 1;
+  pointer-events: none;
   box-shadow: 0 0 0 200vmax rgba(0, 0, 0, 1);
 `;

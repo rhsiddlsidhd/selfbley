@@ -60,6 +60,7 @@ const Videowrapper = styled.div`
   top: 0;
   width: 100vw;
   height: 100vh;
+  z-index: -1;
 `;
 
 const Video = styled(motion.video)`

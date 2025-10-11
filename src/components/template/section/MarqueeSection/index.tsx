@@ -34,8 +34,8 @@ const Container = styled.section`
   height: 100vh;
   min-height: fit-content;
   background-color: black;
-  z-index: 10;
   overflow: hidden;
   display: flex;
   align-items: center;
+  z-index: 5;
 `;

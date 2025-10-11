@@ -28,7 +28,7 @@ const Container = styled(motion.section)`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  z-index: 7;
+
   height: 100vh;
 `;
 

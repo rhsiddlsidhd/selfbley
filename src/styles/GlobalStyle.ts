@@ -10,8 +10,7 @@ const GlobalStyle = createGlobalStyle`
         }
     }
     body{
-
-        background-color: black;
+      background-color: black;
         color: white;
         position: relative;
     }

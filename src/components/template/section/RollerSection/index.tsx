@@ -39,12 +39,9 @@ export default RollerSection;
 const Container = styled.section`
   position: relative;
   height: 150vh;
-  background-color: black;
-  z-index: 7;
 `;
 
 const StickySection = styled.div`
   height: 100vh;
   overflow: hidden;
-  z-index: 90;
 `;
