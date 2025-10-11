@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import Paint from "../../../atoms/Paint";
-import Marquee from "../../../molecules/Marquee";
+import Marquee, { MarqueeTextProps } from "../../../molecules/Marquee";
 import SignSVGContainer from "../../../organism/SignSVGContainer";
 
-const MarqueeSection = ({ text }: { text: string }) => {
+const MarqueeSection = ({ text, reverse, deg }: MarqueeTextProps) => {
   return (
     <Container>
       <Paint
@@ -23,7 +23,7 @@ const MarqueeSection = ({ text }: { text: string }) => {
         section="topMarqueeSection"
         $position="absolute"
       />
-      <Marquee text={text} />
+      <Marquee text={text} reverse={reverse} deg={deg} />
     </Container>
   );
 };
@@ -31,11 +31,11 @@ export default MarqueeSection;
 
 const Container = styled.section`
   position: relative;
-  display: flex;
-  align-items: center;
   height: 100vh;
   min-height: fit-content;
   background-color: black;
   z-index: 10;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 `;

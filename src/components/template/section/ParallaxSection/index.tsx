@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
-
 import { useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import { QUESTIONS } from "../../../../constants/textConstants";
 import { getParallaxActiveIndex } from "../../../../utils/calculation";
@@ -35,6 +34,4 @@ export default ParallaxSection;
 
 const Container = styled.section`
   position: relative;
-  height: fit-content;
-  background-color: black;
 `;

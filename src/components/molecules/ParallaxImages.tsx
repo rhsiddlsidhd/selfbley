@@ -48,6 +48,7 @@ const BackgroundImage = styled(motion.img)`
   width: 100%;
   height: 100vh;
   position: absolute;
+  top: 0;
   filter: grayscale(100%) brightness(70%) blur(10px);
   object-fit: cover;
 `;

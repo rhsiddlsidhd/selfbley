@@ -37,11 +37,11 @@ const Main = () => {
         onAnimationComplete={() => setAnimationProgress("SCALE")}
       />
       <HeroSection animationProgress={animationProgress} />
-      <MarqueeSection text="Dynamic Alive Spatial depth" />
+      <MarqueeSection text="역동성 생동감 공간감" />
       <ParallaxSection />
       <ScratchSection text={scratchText} />
       <SliderSection />
-      <MarqueeSection text="Readability Reusability Maintainability" />
+      <MarqueeSection text="가독성 재사용성 유지보수성" deg={5} />
       <RollerSection />
       <ScratchSection
         text={contactScratchText}

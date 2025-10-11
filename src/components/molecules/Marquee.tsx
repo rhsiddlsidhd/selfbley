@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { motion } from "motion/react";
 
-interface MarqueeTextProps {
+export interface MarqueeTextProps {
   text: string;
   reverse?: boolean;
   deg?: number;
@@ -18,49 +18,49 @@ const Marquee = ({ deg = 0, reverse = false, text }: MarqueeTextProps) => {
   };
 
   return (
-    <MarqueeTrack
-      animate={marqueeAnimation}
-      transition={{ ease: "linear" }}
-      $deg={deg}
-      $reverse={reverse}
-    >
-      {Array.from({ length: 2 }, (_, i) => {
-        return (
-          <Text key={i}>
-            {[...text].map((word, i) => {
-              return (
-                <motion.span
-                  initial={{ filter: "blur(0px)" }}
-                  animate={{
-                    filter: "blur(10px)",
-                    transition: {
-                      delay: i * 0.25,
-                      duration: 3,
-                      repeat: Infinity,
-                    },
-                  }}
-                  key={`${i}-${word}`}
-                >
-                  {word}
-                </motion.span>
-              );
-            })}
-          </Text>
-        );
-      })}
-    </MarqueeTrack>
+    <MarqueeContainer $deg={deg} $reverse={reverse}>
+      <MarqueeTrack animate={marqueeAnimation} transition={{ ease: "linear" }}>
+        {Array.from({ length: 2 }, (_, i) => {
+          return (
+            <Text key={i}>
+              {[...text].map((word, i) => {
+                return (
+                  <motion.span
+                    initial={{ filter: "blur(5px)" }}
+                    animate={{
+                      filter: "blur(0px)",
+                      transition: {
+                        delay: i * 0.35,
+                        duration: 3,
+                        repeat: Infinity,
+                      },
+                    }}
+                    key={`${i}-${word}`}
+                  >
+                    {word}
+                  </motion.span>
+                );
+              })}
+            </Text>
+          );
+        })}
+      </MarqueeTrack>
+    </MarqueeContainer>
   );
 };
 
 export default Marquee;
 
-const MarqueeTrack = styled(motion.div)<{ $deg: number; $reverse: boolean }>`
-  white-space: nowrap;
-  font-size: clamp(4rem, 25vw, 14rem);
+const MarqueeContainer = styled.div<{ $deg: number; $reverse: boolean }>`
   display: flex;
   justify-content: ${({ $reverse }) => ($reverse ? "end" : "start")};
   transform: ${({ $deg }) => `rotate(${$deg}deg)`};
-  cursor: pointer;
+`;
+
+const MarqueeTrack = styled(motion.div)`
+  white-space: nowrap;
+  font-size: clamp(4rem, 25vw, 14rem);
+  display: flex;
   will-change: transform;
 `;
 
