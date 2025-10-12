@@ -10,6 +10,7 @@ import TheSkills from "./pages/TheSkills";
 import TheProjects from "./pages/TheProjects";
 
 import Main from "./pages/Main";
+import ContactSection from "./components/template/section/ContactSection";
 
 function App() {
   const location = useLocation();
@@ -54,8 +55,7 @@ function App() {
             path="/contact"
             element={
               <PageTransition>
-                {/* <ContactSection /> */}
-                <div>123</div>
+                <ContactSection />
               </PageTransition>
             }
           />
