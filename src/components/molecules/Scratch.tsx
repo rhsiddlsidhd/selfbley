@@ -51,6 +51,7 @@ const CharList = styled.div<{ $mode: Mode }>`
   white-space: pre-line;
   text-align: center;
   word-wrap: break-word;
+
   & > span {
     font-size: clamp(2rem, 5.12vw, 6.4rem);
     font-weight: bold;

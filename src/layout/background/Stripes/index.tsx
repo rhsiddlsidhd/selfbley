@@ -27,7 +27,7 @@ const Container = styled.section`
   position: fixed;
   top: 0;
   pointer-events: none;
-  z-index: 80;
+  z-index: 2;
 `;
 
 const Stripe = styled.section<{
@@ -35,7 +35,7 @@ const Stripe = styled.section<{
   $mode: Mode;
 }>`
   border-right: ${({ $borderRemoveItem }) =>
-    !$borderRemoveItem && "1px solid #7178852b "};
+    !$borderRemoveItem && "3px solid #7178852b "};
   flex: 1;
   &:first-child,
   &:last-child {

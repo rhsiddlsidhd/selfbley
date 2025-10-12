@@ -1,13 +1,26 @@
 import { useScroll } from "motion/react";
 import { useRef } from "react";
 import styled from "styled-components";
-import Scratch from "../molecules/Scratch";
+import Scratch from "../../../molecules/Scratch";
 
-const ScratchSection = ({ text }: { text: string }) => {
+interface ScratchSectionProps {
+  text: string;
+  bgColor?: string;
+  activeColor?: string;
+  inActiveColor?: string;
+}
+
+const ScratchSection = ({
+  text,
+  bgColor = "#ff6a41",
+  activeColor = "#faf7f7f8",
+  // inActiveColor = "#ff8c6c",
+  inActiveColor = "#ff6a41",
+}: ScratchSectionProps) => {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["end end", "start start"],
+    offset: ["start end", "start start"],
   });
 
   /**
@@ -19,12 +32,12 @@ const ScratchSection = ({ text }: { text: string }) => {
    */
 
   return (
-    <Container ref={containerRef}>
+    <Container ref={containerRef} style={{ backgroundColor: bgColor }}>
       <Scratch
         text={text}
         scrollYProgress={scrollYProgress}
-        activeColor="rgba(250, 247, 247, 0.973)"
-        inActiveColor="rgb(255, 140, 108)"
+        activeColor={activeColor}
+        inActiveColor={inActiveColor}
       />
     </Container>
   );
@@ -34,10 +47,9 @@ export default ScratchSection;
 
 const Container = styled.section`
   position: relative;
-  height: 50vh;
+  height: 100vh;
   min-height: fit-content;
-  background-color: #ff6a41;
-  z-index: 90;
+  z-index: 7;
   display: flex;
   align-items: center;
   justify-content: center;

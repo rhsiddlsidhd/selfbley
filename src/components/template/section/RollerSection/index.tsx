@@ -1,8 +1,7 @@
 import { useMotionValueEvent, useScroll } from "motion/react";
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-
-import SkillContent from "./SkillContent";
+import SkillContent from "../../../organism/SkillContent";
 
 const RollerSection: React.FC = () => {
   const [isSticky, setIsSticky] = useState<boolean>(false);
@@ -10,7 +9,7 @@ const RollerSection: React.FC = () => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"],
+    offset: ["start start", "end end"],
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
@@ -40,11 +39,9 @@ export default RollerSection;
 const Container = styled.section`
   position: relative;
   height: 150vh;
-  background-color: black;
 `;
 
 const StickySection = styled.div`
   height: 100vh;
   overflow: hidden;
-  z-index: 90;
 `;

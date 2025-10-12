@@ -11,7 +11,6 @@ const Header = () => {
   return (
     <>
       {mode !== "mobile" ? <ExpandeHeader /> : <OverlayHeader />}
-      {/* <Stripes /> */}
       <Outlet />
     </>
   );

@@ -7,22 +7,19 @@ import {
   useMotionTemplate,
   useMotionValueEvent,
 } from "framer-motion";
-
+import useScreenStore, { Mode } from "../../../../stores/useScreenStore";
 import {
-  BOOKSTITLE,
   BOOK_SECTION_HEIGHT,
+  BOOKSTITLE,
   CARD_TOTAL_WIDTH,
   CARD_WRAPPER_GAP,
   CARD_WRAPPER_WIDTH,
   INITIAL_Y_OFFSET,
   LAST_Y_OFFSET,
-} from "../../constants/booksConstants";
-
-import useScreenStore, { Mode } from "../../stores/useScreenStore";
-import { isScrollingBookSection } from "../../utils/calculation";
-import BookBackground from "../atoms/BookBackground";
-
-import BookCard from "../molecules/BookCard";
+} from "../../../../constants/booksConstants";
+import { isScrollingBookSection } from "../../../../utils/calculation";
+import BookBackground from "../../../atoms/BookBackground";
+import BookCard from "../../../molecules/BookCard";
 
 //background 의 setInAcitive 또한 카드의 넓이만큼 이동했을때 변해야한다 .
 // 한 화면에 카드를 두장씩 보여주기 위해선 하나의 카드가 100vw 만큼의 넓이를 가져가면 볼 수 없다.
@@ -43,6 +40,7 @@ export interface BookData {
 
 const SliderSection = () => {
   const containerRef = useRef(null);
+
   const mode = useScreenStore((state) => state.mode);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isFixed, setIsFixed] = useState<boolean>(false);
@@ -86,10 +84,6 @@ const SliderSection = () => {
     setActiveIndex(newIndex);
   });
 
-  useMotionValueEvent(lastTranslateY, "change", (latest) =>
-    console.log("latest", latest)
-  );
-
   const fetchApiHandler = async (query: string) => {
     const BASE_URL =
       import.meta.env.MODE === "development"
@@ -128,7 +122,6 @@ const SliderSection = () => {
         lastTranslateY={lastTranslateY}
         generalY={generalY}
       />
-
       <StickyArea $mode={mode}>
         <CardScroller
           $gap={CARD_WRAPPER_GAP}
@@ -164,8 +157,6 @@ const StickyArea = styled.div<{ $mode: Mode }>`
   position: sticky;
   height: 100vh;
   top: 0;
-  overflow: hidden;
-  z-index: 90;
 `;
 
 const CardScroller = styled(motion.div)<{
@@ -181,6 +172,5 @@ const CardScroller = styled(motion.div)<{
 const SlideContainer = styled.div<{ $width: number }>`
   width: ${({ $width }) => `${$width}vw`};
   min-width: 200px;
-
   margin: auto;
 `;

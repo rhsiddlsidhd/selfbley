@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { motion, MotionValue } from "motion/react";
-import { BookData } from "../organism/SliderSection";
+import { BookData } from "../template/section/SliderSection";
 
 const BookBackground = ({
   data,
@@ -38,7 +38,6 @@ const BookBackground = ({
               left: "50%",
               x: "-50%",
               top: 0,
-              zIndex: 0,
             }}
             initial={false}
             animate={{ opacity: i === activeIndex ? 1 : 0 }}

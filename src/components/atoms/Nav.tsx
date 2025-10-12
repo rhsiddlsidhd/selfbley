@@ -20,7 +20,7 @@ const Nav = ({ onCloseMenu }: { onCloseMenu?: () => void }) => {
         import("../../pages/TheProjects");
         break;
       case "CONTACT":
-        import("../../components/organism/ContactSection");
+        import("../../components/template/section/ContactSection");
         break;
     }
   };
@@ -35,7 +35,6 @@ const Nav = ({ onCloseMenu }: { onCloseMenu?: () => void }) => {
               onClick={() => {
                 if (path === "/skills") {
                   alert("서비스 준비중입니다.");
-                  // navigate(path);
                 } else if (onCloseMenu) {
                   onCloseMenu();
                   setTimeout(() => {

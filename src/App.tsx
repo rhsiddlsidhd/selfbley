@@ -8,7 +8,7 @@ import BookPage from "./pages/BookPage";
 
 import TheSkills from "./pages/TheSkills";
 import TheProjects from "./pages/TheProjects";
-import ContactSection from "./components/organism/ContactSection";
+
 import Main from "./pages/Main";
 
 function App() {
@@ -54,7 +54,8 @@ function App() {
             path="/contact"
             element={
               <PageTransition>
-                <ContactSection />
+                {/* <ContactSection /> */}
+                <div>123</div>
               </PageTransition>
             }
           />

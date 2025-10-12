@@ -2,9 +2,10 @@ import { styled } from "styled-components";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import DefaultCardBody from "../atoms/DefaultCardBody";
 import Thumbnail from "../atoms/Thumbnail";
-import { BookData } from "../organism/SliderSection";
+
 import useBookStore from "../../stores/bookStore";
 import { useNavigate } from "react-router";
+import { BookData } from "../template/section/SliderSection";
 
 const BookCard = ({ book, idx }: { book: BookData; idx: number }) => {
   const { title, description, image, author, publisher } = book;

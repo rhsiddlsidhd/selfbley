@@ -2,8 +2,8 @@ export const CARD_WRAPPER_WIDTH = 100;
 export const CARD_WRAPPER_GAP = 0;
 export const CARD_TOTAL_WIDTH = CARD_WRAPPER_WIDTH + CARD_WRAPPER_GAP;
 export const BOOK_SECTION_HEIGHT = 100;
-export const INITIAL_Y_OFFSET = -50;
-export const LAST_Y_OFFSET = 50;
+export const INITIAL_Y_OFFSET = -100;
+export const LAST_Y_OFFSET = 100;
 
 export const BOOKSTITLE = [
   "우아한 타입스크립트 with 리액트",
