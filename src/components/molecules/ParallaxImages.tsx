@@ -2,7 +2,7 @@ import { motion, MotionValue } from "motion/react";
 
 import { styled } from "styled-components";
 
-import { QUESTIONS } from "../../constants/textConstants";
+const backgroundImages = ["tennis-0", "tennis-1", "tennis-2"];
 
 const ParallaxImages = ({
   activeIndex,
@@ -13,11 +13,7 @@ const ParallaxImages = ({
 }) => {
   return (
     <BackgroundWrapper>
-      {/* <div style={{ height: "100vh" }}>123</div>
-      <div style={{ height: "100vh" }}>123</div>
-      <div>123</div>
-      <div>123</div> */}
-      {QUESTIONS.map(({ id }, i) => {
+      {backgroundImages.map((id, i) => {
         return (
           <BackgroundImage
             key={i}
