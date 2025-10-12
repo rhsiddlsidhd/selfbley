@@ -38,7 +38,6 @@ const BookBackground = ({
               left: "50%",
               x: "-50%",
               top: 0,
-              zIndex: 0,
             }}
             initial={false}
             animate={{ opacity: i === activeIndex ? 1 : 0 }}

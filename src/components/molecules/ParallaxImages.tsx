@@ -36,7 +36,7 @@ export default ParallaxImages;
 const BackgroundWrapper = styled(motion.div)`
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 0;
 `;
 
 const BackgroundImage = styled(motion.img)`

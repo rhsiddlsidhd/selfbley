@@ -40,6 +40,7 @@ export interface BookData {
 
 const SliderSection = () => {
   const containerRef = useRef(null);
+
   const mode = useScreenStore((state) => state.mode);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isFixed, setIsFixed] = useState<boolean>(false);
@@ -156,8 +157,6 @@ const StickyArea = styled.div<{ $mode: Mode }>`
   position: sticky;
   height: 100vh;
   top: 0;
-  overflow: hidden;
-  z-index: 5;
 `;
 
 const CardScroller = styled(motion.div)<{

@@ -1,6 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { useMotionValueEvent, useScroll, useTransform } from "motion/react";
+import {
+  useInView,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import SignSVGContainer from "../../../organism/SignSVGContainer";
 
 import Memo from "../../../atoms/Memo";
@@ -44,6 +49,8 @@ const FAQList: FAQ[] = [
 const ParallaxSection = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const containerRef = useRef<HTMLElement | null>(null);
+  const isInView = useInView(containerRef, { amount: "some" });
+
   const { scrollYProgress: total } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
