@@ -157,6 +157,7 @@ const StickyArea = styled.div<{ $mode: Mode }>`
   position: sticky;
   height: 100vh;
   top: 0;
+  overflow: hidden;
 `;
 
 const CardScroller = styled(motion.div)<{
