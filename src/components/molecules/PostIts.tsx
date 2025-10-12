@@ -1,10 +1,10 @@
-import { MotionValue, motion } from "motion/react";
+import { motion } from "motion/react";
 import { Fragment, useState } from "react";
 import { styled } from "styled-components";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import { QUESTIONS } from "../../constants/textConstants";
 
-const PostIts = ({ blurTranslate }: { blurTranslate: MotionValue<string> }) => {
+const PostIts = () => {
   const mode = useScreenStore((state) => state.mode);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
@@ -14,12 +14,6 @@ const PostIts = ({ blurTranslate }: { blurTranslate: MotionValue<string> }) => {
         const { question, style, answer } = q;
         return (
           <QuestionSection key={i}>
-            <BackgroundBlur
-              style={{
-                x: mode !== "desktop" ? "50%" : "-50%",
-                y: blurTranslate,
-              }}
-            />
             <PostIt
               $mode={mode}
               $top={style.top}
@@ -54,7 +48,6 @@ export default PostIts;
 const QuestionSection = styled(motion.section)`
   height: 100vh;
   position: relative;
-  z-index: 99;
 `;
 
 const PostIt = styled.div<{ $mode: Mode; $top: number; $left: number }>`
@@ -88,16 +81,4 @@ const AnswerTooltip = styled(motion.div)`
   z-index: 100;
   font-size: clamp(0.75rem, 2vw, 1.5rem);
   font-weight: bold;
-`;
-
-const BackgroundBlur = styled(motion.div)`
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: calc(100% / 6 * 2);
-  aspect-ratio: 1 / 1;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  z-index: 10;
 `;

@@ -1,22 +1,22 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, MotionValue } from "motion/react";
 
 import { styled } from "styled-components";
 
-import { useRef } from "react";
 import { QUESTIONS } from "../../constants/textConstants";
 
-const ParallaxImages = ({ activeIndex }: { activeIndex: number }) => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 0.5, 1], ["-50%", "0%", "50%"]);
-
+const ParallaxImages = ({
+  activeIndex,
+  y,
+}: {
+  activeIndex: number;
+  y: MotionValue<string>;
+}) => {
   return (
-    <BackgroundWrapper ref={containerRef}>
+    <BackgroundWrapper>
+      {/* <div style={{ height: "100vh" }}>123</div>
+      <div style={{ height: "100vh" }}>123</div>
+      <div>123</div>
+      <div>123</div> */}
       {QUESTIONS.map(({ id }, i) => {
         return (
           <BackgroundImage
@@ -41,7 +41,6 @@ const BackgroundWrapper = styled(motion.div)`
   position: sticky;
   top: 0;
   z-index: 1;
-  height: 100vh;
 `;
 
 const BackgroundImage = styled(motion.img)`

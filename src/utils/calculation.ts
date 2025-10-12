@@ -32,8 +32,3 @@ export const getScratchHighlightIndex = (
 
   return highlightIndex;
 };
-
-export const getParallaxActiveIndex = (latest: number, dataLength: number) => {
-  const newIndex = Math.min(Math.floor(latest * dataLength), dataLength - 1);
-  return newIndex;
-};

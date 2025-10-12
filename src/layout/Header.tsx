@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <>
       {mode !== "mobile" ? <ExpandeHeader /> : <OverlayHeader />}
-      <Stripes />
+      {/* <Stripes /> */}
       <Outlet />
     </>
   );
