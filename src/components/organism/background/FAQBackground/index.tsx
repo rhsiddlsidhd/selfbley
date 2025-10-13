@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 
 const backgroundImages = ["tennis-0", "tennis-1", "tennis-2"];
 
-const ParallaxImages = ({
+const FAQBackground = ({
   activeIndex,
   y,
 }: {
@@ -31,7 +31,7 @@ const ParallaxImages = ({
   );
 };
 
-export default ParallaxImages;
+export default FAQBackground;
 
 const BackgroundWrapper = styled(motion.div)`
   position: sticky;

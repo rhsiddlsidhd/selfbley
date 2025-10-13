@@ -67,6 +67,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 `;
 
 const ContentWrapper = styled(motion.div)<{ $total: number; $count: number }>`

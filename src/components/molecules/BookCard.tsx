@@ -5,7 +5,7 @@ import Thumbnail from "../atoms/Thumbnail";
 
 import useBookStore from "../../stores/bookStore";
 import { useNavigate } from "react-router";
-import { BookData } from "../template/section/SliderSection";
+import { BookData } from "../template/section/BooksSection";
 
 const BookCard = ({ book, idx }: { book: BookData; idx: number }) => {
   const { title, description, image, author, publisher } = book;

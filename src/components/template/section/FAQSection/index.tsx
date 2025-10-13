@@ -4,7 +4,7 @@ import { useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import SignSVGContainer from "../../../organism/SignSVGContainer";
 
 import Memo from "../../../atoms/Memo";
-import ParallaxImages from "../../../molecules/ParallaxImages";
+import FAQBackground from "../../../organism/background/FAQBackground";
 
 interface FAQ {
   question: string;
@@ -41,7 +41,7 @@ const FAQList: FAQ[] = [
   },
 ];
 
-const ParallaxSection = () => {
+const FAQSection = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const containerRef = useRef<HTMLElement | null>(null);
 
@@ -72,7 +72,7 @@ const ParallaxSection = () => {
         section="parallaxSection"
         $position="absolute"
       />
-      <ParallaxImages activeIndex={activeIndex} y={y} />
+      <FAQBackground activeIndex={activeIndex} y={y} />
 
       {FAQList.map(({ question, answer }, i) => {
         return (
@@ -112,7 +112,7 @@ const ParallaxSection = () => {
   );
 };
 
-export default ParallaxSection;
+export default FAQSection;
 
 const Container = styled.section`
   position: relative;
