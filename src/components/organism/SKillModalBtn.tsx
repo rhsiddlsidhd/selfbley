@@ -28,9 +28,7 @@ const SKillModalBtn = React.memo(
         whileTap={{ scale: 0.95 }}
         onClick={isModal}
       >
-        <PlusIconWrapper>
-          <PlusIcon />
-        </PlusIconWrapper>
+        <PlusIcon />
       </ViewAllBtn>
     );
   }
@@ -47,15 +45,4 @@ const ViewAllBtn = styled(motion.button)`
   right: 0;
   border-radius: 10px 0 0 10px;
   cursor: pointer;
-`;
-
-const PlusIconWrapper = styled.div`
-  width: 50%;
-  aspect-ratio: 1/1;
-  margin: auto;
-  & > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 `;

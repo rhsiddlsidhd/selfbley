@@ -6,8 +6,6 @@ import {
 } from "../constants/skillsConstants";
 import { Mode } from "../stores/useScreenStore";
 
-export const isScrollingBookSection = (n: number) => n > 0 && n < 1;
-
 export const getSkillIconWidth = (mode: Mode) => {
   return mode !== "mobile" ? SKILL_ICON_DEFUALT_WIDTH : SKILL_ICON_MOBILE_WIDTH;
 };
