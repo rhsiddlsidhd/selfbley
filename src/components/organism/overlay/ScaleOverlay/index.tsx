@@ -8,9 +8,14 @@ interface ScaleOverlayProps {
 
 const OverlayItemRow = ({
   scrollYProgress,
-  offset,
-}: ScaleOverlayProps & { offset: number }) => {
-  const scale = useTransform(scrollYProgress, [offset, 0.95], [0, 1]);
+  offsetStart,
+  offsetClose,
+}: ScaleOverlayProps & { offsetStart: number; offsetClose: number }) => {
+  const scale = useTransform(
+    scrollYProgress,
+    [offsetStart, offsetClose],
+    [0, 1]
+  );
   return (
     <Item
       transition={{
@@ -31,7 +36,8 @@ const ScaleOverlay = ({ scrollYProgress }: ScaleOverlayProps) => {
       {Array.from({ length: mode !== "mobile" ? 6 : 4 }, (_, i) => {
         return (
           <OverlayItemRow
-            offset={i * 0.1}
+            offsetStart={i * 0.1}
+            offsetClose={0.4 + i * 0.1}
             scrollYProgress={scrollYProgress}
             key={i}
           />

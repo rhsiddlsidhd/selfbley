@@ -10,6 +10,8 @@ import SliderSection from "../components/template/section/SliderSection";
 import RollerSection from "../components/template/section/RollerSection";
 import ContactSection from "../components/template/section/ContactSection";
 
+import HashTagSection from "../components/template/section/HashTagSection";
+
 export type AnimationProgressTypes =
   | "INITIAL"
   | "SCALE"
@@ -37,7 +39,9 @@ const Main = () => {
         onAnimationComplete={() => setAnimationProgress("SCALE")}
       />
       <HeroSection animationProgress={animationProgress} />
-      <MarqueeSection text="역동성 생동감 공간감" />
+      <HashTagSection />
+
+      {/* <MarqueeSection text="역동성 생동감 공간감" /> */}
       <ParallaxSection />
       <ScratchSection text={scratchText} />
       <SliderSection />
