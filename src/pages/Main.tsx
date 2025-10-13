@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-
 import HeroSection from "../components/template/section/HeroSection";
 import styled from "styled-components";
-
 import ContactSection from "../components/template/section/ContactSection";
-
 import HashTagSection from "../components/template/section/HashTagSection";
 import FAQSection from "../components/template/section/FAQSection";
 import DevPhilosophySection from "../components/template/section/DevPhilosophySection";

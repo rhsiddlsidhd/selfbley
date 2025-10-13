@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import github from "../assets/github.svg";
 
 const Footer = () => {
   return (
@@ -10,7 +9,7 @@ const Footer = () => {
         <Icons>
           <li>
             <a href="https://github.com/rhsiddlsidhd/selfbley" target="_blank">
-              <img src={github} />
+              <img src="/skills/github.svg" />
             </a>
           </li>
           <li>

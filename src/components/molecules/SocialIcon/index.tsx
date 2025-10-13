@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import githubSVG from "../../../assets/github.svg";
-import tistorySVG from "../../../assets/tistory.svg";
+
 import Icon from "../../atoms/Icon";
 
 export type SocialType = "github" | "tistory";
@@ -10,11 +9,6 @@ interface SocialSVGIconProps {
   $size: Size;
   $custom?: string;
 }
-
-const socialIcons = {
-  github: githubSVG,
-  tistory: tistorySVG,
-};
 
 const iconSizes = {
   sm: "1.5rem",
@@ -26,7 +20,7 @@ const iconSizes = {
 const SocialSVGIcon = ({ type, $size, $custom }: SocialSVGIconProps) => {
   return (
     <IconWrapper $size={$size} $custom={$custom}>
-      <Icon source={socialIcons[type]} />
+      <Icon source={`/skills/${type}.svg`} />
     </IconWrapper>
   );
 };

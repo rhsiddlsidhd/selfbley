@@ -2,8 +2,9 @@ import React from "react";
 
 import { styled } from "styled-components";
 import { motion } from "motion/react";
-import plus_icon from "../../assets/plus-icon.svg";
+
 import useScreenStore from "../../stores/useScreenStore";
+import { PlusIcon } from "../atoms/Icon/index";
 
 // ViewAllBtn 의 사이즈가 font 사이즈보다 작을떄는 Icon으로 대체
 const SKillModalBtn = React.memo(
@@ -28,7 +29,7 @@ const SKillModalBtn = React.memo(
         onClick={isModal}
       >
         <PlusIconWrapper>
-          <img src={plus_icon} alt="plus_icon" />
+          <PlusIcon />
         </PlusIconWrapper>
       </ViewAllBtn>
     );
