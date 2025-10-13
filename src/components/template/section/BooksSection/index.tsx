@@ -20,6 +20,7 @@ import {
 import { isScrollingBookSection } from "../../../../utils/calculation";
 import BookBackground from "../../../atoms/BookBackground";
 import BookCard from "../../../molecules/BookCard";
+import Marquee from "../../../molecules/Marquee";
 
 //background 의 setInAcitive 또한 카드의 넓이만큼 이동했을때 변해야한다 .
 // 한 화면에 카드를 두장씩 보여주기 위해선 하나의 카드가 100vw 만큼의 넓이를 가져가면 볼 수 없다.
@@ -38,7 +39,7 @@ export interface BookData {
   title: string;
 }
 
-const SliderSection = () => {
+const BooksSection = () => {
   const containerRef = useRef(null);
 
   const mode = useScreenStore((state) => state.mode);
@@ -136,12 +137,21 @@ const SliderSection = () => {
             );
           })}
         </CardScroller>
+        <Title>
+          <Marquee text="THE BOOKS" reverse />
+        </Title>
       </StickyArea>
     </Container>
   );
 };
 
-export default SliderSection;
+export default BooksSection;
+
+const Title = styled.div`
+  position: sticky;
+  bottom: 0;
+  z-index: -1;
+`;
 
 const Container = styled.section<{
   $totalBooks: number;

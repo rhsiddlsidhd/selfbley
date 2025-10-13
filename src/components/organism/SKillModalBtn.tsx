@@ -39,7 +39,7 @@ export default SKillModalBtn;
 
 const ViewAllBtn = styled(motion.button)`
   width: calc(100% / 6 * 0.25);
-  height: 80%;
+  height: 50%;
   background-color: #ff6a41;
   position: absolute;
   top: 50%;

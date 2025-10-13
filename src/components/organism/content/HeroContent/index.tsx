@@ -5,7 +5,7 @@ import { handleFadeAnimation } from "../../../../utils/validation";
 import { AnimationProgressTypes } from "../../../../pages/Main";
 import { BottomArrowIcon } from "../../../atoms/Icon/index";
 
-const WELCOMEINTRO = "hello World!";
+const WELCOMEINTRO = "Frontend Developer YoungJae";
 
 const HeroContent = ({ isInView }: { isInView: boolean }) => {
   const [animationProgress, setAnimationProgress] =
@@ -20,15 +20,13 @@ const HeroContent = ({ isInView }: { isInView: boolean }) => {
         setAnimationProgress((prev) => (prev === "SCALE" ? "FADE" : prev))
       }
     >
-      {WELCOMEINTRO.toUpperCase()
-        .split(" ")
-        .map((text, i) => {
-          return (
-            <motion.p key={i} variants={contentTextItemReveal}>
-              {text}
-            </motion.p>
-          );
-        })}
+      {WELCOMEINTRO.split(" ").map((text, i) => {
+        return (
+          <motion.p key={i} variants={contentTextItemReveal}>
+            {text}
+          </motion.p>
+        );
+      })}
       {animationProgress === "FADE" && (
         <IconWrapper
           initial={{ y: 10, opacity: 0 }}

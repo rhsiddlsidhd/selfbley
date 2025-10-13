@@ -1,8 +1,7 @@
 import { useRef } from "react";
 import { styled } from "styled-components";
 
-import { logo } from "../../constants/textConstants";
-
+const logo = "portfolio";
 const FooterLogo = () => {
   const textureRef = useRef<HTMLParagraphElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);

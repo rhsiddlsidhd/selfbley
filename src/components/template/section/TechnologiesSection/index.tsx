@@ -2,8 +2,11 @@ import { useMotionValueEvent, useScroll } from "motion/react";
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import SkillContent from "../../../organism/SkillContent";
+import Marquee from "../../../molecules/Marquee";
 
-const RollerSection: React.FC = () => {
+const title = "the technologies";
+
+const TechnologiesSection: React.FC = () => {
   const [isSticky, setIsSticky] = useState<boolean>(false);
 
   const containerRef = useRef(null);
@@ -27,21 +30,34 @@ const RollerSection: React.FC = () => {
 
   return (
     <Container ref={containerRef}>
-      <StickySection style={{ position: "sticky", top: 0 }}>
+      <StickySection>
+        <MarqueeContainer>
+          <Marquee text={title.toUpperCase()} />
+        </MarqueeContainer>
         <SkillContent isSticky={isSticky} />
       </StickySection>
     </Container>
   );
 };
 
-export default RollerSection;
+export default TechnologiesSection;
+const MarqueeContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+`;
 
 const Container = styled.section`
   position: relative;
   height: 150vh;
+  background-color: black;
 `;
 
 const StickySection = styled.div`
+  position: sticky;
+  top: 0;
   height: 100vh;
   overflow: hidden;
+  z-index: 5;
 `;

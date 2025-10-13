@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-import { contactScratchText, scratchText } from "../constants/scratchConstants";
+
 import HeroSection from "../components/template/section/HeroSection";
 import styled from "styled-components";
-import MarqueeSection from "../components/template/section/MarqueeSection";
-import ParallaxSection from "../components/template/section/ParallaxSection";
-import ScratchSection from "../components/template/section/ScratchSection";
-import SliderSection from "../components/template/section/SliderSection";
-import RollerSection from "../components/template/section/RollerSection";
+
 import ContactSection from "../components/template/section/ContactSection";
+
+import HashTagSection from "../components/template/section/HashTagSection";
+import FAQSection from "../components/template/section/FAQSection";
+import DevPhilosophySection from "../components/template/section/DevPhilosophySection";
+import TechnologiesSection from "../components/template/section/TechnologiesSection";
+import BooksSection from "../components/template/section/BooksSection";
 
 export type AnimationProgressTypes =
   | "INITIAL"
@@ -37,18 +39,11 @@ const Main = () => {
         onAnimationComplete={() => setAnimationProgress("SCALE")}
       />
       <HeroSection animationProgress={animationProgress} />
-      <MarqueeSection text="역동성 생동감 공간감" />
-      <ParallaxSection />
-      <ScratchSection text={scratchText} />
-      <SliderSection />
-      <MarqueeSection text="가독성 재사용성 유지보수성" deg={5} />
-      <RollerSection />
-      <ScratchSection
-        text={contactScratchText}
-        bgColor="black"
-        activeColor="#FFFFFF"
-        inActiveColor="black"
-      />
+      <HashTagSection />
+      <FAQSection />
+      <DevPhilosophySection />
+      <TechnologiesSection />
+      <BooksSection />
       <ContactSection />
     </motion.div>
   );

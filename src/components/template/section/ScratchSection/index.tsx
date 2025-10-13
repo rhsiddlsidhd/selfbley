@@ -14,7 +14,6 @@ const ScratchSection = ({
   text,
   bgColor = "#ff6a41",
   activeColor = "#faf7f7f8",
-  // inActiveColor = "#ff8c6c",
   inActiveColor = "#ff6a41",
 }: ScratchSectionProps) => {
   const containerRef = useRef<HTMLElement>(null);

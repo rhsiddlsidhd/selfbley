@@ -11,16 +11,16 @@ const Marquee = ({ deg = 0, reverse = false, text }: MarqueeTextProps) => {
   const marqueeAnimation = {
     x: reverse ? [0, "50%"] : [0, "-50%"],
     transition: {
-      duration: 10,
+      duration: 25,
       ease: "linear",
       repeat: Infinity,
     },
   };
-
+  //
   return (
     <MarqueeContainer $deg={deg} $reverse={reverse}>
       <MarqueeTrack animate={marqueeAnimation} transition={{ ease: "linear" }}>
-        {Array.from({ length: 2 }, (_, i) => {
+        {Array.from({ length: 4 }, (_, i) => {
           return (
             <Text key={i}>
               {[...text].map((word, i) => {

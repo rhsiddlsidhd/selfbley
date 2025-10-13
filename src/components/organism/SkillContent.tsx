@@ -37,9 +37,9 @@ const SkillContent = ({ isSticky }: SkillContentProps) => {
       <AnimatePresence>
         {isSticky && (
           <ContentWrapper
-            initial={{ scale: 0 }}
+            initial={{ opacity: 0 }}
             animate={{
-              scale: 1,
+              opacity: 1,
             }}
             exit={{ opacity: 0 }}
             $total={VERTICAL_TOTAL_LINE}
@@ -67,6 +67,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 `;
 
 const ContentWrapper = styled(motion.div)<{ $total: number; $count: number }>`
