@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import useScreenStore, { Mode } from "../../../../stores/useScreenStore";
 
-import BookCard from "../../../molecules/BookCard";
 import Marquee from "../../../molecules/Marquee";
 
 import useBookData from "../../../../hooks/useBookData";
 import BookBackground from "../../../organism/background/BookBackground";
+import BookCard from "../../../organism/card/BookCard";
 
 //background 의 setInAcitive 또한 카드의 넓이만큼 이동했을때 변해야한다 .
 // 한 화면에 카드를 두장씩 보여주기 위해선 하나의 카드가 100vw 만큼의 넓이를 가져가면 볼 수 없다.
