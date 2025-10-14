@@ -7,8 +7,8 @@ import useBookStore from "../../stores/bookStore";
 import { BookReview } from "./type";
 import { bookReviews } from "./constant";
 import Link from "../../components/atoms/Link";
-import SocialSVGIcon from "../../components/molecules/SocialIcon";
 import LoadingContainer from "../../components/organism/LoadingContainer";
+import Image from "../../components/atoms/Image";
 
 const BookPage = () => {
   const [viewData, setViewData] = useState<BookReview | null>(null);
@@ -75,8 +75,9 @@ const BookPage = () => {
               <Link
                 href={viewData.tistory}
                 $isDisabled={viewData.tistory === "#"}
+                $width="2rem"
               >
-                <SocialSVGIcon type="tistory" $size="md" />
+                <Image src="/skills/tistory.svg" alt="티스토리" />
               </Link>
             </SectionTitle>
             <BooksGrid>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import useScreenStore, { Mode } from "../../../../stores/useScreenStore";
 
-import Marquee from "../../../molecules/Marquee";
+import Marquee from "../../../molecules/Marquee/index";
 
 import useBookData from "../../../../hooks/useBookData";
 import BookBackground from "../../../organism/background/BookBackground";
@@ -64,7 +64,7 @@ const BooksSection = () => {
           {bookData.map((book, idx) => {
             return (
               <SlideContainer key={idx} $width={CARD_WRAPPER_WIDTH}>
-                <BookCard book={book} idx={idx} />
+                <BookCard book={book} />
               </SlideContainer>
             );
           })}

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Marquee from "../../../molecules/Marquee";
+import Marquee from "../../../molecules/Marquee/index";
 
 const hashTags = "#주니어 #개발자 #프론트엔드 ";
 const hashTagsMind = "#긍정 #성장 #도전 #끈기 #열정 #책임감";

@@ -5,8 +5,8 @@ import { ProjectData } from "../../pages/TheProjects";
 import Badges from "../molecules/Badges";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import { AnimationProgressTypes } from "../../pages/Main";
-import SocialSVGIcon from "../molecules/SocialIcon";
 import Link from "../atoms/Link";
+import Image from "../atoms/Image";
 
 const Project = ({
   data,
@@ -45,12 +45,13 @@ const Project = ({
           {socialLinks.map(({ name, href }) => {
             const isDisabled = href === "#";
             return (
-              <Link href={href} key={name} $isDisabled={isDisabled}>
-                <SocialSVGIcon
-                  $size="custom"
-                  $custom="clamp(2rem, 2.5vw, 5rem)"
-                  type={name}
-                />
+              <Link
+                href={href}
+                key={name}
+                $isDisabled={isDisabled}
+                $width="clamp(2rem, 2.5vw, 5rem)"
+              >
+                <Image src={`skills/${name}.svg`} alt={name} />
               </Link>
             );
           })}

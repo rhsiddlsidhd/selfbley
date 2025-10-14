@@ -63,7 +63,7 @@ const P = styled.p<Omit<TextProps, "children">>`
       -webkit-line-clamp: ${$clamp};
       overflow: hidden;
     `}
-  font-size:${({ $fontSize }) => FONT_SIZE_MAP[$fontSize ?? "md"]};
+  font-size: ${({ $fontSize }) => FONT_SIZE_MAP[$fontSize ?? "md"]};
   font-weight: ${({ $fontWeight }) => FONT_WEIGHT_MAP[$fontWeight ?? "normal"]};
   opacity: ${({ $opacity }) => $opacity ?? 1};
 `;

@@ -1,13 +1,27 @@
-import { useMotionValueEvent, useScroll } from "motion/react";
-import React, { useRef, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "motion/react";
+import React, { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
-import SkillContent from "../../../organism/SkillContent";
-import Marquee from "../../../molecules/Marquee";
+import Marquee from "../../../molecules/Marquee/index";
+import {
+  VERTICAL_COUNT_2,
+  VERTICAL_TOTAL_LINE,
+} from "../../../../constants/skillsConstants";
+import TechnologiesContent from "../../../organism/content/TechnologiesContent";
+import SKillModalBtn from "../../../organism/SKillModalBtn";
+import SkillModal from "../../../organism/SkillModal";
 
 const title = "the technologies";
 
 const TechnologiesSection: React.FC = () => {
   const [isSticky, setIsSticky] = useState<boolean>(false);
+  const [isModal, setIsModal] = useState<boolean>(false);
+
+  const isToggleModal = useCallback(() => setIsModal((prev) => !prev), []);
 
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -34,7 +48,24 @@ const TechnologiesSection: React.FC = () => {
         <MarqueeContainer>
           <Marquee text={title.toUpperCase()} />
         </MarqueeContainer>
-        <SkillContent isSticky={isSticky} />
+
+        <AnimatePresence>
+          {isSticky && (
+            <ContentWrapper
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{ opacity: 0 }}
+              $total={VERTICAL_TOTAL_LINE}
+              $count={VERTICAL_COUNT_2}
+            >
+              <TechnologiesContent />
+            </ContentWrapper>
+          )}
+        </AnimatePresence>
+        <SKillModalBtn isSticky={isSticky} isModal={isToggleModal} />
+        <SkillModal isModal={isModal} />
       </StickySection>
     </Container>
   );
@@ -55,9 +86,19 @@ const Container = styled.section`
 `;
 
 const StickySection = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: sticky;
   top: 0;
   height: 100vh;
   overflow: hidden;
   z-index: 5;
+`;
+
+const ContentWrapper = styled(motion.div)<{ $total: number; $count: number }>`
+  overflow: hidden;
+  width: ${({ $count, $total }) => `calc(100% / ${$total} * ${$count})`};
+  height: 50vh;
+  overflow: hidden;
 `;

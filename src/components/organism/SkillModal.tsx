@@ -2,7 +2,6 @@ import { motion } from "motion/react";
 import { useMemo } from "react";
 import styled from "styled-components";
 import {
-  technology,
   VERTICAL_COUNT_2,
   VERTICAL_COUNT_4,
   VERTICAL_TOTAL_LINE,
@@ -10,12 +9,13 @@ import {
 import { BadgeTypes } from "../atoms/Badge";
 import Badges from "../molecules/Badges";
 import useScreenStore from "../../stores/useScreenStore";
+import { technologys } from "./content/TechnologiesContent/constant";
 
 const SkillModal = ({ isModal }: { isModal: boolean }) => {
   const mode = useScreenStore((state) => state.mode);
   const data = useMemo(
     () =>
-      Object.entries(technology).map(([category, techs]) => ({
+      Object.entries(technologys).map(([category, techs]) => ({
         category: category as BadgeTypes,
         techList: techs.map((tech) => tech),
       })),

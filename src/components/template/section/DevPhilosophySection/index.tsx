@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Marquee from "../../../molecules/Marquee";
+import Marquee from "../../../molecules/Marquee/index";
 import Scratch from "../../../molecules/Scratch";
 import { useRef } from "react";
 import { useScroll } from "motion/react";

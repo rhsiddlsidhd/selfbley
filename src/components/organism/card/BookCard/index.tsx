@@ -7,20 +7,25 @@ import useBookStore from "../../../../stores/bookStore";
 import Thumbnail from "../../../molecules/Thumbnail";
 import Image from "../../../atoms/Image";
 import Text from "../../../atoms/Text";
+import React, { useCallback } from "react";
 
-const BookCard = ({ book, idx }: { book: BookData; idx: number }) => {
+const BookCard = React.memo(({ book }: { book: BookData }) => {
   const { title, description, image, author, publisher } = book;
   const navigate = useNavigate();
   const mode = useScreenStore((state) => state.mode);
   const addBook = useBookStore((state) => state.addBook);
-  const handleClick = (book: BookData) => {
-    addBook(book);
-    navigate(`/book?q=${book.isbn}`);
-  };
+  const handleClick = useCallback(
+    (book: BookData) => {
+      addBook(book);
+      navigate(`/book?q=${book.isbn}`);
+    },
+    [addBook, navigate]
+  );
+
   return (
     <BookCardContainer $mode={mode} onClick={() => handleClick(book)}>
       <Thumbnail $height={60}>
-        <Image src={image} alt={`book-${idx}`} />
+        <Image src={image} alt={title} />
       </Thumbnail>
 
       <Description>
@@ -43,7 +48,7 @@ const BookCard = ({ book, idx }: { book: BookData; idx: number }) => {
       </Description>
     </BookCardContainer>
   );
-};
+});
 
 export default BookCard;
 

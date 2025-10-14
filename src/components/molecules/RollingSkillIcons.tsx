@@ -2,7 +2,6 @@ import { memo } from "react";
 
 import styled from "styled-components";
 import { AnimatePresence, motion } from "motion/react";
-import { technology, TechnologyKey } from "../../constants/skillsConstants";
 
 import useScreenStore from "../../stores/useScreenStore";
 import {
@@ -10,9 +9,13 @@ import {
   getSkillIconWidth,
   getSkillIconsGap,
 } from "../../utils/calculation";
+import {
+  TechnologyKeys,
+  technologys,
+} from "../organism/content/TechnologiesContent/constant";
 
 const RollingSkillIcons = memo(
-  ({ isHover }: { isHover: TechnologyKey | null }) => {
+  ({ isHover }: { isHover: TechnologyKeys | null }) => {
     /**
      * 해당 컴포넌트는 isHover 시에만 리렌더 되고 이외에는 리렌더 되지 않도록 memo
      */
@@ -32,9 +35,9 @@ const RollingSkillIcons = memo(
 
     return (
       <AnimatePresence>
-        {Object.keys(technology).map((key) => {
-          const techKey = key as TechnologyKey;
-          const techs = technology[techKey];
+        {Object.keys(technologys).map((key) => {
+          const techKey = key as TechnologyKeys;
+          const techs = technologys[techKey];
           const ICONS_TOTAL_WIDTH = getSKillIconsWidth(
             ICON_WIDTH,
             ICONS_GAP,

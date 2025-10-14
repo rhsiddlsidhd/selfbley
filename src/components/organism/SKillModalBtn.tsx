@@ -8,14 +8,7 @@ import { PlusIcon } from "../atoms/Icon/index";
 
 // ViewAllBtn 의 사이즈가 font 사이즈보다 작을떄는 Icon으로 대체
 const SKillModalBtn = React.memo(
-  ({
-    isSticky,
-    isModal,
-  }: {
-    isSticky: boolean;
-    isModal: () => void;
-    text: string;
-  }) => {
+  ({ isSticky, isModal }: { isSticky: boolean; isModal: () => void }) => {
     const mode = useScreenStore((state) => state.mode);
     return (
       <ViewAllBtn
