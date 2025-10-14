@@ -4,7 +4,7 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "motion/react";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import Marquee from "../../../molecules/Marquee/index";
 import {
@@ -12,16 +12,15 @@ import {
   VERTICAL_TOTAL_LINE,
 } from "../../../../constants/skillsConstants";
 import TechnologiesContent from "../../../organism/content/TechnologiesContent";
-import SKillModalBtn from "../../../organism/SKillModalBtn";
-import SkillModal from "../../../organism/SkillModal";
+import { PlusIcon } from "../../../atoms/Icon";
+import Button from "../../../atoms/Button";
+import { useModalStore } from "../../../../stores/modalStore";
 
 const title = "the technologies";
 
 const TechnologiesSection: React.FC = () => {
   const [isSticky, setIsSticky] = useState<boolean>(false);
-  const [isModal, setIsModal] = useState<boolean>(false);
-
-  const isToggleModal = useCallback(() => setIsModal((prev) => !prev), []);
+  const setIsOpen = useModalStore((state) => state.setIsOpen);
 
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -64,8 +63,28 @@ const TechnologiesSection: React.FC = () => {
             </ContentWrapper>
           )}
         </AnimatePresence>
-        <SKillModalBtn isSticky={isSticky} isModal={isToggleModal} />
-        <SkillModal isModal={isModal} />
+        {isSticky && (
+          <motion.div
+            style={{
+              position: "absolute",
+              right: "0",
+              width: `calc(100% / 6 * 0.25)`,
+              height: "50%",
+            }}
+            initial={{ x: "50%", opacity: 0 }}
+            animate={{ opacity: 1 }}
+            whileHover={{ x: 0 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button
+              $width={0.25}
+              $height={50}
+              onClick={() => setIsOpen(true, "technologys")}
+            >
+              <PlusIcon />
+            </Button>
+          </motion.div>
+        )}
       </StickySection>
     </Container>
   );
@@ -86,11 +105,12 @@ const Container = styled.section`
 `;
 
 const StickySection = styled.div`
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: sticky;
-  top: 0;
+
   height: 100vh;
   overflow: hidden;
   z-index: 5;

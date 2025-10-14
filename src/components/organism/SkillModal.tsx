@@ -11,7 +11,7 @@ import Badges from "../molecules/Badges";
 import useScreenStore from "../../stores/useScreenStore";
 import { technologys } from "./content/TechnologiesContent/constant";
 
-const SkillModal = ({ isModal }: { isModal: boolean }) => {
+const SkillModal = () => {
   const mode = useScreenStore((state) => state.mode);
   const data = useMemo(
     () =>
@@ -24,7 +24,6 @@ const SkillModal = ({ isModal }: { isModal: boolean }) => {
 
   return (
     <Container
-      animate={{ y: isModal ? "-50%" : "150%" }}
       $total={VERTICAL_TOTAL_LINE}
       $count={mode === "mobile" ? VERTICAL_COUNT_4 : VERTICAL_COUNT_2}
     >
@@ -49,6 +48,8 @@ const Container = styled(motion.div)<{ $total: number; $count: number }>`
   border-radius: 10px;
   position: absolute;
   top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   overflow: auto;
