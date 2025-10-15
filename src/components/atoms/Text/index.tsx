@@ -1,35 +1,12 @@
 import React from "react";
 import styled, { css } from "styled-components";
-
-// clamp 여부
-// fontSize
-// fontWeight
-// opacity
-
-type FontSize = "xs" | "sm" | "md" | "lg" | "xl";
-type FontWeight = "light" | "normal" | "medium" | "semibold" | "bold";
-
-const FONT_SIZE_MAP: Record<FontSize, string> = {
-  xs: "0.7rem",
-  sm: "0.85rem",
-  md: "1rem",
-  lg: "1.125rem",
-  xl: "1.25rem",
-};
-
-const FONT_WEIGHT_MAP: Record<FontWeight, number> = {
-  light: 300,
-  normal: 400,
-  medium: 500,
-  semibold: 600,
-  bold: 700,
-};
+import { FONT_SIZE_KEY, FONT_WEIGHT_KEY } from "../../../types/style";
 
 interface TextProps {
   children: React.ReactNode;
   $clamp?: number;
-  $fontSize?: FontSize;
-  $fontWeight?: FontWeight;
+  $fontSize?: FONT_SIZE_KEY;
+  $fontWeight?: FONT_WEIGHT_KEY;
   $opacity?: number;
 }
 
@@ -63,7 +40,8 @@ const P = styled.p<Omit<TextProps, "children">>`
       -webkit-line-clamp: ${$clamp};
       overflow: hidden;
     `}
-  font-size: ${({ $fontSize }) => FONT_SIZE_MAP[$fontSize ?? "md"]};
-  font-weight: ${({ $fontWeight }) => FONT_WEIGHT_MAP[$fontWeight ?? "normal"]};
+  font-size: ${({ $fontSize, theme }) => theme.FONT_SIZE[$fontSize ?? "md"]};
+  font-weight: ${({ $fontWeight, theme }) =>
+    theme.FONT_WEIGHT[$fontWeight ?? "normal"]};
   opacity: ${({ $opacity }) => $opacity ?? 1};
 `;

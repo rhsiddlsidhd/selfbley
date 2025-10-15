@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Nav from "../atoms/Nav";
-import Logo from "../atoms/Logo";
+import Logo from "../organism/Logo";
 
 const ExpandeHeader = () => {
   return (

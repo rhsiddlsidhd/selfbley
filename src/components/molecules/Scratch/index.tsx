@@ -5,14 +5,15 @@ import { useMotionValueEvent, useTransform } from "motion/react";
 import useScreenStore, { Mode } from "../../../stores/useScreenStore";
 
 const getScratchActiveIndex = (latest: number, textLength: number) => {
-  const highlightIndex = Math.floor((Math.round(latest) / 100) * textLength);
+  const activeIndex = Math.floor((Math.round(latest) / 100) * textLength);
 
-  return highlightIndex;
+  return activeIndex;
 };
 
 const ScratchChar = ({ char, color }: { char: string; color: string }) => {
   return <span style={{ color }}>{char === " " ? "\u00A0" : char}</span>;
 };
+
 const Scratch = ({
   text,
   scrollYProgress,
@@ -61,7 +62,7 @@ const CharList = styled.div<{ $mode: Mode }>`
   word-wrap: break-word;
 
   & > span {
-    font-size: clamp(2rem, 5.12vw, 6.4rem);
+    font-size: ${({ theme }) => theme.FONT_SIZE.clamp3};
     font-weight: bold;
   }
 `;

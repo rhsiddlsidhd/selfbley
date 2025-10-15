@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styled, { css, keyframes } from "styled-components";
-import Logo from "../atoms/Logo";
+
 import Nav from "../atoms/Nav";
+import Logo from "../organism/Logo";
 
 const OverlayHeader = () => {
   const [isView, setIsView] = useState<boolean>(false);

@@ -26,7 +26,7 @@ const Btn = styled(motion.button)<
   width: 100%;
   height: 100%;
   background-color: ${({ $backgroundColor, theme }) =>
-    $backgroundColor ?? theme.colors.orange};
+    $backgroundColor ?? theme.COLORS.orange};
   border-radius: 10px;
   cursor: pointer;
 `;

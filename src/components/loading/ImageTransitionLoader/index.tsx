@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
 import { weatherImgs } from "../../../constants/imgs";
 import styled from "styled-components";
+import useDisableScroll from "../../../hooks/useDisableScroll";
 
 const ImageTransitionLoader = () => {
+  useDisableScroll();
   const [activeIndex, setActiveIndex] = useState<number>(0);
-
-  useEffect(() => {
-    window.document.body.style.overflow = "hidden";
-    return () => {
-      window.document.body.style.removeProperty("overflow");
-    };
-  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {

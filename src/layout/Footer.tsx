@@ -45,11 +45,9 @@ const Content = styled.section`
   flex-wrap: wrap;
   & > address,
   ul {
+    ${({ theme }) => theme.FLEX_CENTER}
     padding: 0.5rem;
     flex: 1 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     gap: 0.5rem;
   }
 `;

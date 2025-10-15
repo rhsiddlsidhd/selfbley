@@ -88,7 +88,7 @@ const Underline = styled(motion.div)`
   width: 100%;
 `;
 const Item = styled(motion.li)`
-  ${({ theme }) => theme.flexCenter}
+  ${({ theme }) => theme.FLEX_CENTER}
   flex: 3 0 calc(100% / 3);
 `;
 
@@ -96,6 +96,7 @@ const Roller = styled(motion.ul)`
   height: 100%;
   display: flex;
   flex-direction: column;
+
   list-style: none;
   z-index: 99;
   &:hover {

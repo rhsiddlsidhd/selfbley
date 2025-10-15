@@ -1,9 +1,7 @@
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router";
-
-import useScreenStore, { Mode } from "../../stores/useScreenStore";
-
-import { LOGO_PATH } from "../../constants/routes/index";
+import useScreenStore, { Mode } from "../../../stores/useScreenStore";
+import { LOGO_PATH } from "../../../constants/routes";
 
 interface LogoProps {
   styles?: string;
@@ -18,7 +16,6 @@ const Logo = ({ styles = "", onCloseMenu }: LogoProps) => {
     <Container
       $mode={mode}
       $styles={styles}
-      onMouseEnter={() => import("../../pages/Main")}
       onClick={() => {
         if (onCloseMenu) {
           onCloseMenu();
@@ -40,7 +37,7 @@ export default Logo;
 
 const Container = styled.a<{ $mode: Mode; $styles: string }>`
   font-size: ${({ $mode, theme }) =>
-    $mode !== "mobile" ? theme.fontSize.m : theme.fontSize.h4};
+    $mode !== "mobile" ? theme.FONT_SIZE.md : theme.FONT_SIZE.clamp4};
   cursor: pointer;
   ${({ $styles }) =>
     css`
@@ -51,7 +48,7 @@ const Container = styled.a<{ $mode: Mode; $styles: string }>`
 
 const Overlay = styled.div<{ $mode: Mode }>`
   font-size: ${({ $mode, theme }) =>
-    $mode !== "mobile" ? theme.fontSize.l : theme.fontSize.h3};
+    $mode !== "mobile" ? theme.FONT_SIZE.xl : theme.FONT_SIZE.clamp3};
   &::before {
     content: "PORTFOLIO";
     position: absolute;

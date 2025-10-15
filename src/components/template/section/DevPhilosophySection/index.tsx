@@ -35,7 +35,7 @@ export default DevPhilosophySection;
 
 const Container = styled.section`
   position: relative;
-  background-color: black;
+  background-color: ${({ theme }) => theme.COLORS.black};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,7 +46,5 @@ const Container = styled.section`
 const ScratchContainer = styled.div`
   height: 100%;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${({ theme }) => theme.FLEX_CENTER}
 `;

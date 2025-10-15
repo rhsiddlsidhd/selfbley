@@ -24,7 +24,7 @@ const Container = styled(motion.section)`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.COLORS.black};
   height: 100vh;
 `;
 

@@ -64,15 +64,15 @@ const BookCardContainer = styled.div<{ $mode: Mode }>`
   max-width: 575px;
   aspect-ratio: 3/4;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  background-color: white;
-  color: black;
+  background-color: ${({ theme }) => theme.COLORS.white};
+  color: ${({ theme }) => theme.COLORS.black};
   cursor: pointer;
   margin: auto;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.orange};
+    background-color: ${({ theme }) => theme.COLORS.orange};
     p {
-      color: ${({ theme }) => theme.colors.white};
+      color: ${({ theme }) => theme.COLORS.white};
     }
   }
 `;

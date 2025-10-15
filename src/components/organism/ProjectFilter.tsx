@@ -76,7 +76,8 @@ const FilterTab = styled.div<{ $isSelected: boolean }>`
   flex: 1;
   position: ${({ $isSelected }) => ($isSelected ? "relative" : "static")};
   cursor: pointer;
-  font-size: clamp(0.75rem, 2vw, 2rem);
+  /* font-size: clamp(0.75rem, 2vw, 2rem); */
+  font-size: ${({ theme }) => theme.FONT_SIZE.clamp6};
 
   & > a {
     display: flex;
@@ -91,6 +92,6 @@ const FilterTab = styled.div<{ $isSelected: boolean }>`
     width: 100%;
     height: 100%;
     z-index: -1;
-    background-color: ${({ theme }) => theme.colors.pink};
+    background-color: ${({ theme }) => theme.COLORS.pink};
   }
 `;

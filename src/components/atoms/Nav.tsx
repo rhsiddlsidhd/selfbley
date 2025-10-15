@@ -58,7 +58,7 @@ export default Nav;
 
 const NavItems = styled.a<{ $mode: Mode }>`
   font-size: ${(props) =>
-    props.$mode !== "mobile" ? props.theme.fontSize.m : "10vw"};
+    props.$mode !== "mobile" ? props.theme.FONT_SIZE.md : "10vw"};
 
   padding-left: ${({ $mode }) => ($mode !== "mobile" ? "1rem" : 0)};
   & > p {

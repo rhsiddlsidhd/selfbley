@@ -77,16 +77,13 @@ const MarqueeContainer = styled.div`
 const Container = styled.section`
   position: relative;
   height: 150vh;
-  background-color: black;
+  background-color: ${({ theme }) => theme.COLORS.black};
 `;
 
 const StickySection = styled.div`
+  ${({ theme }) => theme.FLEX_CENTER}
   position: sticky;
   top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   height: 100vh;
   overflow: hidden;
   z-index: 5;

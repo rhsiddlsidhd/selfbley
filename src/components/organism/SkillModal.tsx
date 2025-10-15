@@ -37,7 +37,7 @@ const Container = styled(motion.div)<{ $mode: Mode }>`
   ${({ theme, $mode }) =>
     $mode !== "mobile" ? theme.responseWidth(2) : theme.responseWidth(4)}
   min-height: 50vh;
-  background-color: #ffd34f;
+  background-color: ${({ theme }) => theme.COLORS.yellow};
   border-radius: 10px;
   position: absolute;
   top: 50%;
