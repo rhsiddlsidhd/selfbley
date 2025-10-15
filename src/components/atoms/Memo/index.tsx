@@ -55,13 +55,13 @@ const Memo = ({
 export default Memo;
 
 const MemoBox = styled(motion.div)<Props>`
+  ${({ theme, $mode }) =>
+    $mode !== "desktop" ? theme.responseWidth(4) : theme.responseWidth(2)}
   position: absolute;
   display: flex;
   top: ${({ $top }) => `${$top}%`};
   left: ${({ $mode, $left }) =>
     $mode !== "desktop" ? `calc(100% / 6 * 1)` : `calc(100% / 6 * ${$left})`};
-  width: ${({ $mode }) =>
-    $mode !== "desktop" ? `calc(100% / 6 * 4)` : `calc(100% / 6 * 2)`};
   word-break: keep-all;
   font-weight: bold;
   font-size: clamp(0.75rem, 2vw, 3rem);

@@ -5,7 +5,6 @@ import styled from "styled-components";
 import RollingSkillIcons from "../../../molecules/RollingSkillIcons";
 import { TechnologyKeys, technologys } from "./constant";
 import useSlot from "../../../../hooks/useSlot";
-
 const TechnologiesContent = () => {
   const category = Object.keys(technologys) as TechnologyKeys[];
   const marqueeSkillsKeys: TechnologyKeys[] = [...category, ...category];
@@ -19,7 +18,13 @@ const TechnologiesContent = () => {
   } = useSlot();
 
   return (
-    <>
+    <ContentWrapper
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: 1,
+      }}
+      exit={{ opacity: 0 }}
+    >
       <Roller
         transition={
           isTransitioning
@@ -63,11 +68,18 @@ const TechnologiesContent = () => {
         })}
       </Roller>
       <RollingSkillIcons isHover={isHover} />
-    </>
+    </ContentWrapper>
   );
 };
 
 export default TechnologiesContent;
+
+const ContentWrapper = styled(motion.div)`
+  ${({ theme }) => theme.responseWidth(2)}
+  overflow: hidden;
+  height: 50vh;
+`;
+
 const Underline = styled(motion.div)`
   position: absolute;
   bottom: -0.5rem;
@@ -76,10 +88,8 @@ const Underline = styled(motion.div)`
   width: 100%;
 `;
 const Item = styled(motion.li)`
+  ${({ theme }) => theme.flexCenter}
   flex: 3 0 calc(100% / 3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const Roller = styled(motion.ul)`

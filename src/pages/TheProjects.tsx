@@ -8,7 +8,6 @@ import { getProjectApi } from "../api/projectApi";
 import ProjectAside from "../components/organism/ProjectAside";
 import ProjectFilter from "../components/organism/ProjectFilter";
 import { AnimationProgressTypes } from "./Main";
-import { SocialType } from "../components/molecules/SocialIcon";
 
 export type FilterType = "ALL" | "TEAM" | "SINGLE";
 
@@ -16,7 +15,7 @@ export interface ProjectData {
   mode: Exclude<BadgeTypes, "frontend" | "backend" | "etc">;
   title: string;
   overView: string;
-  socialLinks: { name: SocialType; icon: string; href: string }[];
+  socialLinks: { name: string; icon: string; href: string }[];
   thumbnail: string;
   technologies: Partial<
     Record<Exclude<BadgeTypes, "SINGLE" | "TEAM">, string[]>
@@ -101,10 +100,10 @@ const Container = styled.div`
 const ProjectWrapper = styled.div<{ $mode: Mode }>`
   //mobile
   width: 100%;
-  ${({ $mode }) =>
+  ${({ $mode, theme }) =>
     $mode === "mobile" &&
     css`
-      width: calc(100% * 2 / 3);
+      ${theme.responseWidth(3)}
       display: flex;
       align-items: center;
       flex-direction: column;

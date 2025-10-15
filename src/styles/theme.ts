@@ -2,11 +2,14 @@ import { css, DefaultTheme } from "styled-components";
 
 export const colors = {
   black: "#010101",
-  deepGray: "#434241",
+  deepGray: "#6e6d6d",
   lightGray: "#bababa",
   lightCyan: "#98E9F4",
   white: "#f8f8f8",
   mint: "#8CBEC9",
+  orange: "#ff6a41",
+  pink: "#f50585",
+  yellow: "#ffd34f",
 } as const;
 
 export const fontSize = {
@@ -23,9 +26,10 @@ export const fontSize = {
   h6: "clamp(0.98rem, 2.62vw, 3.28rem)",
 } as const;
 
-const width = {
-  max: "1024px",
-};
+const responseWidth = (n: number) =>
+  css`
+    width: calc(100% / 6 * ${n});
+  `;
 
 const flexCenter = css`
   display: flex;
@@ -37,7 +41,7 @@ const theme: DefaultTheme = {
   colors,
   fontSize,
   flexCenter,
-  width,
+  responseWidth,
 };
 
 export default theme;

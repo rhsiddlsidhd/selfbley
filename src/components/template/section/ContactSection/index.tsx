@@ -6,7 +6,7 @@ import FooterLogo from "../../../organism/FooterLogo";
 const ContactSection: React.FC = () => {
   return (
     <Container>
-      <h1 style={{ margin: "6rem 0", position: "relative", zIndex: 90 }}>
+      <h1 style={{ margin: "6rem 0", position: "relative" }}>
         <PaintBackground src="/paint/paint1.svg" />
         Contact Us
       </h1>
@@ -24,7 +24,7 @@ const Container = styled(motion.section)`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: "#000000";
+  background-color: ${({ theme }) => theme.colors.black};
   height: 100vh;
 `;
 

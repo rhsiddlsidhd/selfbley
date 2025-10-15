@@ -53,9 +53,14 @@ const BookCard = React.memo(({ book }: { book: BookData }) => {
 export default BookCard;
 
 const BookCardContainer = styled.div<{ $mode: Mode }>`
+  ${({ theme, $mode }) =>
+    $mode === "mobile"
+      ? theme.responseWidth(5)
+      : $mode === "tablet"
+      ? theme.responseWidth(4)
+      : theme.responseWidth(2)}
+
   min-width: 200px;
-  width: ${({ $mode }) =>
-    `calc(100vw / 6 * ${$mode === "mobile" ? 5 : $mode === "tablet" ? 4 : 2})`};
   max-width: 575px;
   aspect-ratio: 3/4;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -65,9 +70,9 @@ const BookCardContainer = styled.div<{ $mode: Mode }>`
   margin: auto;
 
   &:hover {
-    background-color: #ff6a41;
+    background-color: ${({ theme }) => theme.colors.orange};
     p {
-      color: white;
+      color: ${({ theme }) => theme.colors.white};
     }
   }
 `;

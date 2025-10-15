@@ -14,9 +14,3 @@ export const SKILL_CONTENT_TOTAL_COLUMNS = 6;
 export const SKILL_CONTENT_MOBILE_COLUMNS = 4;
 
 export const SKILL_CONTENT_DEFUALT_COLUMNS = 2;
-
-export const VERTICAL_COUNT_4 = 4;
-export const VERTICAL_COUNT_3 = 3;
-export const VERTICAL_COUNT_2 = 2;
-
-export const VERTICAL_TOTAL_LINE = 6;

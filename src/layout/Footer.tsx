@@ -29,7 +29,7 @@ const Footer = () => {
 export default Footer;
 
 const Container = styled.footer`
-  width: calc(100% / 6 * 4);
+  ${({ theme }) => theme.responseWidth(4)}
   height: 50vh;
   display: flex;
   flex-direction: column;

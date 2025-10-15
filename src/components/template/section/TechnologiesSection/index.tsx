@@ -7,10 +7,6 @@ import {
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import Marquee from "../../../molecules/Marquee/index";
-import {
-  VERTICAL_COUNT_2,
-  VERTICAL_TOTAL_LINE,
-} from "../../../../constants/skillsConstants";
 import TechnologiesContent from "../../../organism/content/TechnologiesContent";
 import { PlusIcon } from "../../../atoms/Icon";
 import Button from "../../../atoms/Button";
@@ -48,29 +44,9 @@ const TechnologiesSection: React.FC = () => {
           <Marquee text={title.toUpperCase()} />
         </MarqueeContainer>
 
-        <AnimatePresence>
-          {isSticky && (
-            <ContentWrapper
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: 1,
-              }}
-              exit={{ opacity: 0 }}
-              $total={VERTICAL_TOTAL_LINE}
-              $count={VERTICAL_COUNT_2}
-            >
-              <TechnologiesContent />
-            </ContentWrapper>
-          )}
-        </AnimatePresence>
+        <AnimatePresence>{isSticky && <TechnologiesContent />}</AnimatePresence>
         {isSticky && (
-          <motion.div
-            style={{
-              position: "absolute",
-              right: "0",
-              width: `calc(100% / 6 * 0.25)`,
-              height: "50%",
-            }}
+          <ButtonWrapper
             initial={{ x: "50%", opacity: 0 }}
             animate={{ opacity: 1 }}
             whileHover={{ x: 0 }}
@@ -83,7 +59,7 @@ const TechnologiesSection: React.FC = () => {
             >
               <PlusIcon />
             </Button>
-          </motion.div>
+          </ButtonWrapper>
         )}
       </StickySection>
     </Container>
@@ -116,9 +92,9 @@ const StickySection = styled.div`
   z-index: 5;
 `;
 
-const ContentWrapper = styled(motion.div)<{ $total: number; $count: number }>`
-  overflow: hidden;
-  width: ${({ $count, $total }) => `calc(100% / ${$total} * ${$count})`};
-  height: 50vh;
-  overflow: hidden;
+const ButtonWrapper = styled(motion.div)`
+  ${({ theme }) => theme.responseWidth(0.25)};
+  height: 50%;
+  position: absolute;
+  right: 0;
 `;

@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FilterType } from "../../pages/TheProjects";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import { AnimationProgressTypes } from "../../pages/Main";
@@ -63,10 +63,13 @@ const slideInUp = {
   show: { opacity: [0, 0, 1], y: 0, transition: { duration: 0.3 } },
 };
 const FilterWrapper = styled(motion.div)<{ $mode: Mode }>`
-  width: ${({ $mode }) => ($mode === "mobile" ? "calc(100% * 2/3)" : "50%")};
+  ${({ theme, $mode }) =>
+    $mode === "mobile"
+      ? theme.responseWidth(3)
+      : css`
+          width: 50%;
+        `}
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
 `;
 
 const FilterTab = styled.div<{ $isSelected: boolean }>`
@@ -88,6 +91,6 @@ const FilterTab = styled.div<{ $isSelected: boolean }>`
     width: 100%;
     height: 100%;
     z-index: -1;
-    background-color: #f50585;
+    background-color: ${({ theme }) => theme.colors.pink};
   }
 `;

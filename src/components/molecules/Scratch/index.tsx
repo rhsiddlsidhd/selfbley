@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-
 import styled from "styled-components";
 import { MotionValue } from "motion";
 import { useMotionValueEvent, useTransform } from "motion/react";
@@ -55,7 +54,8 @@ const Scratch = ({
 export default Scratch;
 
 const CharList = styled.div<{ $mode: Mode }>`
-  width: ${({ $mode }) => ($mode !== "mobile" ? "calc(100% / 6 * 4)" : "90%")};
+  ${({ theme, $mode }) =>
+    $mode !== "mobile" ? theme.responseWidth(4) : theme.responseWidth(5)};
   white-space: pre-line;
   text-align: center;
   word-wrap: break-word;
