@@ -1,14 +1,12 @@
 import styled from "styled-components";
 import Marquee from "../../../molecules/Marquee/index";
-import Scratch from "../../../molecules/Scratch";
 import { useRef } from "react";
 import { useScroll } from "motion/react";
+import Scratch from "../../../molecules/Scratch/index";
 
-const text = [
-  "사용자를 생각하며",
-  "비즈니스적인 가치를 고민하는",
-  "개발자",
-].join("\n");
+const text = ["사용자를 생각하며", "비즈니스 가치를 고민하는", "개발자"].join(
+  "\n"
+);
 
 const title = "The DevPhilosophy";
 

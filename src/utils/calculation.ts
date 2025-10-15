@@ -21,12 +21,3 @@ export const getSKillIconsWidth = (
 ) => {
   return `${iconWidth * totalLength + iconGap * (totalLength - 1)}rem`;
 };
-
-export const getScratchHighlightIndex = (
-  latest: number,
-  textLength: number
-) => {
-  const highlightIndex = Math.floor((Math.round(latest) / 100) * textLength);
-
-  return highlightIndex;
-};

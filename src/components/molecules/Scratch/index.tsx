@@ -1,11 +1,19 @@
 import { useCallback, useState } from "react";
-import useScreenStore, { Mode } from "../../stores/useScreenStore";
+
 import styled from "styled-components";
 import { MotionValue } from "motion";
 import { useMotionValueEvent, useTransform } from "motion/react";
-import ScratchChar from "../atoms/ScratchChar";
-import { getScratchHighlightIndex } from "../../utils/calculation";
+import useScreenStore, { Mode } from "../../../stores/useScreenStore";
 
+const getScratchActiveIndex = (latest: number, textLength: number) => {
+  const highlightIndex = Math.floor((Math.round(latest) / 100) * textLength);
+
+  return highlightIndex;
+};
+
+const ScratchChar = ({ char, color }: { char: string; color: string }) => {
+  return <span style={{ color }}>{char === " " ? "\u00A0" : char}</span>;
+};
 const Scratch = ({
   text,
   scrollYProgress,
@@ -23,10 +31,10 @@ const Scratch = ({
 
   const updateActiveIndex = useCallback(
     (latest: number) => {
-      const highlightIndex = getScratchHighlightIndex(latest, text.length);
+      const scratchActiveIndex = getScratchActiveIndex(latest, text.length);
 
       setActiveIndex((prev) =>
-        highlightIndex !== prev ? highlightIndex : prev
+        scratchActiveIndex !== prev ? scratchActiveIndex : prev
       );
     },
     [text.length]
