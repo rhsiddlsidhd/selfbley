@@ -25,8 +25,6 @@ const Main = () => {
     <motion.div
       style={{
         position: "relative",
-        height: animationProgress === "INITIAL" ? "100vh" : "fit-content",
-        overflow: animationProgress === "INITIAL" ? "hidden" : "visible",
       }}
     >
       <ScreenReveal

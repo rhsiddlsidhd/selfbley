@@ -24,22 +24,7 @@ const Marquee = ({ deg = 0, reverse = false, text }: MarqueeTextProps) => {
           return (
             <Text key={i}>
               {[...text].map((word, i) => {
-                return (
-                  <motion.span
-                    initial={{ filter: "blur(5px)" }}
-                    animate={{
-                      filter: "blur(0px)",
-                      transition: {
-                        delay: i * 0.35,
-                        duration: 3,
-                        repeat: Infinity,
-                      },
-                    }}
-                    key={`${i}-${word}`}
-                  >
-                    {word}
-                  </motion.span>
-                );
+                return <motion.span key={`${i}-${word}`}>{word}</motion.span>;
               })}
             </Text>
           );

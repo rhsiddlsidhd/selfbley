@@ -78,9 +78,6 @@ const FAQSection = () => {
         return (
           <MemoContainer key={i}>
             <Memo
-              style={{
-                pointerEvents: clickedIndex !== i ? "auto" : "none",
-              }}
               initial={{ opacity: 0 }}
               animate={{ opacity: clickedIndex !== i ? 1 : 0 }}
               transition={{ duration: 0.3 }}
@@ -99,9 +96,6 @@ const FAQSection = () => {
               onMouseLeave={() => setClickedIndex(null)}
               $left={memoConfig[i].left}
               $top={memoConfig[i].top}
-              style={{
-                pointerEvents: clickedIndex === i ? "auto" : "none",
-              }}
             >
               💬 {answer}
             </Memo>

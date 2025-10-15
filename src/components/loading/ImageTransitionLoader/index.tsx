@@ -6,6 +6,13 @@ const ImageTransitionLoader = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   useEffect(() => {
+    window.document.body.style.overflow = "hidden";
+    return () => {
+      window.document.body.style.removeProperty("overflow");
+    };
+  }, []);
+
+  useEffect(() => {
     const intervalId = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % weatherImgs.length);
     }, 100);

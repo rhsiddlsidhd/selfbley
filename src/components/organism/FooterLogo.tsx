@@ -1,15 +1,11 @@
-import { useRef } from "react";
 import { styled } from "styled-components";
 
 const logo = "portfolio";
 const FooterLogo = () => {
-  const textureRef = useRef<HTMLParagraphElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
   return (
-    <Container ref={containerRef}>
+    <Container>
       <PaintBackground src="/paint/paint2.svg" alt="이미지" />
-      <p ref={textureRef}>{logo.toUpperCase()}</p>
+      <p>{logo.toUpperCase()}</p>
     </Container>
   );
 };
