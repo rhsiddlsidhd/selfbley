@@ -1,9 +1,11 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { FONT_SIZE_KEY, FONT_WEIGHT_KEY } from "../../../types/style";
+import { motion, Variant } from "motion/react";
 
 interface TextProps {
   children: React.ReactNode;
+  variants?: Variant;
   $clamp?: number;
   $fontSize?: FONT_SIZE_KEY;
   $fontWeight?: FONT_WEIGHT_KEY;
@@ -12,6 +14,7 @@ interface TextProps {
 
 const Text = ({
   children,
+  variants,
   $fontSize,
   $fontWeight,
   $opacity,
@@ -19,6 +22,7 @@ const Text = ({
 }: TextProps) => {
   return (
     <P
+      variants={variants}
       $clamp={$clamp}
       $fontSize={$fontSize}
       $fontWeight={$fontWeight}
@@ -31,7 +35,7 @@ const Text = ({
 
 export default Text;
 
-const P = styled.p<Omit<TextProps, "children">>`
+const P = styled(motion.p)<Omit<TextProps, "children">>`
   ${({ $clamp }) =>
     $clamp &&
     css`

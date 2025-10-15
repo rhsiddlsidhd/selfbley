@@ -1,24 +1,25 @@
 import { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { motion } from "motion/react";
-import { BadgeTypes } from "../components/atoms/Badge";
+
 import Project from "../components/organism/Project";
 import useScreenStore, { Mode } from "../stores/useScreenStore";
 import { getProjectApi } from "../api/projectApi";
 import ProjectAside from "../components/organism/ProjectAside";
 import ProjectFilter from "../components/organism/ProjectFilter";
 import { AnimationProgressTypes } from "./Main";
+import { BADGE_COLORS_KEY } from "../types/style";
 
 export type FilterType = "ALL" | "TEAM" | "SINGLE";
 
 export interface ProjectData {
-  mode: Exclude<BadgeTypes, "frontend" | "backend" | "etc">;
+  mode: Exclude<BADGE_COLORS_KEY, "frontend" | "backend" | "etc">;
   title: string;
   overView: string;
   socialLinks: { name: string; icon: string; href: string }[];
   thumbnail: string;
   technologies: Partial<
-    Record<Exclude<BadgeTypes, "SINGLE" | "TEAM">, string[]>
+    Record<Exclude<BADGE_COLORS_KEY, "SINGLE" | "TEAM">, string[]>
   >;
   deployUrl: string;
   description: string;
@@ -91,23 +92,15 @@ const TheProjects = () => {
 export default TheProjects;
 
 const Container = styled.div`
-  width: 100%;
   display: flex;
   position: relative;
-  z-index: 7;
+
+  z-index: 5;
 `;
 
 const ProjectWrapper = styled.div<{ $mode: Mode }>`
-  //mobile
   width: 100%;
-  ${({ $mode, theme }) =>
-    $mode === "mobile" &&
-    css`
-      ${theme.responseWidth(3)}
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-    `};
+  ${({ $mode, theme }) => $mode === "mobile" && theme.responseWidth(4)}
 `;
 
 const ProjectContent = styled(motion.div)`
@@ -115,6 +108,5 @@ const ProjectContent = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   margin-top: 10rem;
-  z-index: 10;
   flex: 4;
 `;

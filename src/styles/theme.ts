@@ -1,5 +1,14 @@
 import { css, DefaultTheme } from "styled-components";
 
+export const BADGE_COLORS = {
+  language: "rgb(253, 185, 11)",
+  frontend: "rgb(52, 152, 219)",
+  backend: "rgb(39, 174, 96)",
+  etc: "rgb(127, 140, 141)",
+  SINGLE: "rgb(220, 53, 69)",
+  TEAM: "rgb(119, 175, 156)",
+} as const;
+
 export const COLORS = {
   black: "#010101",
   deepGray: "#6e6d6d",
@@ -47,9 +56,12 @@ const FLEX_CENTER = css`
 
 const theme: DefaultTheme = {
   COLORS,
+  BADGE_COLORS,
+
   FONT_SIZE,
   FLEX_CENTER,
   FONT_WEIGHT,
+
   responseWidth,
 };
 

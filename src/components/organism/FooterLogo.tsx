@@ -13,17 +13,12 @@ const FooterLogo = () => {
 export default FooterLogo;
 
 const Container = styled.div`
+  ${({ theme }) => theme.FLEX_CENTER}
   position: relative;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
   & > p {
     font-size: 17.5vw;
-    font-weight: bold;
+    font-weight: ${({ theme }) => theme.FONT_WEIGHT.bold};
   }
-  z-index: 90;
 `;
 
 const PaintBackground = styled.img`

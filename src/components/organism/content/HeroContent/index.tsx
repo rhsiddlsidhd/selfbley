@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { handleFadeAnimation } from "../../../../utils/validation";
 import { AnimationProgressTypes } from "../../../../pages/Main";
 import { BottomArrowIcon } from "../../../atoms/Icon/index";
+import Text from "../../../atoms/Text";
 
 const WELCOMEINTRO = "Frontend Developer YoungJae";
 
@@ -22,9 +23,14 @@ const HeroContent = ({ isInView }: { isInView: boolean }) => {
     >
       {WELCOMEINTRO.split(" ").map((text, i) => {
         return (
-          <motion.p key={i} variants={contentTextItemReveal}>
+          <Text
+            $fontSize="clamp1"
+            $fontWeight="bold"
+            key={i}
+            variants={contentTextItemReveal}
+          >
             {text}
-          </motion.p>
+          </Text>
         );
       })}
       {animationProgress === "FADE" && (

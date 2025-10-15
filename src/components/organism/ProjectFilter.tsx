@@ -65,7 +65,7 @@ const slideInUp = {
 const FilterWrapper = styled(motion.div)<{ $mode: Mode }>`
   ${({ theme, $mode }) =>
     $mode === "mobile"
-      ? theme.responseWidth(3)
+      ? theme.responseWidth(4)
       : css`
           width: 50%;
         `}
@@ -74,9 +74,9 @@ const FilterWrapper = styled(motion.div)<{ $mode: Mode }>`
 
 const FilterTab = styled.div<{ $isSelected: boolean }>`
   flex: 1;
+
   position: ${({ $isSelected }) => ($isSelected ? "relative" : "static")};
   cursor: pointer;
-  /* font-size: clamp(0.75rem, 2vw, 2rem); */
   font-size: ${({ theme }) => theme.FONT_SIZE.clamp6};
 
   & > a {

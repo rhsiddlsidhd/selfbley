@@ -24,7 +24,7 @@ const BookCard = React.memo(({ book }: { book: BookData }) => {
 
   return (
     <BookCardContainer $mode={mode} onClick={() => handleClick(book)}>
-      <Thumbnail $height={60}>
+      <Thumbnail $height="60%" $width="100%">
         <Image src={image} alt={title} />
       </Thumbnail>
 

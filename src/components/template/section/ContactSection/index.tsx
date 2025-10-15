@@ -6,10 +6,10 @@ import FooterLogo from "../../../organism/FooterLogo";
 const ContactSection: React.FC = () => {
   return (
     <Container>
-      <h1 style={{ margin: "6rem 0", position: "relative" }}>
+      <Title>
         <PaintBackground src="/paint/paint1.svg" />
         Contact Us
-      </h1>
+      </Title>
       <Footer />
       <FooterLogo />
     </Container>
@@ -17,6 +17,13 @@ const ContactSection: React.FC = () => {
 };
 
 export default ContactSection;
+
+const Title = styled.div`
+  position: relative;
+  font-size: ${({ theme }) => theme.FONT_SIZE.clamp1};
+  font-weight: ${({ theme }) => theme.FONT_WEIGHT.bold};
+  margin: 6rem 0;
+`;
 
 const Container = styled(motion.section)`
   position: relative;

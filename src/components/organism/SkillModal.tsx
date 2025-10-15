@@ -1,17 +1,19 @@
 import { motion } from "motion/react";
 import { useMemo } from "react";
 import styled from "styled-components";
-import { BadgeTypes } from "../atoms/Badge";
 import Badges from "../molecules/Badges";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
-import { technologys } from "./content/TechnologiesContent/constant";
+import {
+  TechnologyKeys,
+  technologys,
+} from "./content/TechnologiesContent/constant";
 
 const SkillModal = () => {
   const mode = useScreenStore((state) => state.mode);
   const data = useMemo(
     () =>
       Object.entries(technologys).map(([category, techs]) => ({
-        category: category as BadgeTypes,
+        category: category as TechnologyKeys,
         techList: techs.map((tech) => tech),
       })),
     []

@@ -16,22 +16,9 @@ import {
 
 const RollingSkillIcons = memo(
   ({ isHover }: { isHover: TechnologyKeys | null }) => {
-    /**
-     * 해당 컴포넌트는 isHover 시에만 리렌더 되고 이외에는 리렌더 되지 않도록 memo
-     */
-
     const mode = useScreenStore((state) => state.mode);
     const ICON_WIDTH = getSkillIconWidth(mode);
     const ICONS_GAP = getSkillIconsGap(mode);
-    // const techs = isHover ? technology[isHover] : [];
-    // const ICONS_TOTAL_WIDTH = getSKillIconsWidth(
-    //   ICON_WIDTH,
-    //   ICONS_GAP,
-    //   techs.length
-    // );
-
-    // technology 4개의 key를 전부 뿌려서 Wrapper 4개를 미리 로드
-    // 이후 hover 한 key값만 Animated 적용시켜버리기
 
     return (
       <AnimatePresence>
