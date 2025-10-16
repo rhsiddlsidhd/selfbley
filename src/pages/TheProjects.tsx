@@ -8,27 +8,16 @@ import { getProjectApi } from "../api/projectApi";
 import ProjectAside from "../components/organism/ProjectAside";
 import ProjectFilter from "../components/organism/ProjectFilter";
 import { AnimationProgressTypes } from "./Main";
-import { BADGE_COLORS_KEY } from "../types/style";
+import useProjectStore, { ProjectModel } from "../stores/projectStore";
 
 export type FilterType = "ALL" | "TEAM" | "SINGLE";
 
-export interface ProjectData {
-  mode: Exclude<BADGE_COLORS_KEY, "frontend" | "backend" | "etc" | "language">;
-  title: string;
-  overView: string;
-  socialLinks: { name: string; icon: string; href: string }[];
-  thumbnail: string;
-  technologies: Partial<
-    Record<Exclude<BADGE_COLORS_KEY, "SINGLE" | "TEAM">, string[]>
-  >;
-  deployUrl: string;
-  description: string;
-}
-
 const TheProjects = () => {
   const mode = useScreenStore((state) => state.mode);
-  const [selectedFilter, setSelectedFilter] = useState<FilterType>("ALL");
-  const [projectData, setProjectData] = useState<ProjectData[] | null>(null);
+  const selectedFilter = useProjectStore((state) => state.filter);
+
+  const projects = useProjectStore((state) => state.projects);
+  const setProject = useProjectStore((state) => state.setProjects);
   const [animationProcess, setAnimationProcess] =
     useState<AnimationProgressTypes>("INITIAL");
   const [isView, setIsView] = useState(false);
@@ -37,7 +26,7 @@ const TheProjects = () => {
     setTimeout(() => setIsView(true), 1500);
   }, []);
 
-  const filteredData = (data: ProjectData[]) => {
+  const filteredData = (data: ProjectModel[]) => {
     switch (selectedFilter) {
       case "SINGLE":
         return data.filter(({ mode }) => mode === "SINGLE");
@@ -51,33 +40,31 @@ const TheProjects = () => {
   useEffect(() => {
     const getProjectDataApi = async (): Promise<void> => {
       const res = await getProjectApi();
-      setProjectData(res.success ? res.data : []);
+      setProject(res.success ? res.data : []);
     };
     getProjectDataApi();
-  }, []);
+  }, [setProject]);
+
+  const selectedProjects = filteredData(projects);
 
   return (
     <Container>
       {isView && (
         <ProjectContent>
           <ProjectFilter
-            setSelectedFilter={setSelectedFilter}
-            selectedFilter={selectedFilter}
             state={animationProcess}
             setState={setAnimationProcess}
           />
           <ProjectWrapper $mode={mode}>
-            {projectData && projectData.length > 0 ? (
-              filteredData(projectData).map((data, i) => {
-                return (
-                  <Project
-                    state={animationProcess}
-                    key={`${i} ${selectedFilter}`}
-                    data={data}
-                    index={i + 1}
-                  />
-                );
-              })
+            {selectedProjects.length > 0 ? (
+              selectedProjects.map((data, i) => (
+                <Project
+                  key={i}
+                  state={animationProcess}
+                  index={i + 1}
+                  data={data}
+                />
+              ))
             ) : (
               <p>프로젝트 데이터가 없습니다.</p>
             )}

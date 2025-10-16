@@ -4,26 +4,25 @@ import styled, { css } from "styled-components";
 import { FilterType } from "../../pages/TheProjects";
 import useScreenStore, { Mode } from "../../stores/useScreenStore";
 import { AnimationProgressTypes } from "../../pages/Main";
+import useProjectStore from "../../stores/projectStore";
 
 const ProjectFilter = ({
-  setSelectedFilter,
-  selectedFilter,
   state,
   setState,
 }: {
-  setSelectedFilter: React.Dispatch<React.SetStateAction<FilterType>>;
-  selectedFilter: FilterType;
   state: AnimationProgressTypes;
   setState: React.Dispatch<React.SetStateAction<AnimationProgressTypes>>;
 }) => {
   const filterTabs = ["ALL", "TEAM", "SINGLE"] as const;
-
+  const setFilter = useProjectStore((state) => state.setFilter);
+  const filter = useProjectStore((state) => state.filter);
   const mode = useScreenStore((state) => state.mode);
-  const isSelected = (tab: FilterType) => selectedFilter === tab;
+  const isSelected = (tab: FilterType) => filter === tab;
   const handleFilterChange = (e: React.MouseEvent, tab: FilterType) => {
     e.preventDefault();
     if (isSelected(tab)) return;
-    setSelectedFilter(tab);
+
+    setFilter(tab);
   };
 
   return (
@@ -36,7 +35,7 @@ const ProjectFilter = ({
     >
       {filterTabs.map((tab, i) => {
         return (
-          <FilterTab $isSelected={isSelected(tab)} key={i}>
+          <FilterTab key={i}>
             <motion.a
               href="#"
               onClick={(e) => handleFilterChange(e, tab)}
@@ -59,8 +58,8 @@ const ProjectFilter = ({
 export default ProjectFilter;
 
 const slideInUp = {
-  hidden: { opacity: 0, y: "100px" },
-  show: { opacity: [0, 0, 1], y: 0, transition: { duration: 0.3 } },
+  hidden: { opacity: 0, y: "10px" },
+  show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
 };
 const FilterWrapper = styled(motion.div)<{ $mode: Mode }>`
   ${({ theme, $mode }) =>
@@ -72,13 +71,11 @@ const FilterWrapper = styled(motion.div)<{ $mode: Mode }>`
   display: flex;
 `;
 
-const FilterTab = styled.div<{ $isSelected: boolean }>`
+const FilterTab = styled.div`
   flex: 1;
-
-  position: ${({ $isSelected }) => ($isSelected ? "relative" : "static")};
+  position: relative;
   cursor: pointer;
   font-size: ${({ theme }) => theme.FONT_SIZE.clamp6};
-
   & > a {
     display: flex;
     justify-content: center;

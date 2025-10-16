@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ProjectData } from "../../../pages/TheProjects";
 import { AnimationProgressTypes } from "../../../pages/Main";
 import useScreenStore, { Mode } from "../../../stores/useScreenStore";
 import Badge from "../../atoms/Badge";
@@ -9,6 +8,7 @@ import Image from "../../atoms/Image";
 import Text from "../../atoms/Text";
 import Thumbnail from "../../molecules/Thumbnail";
 import TechCategoryList from "../../molecules/TechCategoryList";
+import { ProjectModel } from "../../../stores/projectStore";
 
 const ProjectOverview = ({
   state,
@@ -17,9 +17,9 @@ const ProjectOverview = ({
   socialLinks,
 }: {
   state: AnimationProgressTypes;
-  mode: ProjectData["mode"];
+  mode: ProjectModel["mode"];
+  socialLinks: ProjectModel["socialLinks"];
   index: number;
-  socialLinks: ProjectData["socialLinks"];
 }) => {
   const screenMode = useScreenStore((state) => state.mode);
 
@@ -69,12 +69,12 @@ const ProjectDetail = ({
   description,
 }: {
   state: AnimationProgressTypes;
-  technologies: ProjectData["technologies"];
-  title: ProjectData["title"];
-  overView: ProjectData["overView"];
-  deployUrl: ProjectData["deployUrl"];
-  thumbnail: ProjectData["thumbnail"];
-  description: ProjectData["description"];
+  technologies: ProjectModel["technologies"];
+  title: ProjectModel["title"];
+  overView: ProjectModel["overView"];
+  deployUrl: ProjectModel["deployUrl"];
+  thumbnail: ProjectModel["thumbnail"];
+  description: ProjectModel["description"];
 }) => {
   return (
     <Detail
@@ -118,41 +118,32 @@ const ProjectDetail = ({
 };
 
 const Project = ({
-  data,
   index,
+  data,
   state,
 }: {
-  data: ProjectData;
   index: number;
+  data: ProjectModel;
   state: AnimationProgressTypes;
 }) => {
-  const {
-    description,
-    mode,
-    overView,
-    socialLinks,
-    technologies,
-    thumbnail,
-    title,
-    deployUrl,
-  } = data;
   const screenMode = useScreenStore((state) => state.mode);
+
   return (
     <ProjectContainer $screenMode={screenMode}>
       <ProjectOverview
         index={index}
+        mode={data.mode}
+        socialLinks={data.socialLinks}
         state={state}
-        socialLinks={socialLinks}
-        mode={mode}
       />
       <ProjectDetail
-        deployUrl={deployUrl}
-        description={description}
-        overView={overView}
         state={state}
-        technologies={technologies}
-        thumbnail={thumbnail}
-        title={title}
+        title={data.title}
+        overView={data.overView}
+        deployUrl={data.deployUrl}
+        technologies={data.technologies}
+        thumbnail={data.thumbnail}
+        description={data.description}
       />
     </ProjectContainer>
   );
