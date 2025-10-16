@@ -7,9 +7,115 @@ import { motion } from "motion/react";
 import Link from "../../atoms/Link";
 import Image from "../../atoms/Image";
 import Text from "../../atoms/Text";
-import Badges from "../../molecules/Badges";
-import { BADGE_COLORS_KEY } from "../../../types/style";
 import Thumbnail from "../../molecules/Thumbnail";
+import TechCategoryList from "../../molecules/TechCategoryList";
+
+const ProjectOverview = ({
+  state,
+  mode,
+  index,
+  socialLinks,
+}: {
+  state: AnimationProgressTypes;
+  mode: ProjectData["mode"];
+  index: number;
+  socialLinks: ProjectData["socialLinks"];
+}) => {
+  const screenMode = useScreenStore((state) => state.mode);
+
+  return (
+    <motion.section
+      className="project_overview"
+      initial="hidden"
+      animate={state === "SLIDE" ? "show" : "hidden"}
+      variants={slideInUp}
+    >
+      <Text
+        $fontSize={screenMode === "mobile" ? "clamp1" : "clamp5"}
+        $fontWeight="bold"
+      >
+        {index}
+      </Text>
+
+      <Badge $key={mode} $width={screenMode === "mobile" ? "100%" : "80%"}>
+        {mode}
+      </Badge>
+      <aside style={{ display: "flex", gap: "1rem" }}>
+        {socialLinks.map(({ name, href }) => {
+          const isDisabled = href === "#";
+          return (
+            <Link
+              href={href}
+              key={name}
+              $isDisabled={isDisabled}
+              $width="clamp(2rem, 2.5vw, 5rem)"
+            >
+              <Image src={`skills/${name}.svg`} alt={name} />
+            </Link>
+          );
+        })}
+      </aside>
+    </motion.section>
+  );
+};
+
+const ProjectDetail = ({
+  state,
+  title,
+  overView,
+  deployUrl,
+  technologies,
+  thumbnail,
+  description,
+}: {
+  state: AnimationProgressTypes;
+  technologies: ProjectData["technologies"];
+  title: ProjectData["title"];
+  overView: ProjectData["overView"];
+  deployUrl: ProjectData["deployUrl"];
+  thumbnail: ProjectData["thumbnail"];
+  description: ProjectData["description"];
+}) => {
+  return (
+    <Detail
+      initial="hidden"
+      animate={state === "SLIDE" ? "show" : "hidden"}
+      variants={container}
+      className="project_detail"
+      style={{ color: "black" }}
+    >
+      <motion.section variants={slideInUp}>
+        <Text $fontSize="xl" $fontWeight="bold">
+          {title}
+        </Text>
+        <Text $fontSize="sm">{overView}</Text>
+      </motion.section>
+      <Thumbnail
+        $aspectRatio="16/9"
+        $width="100%"
+        target="_blank"
+        href={deployUrl}
+        onHoverStart={() => true}
+        variants={slideInUp}
+      >
+        <Image src={`/${thumbnail}`} alt="썸네일이미지" />
+      </Thumbnail>
+      <motion.section variants={slideInUp}>
+        <Text $fontSize="xl" $fontWeight="bold">
+          Technologies & Tools
+        </Text>
+
+        <TechCategoryList technologies={technologies} />
+      </motion.section>
+      <motion.section variants={slideInUp}>
+        <Text $fontSize="xl" $fontWeight="bold">
+          Description
+        </Text>
+        <Text $fontSize="sm">{description}</Text>
+      </motion.section>
+    </Detail>
+  );
+};
 
 const Project = ({
   data,
@@ -20,7 +126,6 @@ const Project = ({
   index: number;
   state: AnimationProgressTypes;
 }) => {
-  console.log("data", data);
   const {
     description,
     mode,
@@ -32,90 +137,31 @@ const Project = ({
     deployUrl,
   } = data;
   const screenMode = useScreenStore((state) => state.mode);
-  const entries = Object.entries(technologies) as [
-    BADGE_COLORS_KEY,
-    string[]
-  ][];
-
   return (
     <ProjectContainer $screenMode={screenMode}>
-      <motion.section
-        className="project_overview"
-        initial="hidden"
-        animate={state === "SLIDE" ? "show" : "hidden"}
-        variants={slideInUp}
-      >
-        <Text $fontSize="clamp1" $fontWeight="bold">
-          {index}
-        </Text>
-        <Badge
-          name={mode}
-          $key={mode}
-          $width={screenMode === "mobile" ? "100%" : "80%"}
-        />
-        <aside style={{ display: "flex", gap: "1rem" }}>
-          {socialLinks.map(({ name, href }) => {
-            const isDisabled = href === "#";
-            return (
-              <Link
-                href={href}
-                key={name}
-                $isDisabled={isDisabled}
-                $width="clamp(2rem, 2.5vw, 5rem)"
-              >
-                <Image src={`skills/${name}.svg`} alt={name} />
-              </Link>
-            );
-          })}
-        </aside>
-      </motion.section>
+      <ProjectOverview
+        index={index}
+        state={state}
+        socialLinks={socialLinks}
+        mode={mode}
+      />
       <ProjectDetail
-        initial="hidden"
-        animate={state === "SLIDE" ? "show" : "hidden"}
-        variants={container}
-        className="project_detail"
-        style={{ color: "black" }}
-      >
-        <motion.section variants={slideInUp}>
-          <Text $fontSize="clamp4" $fontWeight="bold">
-            {title}
-          </Text>
-          <Text $fontSize="clamp6">{overView}</Text>
-        </motion.section>
-        <Thumbnail
-          $aspectRatio="16/9"
-          $width="100%"
-          target="_blank"
-          href={deployUrl}
-          onHoverStart={() => true}
-          variants={slideInUp}
-        >
-          <Image src={`/${thumbnail}`} alt="썸네일이미지" />
-        </Thumbnail>
-        {/* </motion.a> */}
-        <motion.section variants={slideInUp}>
-          <Text $fontSize="clamp4" $fontWeight="bold">
-            Technologies & Tools
-          </Text>
-          {entries.map(([category, techList], i) => {
-            return <Badges key={i} category={category} techList={techList} />;
-          })}
-        </motion.section>
-        <motion.section variants={slideInUp}>
-          <Text $fontSize="clamp4" $fontWeight="bold">
-            Description
-          </Text>
-          <Text $fontSize="clamp6">{description}</Text>
-        </motion.section>
-      </ProjectDetail>
+        deployUrl={deployUrl}
+        description={description}
+        overView={overView}
+        state={state}
+        technologies={technologies}
+        thumbnail={thumbnail}
+        title={title}
+      />
     </ProjectContainer>
   );
 };
 
 export default Project;
-const ProjectDetail = styled(motion.div)`
+const Detail = styled(motion.div)`
   & > * {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -144,7 +190,6 @@ const ProjectContainer = styled.main<{ $screenMode: Mode }>`
   flex-direction: ${({ $screenMode }) =>
     $screenMode === "mobile" ? "column" : "row"};
   gap: ${({ $screenMode }) => ($screenMode === "mobile" ? "1rem" : 0)};
-  margin-bottom: 10rem;
   color: ${({ theme }) => theme.COLORS.black};
 
   .project_overview {
@@ -152,6 +197,7 @@ const ProjectContainer = styled.main<{ $screenMode: Mode }>`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: start;
     gap: 1rem;
   }
 

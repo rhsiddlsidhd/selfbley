@@ -13,7 +13,7 @@ import { BADGE_COLORS_KEY } from "../types/style";
 export type FilterType = "ALL" | "TEAM" | "SINGLE";
 
 export interface ProjectData {
-  mode: Exclude<BADGE_COLORS_KEY, "frontend" | "backend" | "etc">;
+  mode: Exclude<BADGE_COLORS_KEY, "frontend" | "backend" | "etc" | "language">;
   title: string;
   overView: string;
   socialLinks: { name: string; icon: string; href: string }[];
@@ -94,7 +94,6 @@ export default TheProjects;
 const Container = styled.div`
   display: flex;
   position: relative;
-
   z-index: 5;
 `;
 
@@ -104,9 +103,9 @@ const ProjectWrapper = styled.div<{ $mode: Mode }>`
 `;
 
 const ProjectContent = styled(motion.div)`
+  flex: 4;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10rem;
-  flex: 4;
+  margin-top: 8rem;
 `;

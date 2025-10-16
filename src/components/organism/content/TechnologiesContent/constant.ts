@@ -3,7 +3,6 @@ export type TechnologyKeys = keyof typeof technologys;
 const language = ["html", "css", "javascript", "typescript"];
 const frontend = ["styledComponents", "react", "nextJs", "redux", "zustand"];
 const backend = ["nodeJs", "nextJs", "express", "mongodb", "firebase"];
-
 const etc = ["discord", "figma", "github"];
 export const technologys = {
   language,

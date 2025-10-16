@@ -2,15 +2,15 @@ import styled from "styled-components";
 import { BADGE_COLORS_KEY } from "../../../types/style";
 
 interface BadgeProps {
-  name: string;
+  children: React.ReactNode;
   $key: BADGE_COLORS_KEY;
   $width?: string;
 }
 
-const Badge = ({ name, $width, $key }: BadgeProps) => {
+const Badge = ({ children, $width, $key }: BadgeProps) => {
   return (
     <StyledBadge $key={$key} $width={$width}>
-      {name}
+      {children}
     </StyledBadge>
   );
 };
@@ -26,5 +26,4 @@ const StyledBadge = styled.span<{ $key: BADGE_COLORS_KEY; $width?: string }>`
   padding: 0.5rem 0.25rem;
   margin: 0.25rem 0;
   border-radius: 5px;
-  font-size: ${({ theme }) => theme.FONT_SIZE.clamp6};
 `;
