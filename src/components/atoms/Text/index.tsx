@@ -10,6 +10,7 @@ interface TextProps {
   $fontSize?: FONT_SIZE_KEY;
   $fontWeight?: FONT_WEIGHT_KEY;
   $opacity?: number;
+  onClick?: () => void;
 }
 
 const Text = ({
@@ -19,6 +20,7 @@ const Text = ({
   $fontWeight,
   $opacity,
   $clamp,
+  onClick,
 }: TextProps) => {
   return (
     <P
@@ -27,6 +29,7 @@ const Text = ({
       $fontSize={$fontSize}
       $fontWeight={$fontWeight}
       $opacity={$opacity}
+      onClick={onClick}
     >
       {children}
     </P>

@@ -15,7 +15,11 @@ const Modal = () => {
   const createModalContent = (payload: unknown) => {
     switch (payload) {
       case "technologys":
-        return <TechCategoryList technologies={technologys} />;
+        return (
+          <ModalContainer $mode={mode}>
+            <TechCategoryList technologies={technologys} />
+          </ModalContainer>
+        );
       default:
         return null;
     }
@@ -31,13 +35,7 @@ const Modal = () => {
   }, [isOpen, setIsOpen]);
 
   if (!isOpen) return null;
-  return (
-    <OpacityOverlay>
-      <ModalContainer $mode={mode}>
-        {createModalContent(payload)}
-      </ModalContainer>
-    </OpacityOverlay>
-  );
+  return <OpacityOverlay>{createModalContent(payload)}</OpacityOverlay>;
 };
 
 export default Modal;

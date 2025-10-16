@@ -1,16 +1,14 @@
 import { Route, Routes, useLocation } from "react-router";
 
-import Header from "./layout/Header";
 import { AnimatePresence } from "motion/react";
 import PageTransition from "./components/template/PageTransition";
 import FlipTransition from "./components/template/FlipTransition";
 import BookPage from "./pages/BookPage";
-
-import TheSkills from "./pages/TheSkills";
 import TheProjects from "./pages/TheProjects";
-
 import Main from "./pages/Main";
 import ContactSection from "./components/template/section/ContactSection";
+import Header from "./layout/Header/index";
+import TreeJsPage from "./pages/ThreeJsPage";
 
 function App() {
   const location = useLocation();
@@ -35,7 +33,7 @@ function App() {
               </PageTransition>
             }
           />
-          <Route path="/skills" element={<TheSkills />} />
+          <Route path="/threeJs" element={<TreeJsPage />} />
           <Route
             path="/projects"
             element={

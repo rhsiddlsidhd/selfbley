@@ -31,7 +31,7 @@ const OverlayHeader = () => {
   return (
     <>
       <Logo
-        styles={`left: 50%; transform: translate(-50%, 0%); margin-top:3rem; position:fixed; `}
+        // styles={`left: 50%; transform: translate(-50%, 0%); margin-top:3rem; position:fixed; `}
         onCloseMenu={closeOverlayMenu}
       />
 

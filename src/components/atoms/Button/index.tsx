@@ -7,12 +7,22 @@ interface ButtonProps {
   onClick?: () => void;
   $width?: number;
   $height?: number;
+  $borderRadiuse?: number;
   $backgroundColor?: string;
 }
 
-const Button = ({ children, $backgroundColor, onClick }: ButtonProps) => {
+const Button = ({
+  children,
+  $borderRadiuse,
+  $backgroundColor,
+  onClick,
+}: ButtonProps) => {
   return (
-    <Btn $backgroundColor={$backgroundColor} onClick={onClick}>
+    <Btn
+      $borderRadiuse={$borderRadiuse}
+      $backgroundColor={$backgroundColor}
+      onClick={onClick}
+    >
       {children}
     </Btn>
   );
@@ -21,12 +31,15 @@ const Button = ({ children, $backgroundColor, onClick }: ButtonProps) => {
 export default Button;
 
 const Btn = styled(motion.button)<
-  Pick<ButtonProps, "$width" | "$height" | "$backgroundColor">
+  Pick<
+    ButtonProps,
+    "$width" | "$height" | "$backgroundColor" | "$borderRadiuse"
+  >
 >`
   width: 100%;
   height: 100%;
   background-color: ${({ $backgroundColor, theme }) =>
     $backgroundColor ?? theme.COLORS.orange};
-  border-radius: 10px;
+  border-radius: ${({ $borderRadiuse }) => `${$borderRadiuse ?? 10}px`};
   cursor: pointer;
 `;

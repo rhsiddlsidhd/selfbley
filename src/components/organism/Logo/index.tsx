@@ -1,21 +1,22 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useNavigate } from "react-router";
 import useScreenStore, { Mode } from "../../../stores/useScreenStore";
 import { LOGO_PATH } from "../../../constants/routes";
+import { CSSProperties } from "react";
 
 interface LogoProps {
-  styles?: string;
+  style?: CSSProperties;
   onCloseMenu?: () => void;
 }
 
-const Logo = ({ styles = "", onCloseMenu }: LogoProps) => {
+const Logo = ({ style, onCloseMenu }: LogoProps) => {
   const mode = useScreenStore((state) => state.mode);
   const navigate = useNavigate();
 
   return (
     <Container
       $mode={mode}
-      $styles={styles}
+      style={style}
       onClick={() => {
         if (onCloseMenu) {
           onCloseMenu();
@@ -35,14 +36,11 @@ const Logo = ({ styles = "", onCloseMenu }: LogoProps) => {
 
 export default Logo;
 
-const Container = styled.a<{ $mode: Mode; $styles: string }>`
+const Container = styled.a<{ $mode: Mode }>`
   font-size: ${({ $mode, theme }) =>
     $mode !== "mobile" ? theme.FONT_SIZE.md : theme.FONT_SIZE.clamp4};
   cursor: pointer;
-  ${({ $styles }) =>
-    css`
-      ${$styles}
-    `}
+
   z-index: 101;
 `;
 

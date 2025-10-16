@@ -24,7 +24,7 @@ const HeroContent = ({ isInView }: { isInView: boolean }) => {
       {WELCOMEINTRO.split(" ").map((text, i) => {
         return (
           <Text
-            $fontSize="clamp1"
+            $fontSize="clamp3"
             $fontWeight="bold"
             key={i}
             variants={contentTextItemReveal}
@@ -66,7 +66,7 @@ const contentTextItemReveal = {
 
 const IconWrapper = styled(motion.div)`
   position: absolute;
-  width: 10vw;
+  width: ${({ theme }) => theme.FONT_SIZE.clamp3};
   aspect-ratio: 1/1;
   bottom: -50%;
 `;
