@@ -1,11 +1,8 @@
 import { motion } from "motion/react";
-
 import styled from "styled-components";
-
-import { ReactNode, useState } from "react";
-import { AnimationProgressTypes } from "../../pages/Main";
-
-import SlideInXOverlay from "../atoms/SlideInXOverlay";
+import { ReactNode } from "react";
+import useProjectStore from "../../stores/projectStore";
+import useScreenStore from "../../stores/useScreenStore";
 
 const FlipTransition = ({
   color,
@@ -16,9 +13,11 @@ const FlipTransition = ({
   color?: string;
   count?: number;
 }) => {
-  const [animationProgress, setAnimationProgress] =
-    useState<AnimationProgressTypes>("INITIAL");
-
+  const setAnimationProgress = useProjectStore(
+    (state) => state.setAnimationProgress
+  );
+  const mode = useScreenStore((state) => state.mode);
+  const animationProgress = useProjectStore((state) => state.animationProgress);
   const total = count;
   const arrayLength = total - 1;
 
@@ -49,7 +48,8 @@ const FlipTransition = ({
               style={{ backgroundColor: color }}
               onAnimationComplete={() => {
                 if (i === 0) {
-                  setAnimationProgress("FLIP");
+                  const value = mode === "mobile" ? "PENDING" : "FLIP";
+                  setAnimationProgress(value);
                 }
               }}
               key={i}
@@ -57,11 +57,25 @@ const FlipTransition = ({
           );
         })}
       </ItemRow>
-      <SlideInXOverlay
-        state={animationProgress}
-        setState={setAnimationProgress}
-        color={color}
-      />
+
+      {animationProgress === "FLIP" && (
+        <motion.div
+          style={{
+            width: "100%",
+            pointerEvents: "none",
+            backgroundColor: color,
+            position: "fixed",
+            height: "100%",
+            top: 0,
+            zIndex: 10,
+          }}
+          initial="hidden"
+          animate="show"
+          onAnimationComplete={() => setAnimationProgress("PENDING")}
+          variants={slideVariants}
+        />
+      )}
+
       <div style={{ opacity: animationProgress !== "INITIAL" ? 1 : 0 }}>
         {children}
       </div>
@@ -97,4 +111,13 @@ const containerVariants = {
 const sectionVariants = {
   hidden: { transform: "scaleX(0)" },
   show: { transform: "scaleX(1)" },
+};
+
+const slideVariants = {
+  hidden: { x: 0, opacity: 1 },
+  show: {
+    x: "calc(-100% / 6 * 2)",
+    opacity: 1,
+    transition: { type: "tween", duration: 1, delay: 0.3 },
+  },
 };

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AnimationProgressTypes } from "../../../pages/Main";
+
 import useScreenStore, { Mode } from "../../../stores/useScreenStore";
 import Badge from "../../atoms/Badge";
 import { motion } from "motion/react";
@@ -8,26 +8,24 @@ import Image from "../../atoms/Image";
 import Text from "../../atoms/Text";
 import Thumbnail from "../../molecules/Thumbnail";
 import TechCategoryList from "../../molecules/TechCategoryList";
-import { ProjectModel } from "../../../stores/projectStore";
+import useProjectStore, { ProjectModel } from "../../../stores/projectStore";
+import { project, slideInUp } from "../../../styles/variants";
 
 const ProjectOverview = ({
-  state,
   mode,
   index,
   socialLinks,
 }: {
-  state: AnimationProgressTypes;
   mode: ProjectModel["mode"];
   socialLinks: ProjectModel["socialLinks"];
   index: number;
 }) => {
   const screenMode = useScreenStore((state) => state.mode);
-
+  const animationProgress = useProjectStore((state) => state.animationProgress);
   return (
-    <motion.section
-      className="project_overview"
+    <Overview
       initial="hidden"
-      animate={state === "SLIDE" ? "show" : "hidden"}
+      animate={animationProgress === "PENDING" ? "show" : "hidden"}
       variants={slideInUp}
     >
       <Text
@@ -55,12 +53,11 @@ const ProjectOverview = ({
           );
         })}
       </aside>
-    </motion.section>
+    </Overview>
   );
 };
 
 const ProjectDetail = ({
-  state,
   title,
   overView,
   deployUrl,
@@ -68,7 +65,6 @@ const ProjectDetail = ({
   thumbnail,
   description,
 }: {
-  state: AnimationProgressTypes;
   technologies: ProjectModel["technologies"];
   title: ProjectModel["title"];
   overView: ProjectModel["overView"];
@@ -76,13 +72,12 @@ const ProjectDetail = ({
   thumbnail: ProjectModel["thumbnail"];
   description: ProjectModel["description"];
 }) => {
+  const animationProgress = useProjectStore((state) => state.animationProgress);
   return (
     <Detail
       initial="hidden"
-      animate={state === "SLIDE" ? "show" : "hidden"}
-      variants={container}
-      className="project_detail"
-      style={{ color: "black" }}
+      animate={animationProgress === "PENDING" ? "show" : "hidden"}
+      variants={project}
     >
       <motion.section variants={slideInUp}>
         <Text $fontSize="xl" $fontWeight="bold">
@@ -117,27 +112,17 @@ const ProjectDetail = ({
   );
 };
 
-const Project = ({
-  index,
-  data,
-  state,
-}: {
-  index: number;
-  data: ProjectModel;
-  state: AnimationProgressTypes;
-}) => {
+const Project = ({ index, data }: { index: number; data: ProjectModel }) => {
   const screenMode = useScreenStore((state) => state.mode);
 
   return (
-    <ProjectContainer $screenMode={screenMode}>
+    <Container $screenMode={screenMode}>
       <ProjectOverview
         index={index}
         mode={data.mode}
         socialLinks={data.socialLinks}
-        state={state}
       />
       <ProjectDetail
-        state={state}
         title={data.title}
         overView={data.overView}
         deployUrl={data.deployUrl}
@@ -145,54 +130,33 @@ const Project = ({
         thumbnail={data.thumbnail}
         description={data.description}
       />
-    </ProjectContainer>
+    </Container>
   );
 };
 
 export default Project;
-const Detail = styled(motion.div)`
-  & > * {
-    margin-bottom: 1rem;
-  }
-`;
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
-const slideInUp = {
-  hidden: { opacity: 0, y: 100 },
-  show: {
-    opacity: [0, 0, 1],
-    y: 0,
-    transition: { type: "tween", duration: 0.5 },
-  },
-};
-
-const ProjectContainer = styled.main<{ $screenMode: Mode }>`
+const Container = styled.main<{ $screenMode: Mode }>`
   width: ${({ $screenMode }) => ($screenMode === "mobile" ? "100%" : "75%")};
   display: flex;
   flex-direction: ${({ $screenMode }) =>
     $screenMode === "mobile" ? "column" : "row"};
   gap: ${({ $screenMode }) => ($screenMode === "mobile" ? "1rem" : 0)};
   color: ${({ theme }) => theme.COLORS.black};
+`;
 
-  .project_overview {
-    flex: 0.5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-    gap: 1rem;
-  }
+const Overview = styled(motion.aside)`
+  flex: 0.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  .project_detail {
-    flex: 1;
+  gap: 1rem;
+`;
+
+const Detail = styled(motion.div)`
+  flex: 1;
+  & > * {
+    margin-bottom: 1rem;
   }
 `;

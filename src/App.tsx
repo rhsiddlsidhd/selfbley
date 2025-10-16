@@ -35,14 +35,7 @@ function App() {
               </PageTransition>
             }
           />
-          <Route
-            path="/skills"
-            element={
-              <FlipTransition color="#6e6d6d" count={4}>
-                <TheSkills />
-              </FlipTransition>
-            }
-          />
+          <Route path="/skills" element={<TheSkills />} />
           <Route
             path="/projects"
             element={

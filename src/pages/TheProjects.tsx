@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "motion/react";
 
@@ -6,26 +6,18 @@ import Project from "../components/organism/Project";
 import useScreenStore, { Mode } from "../stores/useScreenStore";
 import { getProjectApi } from "../api/projectApi";
 import ProjectAside from "../components/organism/ProjectAside";
-import ProjectFilter from "../components/organism/ProjectFilter";
-import { AnimationProgressTypes } from "./Main";
+
 import useProjectStore, { ProjectModel } from "../stores/projectStore";
+import FilterGroup from "../components/molecules/FilterGroup";
 
 export type FilterType = "ALL" | "TEAM" | "SINGLE";
 
 const TheProjects = () => {
   const mode = useScreenStore((state) => state.mode);
   const selectedFilter = useProjectStore((state) => state.filter);
-
   const projects = useProjectStore((state) => state.projects);
   const setProject = useProjectStore((state) => state.setProjects);
-  const [animationProcess, setAnimationProcess] =
-    useState<AnimationProgressTypes>("INITIAL");
-  const [isView, setIsView] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => setIsView(true), 1500);
-  }, []);
-
+  const clearState = useProjectStore((state) => state.clearState);
   const filteredData = (data: ProjectModel[]) => {
     switch (selectedFilter) {
       case "SINGLE":
@@ -43,34 +35,26 @@ const TheProjects = () => {
       setProject(res.success ? res.data : []);
     };
     getProjectDataApi();
-  }, [setProject]);
+
+    return () => clearState();
+  }, [setProject, clearState]);
 
   const selectedProjects = filteredData(projects);
 
   return (
     <Container>
-      {isView && (
-        <ProjectContent>
-          <ProjectFilter
-            state={animationProcess}
-            setState={setAnimationProcess}
-          />
-          <ProjectWrapper $mode={mode}>
-            {selectedProjects.length > 0 ? (
-              selectedProjects.map((data, i) => (
-                <Project
-                  key={i}
-                  state={animationProcess}
-                  index={i + 1}
-                  data={data}
-                />
-              ))
-            ) : (
-              <p>프로젝트 데이터가 없습니다.</p>
-            )}
-          </ProjectWrapper>
-        </ProjectContent>
-      )}
+      <ProjectContent>
+        <FilterGroup />
+        <ProjectWrapper $mode={mode}>
+          {selectedProjects.length > 0 ? (
+            selectedProjects.map((data, i) => (
+              <Project key={i} index={i + 1} data={data} />
+            ))
+          ) : (
+            <p>프로젝트 데이터가 없습니다.</p>
+          )}
+        </ProjectWrapper>
+      </ProjectContent>
       <ProjectAside />
     </Container>
   );
