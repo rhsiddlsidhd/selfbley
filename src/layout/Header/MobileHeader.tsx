@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Logo from "../../components/organism/Logo";
-import Nav from "../../components/atoms/Nav";
+
 import styled from "styled-components";
 import { motion } from "motion/react";
-import { HamburgerIcon } from "../../components/atoms/Icon";
-import Button from "../../components/atoms/Button";
+import { CloseIcon, HamburgerIcon } from "../../components/atoms/Icon";
+
+import Nav from "../../components/molecules/Nav";
+import FixedButton from "../../components/molecules/FixedButton";
 
 const MobileHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,26 +20,18 @@ const MobileHeader = () => {
           left: "50%",
           transform: "translateX(-50%)",
         }}
+        onCloseMenu={() => setIsOpen(false)}
       />
       <MobileNavContainer
-        style={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : "-100%" }}
+        initial={{ opacity: 0, y: "-100%" }}
+        animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : "100%" }}
+        transition={{ duration: 0.3 }}
       >
-        <Nav />
+        <Nav onCloseMenu={() => setIsOpen(false)} />
       </MobileNavContainer>
-      <div
-        style={{
-          position: "fixed",
-          width: "3rem",
-          aspectRatio: "1/1",
-          bottom: "2rem",
-          right: "1rem",
-          zIndex: 100,
-        }}
-      >
-        <Button $borderRadiuse={50} onClick={() => setIsOpen(!isOpen)}>
-          <HamburgerIcon />
-        </Button>
-      </div>
+      <FixedButton onClick={() => setIsOpen(!isOpen)} $bottom="2rem">
+        {isOpen ? <CloseIcon color="white" /> : <HamburgerIcon color="white" />}
+      </FixedButton>
     </div>
   );
 };
@@ -46,9 +40,11 @@ export default MobileHeader;
 
 const MobileNavContainer = styled(motion.div)`
   position: fixed;
+  padding-top: 8rem;
   width: 100%;
   height: 100vh;
   top: 0;
   left: 0;
-  border: 3px solid red;
+  background-color: ${({ theme }) => theme.COLORS.black};
+  z-index: 50;
 `;

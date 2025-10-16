@@ -1,14 +1,13 @@
 import { Route, Routes, useLocation } from "react-router";
-
 import { AnimatePresence } from "motion/react";
-import PageTransition from "./components/template/PageTransition";
-import FlipTransition from "./components/template/FlipTransition";
 import BookPage from "./pages/BookPage";
-import TheProjects from "./pages/TheProjects";
-import Main from "./pages/Main";
 import ContactSection from "./components/template/section/ContactSection";
 import Header from "./layout/Header/index";
 import TreeJsPage from "./pages/ThreeJsPage";
+import OpacityTransition from "./components/transition/OpacityTransition";
+import FlipTransition from "./components/transition/FilpTrnasition";
+import HomePage from "./pages/HomePage";
+import ProjectsPage from "./pages/ProjectsPage";
 
 function App() {
   const location = useLocation();
@@ -20,17 +19,17 @@ function App() {
           <Route
             path="/"
             element={
-              <PageTransition>
-                <Main />
-              </PageTransition>
+              <OpacityTransition>
+                <HomePage />
+              </OpacityTransition>
             }
           />
           <Route
             path="book"
             element={
-              <PageTransition>
+              <OpacityTransition>
                 <BookPage />
-              </PageTransition>
+              </OpacityTransition>
             }
           />
           <Route path="/threeJs" element={<TreeJsPage />} />
@@ -38,16 +37,16 @@ function App() {
             path="/projects"
             element={
               <FlipTransition color="#ffd34f" count={6}>
-                <TheProjects />
+                <ProjectsPage />
               </FlipTransition>
             }
           />
           <Route
             path="/contact"
             element={
-              <PageTransition>
+              <OpacityTransition>
                 <ContactSection />
-              </PageTransition>
+              </OpacityTransition>
             }
           />
         </Route>

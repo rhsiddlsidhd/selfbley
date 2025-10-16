@@ -1,18 +1,16 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "motion/react";
-
-import Project from "../components/organism/Project";
-import useScreenStore, { Mode } from "../stores/useScreenStore";
-import { getProjectApi } from "../api/projectApi";
-import ProjectAside from "../components/organism/ProjectAside";
-
-import useProjectStore, { ProjectModel } from "../stores/projectStore";
-import FilterGroup from "../components/molecules/FilterGroup";
+import useScreenStore, { Mode } from "../../stores/useScreenStore";
+import useProjectStore, { ProjectModel } from "../../stores/projectStore";
+import { getProjectApi } from "../../api/projectApi";
+import FilterGroup from "../../components/molecules/FilterGroup";
+import Project from "../../components/organism/Project";
+import ProjectAside from "../../components/organism/ProjectAside";
 
 export type FilterType = "ALL" | "TEAM" | "SINGLE";
 
-const TheProjects = () => {
+const ProjectsPage = () => {
   const mode = useScreenStore((state) => state.mode);
   const selectedFilter = useProjectStore((state) => state.filter);
   const projects = useProjectStore((state) => state.projects);
@@ -60,7 +58,7 @@ const TheProjects = () => {
   );
 };
 
-export default TheProjects;
+export default ProjectsPage;
 
 const Container = styled.div`
   display: flex;

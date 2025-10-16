@@ -92,5 +92,5 @@ const ContentWrapper = styled(motion.h1)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 90;
+  z-index: 5;
 `;

@@ -2,7 +2,7 @@ import { Fade } from "basic-loading";
 import { motion } from "motion/react";
 import styled from "styled-components";
 
-const LoadingContainer = () => {
+const FadeTransitionLoader = () => {
   const option = {
     speed: 2,
   };
@@ -15,7 +15,7 @@ const LoadingContainer = () => {
   );
 };
 
-export default LoadingContainer;
+export default FadeTransitionLoader;
 
 const Container = styled(motion.div)`
   width: 100%;

@@ -1,8 +1,8 @@
 import { motion } from "motion/react";
 import styled from "styled-components";
 import { ReactNode } from "react";
-import useProjectStore from "../../stores/projectStore";
-import useScreenStore from "../../stores/useScreenStore";
+import useScreenStore from "../../../stores/useScreenStore";
+import useProjectStore from "../../../stores/projectStore";
 
 const FlipTransition = ({
   color,

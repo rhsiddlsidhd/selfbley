@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router";
-import useScreenStore, { Mode } from "../../stores/useScreenStore";
-import { NAV_PATHS } from "../../constants/routes";
+import useScreenStore, { Mode } from "../../../stores/useScreenStore";
+import { NAV_PATHS } from "../../../constants/routes";
 import { Fragment } from "react/jsx-runtime";
-import Text from "./Text";
+import Text from "../../atoms/Text";
 
 const Nav = ({ onCloseMenu }: { onCloseMenu?: () => void }) => {
   const mode = useScreenStore((state) => state.mode);

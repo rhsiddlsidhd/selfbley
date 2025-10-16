@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-import HeroSection from "../components/template/section/HeroSection";
+
 import styled from "styled-components";
-import ContactSection from "../components/template/section/ContactSection";
-import HashTagSection from "../components/template/section/HashTagSection";
-import FAQSection from "../components/template/section/FAQSection";
-import DevPhilosophySection from "../components/template/section/DevPhilosophySection";
-import TechnologiesSection from "../components/template/section/TechnologiesSection";
-import BooksSection from "../components/template/section/BooksSection";
+import HeroSection from "../../components/template/section/HeroSection";
+import HashTagSection from "../../components/template/section/HashTagSection";
+import FAQSection from "../../components/template/section/FAQSection";
+import DevPhilosophySection from "../../components/template/section/DevPhilosophySection";
+import TechnologiesSection from "../../components/template/section/TechnologiesSection";
+import BooksSection from "../../components/template/section/BooksSection";
+import ContactSection from "../../components/template/section/ContactSection";
 
 export type AnimationProgressTypes =
   | "INITIAL"
@@ -17,7 +18,7 @@ export type AnimationProgressTypes =
   | "PENDING"
   | "FLIP";
 
-const Main = () => {
+const HomePage = () => {
   const [animationProgress, setAnimationProgress] =
     useState<AnimationProgressTypes>("INITIAL");
 
@@ -44,7 +45,7 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default HomePage;
 
 const ScreenReveal = styled(motion.div)`
   position: fixed;

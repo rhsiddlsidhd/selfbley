@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import useScreenStore, { Mode } from "../../../stores/useScreenStore";
 import { LOGO_PATH } from "../../../constants/routes";
 import { CSSProperties } from "react";
+import Text from "../../atoms/Text";
 
 interface LogoProps {
   style?: CSSProperties;
@@ -14,22 +15,23 @@ const Logo = ({ style, onCloseMenu }: LogoProps) => {
   const navigate = useNavigate();
 
   return (
-    <Container
-      $mode={mode}
-      style={style}
-      onClick={() => {
-        if (onCloseMenu) {
-          onCloseMenu();
-          setTimeout(() => {
+    <Container $mode={mode} style={style}>
+      <Overlay $mode={mode}></Overlay>
+      <Text
+        onClick={() => {
+          if (onCloseMenu) {
+            onCloseMenu();
+            setTimeout(() => {
+              navigate(LOGO_PATH);
+            }, 1000);
+          } else {
             navigate(LOGO_PATH);
-          }, 1000);
-        } else {
-          navigate(LOGO_PATH);
-        }
-      }}
-    >
-      <Overlay className="logo" $mode={mode}></Overlay>
-      <Title className="logo">FRONTEND</Title>
+          }
+        }}
+        $fontWeight="bold"
+      >
+        FRONTEND
+      </Text>
     </Container>
   );
 };
@@ -39,14 +41,13 @@ export default Logo;
 const Container = styled.a<{ $mode: Mode }>`
   font-size: ${({ $mode, theme }) =>
     $mode !== "mobile" ? theme.FONT_SIZE.md : theme.FONT_SIZE.clamp4};
-  cursor: pointer;
-
-  z-index: 101;
+  z-index: 100;
 `;
 
 const Overlay = styled.div<{ $mode: Mode }>`
   font-size: ${({ $mode, theme }) =>
     $mode !== "mobile" ? theme.FONT_SIZE.xl : theme.FONT_SIZE.clamp3};
+  cursor: pointer;
   &::before {
     content: "PORTFOLIO";
     position: absolute;
@@ -82,10 +83,4 @@ const Overlay = styled.div<{ $mode: Mode }>`
     transform: translate(-50%, 75%);
     transition: transform 3s, opacity 2s;
   }
-`;
-
-const Title = styled.p`
-  font-weight: bold;
-  display: flex;
-  align-items: center;
 `;

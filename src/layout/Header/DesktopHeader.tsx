@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Logo from "../../components/organism/Logo";
-import Nav from "../../components/atoms/Nav";
+import Nav from "../../components/molecules/Nav";
 
 const DesktopHeader = () => {
   return (
@@ -27,6 +27,7 @@ const Container = styled.div`
   left: 0;
   display: flex;
   background-color: #1b19176f;
+  padding: 0.5rem 0;
   backdrop-filter: blur(2px);
 
   & p {

@@ -7,8 +7,9 @@ import useBookStore from "../../stores/bookStore";
 import { BookReview } from "./type";
 import { bookReviews } from "./constant";
 import Link from "../../components/atoms/Link";
-import LoadingContainer from "../../components/organism/LoadingContainer";
+
 import Image from "../../components/atoms/Image";
+import FadeTransitionLoader from "../../components/loading/FadeTransitionLoader";
 
 const BookPage = () => {
   const [viewData, setViewData] = useState<BookReview | null>(null);
@@ -31,7 +32,7 @@ const BookPage = () => {
     }
   }, [getData, query, navigate]);
 
-  if (loading) return <LoadingContainer />;
+  if (loading) return <FadeTransitionLoader />;
 
   return (
     <Container>

@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import React from "react";
 
-const PageTransition = ({ children }: { children: React.ReactNode }) => {
+const OpacityTransition = ({ children }: { children: React.ReactNode }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -14,4 +14,4 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default PageTransition;
+export default OpacityTransition;
