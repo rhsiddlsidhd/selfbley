@@ -6,7 +6,6 @@ import useProjectStore, { ProjectModel } from "../../stores/projectStore";
 import { getProjectApi } from "../../api/projectApi";
 import FilterGroup from "../../components/molecules/FilterGroup";
 import Project from "../../components/organism/Project";
-import mapleleaf_webm from "../../assets/video/webm/mapleleaf.webm";
 import Video from "../../components/atoms/Video";
 import useScreenStore, { Mode } from "../../stores/screenStore";
 
@@ -18,7 +17,7 @@ const ProjectAside = () => {
   return (
     <Aside>
       <section>
-        <Video src={mapleleaf_webm} />
+        <Video src={"/video/mapleleaf.webm"} />
       </section>
       <section>
         <p>Let’s imagine new futures and the strength to bring them to life</p>
