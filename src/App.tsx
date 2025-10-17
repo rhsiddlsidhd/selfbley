@@ -1,13 +1,13 @@
 import { Route, Routes, useLocation } from "react-router";
 import { AnimatePresence } from "motion/react";
 import BookPage from "./pages/BookPage";
-import ContactSection from "./components/template/section/ContactSection";
 import Header from "./layout/Header/index";
 import TreeJsPage from "./pages/ThreeJsPage";
 import OpacityTransition from "./components/transition/OpacityTransition";
 import FlipTransition from "./components/transition/FilpTrnasition";
 import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
+import Footer from "./layout/Footer";
 
 function App() {
   const location = useLocation();
@@ -25,7 +25,7 @@ function App() {
             }
           />
           <Route
-            path="book"
+            path="/book"
             element={
               <OpacityTransition>
                 <BookPage />
@@ -45,7 +45,7 @@ function App() {
             path="/contact"
             element={
               <OpacityTransition>
-                <ContactSection />
+                <Footer />
               </OpacityTransition>
             }
           />

@@ -2,12 +2,13 @@ import { styled } from "styled-components";
 
 import { useNavigate } from "react-router";
 import { BookData } from "../../../template/section/BooksSection";
-import useScreenStore, { Mode } from "../../../../stores/useScreenStore";
+
 import useBookStore from "../../../../stores/bookStore";
 import Thumbnail from "../../../molecules/Thumbnail";
 import Image from "../../../atoms/Image";
 import Text from "../../../atoms/Text";
 import React, { useCallback } from "react";
+import useScreenStore, { Mode } from "../../../../stores/screenStore";
 
 const BookCard = React.memo(({ book }: { book: BookData }) => {
   const { title, description, image, author, publisher } = book;

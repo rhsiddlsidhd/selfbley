@@ -5,7 +5,7 @@ import { useModalStore } from "../../../stores/modalStore";
 import TechCategoryList from "../../molecules/TechCategoryList";
 import { technologys } from "../content/TechnologiesContent/constant";
 import styled from "styled-components";
-import useScreenStore, { Mode } from "../../../stores/useScreenStore";
+import useScreenStore, { Mode } from "../../../stores/screenStore";
 
 const Modal = () => {
   const isOpen = useModalStore((state) => state.isOpen);

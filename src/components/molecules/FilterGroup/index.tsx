@@ -1,9 +1,11 @@
 import { motion } from "motion/react";
 import styled, { css } from "styled-components";
-import useScreenStore, { Mode } from "../../../stores/useScreenStore";
+import useScreenStore, { Mode } from "../../../stores/screenStore";
 import useProjectStore from "../../../stores/projectStore";
-import { FilterType } from "../../../pages/TheProjects";
+
 import { slideInUp } from "../../../styles/variants";
+
+export type FilterType = "ALL" | "TEAM" | "SINGLE";
 
 const FilterGroup = () => {
   const mode = useScreenStore((state) => state.mode);

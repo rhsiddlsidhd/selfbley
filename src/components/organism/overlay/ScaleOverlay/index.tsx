@@ -1,6 +1,6 @@
 import { motion, MotionValue, useTransform } from "motion/react";
 import styled from "styled-components";
-import useScreenStore from "../../../../stores/useScreenStore";
+import useScreenStore from "../../../../stores/screenStore";
 
 interface ScaleOverlayProps {
   scrollYProgress: MotionValue<number>;

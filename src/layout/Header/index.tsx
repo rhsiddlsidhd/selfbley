@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import useScreenStore from "../../stores/useScreenStore";
+
 import useScreenMode from "../../hooks/useScreenMode";
 import Modal from "../../components/organism/Modal";
 import DesktopHeader from "./DesktopHeader";
@@ -7,6 +7,7 @@ import MobileHeader from "./MobileHeader";
 import useScrollBotom from "../../hooks/useScrollBotom";
 import FixedButton from "../../components/molecules/FixedButton";
 import { UpArrowIcon } from "../../components/atoms/Icon";
+import useScreenStore from "../../stores/screenStore";
 
 const Header = () => {
   useScreenMode();

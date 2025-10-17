@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router";
-import useScreenStore, { Mode } from "../../../stores/useScreenStore";
+import useScreenStore, { Mode } from "../../../stores/screenStore";
 import { LOGO_PATH } from "../../../constants/routes";
 import { CSSProperties } from "react";
 import Text from "../../atoms/Text";
@@ -15,23 +15,22 @@ const Logo = ({ style, onCloseMenu }: LogoProps) => {
   const navigate = useNavigate();
 
   return (
-    <Container $mode={mode} style={style}>
-      <Overlay $mode={mode}></Overlay>
-      <Text
-        onClick={() => {
-          if (onCloseMenu) {
-            onCloseMenu();
-            setTimeout(() => {
-              navigate(LOGO_PATH);
-            }, 1000);
-          } else {
+    <Container
+      $mode={mode}
+      style={style}
+      onClick={() => {
+        if (onCloseMenu) {
+          onCloseMenu();
+          setTimeout(() => {
             navigate(LOGO_PATH);
-          }
-        }}
-        $fontWeight="bold"
-      >
-        FRONTEND
-      </Text>
+          }, 1000);
+        } else {
+          navigate(LOGO_PATH);
+        }
+      }}
+    >
+      <Overlay $mode={mode}></Overlay>
+      <Text $fontWeight="bold">FRONTEND</Text>
     </Container>
   );
 };
@@ -47,6 +46,7 @@ const Container = styled.a<{ $mode: Mode }>`
 const Overlay = styled.div<{ $mode: Mode }>`
   font-size: ${({ $mode, theme }) =>
     $mode !== "mobile" ? theme.FONT_SIZE.xl : theme.FONT_SIZE.clamp3};
+
   cursor: pointer;
   &::before {
     content: "PORTFOLIO";

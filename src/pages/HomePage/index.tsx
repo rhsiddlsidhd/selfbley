@@ -8,7 +8,6 @@ import FAQSection from "../../components/template/section/FAQSection";
 import DevPhilosophySection from "../../components/template/section/DevPhilosophySection";
 import TechnologiesSection from "../../components/template/section/TechnologiesSection";
 import BooksSection from "../../components/template/section/BooksSection";
-import ContactSection from "../../components/template/section/ContactSection";
 
 export type AnimationProgressTypes =
   | "INITIAL"
@@ -40,7 +39,6 @@ const HomePage = () => {
       <DevPhilosophySection />
       <TechnologiesSection />
       <BooksSection />
-      <ContactSection />
     </motion.div>
   );
 };

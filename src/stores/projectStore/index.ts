@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { BADGE_COLORS_KEY } from "../../types/style";
-import { FilterType } from "../../pages/TheProjects";
-import { AnimationProgressTypes } from "../../pages/Main";
+import { FilterType } from "../../components/molecules/FilterGroup";
+import { AnimationProgressTypes } from "../../pages/HomePage";
 
 export interface ProjectModel {
   mode: Exclude<BADGE_COLORS_KEY, "frontend" | "backend" | "etc" | "language">;
@@ -20,7 +20,7 @@ interface ProjectStore {
   projects: ProjectModel[];
   filter: FilterType;
   animationProgress: AnimationProgressTypes;
-  setFilter: (FilterType: FilterType) => void;
+  setFilter: (filter: FilterType) => void;
   setProjects: (projects: ProjectModel[]) => void;
   setAnimationProgress: (state: AnimationProgressTypes) => void;
   clearState: () => void;

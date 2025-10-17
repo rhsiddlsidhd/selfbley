@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import useScreenStore, { Mode } from "../../../stores/useScreenStore";
+
 import { motion, TargetAndTransition, Transition } from "motion/react";
+import useScreenStore, { Mode } from "../../../stores/screenStore";
 
 interface MemoProps {
   children: React.ReactNode;

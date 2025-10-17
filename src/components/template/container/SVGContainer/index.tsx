@@ -31,7 +31,7 @@ export default SVGContainer;
 const SVGWrapper = styled(motion.aside)<Pick<SVGContainerProps, "$width">>`
   ${({ $width, theme }) => theme.responseWidth($width ?? 1)};
   position: absolute;
-  border: 1px solid red;
+
   pointer-events: none;
   z-index: 30;
 `;

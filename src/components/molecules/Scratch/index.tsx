@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import styled from "styled-components";
 import { MotionValue } from "motion";
 import { useMotionValueEvent, useTransform } from "motion/react";
-import useScreenStore, { Mode } from "../../../stores/useScreenStore";
+import useScreenStore, { Mode } from "../../../stores/screenStore";
 
 const getScratchActiveIndex = (latest: number, textLength: number) => {
   const activeIndex = Math.floor((Math.round(latest) / 100) * textLength);

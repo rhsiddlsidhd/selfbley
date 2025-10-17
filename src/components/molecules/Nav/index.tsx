@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router";
-import useScreenStore, { Mode } from "../../../stores/useScreenStore";
+import useScreenStore, { Mode } from "../../../stores/screenStore";
 import { NAV_PATHS } from "../../../constants/routes";
 import { Fragment } from "react/jsx-runtime";
 import Text from "../../atoms/Text";

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import useScreenStore, { Mode } from "../../../stores/useScreenStore";
+import useScreenStore, { Mode } from "../../../stores/screenStore";
 import Badge from "../../atoms/Badge";
 import { motion } from "motion/react";
 import Link from "../../atoms/Link";

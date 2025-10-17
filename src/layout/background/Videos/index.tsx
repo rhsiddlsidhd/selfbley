@@ -1,19 +1,21 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import styled from "styled-components";
-import { homeVideos } from "../../../constants/videos";
+
 import ImageTransitionLoader from "../../../components/loading/ImageTransitionLoader";
 import useVideoIsReady from "../../../hooks/useVideoIsReady";
 import useActiveIndex from "../../../hooks/useActiveIndex";
+
+const videoLabels = ["tennis", "snowboard", "run", "programming"];
 
 const Videos = ({ isInView }: { isInView: boolean }) => {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   const { isLoaded, handleVideoLoaded } = useVideoIsReady({
-    videoLength: homeVideos.length,
+    videoLength: videoLabels.length,
   });
 
-  const { activeIndex } = useActiveIndex({ isInView, max: homeVideos.length });
+  const { activeIndex } = useActiveIndex({ isInView, max: videoLabels.length });
 
   useEffect(() => {
     if (!videoRefs.current) return;
@@ -30,7 +32,7 @@ const Videos = ({ isInView }: { isInView: boolean }) => {
     <Videowrapper>
       {!isLoaded && <ImageTransitionLoader />}
       {isInView &&
-        homeVideos.map((video, i) => {
+        videoLabels.map((label, i) => {
           return (
             <Video
               key={i}
@@ -45,7 +47,7 @@ const Videos = ({ isInView }: { isInView: boolean }) => {
               onCanPlayThrough={handleVideoLoaded}
               animate={{ zIndex: i === activeIndex ? 10 : 0 }}
             >
-              <source src={video.webm} type="video/webm" />
+              <source src={`/video/${label}.webm`} type="video/webm" />
             </Video>
           );
         })}
