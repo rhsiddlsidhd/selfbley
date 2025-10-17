@@ -4,11 +4,17 @@ interface LinkProps {
   href: string;
   $isDisabled: boolean;
   children: React.ReactNode;
+  $width?: string;
 }
 
-const Link = ({ href, $isDisabled, children }: LinkProps) => {
+const Link = ({ href, $isDisabled, children, $width }: LinkProps) => {
   return (
-    <Index whileHover={{ scale: 1.1 }} href={href} $isDisabled={$isDisabled}>
+    <Index
+      whileHover={{ scale: 1.1 }}
+      href={href}
+      $isDisabled={$isDisabled}
+      $width={$width}
+    >
       {children}
     </Index>
   );
@@ -16,7 +22,7 @@ const Link = ({ href, $isDisabled, children }: LinkProps) => {
 
 export default Link;
 
-const Index = styled(motion.a)<Pick<LinkProps, "$isDisabled">>`
+const Index = styled(motion.a)<Pick<LinkProps, "$isDisabled" | "$width">>`
   ${({ $isDisabled }) =>
     $isDisabled &&
     `
@@ -24,4 +30,7 @@ const Index = styled(motion.a)<Pick<LinkProps, "$isDisabled">>`
      opacity:0.5;
      cursor:not-allowed;
    `}
+  position:relative;
+  width: ${({ $width }) => $width ?? "auto"};
+  aspect-ratio: ${({ $width }) => ($width ? "1/1" : "auto")};
 `;

@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
-import { weatherImgs } from "../../../constants/imgs";
+
 import styled from "styled-components";
+import useDisableScroll from "../../../hooks/useDisableScroll";
+
+const weatherLabel = ["flower", "spring", "summer"];
 
 const ImageTransitionLoader = () => {
+  useDisableScroll();
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % weatherImgs.length);
+      setActiveIndex((prev) => (prev + 1) % weatherLabel.length);
     }, 100);
 
     return () => {
@@ -24,10 +28,10 @@ const ImageTransitionLoader = () => {
       }}
     >
       <ImageWrapper>
-        {weatherImgs.map((img, i) => (
+        {weatherLabel.map((label, i) => (
           <img
             key={i}
-            srcSet={img.srcSet}
+            srcSet={`/weather/${label}-160.webp, /weather/${label}-320.webp, /weather/${label}-640.webp`}
             alt={`weather image ${i}`}
             style={{
               opacity: i === activeIndex ? 1 : 0,
@@ -47,6 +51,7 @@ const ImageWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
   & > img {
     width: 100%;
     height: 100%;

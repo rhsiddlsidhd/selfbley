@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import useScreenStore, { Mode } from "../../../stores/useScreenStore";
+import useScreenStore, { Mode } from "../../../stores/screenStore";
 
 const Stripes = () => {
   const mode = useScreenStore((state) => state.mode);

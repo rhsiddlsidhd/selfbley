@@ -1,16 +1,13 @@
 import { Route, Routes, useLocation } from "react-router";
-
-import Header from "./layout/Header";
 import { AnimatePresence } from "motion/react";
-import PageTransition from "./components/template/PageTransition";
-import FlipTransition from "./components/template/FlipTransition";
 import BookPage from "./pages/BookPage";
-
-import TheSkills from "./pages/TheSkills";
-import TheProjects from "./pages/TheProjects";
-
-import Main from "./pages/Main";
-import ContactSection from "./components/template/section/ContactSection";
+import Header from "./layout/Header/index";
+import TreeJsPage from "./pages/ThreeJsPage";
+import OpacityTransition from "./components/transition/OpacityTransition";
+import FlipTransition from "./components/transition/FilpTrnasition";
+import HomePage from "./pages/HomePage";
+import ProjectsPage from "./pages/ProjectsPage";
+import Footer from "./layout/Footer";
 
 function App() {
   const location = useLocation();
@@ -22,41 +19,34 @@ function App() {
           <Route
             path="/"
             element={
-              <PageTransition>
-                <Main />
-              </PageTransition>
+              <OpacityTransition>
+                <HomePage />
+              </OpacityTransition>
             }
           />
           <Route
-            path="book"
+            path="/book"
             element={
-              <PageTransition>
+              <OpacityTransition>
                 <BookPage />
-              </PageTransition>
+              </OpacityTransition>
             }
           />
-          <Route
-            path="/skills"
-            element={
-              <FlipTransition color="#6e6d6d" count={4}>
-                <TheSkills />
-              </FlipTransition>
-            }
-          />
+          <Route path="/threeJs" element={<TreeJsPage />} />
           <Route
             path="/projects"
             element={
               <FlipTransition color="#ffd34f" count={6}>
-                <TheProjects />
+                <ProjectsPage />
               </FlipTransition>
             }
           />
           <Route
             path="/contact"
             element={
-              <PageTransition>
-                <ContactSection />
-              </PageTransition>
+              <OpacityTransition>
+                <Footer />
+              </OpacityTransition>
             }
           />
         </Route>

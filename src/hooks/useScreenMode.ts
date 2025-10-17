@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from "react";
-import useScreenStore from "../stores/useScreenStore";
+
 import { debounce } from "lodash";
+import useScreenStore from "../stores/screenStore";
 
 const useScreenMode = () => {
   const setMode = useScreenStore((state) => state.setMode);

@@ -1,11 +1,11 @@
-type SignSVGData = {
+type SignSVGConfig = {
   viewbox: string;
   pathLength: number[];
   opacity: number[];
   times: number[];
 };
 export const signSVGConfig: {
-  [key in 0 | 1 | 2 | 3]: SignSVGData;
+  [key in 0 | 1 | 2 | 3]: SignSVGConfig;
 } = {
   0: {
     viewbox: "0 0 340 300",

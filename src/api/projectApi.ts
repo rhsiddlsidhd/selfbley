@@ -1,16 +1,16 @@
-import { ProjectData } from "../pages/TheProjects";
+import { ProjectModel } from "../stores/projectStore";
 import { APIRESPONSE } from "../types/api";
 
 const baseURL = import.meta.env.VITE_PROJECTS_BASE_URL;
 const id = import.meta.env.VITE_GITHUB_USER_ID;
 const repoURL = import.meta.env.VITE_GITHUB_REPO_URL;
 
-export const getProjectApi = async (): Promise<APIRESPONSE<ProjectData[]>> => {
+export const getProjectApi = async (): Promise<APIRESPONSE<ProjectModel[]>> => {
   try {
     const url = `${baseURL}/${id}/${repoURL}/projects`;
 
     const res = await fetch(url);
-    const data: ProjectData[] = await res.json();
+    const data: ProjectModel[] = await res.json();
 
     if (!res.ok) {
       return {

@@ -1,13 +1,24 @@
-import { useMotionValueEvent, useScroll } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "motion/react";
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import SkillContent from "../../../organism/SkillContent";
-import Marquee from "../../../molecules/Marquee";
+import Marquee from "../../../molecules/Marquee/index";
+import TechnologiesContent from "../../../organism/content/TechnologiesContent";
+import { PlusIcon } from "../../../atoms/Icon";
+import Button from "../../../atoms/Button";
+import { useModalStore } from "../../../../stores/modalStore";
+import SVGContainer from "../../container/SVGContainer";
+import Sign from "../../../atoms/Sign";
 
 const title = "the technologies";
 
 const TechnologiesSection: React.FC = () => {
   const [isSticky, setIsSticky] = useState<boolean>(false);
+  const setIsOpen = useModalStore((state) => state.setIsOpen);
 
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -34,7 +45,32 @@ const TechnologiesSection: React.FC = () => {
         <MarqueeContainer>
           <Marquee text={title.toUpperCase()} />
         </MarqueeContainer>
-        <SkillContent isSticky={isSticky} />
+
+        <SVGContainer
+          isInView={true}
+          $width={2}
+          style={{ bottom: "0%", left: "0" }}
+        >
+          <Sign type={3} />
+        </SVGContainer>
+
+        <AnimatePresence>{isSticky && <TechnologiesContent />}</AnimatePresence>
+        {isSticky && (
+          <ButtonWrapper
+            initial={{ x: "50%", opacity: 0 }}
+            animate={{ opacity: 1 }}
+            whileHover={{ x: 0 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button
+              $width={0.25}
+              $height={50}
+              onClick={() => setIsOpen(true, "technologys")}
+            >
+              <PlusIcon />
+            </Button>
+          </ButtonWrapper>
+        )}
       </StickySection>
     </Container>
   );
@@ -51,13 +87,21 @@ const MarqueeContainer = styled.div`
 const Container = styled.section`
   position: relative;
   height: 150vh;
-  background-color: black;
+  background-color: ${({ theme }) => theme.COLORS.black};
 `;
 
 const StickySection = styled.div`
+  ${({ theme }) => theme.FLEX_CENTER}
   position: sticky;
   top: 0;
   height: 100vh;
   overflow: hidden;
   z-index: 5;
+`;
+
+const ButtonWrapper = styled(motion.div)`
+  ${({ theme }) => theme.responseWidth(0.25)};
+  height: 50%;
+  position: absolute;
+  right: 0;
 `;

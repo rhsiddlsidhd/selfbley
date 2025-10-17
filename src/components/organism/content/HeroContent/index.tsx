@@ -1,9 +1,22 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { handleFadeAnimation } from "../../../../utils/validation";
-import { AnimationProgressTypes } from "../../../../pages/Main";
+
 import { BottomArrowIcon } from "../../../atoms/Icon/index";
+import Text from "../../../atoms/Text";
+import { AnimationProgressTypes } from "../../../../pages/HomePage";
+
+const handleFadeAnimation = ({
+  state,
+  isInView,
+}: {
+  state: AnimationProgressTypes;
+  isInView: boolean;
+}): "show" | "hidden" | "exit" => {
+  if (!isInView) return "exit";
+
+  return ["SCALE", "FADE"].includes(state) ? "show" : "hidden";
+};
 
 const WELCOMEINTRO = "Frontend Developer YoungJae";
 
@@ -22,9 +35,14 @@ const HeroContent = ({ isInView }: { isInView: boolean }) => {
     >
       {WELCOMEINTRO.split(" ").map((text, i) => {
         return (
-          <motion.p key={i} variants={contentTextItemReveal}>
+          <Text
+            $fontSize="clamp3"
+            $fontWeight="bold"
+            key={i}
+            variants={contentTextItemReveal}
+          >
             {text}
-          </motion.p>
+          </Text>
         );
       })}
       {animationProgress === "FADE" && (
@@ -60,7 +78,7 @@ const contentTextItemReveal = {
 
 const IconWrapper = styled(motion.div)`
   position: absolute;
-  width: 10vw;
+  width: ${({ theme }) => theme.FONT_SIZE.clamp3};
   aspect-ratio: 1/1;
   bottom: -50%;
 `;
@@ -86,5 +104,5 @@ const ContentWrapper = styled(motion.h1)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 90;
+  z-index: 5;
 `;
