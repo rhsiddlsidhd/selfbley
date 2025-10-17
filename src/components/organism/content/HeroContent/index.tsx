@@ -1,10 +1,22 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { handleFadeAnimation } from "../../../../utils/validation";
-import { AnimationProgressTypes } from "../../../../pages/Main";
+
 import { BottomArrowIcon } from "../../../atoms/Icon/index";
 import Text from "../../../atoms/Text";
+import { AnimationProgressTypes } from "../../../../pages/HomePage";
+
+const handleFadeAnimation = ({
+  state,
+  isInView,
+}: {
+  state: AnimationProgressTypes;
+  isInView: boolean;
+}): "show" | "hidden" | "exit" => {
+  if (!isInView) return "exit";
+
+  return ["SCALE", "FADE"].includes(state) ? "show" : "hidden";
+};
 
 const WELCOMEINTRO = "Frontend Developer YoungJae";
 

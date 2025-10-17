@@ -1,19 +1,35 @@
-import styled from "styled-components";
+import {
+  motion,
+  MotionStyle,
+  TargetAndTransition,
+  Transition,
+} from "motion/react";
+import styled, { CSSProperties } from "styled-components";
 
 const Image = ({
   src,
   alt,
-  $objectFit,
+  style,
+  initial,
+
+  animate,
+  transition,
 }: {
   src: string;
   alt: string;
-  $objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
+  style?: CSSProperties | MotionStyle;
+  transition?: Transition;
+  initial?: TargetAndTransition;
+  animate?: TargetAndTransition;
 }) => {
   return (
     <Img
-      src={src}
+      srcSet={src}
+      initial={initial}
+      animate={animate}
       alt={alt}
-      style={{ objectFit: $objectFit ?? "contain" }}
+      style={style}
+      transition={transition}
       loading="lazy"
     />
   );
@@ -21,8 +37,9 @@ const Image = ({
 
 export default Image;
 
-const Img = styled.img`
+const Img = styled(motion.img)`
   position: absolute;
+  object-fit: contain;
   width: 100%;
   height: 100%;
   top: 0;

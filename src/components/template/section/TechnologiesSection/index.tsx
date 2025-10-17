@@ -11,6 +11,8 @@ import TechnologiesContent from "../../../organism/content/TechnologiesContent";
 import { PlusIcon } from "../../../atoms/Icon";
 import Button from "../../../atoms/Button";
 import { useModalStore } from "../../../../stores/modalStore";
+import SVGContainer from "../../container/SVGContainer";
+import Sign from "../../../atoms/Sign";
 
 const title = "the technologies";
 
@@ -43,6 +45,14 @@ const TechnologiesSection: React.FC = () => {
         <MarqueeContainer>
           <Marquee text={title.toUpperCase()} />
         </MarqueeContainer>
+
+        <SVGContainer
+          isInView={true}
+          $width={2}
+          style={{ bottom: "0%", left: "0" }}
+        >
+          <Sign type={3} />
+        </SVGContainer>
 
         <AnimatePresence>{isSticky && <TechnologiesContent />}</AnimatePresence>
         {isSticky && (

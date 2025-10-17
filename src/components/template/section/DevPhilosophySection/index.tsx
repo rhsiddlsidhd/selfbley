@@ -3,6 +3,8 @@ import Marquee from "../../../molecules/Marquee/index";
 import { useRef } from "react";
 import { useScroll } from "motion/react";
 import Scratch from "../../../molecules/Scratch/index";
+import Sign from "../../../atoms/Sign";
+import SVGContainer from "../../container/SVGContainer";
 
 const text = ["사용자를 생각하며", "비즈니스 가치를 고민하는", "개발자"].join(
   "\n"
@@ -18,6 +20,14 @@ const DevPhilosophySection = () => {
   });
   return (
     <Container ref={containerRef}>
+      <SVGContainer
+        isInView={true}
+        $width={2}
+        style={{ top: "25%", left: "0" }}
+      >
+        <Sign type={1} />
+      </SVGContainer>
+
       <Marquee text={title.toUpperCase()} reverse={true} />
       <ScratchContainer>
         <Scratch

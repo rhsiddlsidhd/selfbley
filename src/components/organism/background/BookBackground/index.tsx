@@ -11,6 +11,7 @@ import {
   BookData,
   CARD_WRAPPER_WIDTH,
 } from "../../../template/section/BooksSection";
+import Image from "../../../atoms/Image";
 
 const INITIAL_Y_OFFSET = -100;
 const LAST_Y_OFFSET = 100;
@@ -63,7 +64,11 @@ const BookBackground = ({
             animate={{ opacity: i === activeIndex ? 1 : 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Background src={image} />
+            <Image
+              src={image}
+              alt={`Book cover ${i + 1}`}
+              style={{ filter: "grayscale(0.7) brightness(0.35) blur(5px)" }}
+            />
           </BackgroundWrapper>
         );
       })}
@@ -78,11 +83,4 @@ const BackgroundWrapper = styled(motion.div)`
   width: 100%;
   height: 100vh;
   top: 0;
-`;
-
-const Background = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: grayscale(0.7) brightness(0.35) blur(5px);
 `;

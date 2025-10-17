@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import { useMotionValueEvent, useScroll, useTransform } from "motion/react";
-import SignSVGContainer from "../../../organism/SignSVGContainer";
-
 import Memo from "../../../atoms/Memo";
 import FAQBackground from "../../../organism/background/FAQBackground";
+import SVGContainer from "../../container/SVGContainer";
+import Sign from "../../../atoms/Sign";
 
 interface FAQ {
   question: string;
@@ -67,11 +67,62 @@ const FAQSection = () => {
 
   return (
     <Container ref={containerRef}>
-      <SignSVGContainer
-        isView={true}
-        section="parallaxSection"
-        $position="absolute"
-      />
+      <SVGContainer
+        isInView={true}
+        $width={1.5}
+        style={{ top: "5%", right: "5%" }}
+      >
+        <Sign type={3} />
+      </SVGContainer>
+
+      <SVGContainer
+        isInView={true}
+        $width={0.5}
+        style={{ top: "15%", left: "5%" }}
+      >
+        <Sign type={2} />
+      </SVGContainer>
+
+      <SVGContainer
+        isInView={true}
+        $width={2}
+        style={{ top: "25%", right: "15%" }}
+      >
+        <Sign type={1} />
+      </SVGContainer>
+
+      <SVGContainer
+        isInView={true}
+        $width={1}
+        style={{ top: "45%", left: "5%" }}
+      >
+        <Sign type={0} />
+      </SVGContainer>
+
+      <SVGContainer
+        isInView={true}
+        $width={0.5}
+        style={{ top: "60%", right: "30%" }}
+      >
+        <Sign type={3} />
+      </SVGContainer>
+
+      <SVGContainer
+        isInView={true}
+        $width={2}
+        style={{ top: "80%", right: "5%" }}
+      >
+        <Sign type={1} />
+      </SVGContainer>
+
+      <SVGContainer
+        isInView={true}
+        $width={1.5}
+        style={{ top: "95%", left: "5%" }}
+      >
+        <Sign type={2} />
+      </SVGContainer>
+
       <FAQBackground activeIndex={activeIndex} y={y} />
 
       {FAQList.map(({ question, answer }, i) => {

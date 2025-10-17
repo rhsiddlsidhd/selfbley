@@ -1,13 +1,15 @@
 import { motion } from "framer-motion";
-import { paths } from "./../../constants/svg/sign-paths";
-import { getSVGConfig } from "../../utils/svg/helper";
+import { paths } from "../../../constants/svg/sign-paths";
+import { signSVGConfig } from "../../../constants/svg/sign-config";
 
 interface SignSVGProps {
   type: keyof typeof paths;
   color?: string;
 }
 
-export default function SignSVG({ type, color = "whitesmoke" }: SignSVGProps) {
+const getSVGConfig = (type: keyof typeof paths) => signSVGConfig[type];
+
+export default function Sign({ type, color = "whitesmoke" }: SignSVGProps) {
   return (
     <motion.svg
       xmlns="http://www.w3.org/2000/svg"

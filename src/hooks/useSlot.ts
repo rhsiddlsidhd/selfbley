@@ -3,10 +3,12 @@ import {
   TechnologyKeys,
   technologys,
 } from "../components/organism/content/TechnologiesContent/constant";
-import { centerOffset } from "../constants/skillsConstants";
 
 const techCategory = Object.keys(technologys) as TechnologyKeys[];
 const clone = [...techCategory, ...techCategory];
+
+const VISIBLE_COUNT = 3;
+const centerOffset = Math.floor(VISIBLE_COUNT / 2);
 
 const useSlot = () => {
   const intervalRef = useRef<NodeJS.Timeout>(null);

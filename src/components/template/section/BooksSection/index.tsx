@@ -8,6 +8,8 @@ import Marquee from "../../../molecules/Marquee/index";
 import useBookData from "../../../../hooks/useBookData";
 import BookBackground from "../../../organism/background/BookBackground";
 import BookCard from "../../../organism/card/BookCard";
+import SVGContainer from "../../container/SVGContainer";
+import Sign from "../../../atoms/Sign";
 
 //background 의 setInAcitive 또한 카드의 넓이만큼 이동했을때 변해야한다 .
 // 한 화면에 카드를 두장씩 보여주기 위해선 하나의 카드가 100vw 만큼의 넓이를 가져가면 볼 수 없다.
@@ -59,6 +61,7 @@ const BooksSection = () => {
         scrollYProgress={scrollYProgress}
         isInView={isInView}
       />
+
       <StickyArea $mode={mode}>
         <CardScroller style={{ x }} $totalBooks={bookData.length}>
           {bookData.map((book, idx) => {
@@ -68,6 +71,54 @@ const BooksSection = () => {
               </SlideContainer>
             );
           })}
+
+          <SVGContainer
+            isInView={isInView}
+            $width={0.25}
+            style={{ top: "15%", left: "2%" }}
+          >
+            <Sign type={0} />
+          </SVGContainer>
+
+          <SVGContainer
+            isInView={isInView}
+            $width={0.4}
+            style={{ bottom: "5%", left: "19%" }}
+          >
+            <Sign type={3} />
+          </SVGContainer>
+
+          <SVGContainer
+            isInView={isInView}
+            $width={0.5}
+            style={{ bottom: "15%", left: "40%" }}
+          >
+            <Sign type={2} />
+          </SVGContainer>
+
+          <SVGContainer
+            isInView={isInView}
+            $width={0.2}
+            style={{ top: "0%", left: "62%" }}
+          >
+            <Sign type={0} />
+          </SVGContainer>
+
+          <SVGContainer
+            isInView={isInView}
+            $width={0.6}
+            style={{ bottom: "0%", left: "80%" }}
+          >
+            <Sign type={3} />
+          </SVGContainer>
+
+          <SVGContainer
+            isInView={isInView}
+            $width={0.4}
+            style={{ top: "5%", left: "95%" }}
+          >
+            <Sign type={1} />
+          </SVGContainer>
         </CardScroller>
         <Title>
           <Marquee text="THE BOOKS" reverse />
