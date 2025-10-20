@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import styled from "styled-components";
 import useDisableScroll from "../../../hooks/useDisableScroll";
 
@@ -20,26 +19,18 @@ const ImageTransitionLoader = () => {
   }, [activeIndex]);
 
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100vh",
-      }}
-    >
-      <ImageWrapper>
-        {weatherLabel.map((label, i) => (
-          <img
-            key={i}
-            srcSet={`/weather/${label}-160.webp, /weather/${label}-320.webp, /weather/${label}-640.webp`}
-            alt={`weather image ${i}`}
-            style={{
-              opacity: i === activeIndex ? 1 : 0,
-            }}
-          />
-        ))}
-      </ImageWrapper>
-    </div>
+    <ImageWrapper>
+      {weatherLabel.map((label, i) => (
+        <img
+          key={i}
+          srcSet={`/weather/${label}-160.webp, /weather/${label}-320.webp, /weather/${label}-640.webp`}
+          alt={`weather image ${i}`}
+          style={{
+            opacity: i === activeIndex ? 1 : 0,
+          }}
+        />
+      ))}
+    </ImageWrapper>
   );
 };
 
@@ -51,7 +42,9 @@ const ImageWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  pointer-events: none;
 
+  z-index: 1;
   & > img {
     width: 100%;
     height: 100%;
