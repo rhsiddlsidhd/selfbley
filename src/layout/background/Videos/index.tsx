@@ -9,11 +9,12 @@ import useActiveIndex from "../../../hooks/useActiveIndex";
 const videoLabels = ["tennis", "snowboard", "run", "programming"];
 
 const Videos = ({ isInView }: { isInView: boolean }) => {
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const countRef = useRef<number>(0);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>(
+    new Array(videoLabels.length).fill(null)
+  );
 
-  const { isLoaded, handleVideoLoaded } = useVideoIsReady({
-    videoLength: videoLabels.length,
-  });
+  const { isLoaded, handleVideoLoaded } = useVideoIsReady();
 
   const { activeIndex } = useActiveIndex({ isInView, max: videoLabels.length });
 
@@ -30,7 +31,9 @@ const Videos = ({ isInView }: { isInView: boolean }) => {
 
   return (
     <Videowrapper>
-      {!isLoaded && <ImageTransitionLoader />}
+      <ImageTransitionLoaderContainer>
+        {!isLoaded && <ImageTransitionLoader />}
+      </ImageTransitionLoaderContainer>
       {isInView &&
         videoLabels.map((label, i) => {
           return (
@@ -44,8 +47,14 @@ const Videos = ({ isInView }: { isInView: boolean }) => {
               loop
               playsInline
               preload="auto"
-              onCanPlayThrough={handleVideoLoaded}
-              animate={{ zIndex: i === activeIndex ? 10 : 0 }}
+              onCanPlayThrough={() => {
+                countRef.current += 1;
+
+                if (countRef.current === videoLabels.length) {
+                  handleVideoLoaded();
+                }
+              }}
+              animate={{ opacity: i === activeIndex ? 1 : 0 }}
             >
               <source src={`/video/${label}.webm`} type="video/webm" />
             </Video>
@@ -62,6 +71,7 @@ const Videowrapper = styled.div`
   top: 0;
   width: 100vw;
   height: 100vh;
+  min-height: 100vh;
   z-index: -1;
 `;
 
@@ -70,4 +80,12 @@ const Video = styled(motion.video)`
   height: 100%;
   position: absolute;
   object-fit: cover;
+`;
+
+const ImageTransitionLoaderContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `;
