@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Logo from "../../components/organism/Logo";
+import Logo from "../../components/molecules/Logo";
 import Nav from "../../components/molecules/Nav";
 
 const DesktopHeader = () => {

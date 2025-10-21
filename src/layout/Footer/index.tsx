@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import styled from "styled-components";
 import Image from "../../components/atoms/Image";
 import Text from "../../components/atoms/Text";
-import Contact from "../../components/organism/Contact";
+import Contact from "./Contact";
 
 const logo = "portfolio";
 const FooterLogo = () => {

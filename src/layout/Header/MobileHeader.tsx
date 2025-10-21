@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Logo from "../../components/organism/Logo";
+import Logo from "../../components/molecules/Logo";
 
 import styled from "styled-components";
 import { motion } from "motion/react";
