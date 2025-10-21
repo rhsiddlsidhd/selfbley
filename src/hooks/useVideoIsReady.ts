@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const useVideoIsReady = ({ videoLength }: { videoLength: number }) => {
-  const count = useRef<number>(0);
+const useVideoIsReady = () => {
   const startTimeRef = useRef<number>(Date.now());
   const [loaded, setLoaded] = useState(false);
   const [minTimeReached, setMinTimeReached] = useState(false);
@@ -17,19 +16,15 @@ const useVideoIsReady = ({ videoLength }: { videoLength: number }) => {
   }, []);
 
   const handleVideoLoaded = () => {
-    count.current += 1;
+    const elapsedTime = Date.now() - startTimeRef.current;
 
-    if (count.current === videoLength) {
-      const elapsedTime = Date.now() - startTimeRef.current;
-
-      if (elapsedTime >= MIN_LOADING_TIME) {
+    if (elapsedTime >= MIN_LOADING_TIME) {
+      setLoaded(true);
+    } else {
+      const remainingTime = MIN_LOADING_TIME - elapsedTime;
+      setTimeout(() => {
         setLoaded(true);
-      } else {
-        const remainingTime = MIN_LOADING_TIME - elapsedTime;
-        setTimeout(() => {
-          setLoaded(true);
-        }, remainingTime);
-      }
+      }, remainingTime);
     }
   };
 

@@ -9,7 +9,8 @@ const useScreenMode = () => {
   const getBrowserMode = useCallback(() => {
     const width = window.innerWidth;
     const type = width > 1024 ? "desktop" : width > 768 ? "tablet" : "mobile";
-    setMode(type);
+    const currentMode = useScreenStore.getState().mode;
+    if (currentMode !== type) setMode(type);
   }, [setMode]);
 
   const debounceGetBrowserMode = debounce(getBrowserMode, 1000);
