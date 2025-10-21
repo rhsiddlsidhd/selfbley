@@ -16,7 +16,7 @@ const Marquee = ({ deg = 0, reverse = false, text }: MarqueeTextProps) => {
       repeat: Infinity,
     },
   };
-
+  //
   return (
     <MarqueeContainer $deg={deg} $reverse={reverse}>
       <MarqueeTrack animate={marqueeAnimation} transition={{ ease: "linear" }}>

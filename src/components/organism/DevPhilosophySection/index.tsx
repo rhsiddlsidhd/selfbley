@@ -28,7 +28,9 @@ const DevPhilosophySection = () => {
         <Sign type={1} />
       </SVGContainer>
 
-      <Marquee text={title.toUpperCase()} reverse={true} />
+      <div>
+        <Marquee text={title.toUpperCase()} reverse />
+      </div>
       <ScratchContainer>
         <Scratch
           text={text}
@@ -46,15 +48,14 @@ export default DevPhilosophySection;
 const Container = styled.section`
   position: relative;
   background-color: ${({ theme }) => theme.COLORS.black};
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 100vh;
   overflow: hidden;
 `;
 
 const ScratchContainer = styled.div`
-  height: 100%;
   width: 100%;
   ${({ theme }) => theme.FLEX_CENTER}
+  height: 100%;
 `;
