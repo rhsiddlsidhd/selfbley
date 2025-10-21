@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  TechnologyKeys,
-  technologys,
-} from "../components/organism/content/TechnologiesContent/constant";
+import { TechnologyKeys } from "../components/organism/TechnologiesSection/SlotMachine";
+import { technologys } from "../constants/technology";
 
 const techCategory = Object.keys(technologys) as TechnologyKeys[];
 const clone = [...techCategory, ...techCategory];

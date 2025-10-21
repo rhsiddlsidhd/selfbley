@@ -4,7 +4,7 @@ import BookPage from "./pages/BookPage";
 import Header from "./layout/Header/index";
 import TreeJsPage from "./pages/ThreeJsPage";
 import OpacityTransition from "./components/transition/OpacityTransition";
-import FlipTransition from "./components/transition/FilpTrnasition";
+import FlipTransition from "./components/transition/FilpTransition";
 import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
 import Footer from "./layout/Footer";

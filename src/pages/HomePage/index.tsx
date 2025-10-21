@@ -2,12 +2,12 @@ import { useState } from "react";
 import { motion } from "motion/react";
 
 import styled from "styled-components";
-import HeroSection from "../../components/template/section/HeroSection";
-import HashTagSection from "../../components/template/section/HashTagSection";
-import FAQSection from "../../components/template/section/FAQSection";
-import DevPhilosophySection from "../../components/template/section/DevPhilosophySection";
-import TechnologiesSection from "../../components/template/section/TechnologiesSection";
-import BooksSection from "../../components/template/section/BooksSection";
+import HeroSection from "../../components/organism/HeroSection";
+import HashTagSection from "../../components/organism/HashTagSection";
+import FAQSection from "../../components/organism/FAQSection";
+import DevPhilosophySection from "../../components/organism/DevPhilosophySection";
+import TechnologiesSection from "../../components/organism/TechnologiesSection";
+import BooksSection from "../../components/organism/BooksSection";
 
 export type AnimationProgressTypes =
   | "INITIAL"

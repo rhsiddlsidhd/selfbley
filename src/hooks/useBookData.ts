@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BookData } from "../components/template/section/BooksSection";
+import { BookData } from "../components/organism/BooksSection";
 import { fetchApiHandler } from "../api/bookApi";
 
 const BOOKSTITLE = [
@@ -17,6 +17,7 @@ const useBookData = () => {
     const fetchPromiseAll = async () => {
       const promises = BOOKSTITLE.map((book) => fetchApiHandler(book));
       const responses = await Promise.all(promises);
+
       const data = responses
         .filter((res) => res.success)
         .map((res) => res.data.items[0]);

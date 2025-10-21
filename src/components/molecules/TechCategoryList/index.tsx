@@ -1,6 +1,6 @@
 import Badge from "../../atoms/Badge";
 import Text from "../../atoms/Text";
-import { TechnologyKeys } from "../../organism/content/TechnologiesContent/constant";
+import { TechnologyKeys } from "../../organism/TechnologiesSection/SlotMachine";
 
 const TechCategoryList = ({
   technologies,

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { BookData } from "../../components/template/section/BooksSection";
+import { BookData } from "../../components/organism/BooksSection";
 
 interface BookStore {
   book: BookData | null;

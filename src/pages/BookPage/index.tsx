@@ -9,7 +9,7 @@ import { bookReviews } from "./constant";
 import Link from "../../components/atoms/Link";
 
 import Image from "../../components/atoms/Image";
-import FadeTransitionLoader from "../../components/loading/FadeTransitionLoader";
+import TextLoading from "../../components/molecules/TextLoading";
 
 const BookPage = () => {
   const [viewData, setViewData] = useState<BookReview | null>(null);
@@ -32,7 +32,7 @@ const BookPage = () => {
     }
   }, [getData, query, navigate]);
 
-  if (loading) return <FadeTransitionLoader />;
+  if (loading) return <TextLoading />;
 
   return (
     <Container>

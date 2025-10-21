@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import OpacityOverlay from "../overlay/OpacityOverlay";
-
 import { useModalStore } from "../../../stores/modalStore";
 import TechCategoryList from "../../molecules/TechCategoryList";
-import { technologys } from "../content/TechnologiesContent/constant";
+
 import styled from "styled-components";
 import useScreenStore, { Mode } from "../../../stores/screenStore";
+import { technologys } from "../../../constants/technology";
+import { motion } from "motion/react";
 
 const Modal = () => {
   const isOpen = useModalStore((state) => state.isOpen);
@@ -16,9 +16,9 @@ const Modal = () => {
     switch (payload) {
       case "technologys":
         return (
-          <ModalContainer $mode={mode}>
+          <TechWrapper $mode={mode}>
             <TechCategoryList technologies={technologys} />
-          </ModalContainer>
+          </TechWrapper>
         );
       default:
         return null;
@@ -35,16 +35,27 @@ const Modal = () => {
   }, [isOpen, setIsOpen]);
 
   if (!isOpen) return null;
-  return <OpacityOverlay>{createModalContent(payload)}</OpacityOverlay>;
+  return <OpacityContainer>{createModalContent(payload)}</OpacityContainer>;
 };
 
 export default Modal;
 
-const ModalContainer = styled.div<{ $mode: Mode }>`
+const TechWrapper = styled.div<{ $mode: Mode }>`
   ${({ theme }) => theme.FLEX_CENTER}
   ${({ theme, $mode }) =>
     $mode === "mobile" ? theme.responseWidth(4) : theme.responseWidth(2)}
   background-color: ${({ theme }) => theme.COLORS.yellow};
   padding: 1rem 0.725rem;
   border-radius: 10px;
+`;
+
+const OpacityContainer = styled(motion.div)`
+  ${({ theme }) => theme.FLEX_CENTER}
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
 `;
