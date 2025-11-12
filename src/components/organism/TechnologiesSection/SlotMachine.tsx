@@ -141,7 +141,7 @@ const IconWrapper = styled(motion.div)`
   flex-wrap: wrap;
   gap: 0.5rem;
   border-radius: 10px;
-  max-width: 35%;
+  ${({ theme }) => theme.responseWidth(2.5)}
 `;
 
 const Icon = styled.div`

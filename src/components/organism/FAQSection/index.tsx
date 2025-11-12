@@ -5,7 +5,8 @@ import { useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import SVGContainer from "../../template/container/SVGContainer";
 import Sign from "../../atoms/Sign";
 import Background from "./Background";
-import FAQList, { faqList } from "./FAQList";
+import FAQList from "./FAQList";
+import { faqList } from "./constant";
 
 const FAQSection = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
