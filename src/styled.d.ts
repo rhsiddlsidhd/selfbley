@@ -14,7 +14,6 @@ declare module "styled-components" {
     FONT_WEIGHT: Record<FONT_WEIGHT_KEY, number>;
     BADGE_COLORS: Record<BADGE_COLORS_KEY, string>;
     FLEX_CENTER: RuleSet<object>;
-
     responseWidth: (n: number) => RuleSet<object>;
   }
 }

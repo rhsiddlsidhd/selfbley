@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import Badge from "../../atoms/Badge";
 import Text from "../../atoms/Text";
 import { TechnologyKeys } from "../../organism/TechnologiesSection/SlotMachine";
@@ -8,7 +9,7 @@ const TechCategoryList = ({
   technologies: Partial<Record<TechnologyKeys, string[]>>;
 }) => {
   return (
-    <div>
+    <ListWrapper>
       {Object.entries(technologies).map(([category, techList]) => {
         return (
           <div key={category}>
@@ -25,8 +26,15 @@ const TechCategoryList = ({
           </div>
         );
       })}
-    </div>
+    </ListWrapper>
   );
 };
 
 export default TechCategoryList;
+
+const ListWrapper = styled.div`
+  /* height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; */
+`;

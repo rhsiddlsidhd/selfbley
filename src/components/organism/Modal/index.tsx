@@ -12,11 +12,12 @@ const Modal = () => {
   const payload = useModalStore((state) => state.payload);
   const setIsOpen = useModalStore((state) => state.setIsOpen);
   const mode = useScreenStore((state) => state.mode);
+
   const createModalContent = (payload: unknown) => {
     switch (payload) {
       case "technologys":
         return (
-          <TechWrapper $mode={mode}>
+          <TechWrapper>
             <TechCategoryList technologies={technologys} />
           </TechWrapper>
         );
@@ -27,7 +28,6 @@ const Modal = () => {
 
   useEffect(() => {
     window.document.body.style.overflow = isOpen ? "hidden" : "auto";
-    window.document.addEventListener("mousedown", () => setIsOpen(false, null));
 
     return () => {
       window.document.body.style.overflow = "auto";
@@ -35,18 +35,27 @@ const Modal = () => {
   }, [isOpen, setIsOpen]);
 
   if (!isOpen) return null;
-  return <OpacityContainer>{createModalContent(payload)}</OpacityContainer>;
+  return (
+    <OpacityContainer onClick={() => setIsOpen(false, null)}>
+      <CommonWrapper $mode={mode} onClick={(e) => e.stopPropagation()}>
+        {createModalContent(payload)}
+      </CommonWrapper>
+    </OpacityContainer>
+  );
 };
 
 export default Modal;
 
-const TechWrapper = styled.div<{ $mode: Mode }>`
-  ${({ theme }) => theme.FLEX_CENTER}
-  ${({ theme, $mode }) =>
-    $mode === "mobile" ? theme.responseWidth(4) : theme.responseWidth(2)}
+const TechWrapper = styled.div`
   background-color: ${({ theme }) => theme.COLORS.yellow};
   padding: 1rem 0.725rem;
   border-radius: 10px;
+`;
+
+const CommonWrapper = styled.div<{ $mode: Mode }>`
+  ${({ theme }) => theme.FLEX_CENTER}
+  ${({ theme, $mode }) =>
+    $mode === "mobile" ? theme.responseWidth(4) : theme.responseWidth(2)}
 `;
 
 const OpacityContainer = styled(motion.div)`

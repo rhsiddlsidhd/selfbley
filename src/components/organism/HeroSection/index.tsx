@@ -23,10 +23,10 @@ const HeroSection = ({
   return (
     <HomeContainer ref={containerRef}>
       <SVGContainer
-        $width={2}
+        $width={0.75}
         style={{
           position: "fixed",
-          top: "0%",
+          top: "15%",
           right: 0,
         }}
         isInView={isInView}
@@ -35,10 +35,10 @@ const HeroSection = ({
       </SVGContainer>
 
       <SVGContainer
-        $width={3}
+        $width={0.5}
         style={{
           position: "fixed",
-          top: "15%",
+          top: "20%",
           left: "5%",
         }}
         isInView={isInView}
@@ -47,7 +47,7 @@ const HeroSection = ({
       </SVGContainer>
 
       <SVGContainer
-        $width={1.5}
+        $width={1}
         isInView={isInView}
         style={{ position: "fixed", bottom: "10%", right: "15%" }}
       >
@@ -55,9 +55,7 @@ const HeroSection = ({
       </SVGContainer>
 
       <Background isInView={isInView} />
-
       <ScrollBars scrollYProgress={scrollYProgress} />
-
       {animationProgress === "SCALE" && <IntroText isInView={isInView} />}
     </HomeContainer>
   );

@@ -26,6 +26,7 @@ const Header = () => {
           <UpArrowIcon color="white" />
         </FixedButton>
       )}
+
       <Outlet />
     </div>
   );
