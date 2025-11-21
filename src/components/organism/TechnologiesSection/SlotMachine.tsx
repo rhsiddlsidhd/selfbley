@@ -47,11 +47,12 @@ const SlotMachine = () => {
 
   return (
     <ContentWrapper
-      initial={{ opacity: 0 }}
+      initial={{ scale: 0, y: 10 }}
       animate={{
-        opacity: 1,
+        scale: 1,
+        y: 0,
       }}
-      exit={{ opacity: 0 }}
+      exit={{ scale: 0, y: 10 }}
     >
       <SlotMachineWrapper
         transition={

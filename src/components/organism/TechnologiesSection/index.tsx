@@ -58,8 +58,8 @@ const TechnologiesSection: React.FC = () => {
 
         {isSticky && (
           <ButtonWrapper
-            initial={{ x: "50%", opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ x: "50%", scale: 0 }}
+            animate={{ scale: 1 }}
             whileHover={{ x: 0 }}
             whileTap={{ scale: 0.95 }}
           >
