@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Badge from "../../atoms/Badge";
 import Text from "../../atoms/Text";
-import { TechnologyKeys } from "../../organism/TechnologiesSection/SlotMachine";
+import { TechnologyKeys } from "../../organism/TechnologiesSection";
 
 const TechCategoryList = ({
   technologies,
