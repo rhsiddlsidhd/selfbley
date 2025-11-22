@@ -1,59 +1,31 @@
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import styled from "styled-components";
 
-import Image from "../../atoms/Image";
-import useSlot from "../../../hooks/useSlot";
 import { technologys } from "../../../constants/technology";
+import { TechnologyKeys } from ".";
 
-export type TechnologyKeys = keyof typeof technologys;
+interface SlotMachineProps {
+  activeIndex: number;
+  isHover: TechnologyKeys | null;
+  isTransitioning: boolean;
+  handleHoverEnd: () => void;
+  handleHoverStart: () => void;
+  centerIndex: number;
+}
 
-const SlotMachineIcon = ({ isHover }: { isHover: TechnologyKeys | null }) => {
-  const entries = Object.entries(technologys);
-  return (
-    <AnimatePresence>
-      {entries.map(([category, techList], i) => {
-        const isKey = isHover === category;
-
-        return (
-          <IconWrapper
-            initial={{ y: "100%", opacity: 0 }}
-            animate={{ y: isKey ? 0 : "100%", opacity: isKey ? 1 : 0 }}
-            exit={{ y: "100%", opacity: 0 }}
-            key={i}
-          >
-            {techList.map((tech, i) => (
-              <Icon key={i}>
-                <Image src={`/skills/${tech}.svg`} alt={tech} />
-              </Icon>
-            ))}
-          </IconWrapper>
-        );
-      })}
-    </AnimatePresence>
-  );
-};
-
-const SlotMachine = () => {
+const SlotMachine = ({
+  activeIndex,
+  isHover,
+  isTransitioning,
+  handleHoverEnd,
+  handleHoverStart,
+  centerIndex,
+}: SlotMachineProps) => {
   const category = Object.keys(technologys) as TechnologyKeys[];
   const marqueeSkillsKeys: TechnologyKeys[] = [...category, ...category];
-  const {
-    activeIndex,
-    handleHoverEnd,
-    handleHoverStart,
-    isHover,
-    isTransitioning,
-    centerIndex,
-  } = useSlot();
 
   return (
-    <ContentWrapper
-      initial={{ scale: 0, y: 10 }}
-      animate={{
-        scale: 1,
-        y: 0,
-      }}
-      exit={{ scale: 0, y: 10 }}
-    >
+    <>
       <SlotMachineWrapper
         transition={
           isTransitioning
@@ -96,18 +68,18 @@ const SlotMachine = () => {
           );
         })}
       </SlotMachineWrapper>
-      <SlotMachineIcon isHover={isHover} />
-    </ContentWrapper>
+    </>
   );
 };
 
 export default SlotMachine;
 
-const ContentWrapper = styled(motion.div)`
-  ${({ theme }) => theme.responseWidth(2)}
-  overflow: hidden;
-  height: 50vh;
-`;
+// const ContentWrapper = styled(motion.div)`
+//   ${({ theme }) => theme.responseWidth(2)}
+//   overflow: hidden;
+
+//   height: 50vh;
+// `;
 
 const Underline = styled(motion.div)`
   position: absolute;
@@ -133,22 +105,22 @@ const SlotMachineWrapper = styled(motion.ul)`
   }
 `;
 
-const IconWrapper = styled(motion.div)`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  justify-content: end;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  border-radius: 10px;
-  ${({ theme }) => theme.responseWidth(2.5)}
-`;
+// const IconWrapper = styled(motion.div)`
+//   position: absolute;
+//   bottom: 0;
+//   right: 0;
+//   display: flex;
+//   justify-content: end;
+//   flex-wrap: wrap;
+//   gap: 0.5rem;
+//   border-radius: 10px;
+//   ${({ theme }) => theme.responseWidth(2.5)}
+// `;
 
-const Icon = styled.div`
-  width: ${({ theme }) => theme.FONT_SIZE.clamp2};
-  position: relative;
-  aspect-ratio: 1 / 1;
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.COLORS.white};
-`;
+// const Icon = styled.div`
+//   width: ${({ theme }) => theme.FONT_SIZE.clamp2};
+//   position: relative;
+//   aspect-ratio: 1 / 1;
+//   border-radius: 10px;
+//   background-color: ${({ theme }) => theme.COLORS.white};
+// `;

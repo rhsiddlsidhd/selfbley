@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { memo, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import {
   useScroll,
@@ -18,6 +18,7 @@ import SVGContainer from "../../template/container/SVGContainer";
 import Sign from "../../atoms/Sign";
 import BookList, { CARD_WRAPPER_WIDTH } from "./BookList";
 import Background from "./Background";
+import { getRandomSignType, getSVGWidth } from "../../../utils";
 
 //background 의 setInAcitive 또한 카드의 넓이만큼 이동했을때 변해야한다 .
 // 한 화면에 카드를 두장씩 보여주기 위해선 하나의 카드가 100vw 만큼의 넓이를 가져가면 볼 수 없다.
@@ -39,6 +40,36 @@ export interface BookData {
 const BOOK_SECTION_HEIGHT = 100;
 const INITIAL_Y_OFFSET = -100;
 const LAST_Y_OFFSET = 100;
+
+const SVGWrapper = memo(({ length }: { length: number }) => {
+  const items = useMemo(() => {
+    return Array.from({ length }, (_, i) => ({
+      top: i % 2 === 0 ? Math.floor(Math.random() * 11) : "auto",
+      bottom: i % 2 !== 0 ? Math.floor(Math.random() * 11) : "auto",
+      left: (100 / length) * i + Math.random(),
+      type: getRandomSignType(),
+    }));
+  }, [length]);
+  console.log(getSVGWidth(0.3));
+  return (
+    <>
+      {items.map((item, i) => (
+        <SVGContainer
+          $width={getSVGWidth(0.2)}
+          style={{
+            top: `${item.top}%`,
+            bottom: `${item.bottom}%`,
+            left: `${item.left}%`,
+          }}
+          isInView={true}
+          key={i}
+        >
+          <Sign type={item.type} />
+        </SVGContainer>
+      ))}
+    </>
+  );
+});
 
 const BooksSection = () => {
   const containerRef = useRef(null);
@@ -96,53 +127,7 @@ const BooksSection = () => {
         <CardScroller style={{ x }} $totalBooks={bookData.length}>
           <BookList books={bookData} />
 
-          <SVGContainer
-            isInView={isInView}
-            $width={0.25}
-            style={{ top: "15%", left: "2%" }}
-          >
-            <Sign type={0} />
-          </SVGContainer>
-
-          <SVGContainer
-            isInView={isInView}
-            $width={0.4}
-            style={{ bottom: "5%", left: "19%" }}
-          >
-            <Sign type={3} />
-          </SVGContainer>
-
-          <SVGContainer
-            isInView={isInView}
-            $width={0.5}
-            style={{ bottom: "15%", left: "40%" }}
-          >
-            <Sign type={2} />
-          </SVGContainer>
-
-          <SVGContainer
-            isInView={isInView}
-            $width={0.2}
-            style={{ top: "0%", left: "62%" }}
-          >
-            <Sign type={0} />
-          </SVGContainer>
-
-          <SVGContainer
-            isInView={isInView}
-            $width={0.6}
-            style={{ bottom: "0%", left: "80%" }}
-          >
-            <Sign type={3} />
-          </SVGContainer>
-
-          <SVGContainer
-            isInView={isInView}
-            $width={0.4}
-            style={{ top: "5%", left: "95%" }}
-          >
-            <Sign type={1} />
-          </SVGContainer>
+          <SVGWrapper length={6} />
         </CardScroller>
 
         <Title>

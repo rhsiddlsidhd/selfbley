@@ -58,8 +58,7 @@ export default Memo;
 const MemoBox = styled(motion.div)<Props>`
   ${({ theme, $mode }) =>
     $mode !== "desktop" ? theme.responseWidth(4) : theme.responseWidth(2)};
-
-  font-size: ${({ theme }) => theme.FONT_SIZE.clamp7};
+  font-size: ${({ theme }) => theme.FONT_SIZE.clamp5};
   position: absolute;
   display: flex;
   top: ${({ $top }) => `${$top}%`};
@@ -67,7 +66,6 @@ const MemoBox = styled(motion.div)<Props>`
     $mode !== "desktop" ? `calc(100% / 6 * 1)` : `calc(100% / 6 * ${$left})`};
   word-break: keep-all;
   font-weight: bold;
-
   padding: 12px 18px;
   backdrop-filter: blur(20px);
   cursor: pointer;

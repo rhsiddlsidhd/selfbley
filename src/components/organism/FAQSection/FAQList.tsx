@@ -19,7 +19,7 @@ const FAQList = () => {
               $left={memoConfig[i].left}
               $top={memoConfig[i].top}
             >
-              ❓질문 {i + 1} : {question}
+              ❓ 질문 {i + 1} : {question}
             </Memo>
             <Memo
               initial={{ opacity: 0 }}
@@ -29,7 +29,7 @@ const FAQList = () => {
               onMouseLeave={() => setClickedIndex(null)}
               $left={memoConfig[i].left}
               $top={memoConfig[i].top}
-              style={{ fontSize: "clamp(0.7rem, 1.34vw, 1.68rem)" }}
+              style={{ fontSize: "clamp(1rem, 1.34vw, 1.68rem)" }}
             >
               💬 {answer}
             </Memo>
