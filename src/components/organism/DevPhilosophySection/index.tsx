@@ -6,9 +6,7 @@ import Scratch from "../../molecules/Scratch/index";
 import Sign from "../../atoms/Sign";
 import SVGContainer from "../../template/container/SVGContainer";
 
-const text = ["사용자를 생각하며", "비즈니스 가치를 고민하는", "개발자"].join(
-  "\n"
-);
+const text = "사용자를 생각하며, 비즈니스 가치를 고민하는, 개발자";
 
 const title = "The DevPhilosophy";
 
@@ -33,7 +31,7 @@ const DevPhilosophySection = () => {
       </div>
       <ScratchContainer>
         <Scratch
-          text={text}
+          text={text.split(",").join("\n")}
           scrollYProgress={scrollYProgress}
           activeColor="white"
           inActiveColor="black"
@@ -56,6 +54,7 @@ const Container = styled.section`
 
 const ScratchContainer = styled.div`
   width: 100%;
-  ${({ theme }) => theme.FLEX_CENTER}
+  ${({ theme }) => theme.FLEX_CENTER};
+
   height: 100%;
 `;

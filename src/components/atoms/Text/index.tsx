@@ -47,7 +47,8 @@ const P = styled(motion.p)<Omit<TextProps, "children">>`
       -webkit-line-clamp: ${$clamp};
       overflow: hidden;
     `}
-  font-size: ${({ $fontSize, theme }) => theme.FONT_SIZE[$fontSize ?? "md"]};
+  font-size: ${({ $fontSize, theme }) =>
+    $fontSize ? theme.FONT_SIZE[$fontSize] : "inherit"};
   font-weight: ${({ $fontWeight, theme }) =>
     theme.FONT_WEIGHT[$fontWeight ?? "normal"]};
   opacity: ${({ $opacity }) => $opacity ?? 1};

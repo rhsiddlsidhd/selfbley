@@ -33,6 +33,9 @@ export const FONT_SIZE = {
   clamp4: "clamp(1.54rem, 4.1vw, 5.12rem)",
   clamp5: "clamp(1.23rem, 3.28vw, 4.1rem)",
   clamp6: "clamp(0.98rem, 2.62vw, 3.28rem)",
+  clamp7: "clamp(0.78rem, 2.1vw, 2.62rem)",
+  clamp8: "clamp(0.62rem, 1.68vw, 2.1rem)",
+  clamp9: "clamp(0.5rem, 1.34vw, 1.68rem)",
 } as const;
 
 export const FONT_WEIGHT = {

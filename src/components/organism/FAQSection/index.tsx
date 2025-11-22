@@ -1,11 +1,42 @@
-import { useRef, useState } from "react";
+import { memo, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { useMotionValueEvent, useScroll, useTransform } from "motion/react";
-
 import SVGContainer from "../../template/container/SVGContainer";
 import Sign from "../../atoms/Sign";
 import Background from "./Background";
-import FAQList, { faqList } from "./FAQList";
+import FAQList from "./FAQList";
+import { faqList } from "./constant";
+import { getRandomSignType, getSVGWidth } from "../../../utils";
+
+const SVGWrapper = memo(({ length }: { length: number }) => {
+  const items = useMemo(() => {
+    return Array.from({ length }, (_, i) => ({
+      top: (100 / length) * i + Math.random(),
+      left: i % 2 === 0 ? Math.floor(Math.random() * 11) : "auto",
+      right: i % 2 !== 0 ? Math.floor(Math.random() * 11) : "auto",
+      type: getRandomSignType(),
+    }));
+  }, [length]);
+
+  return (
+    <>
+      {items.map((item, i) => (
+        <SVGContainer
+          $width={getSVGWidth(0.5)}
+          style={{
+            top: `${item.top}%`,
+            left: `${item.left}%`,
+            right: `${item.right}%`,
+          }}
+          isInView={true}
+          key={i}
+        >
+          <Sign type={item.type} />
+        </SVGContainer>
+      ))}
+    </>
+  );
+});
 
 const FAQSection = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -32,64 +63,8 @@ const FAQSection = () => {
 
   return (
     <Container ref={containerRef}>
-      <SVGContainer
-        isInView={true}
-        $width={1.5}
-        style={{ top: "5%", right: "5%" }}
-      >
-        <Sign type={3} />
-      </SVGContainer>
-
-      <SVGContainer
-        isInView={true}
-        $width={0.5}
-        style={{ top: "15%", left: "5%" }}
-      >
-        <Sign type={2} />
-      </SVGContainer>
-
-      <SVGContainer
-        isInView={true}
-        $width={2}
-        style={{ top: "25%", right: "15%" }}
-      >
-        <Sign type={1} />
-      </SVGContainer>
-
-      <SVGContainer
-        isInView={true}
-        $width={1}
-        style={{ top: "45%", left: "5%" }}
-      >
-        <Sign type={0} />
-      </SVGContainer>
-
-      <SVGContainer
-        isInView={true}
-        $width={0.5}
-        style={{ top: "60%", right: "30%" }}
-      >
-        <Sign type={3} />
-      </SVGContainer>
-
-      <SVGContainer
-        isInView={true}
-        $width={2}
-        style={{ top: "80%", right: "5%" }}
-      >
-        <Sign type={1} />
-      </SVGContainer>
-
-      <SVGContainer
-        isInView={true}
-        $width={1.5}
-        style={{ top: "95%", left: "5%" }}
-      >
-        <Sign type={2} />
-      </SVGContainer>
-
+      <SVGWrapper length={6} />
       <Background activeIndex={activeIndex} y={y} />
-
       <FAQList />
     </Container>
   );

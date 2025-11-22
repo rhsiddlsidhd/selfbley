@@ -62,7 +62,7 @@ const CharList = styled.div<{ $mode: Mode }>`
   word-wrap: break-word;
 
   & > span {
-    font-size: ${({ theme }) => theme.FONT_SIZE.clamp3};
+    font-size: ${({ theme }) => theme.FONT_SIZE.clamp4};
     font-weight: bold;
   }
 `;

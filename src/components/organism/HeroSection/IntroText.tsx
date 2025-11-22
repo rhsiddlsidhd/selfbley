@@ -17,7 +17,9 @@ const handleFadeAnimation = ({
   return ["SCALE", "FADE"].includes(state) ? "show" : "hidden";
 };
 
-const WELCOMEINTRO = "Frontend Developer YoungJae";
+// const self
+
+const WELCOMEINTRO = "프론트엔드 개발 경험의 모든 것을 소개합니다. ";
 
 const IntroText = ({ isInView }: { isInView: boolean }) => {
   const [animationProgress, setAnimationProgress] =
@@ -32,18 +34,14 @@ const IntroText = ({ isInView }: { isInView: boolean }) => {
         setAnimationProgress((prev) => (prev === "SCALE" ? "FADE" : prev))
       }
     >
-      {WELCOMEINTRO.split(" ").map((text, i) => {
-        return (
-          <Text
-            $fontSize="clamp3"
-            $fontWeight="bold"
-            key={i}
-            variants={contentTextItemReveal}
-          >
-            {text}
-          </Text>
-        );
-      })}
+      <Text $fontSize="clamp3" variants={contentTextItemReveal}>
+        <TextGlass>FE 개발자 신영재</TextGlass>
+      </Text>
+
+      <Text $fontSize="clamp6" variants={contentTextItemReveal}>
+        <TextGlass>{WELCOMEINTRO}</TextGlass>
+      </Text>
+
       {animationProgress === "FADE" && (
         <IconWrapper
           initial={{ y: 10, opacity: 0 }}
@@ -64,13 +62,26 @@ const IntroText = ({ isInView }: { isInView: boolean }) => {
 
 export default IntroText;
 
+const TextGlass = styled.span`
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  width: 100%;
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+`;
+
 const contentTextItemReveal = {
   hidden: {
-    opacity: 0,
+    scale: 0,
     y: 10,
   },
   show: {
-    opacity: 1,
+    scale: 1,
     y: 0,
   },
 };
@@ -95,13 +106,17 @@ const contentOpacity = {
   },
 };
 
-const ContentWrapper = styled(motion.h1)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const ContentWrapper = styled(motion.div)`
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+
   z-index: 5;
+  width: 100%;
 `;
